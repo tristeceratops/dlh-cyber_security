@@ -1,3 +1,2 @@
-#!/usr/bin/bash
-
-cat /etc/*-release | grep DISTRIB_ID
+#!/bin/bash
+lsb_release -i
