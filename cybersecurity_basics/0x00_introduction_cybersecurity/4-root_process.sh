@@ -1,2 +1,2 @@
 #!/bin/bash
-ps aux | grep "^$1" | grep -Ev "^(\S+\s+){4}0" | grep -Ev "^(\S+\s+){5}0"
+ps aux | grep "^$1" | grep -v "^\([[:alnum:]]\{1,\}[[:space:]]\{1,\}\)\{2\}\([[:alnum:].]\{1,\}[[:space:]]\{1,\}\)\{2\}\(0\{1,\}[[:space:]]\{1,\}\)\{2\}"
