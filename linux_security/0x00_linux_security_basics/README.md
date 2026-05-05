@@ -17,3 +17,5 @@ flags:
 - l: listening sockets
 - n: numeric values
 - p: PID and name of programs
+
+## lynis audit system
