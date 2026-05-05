@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# use pkill to kill instantly the infinite loop with sigkill, pkill use same flags as pgrep
+pkill -SIGKILL -f 7-highlander
