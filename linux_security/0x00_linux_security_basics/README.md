@@ -7,3 +7,5 @@ linux kali security last -n login
 - t: tpc only
 - p: show process info
 
+## iptables
+-L -v to list in verbose mode
