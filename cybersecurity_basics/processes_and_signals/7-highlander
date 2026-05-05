@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# infinite while loop to print text every 2 seconds, catch SIGTERM and print a text when it is catched
+trap 'echo "I am invincible!!!"' SIGTERM
+while true; do echo "To infinity and beyond"; sleep 2; done
