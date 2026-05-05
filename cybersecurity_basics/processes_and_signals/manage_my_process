@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# infinite while loop to print text every 2 seconds in file, catch SIGTERM and SIGINT to print text
+while true; do echo "I am alive!" >> /tmp/my_process; sleep 2; done
