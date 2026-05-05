@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# use pgrep with -l to only print pid + name of processes that contains bash
+pgrep -l bash
