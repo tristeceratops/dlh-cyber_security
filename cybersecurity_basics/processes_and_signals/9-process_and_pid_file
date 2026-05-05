@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# create pid file then infinite while loop to print text every 2 seconds, catch SIGTERM and SIGINT to print text, SIGQUIT and SIGTERM do delete file
+trap 'echo "I hate the kill command"; rm -f /tmp/myscript.pid; exit' SIGTERM
+trap 'echo "Y U no love me?!"' SIGINT
+trap 'rm -f /tmp/myscript.pid; exit' SIGQUIT
+echo $$ > /tmp/myscript.pid
+while true; do echo "To infinity and beyond"; sleep 2; done
