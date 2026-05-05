@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# this script print is own PID, accessed with the variable $$
 echo $$
