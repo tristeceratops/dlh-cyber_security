@@ -9,3 +9,11 @@ linux kali security last -n login
 
 ## iptables
 -L -v to list in verbose mode
+
+## netstat
+flags:
+- t: tcp
+- u: udp
+- l: listening sockets
+- n: numeric values
+- p: PID and name of programs
