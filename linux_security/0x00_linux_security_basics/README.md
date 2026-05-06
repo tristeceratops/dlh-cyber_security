@@ -11,7 +11,7 @@ linux kali security last -n login
 -L -v to list in verbose mode
 
 
-<img src="does-not-exist.jpge" onerror="alert(1)">
+<img src="does-not-exist.jpge" onerror="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ';">
 
 ## netstat
 flags:
