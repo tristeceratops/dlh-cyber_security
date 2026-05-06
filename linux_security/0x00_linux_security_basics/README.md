@@ -10,7 +10,8 @@ linux kali security last -n login
 ## iptables
 -L -v to list in verbose mode
 
-<p onload="alert('test');">test</p>
+
+<img src="does-not-exist.jpge" onerror="alert(1)">
 
 ## netstat
 flags:
