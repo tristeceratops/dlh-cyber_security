@@ -10,7 +10,7 @@ linux kali security last -n login
 ## iptables
 -L -v to list in verbose mode
 
-<p onclick="alert('test');">test</p>
+<p onload="alert('test');">test</p>
 
 ## netstat
 flags:
