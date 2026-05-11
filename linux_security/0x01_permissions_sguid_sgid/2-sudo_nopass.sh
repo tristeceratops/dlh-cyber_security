@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo usermod -aG "kali-trusted" $1
+echo "$1 ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$1
