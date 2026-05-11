@@ -1,4 +1,4 @@
 #!/bin/bash
 sudo addgroup $1
-sudo chgrp $1 $2
+sudo chown :$1 $2
 chmod g+rx $2
