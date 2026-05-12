@@ -1,0 +1,35 @@
+What is Windows and how does it differ from other operating systems?
+Windows is an Operating System (OS) developed and maintained by Microsoft Corporation. It differ from others OS by it's dominating presence on the market and it's graphical interface.
+
+What is the Windows architecture and how do kernel mode and user mode interact?
+Windows architecture is the way windows is layered, user mode interact with kernel mode with system call that kernel safely execute.
+
+How does the Windows file system (NTFS) work and what are permissions and ACLs?
+NTFS organizes files with metadata, supports large volumes, journaling, and security. Permissions and Access Control Lists (ACLs) define who can read, write, or execute files.
+
+What is the Windows Registry and what role does it play in system configuration?
+A hierarchical database storing system, hardware, and application settings. It centralizes configuration, allowing Windows and applications to read/write settings efficiently.
+
+How does Windows manage users, groups, and access control?
+Windows uses user accounts and groups for authentication. Permissions on objects define access, and Group Policy manages centralized security and configuration.
+
+How do you navigate the Windows interface and use built-in administrative tools?
+Use Start Menu, Control Panel, Settings, Task Manager, Disk Management, and MMC consoles for system tasks and troubleshooting.
+
+What are Windows processes and services and how do you monitor them?
+Processes run applications; services run in the background. Task Manager, Resource Monitor, and Services.msc help monitor, start, or stop them.
+
+How do you use the Command Prompt (cmd.exe) for basic system administration?
+By using some commands like ipconfig or diskpart to manage networks, users, files, process, ...
+ 
+What are Windows Event Logs and how do you read and interpret them?
+Text information about what happened on a windows machine, help to identify errors, warnings or security incidents. They can be seen in the event viewer.
+ 
+What built-in security features does Windows provide, such as UAC, Windows Defender, and BitLocker?
+UAC -> ask final user for elevated tasks, Windows Defender -> antivirus, malware protection, BitLocker -> drives encryptions
+
+How does Windows handle network configuration and connectivity?
+Using control panel, settings or netsh to manage IP, DNS, Firewall etc...
+
+What are common Windows-based attack surfaces and how can they be mitigated?
+Because windows is the OS most present on the market, often used with outdated software. Can be mitigated by stronger passwords, strict firewall, updates.
