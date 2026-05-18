@@ -1,2 +1,2 @@
 #!/bin/bash
-for a in $(cat "$1"); do for b in $(cat "$2"); do echo "$a$b"; done; done
+hashcat -a 1 --stdout "$1" "$2"
