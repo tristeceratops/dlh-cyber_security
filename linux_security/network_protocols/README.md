@@ -41,3 +41,17 @@
 
 - `-A INPUT -p tcp --dport ssh -j ACCEPT`  
   Allows incoming SSH connections (port 22).
+
+## find 2.0
+### new flags
+| Flag | Meaning |
+|------|--------|
+| -xdev | do not cross filesystems |
+| -print | show matched paths |
+| + | batch execution (faster) |
+
+### -exec difference:
+| Syntax | Behavior |
+|--------|----------|
+| \; | runs once per file (slow) |
+| + | runs in batches (fast) |
