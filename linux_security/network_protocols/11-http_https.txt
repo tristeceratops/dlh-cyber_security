@@ -1,0 +1,12 @@
+{
+  "http_site_url": "http://neverssl.com",
+  "http_has_padlock": "no",
+  "http_warning_message": "Your connection to this site is not private. Information you submit could be viewed by others (like passwords, messages, credit cards, etc.).",
+  "http_protocol_shown": "HTTP/1.1",
+  "https_site_url": "https://www.wikipedia.org",
+  "https_has_padlock": "yes",
+  "https_security_message": "You are securely connected to this site.",
+  "https_protocol_shown": "HTTP/2",
+  "default_http_port": "80",
+  "default_https_port": "443"
+}
