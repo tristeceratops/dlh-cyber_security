@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo hping3 $1
+sudo hping3 --flood $1
