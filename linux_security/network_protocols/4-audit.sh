@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo sshd -T
+grep -v '^#' /etc/ssh/sshd_config | grep -v '^$
