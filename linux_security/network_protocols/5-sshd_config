@@ -1,4 +1,4 @@
-Protocol 1,2
+Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
 PermitEmptyPasswords no
