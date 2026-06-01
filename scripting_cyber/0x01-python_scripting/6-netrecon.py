@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import socket
-import dns.resolver
+# import dns.resolver
 import requests
 from bs4 import BeautifulSoup
+import subprocess
 
 
 def resolve_domain_to_ipv4(domain_name):
@@ -20,10 +21,17 @@ def dns_recon(domain):
     if ipv4:
         print(f"IP Address: {ipv4}")
         try:
-            answers = dns.resolver.resolve(domain, "MX")
+            # answers = dns.resolver.resolve(domain, "MX")
             print("MX Records:")
-            for answer in answers:
-                print(answer)
+            # for answer in answers:
+            # print(answer)
+            result = subprocess.run(
+                    ["dig", domain, "MX", "+short"],
+                    capture_output=True,
+                    text=True
+            )
+
+            print(result.stdout)
         except Exception as e:
             print(f"Error: {e}")
 
