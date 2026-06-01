@@ -25,5 +25,5 @@ if __name__ == "__main__":
     url = sys.argv[1]
     header = get_http_headers(url)
     if header:
-        print(f"respone {header["status_code"]}: ")
-        print(f"{header["headers"]}")
+        print(f"respone {header['status_code']}: ")
+        print(f"{header['headers']}")
