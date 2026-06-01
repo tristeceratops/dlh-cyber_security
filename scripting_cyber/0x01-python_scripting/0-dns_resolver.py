@@ -13,12 +13,12 @@ def resolve_domain_to_ipv4(domain_name):
 
 def main():
     test_domains = [
-    "holbertonschool.com",
-    "google.com",
-    "github.com",
-    "example.com",
-    "this-is-not-a-site.com",
-    ]
+            "holbertonschool.com",
+            "google.com",
+            "github.com",
+            "example.com",
+            "this-is-not-a-site.com",
+        ]
 
     print("DNS Resolver Test")
     print("=" * 60)
