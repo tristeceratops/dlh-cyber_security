@@ -1,0 +1,363 @@
+# List of Learning Objectives questions present in CS Academy by project
+## Introduction to Cyber Security
+- What is Cybersecurity?
+	- Protecting computers, networks, and data from unauthorized access, attacks, damage, or theft using people, processes, and technology.
+- What are the core principles of cybersecurity? (CIA Triad)
+	- Confidentiality (privacy), Integrity (accuracy/trustworthiness), Availability (accessible when needed).
+- How does encryption contribute to security?
+	- Encrypts data into unreadable form using keys, protecting confidentiality and integrity during storage and transit.
+- What is risk management in cybersecurity?
+	- Identifying, assessing, prioritizing threats and implementing controls to reduce risk to acceptable
+- What are the different types of cybersecurity threats?
+	-  Malware, phishing, insider threats, DDoS, man-in-the-middle, zero-days, supply-chain attacks, and misconfigurations.
+- What is the difference between a virus and a worm?
+	- A virus needs user action to infect files; a worm self-replicates and spreads automatically across networks.
+- What is social engineering in the context of security?
+	- Manipulating people into revealing information or performing actions that compromise security, often via deception.
+- What are the key components of an information security program?
+	- Governance/policy, risk management, technical controls, incident response, training, monitoring, and compliance.
+- How do security policies and frameworks contribute to an organization's security posture?
+	- They provide structured guidance, standards, and best practices to align controls with business goals and legal requirements.
+- What is the purpose of the OWASP Top Ten?
+	- To highlight the most critical web application security risks and guide developers and organizations in mitigation.
+- What is the role of access control in cybersecurity?
+	- Enforce who or what can access resources, implementing least privilege to prevent unauthorized actions.
+- How does multi-factor authentication enhance security?
+	- Requires multiple independent proofs (e.g., password + device or biometrics), reducing the chance of account compromise from stolen credentials.
+- What are the common methods for securing a network?
+	- Firewalls, segmentation, encryption (VPN/TLS), access controls, IDS/IPS, secure configurations, timely patching, and logging/monitoring.
+
+## Linux, Shell, basics
+- What does LTS mean?
+	- Long-Term Support is a product lifecycle management policy in which a stable release of a software is maintained for a longer period of time than the standard edition.
+
+## Linux Security Basics
+- What is Linux
+	- Linux is a free, open source operating system.
+- What is a Linux Command
+	- A Linux command is a textual instruction that you can enter into a Linux shell or terminal to perform various tasks.
+- What is the structure of the Linux operating system
+	- Linux operating system architecture is a layered design that separates the kernel (core) from user space (applications, libraries, and services). The kernel manages hardware memory, processes, filesystems, and networking, while user space interacts with it via system calls and libraries.
+- What is the purpose of the FHS and what are the benefits of using it
+	- Filesystem Hierarchy Standard (FHS) allows you to efficiently manage system files understand where logs and configurations are stored, and troubleshoot effectively 
+- What are the different directories in the Linux file system, and what are their purposes
+	- /bin -> Essential User Command Binaries
+	- /boot -> Static Files of the boot loader
+	- /dev -> Device Files
+	- /etc -> Host specific system configuration
+	- /home -> User home Directories
+	- /lib -> Shared Libraries
+	- /media -> Removable Media
+	- /mnt -> Temporarily Mounting Filesystems
+	- /opt -> Add-on Application software package
+	- /sbin -> System Binaries
+	- /srv -> Data for service from system
+	- /tmp -> Temporary Files
+	- /usr -> User Utilities and Applications
+	- /proc -> Process Information
+- How to protect files and directories
+	- Set proper ownership and permissions (`chown`/`chmod`), use ACLs, encrypt sensitive data (LUKS/gpg), restrict mounts, and keep regular backups.
+- How to monitor and investigate system activity
+	- Review system logs (`journalctl`/`/var/log`), use `auditd`, monitor with `top`/`ss`/`lsof`, and correlate events for investigation.
+- How to securely transfer files and data
+	- Transfer over SSH (`scp`, `sftp`, `rsync` over SSH) or TLS, verify host keys, and use checksums for integrity.
+- How to configure and manage a firewall
+	- Define rules with `nftables`/`iptables` or `ufw`, persist and log rules, and test policies for correct behavior.
+- How to identify and terminate malicious processes
+	- Use `ps`/`top`/`lsof`/`ss` to spot suspicious processes, verify binaries/hashes, isolate, then stop the PID (`kill`) and collect artifacts.
+
+## Mandatory Access Control
+- What is MAC in Linux?
+- How does SELinux enforce MAC?
+- What are the differences between SELinux and AppArmor?
+- What is the purpose of policy in MAC systems?
+- How do labels work in SELinux?
+- What are Type Enforcement, Role-Based Access Control, and Multi-Level Security in SELinux?
+- How can you check the status of SELinux on a system?
+- What are common SELinux management commands?
+- How do you set file contexts in SELinux?
+- What is an AppArmor profile?
+- How do you reload AppArmor profiles?
+- What is the concept of least privilege in MAC?
+- How do you troubleshoot SELinux issues?
+- What is the significance of audit logs in MAC systems?
+- Can you explain the concept of capabilities in Linux security?
+- How to use semanage
+
+## Windows Fundamentals
+- What is Windows and how does it differ from other operating systems?
+- What is the Windows architecture and how do kernel mode and user mode interact?
+- How does the Windows file system (NTFS) work and what are permissions and ACLs?
+- What is the Windows Registry and what role does it play in system configuration?
+- How does Windows manage users, groups, and access control?
+- How do you navigate the Windows interface and use built-in administrative tools?
+- What are Windows processes and services and how do you monitor them?
+- How do you use the Command Prompt (cmd.exe) for basic system administration?
+- What are Windows Event Logs and how do you read and interpret them?
+- What built-in security features does Windows provide, such as UAC, Windows Defender, and BitLocker?
+- How does Windows handle network configuration and connectivity?
+- What are common Windows-based attack surfaces and how can they be mitigated?
+
+## Forensic Ethics & Methodologies
+- What is digital forensics?
+- Why is ethics important in digital forensics?
+- What are common ethical issues in digital forensics?
+- What is the role of integrity in forensic analysis?
+- How does one maintain objectivity in digital investigations?
+- What are the ACPO principles for computer forensics?
+- How do you ensure evidence is admissible in court?
+- What is chain of custody and why is it crucial?
+- What are the stages of the digital forensic process?
+- How does one document findings in a forensic report?
+- What are some standard digital forensic methodologies?
+- How does one handle digital evidence to preserve its integrity?
+- What are some common tools used in digital forensics?
+- What organizations set standards for digital forensic practices?
+- How do you stay current with evolving technology in forensics?
+- What are the legal implications of digital forensic investigations?
+
+## Networking Foundations & Architecture
+- What is networking and why is it essential?
+- What is the difference between LAN and WAN?
+- What are the main network topologies (Bus, Star, Ring, Mesh)?
+- What is the difference between physical and logical topology?
+- What are the 7 layers of the OSI model and their functions?
+- What happens at each layer during data transmission?
+- What is encapsulation and decapsulation?
+- What are the 4 layers of the TCP/IP model?
+- How does TCP/IP compare to the OSI model?
+- Protocols & Transmission
+- What are the main network protocols (HTTP, HTTPS, FTP, SSH, DNS, DHCP)?
+- What is the difference between TCP and UDP?
+- What are the different types of transmission media (wired vs wireless)?
+- What is the role of a Hub, Switch, Router, Firewall?
+- What is the difference between Layer 2 and Layer 3 devices?
+- What is a VLAN and why is it used?
+- What is 802.1Q tagging?
+- What are VLAN hopping attacks and how to prevent them?
+- What is Inter-VLAN routing?
+- What is a MAC address and how is it structured?
+- What is the difference between OUI and NIC-specific portions?
+- What are special MAC addresses (broadcast, multicast)?
+- What is an IPv4 address and its format?
+- What are IP address classes (A, B, C, D, E)?
+- What are private IP ranges (RFC 1918)?
+- What are special IP addresses (loopback, broadcast)?
+- What is CIDR notation?
+- How to calculate subnets, hosts per subnet, and network ranges?
+- How to perform subnetting manually?
+- What is ARP and how does it work?
+- What are the security concerns with ARP (ARP spoofing)?
+- Why was IPv6 developed and how does it differ from IPv4?
+- What are well-known ports (0-1023)?
+- What are registered ports and dynamic ports?
+- What is DHCP and what problem does it solve?
+- What is the DORA process (Discover, Offer, Request, Acknowledge)?
+- What is a DHCP lease and how does renewal work?
+- What are DHCP attacks (Rogue Server, Starvation)?
+- What is DHCP Snooping and how does it protect networks?
+- What is NAT and why is it used?
+- What is the difference between Static NAT, Dynamic NAT, and PAT?
+- What is Port Forwarding?
+- What is NAT Traversal (STUN, TURN, ICE)?
+- What is Carrier-Grade NAT (CGNAT)?
+- What is DNS and how does it work?
+- What is the DNS hierarchy (Root, TLD, Authoritative)?
+- What is the DNS resolution process?
+- What are the main DNS record types (A, AAAA, CNAME, MX, NS, TXT, PTR)?
+- What are DNS security threats (Spoofing, Hijacking, Tunneling)?
+- What is DNSSEC and encrypted DNS (DoH, DoT)?
+- Authentication & Directory Services
+- What is RADIUS and how does it work?
+- What is TACACS+ and how does it differ from RADIUS?
+- What is Kerberos and what attacks target it?
+- What is LDAP and how is it used in networks?
+- Why is NTP important for security?
+- What is Syslog and its severity levels?
+- What is an Autonomous System (AS) and ASN?
+- What is BGP and how does it work?
+- What are BGP hijacking attacks?
+- What is peering vs transit?
+- What is an Internet Exchange Point (IXP)?
+- What is a CDN and how does Anycast work?
+- What are the Wi-Fi frequency bands (2.4 GHz, 5 GHz, 6 GHz)?
+- What are the Wi-Fi standards (802.11a/b/g/n/ac/ax)?
+- What is the difference between WEP, WPA, WPA2, WPA3?
+- What are common wireless attacks (Evil Twin, Deauth, KRACK)?
+- What are wireless security best practices?
+- What is the difference between PSK and Enterprise authentication?
+- What is the CIA Triad (Confidentiality, Integrity, Availability)?
+- What is Defense in Depth?
+- What are the key security principles (Least Privilege, Zero Trust)?
+- What is AAA (Authentication, Authorization, Accounting)?
+- What are the main attack categories (Reconnaissance, Interception, DoS)?
+- What is a Man-in-the-Middle (MitM) attack?
+- What are DDoS attacks (Volumetric, Protocol, Application)?
+- What are common password attacks?
+- What are the types of firewalls (Packet Filtering, Stateful, NGFW)?
+- How to write firewall rules?
+- What is a DMZ?
+- What is the difference between IDS and IPS?
+- What are detection methods (Signature, Anomaly, Heuristic)?
+- What is network segmentation and why is it important?
+- What is Zero Trust architecture?
+- What is a SIEM and what logs should be monitored?
+- What is NAC (Network Access Control)?
+- What is 802.1X authentication and the EAP methods?
+- What are the types of port scans (TCP Connect, SYN, UDP)?
+- What are the port states (Open, Closed, Filtered)?
+- What protocols are used for network enumeration (SNMP, NetBIOS, SMB, LDAP)?
+- How to defend against reconnaissance?
+
+## Cryptography Basics
+- What is cryptography in cybersecurity
+- What are the different types of cryptography
+- What is Encryption
+- What is Decryption
+- What is the importance of cryptography
+- What are the types of cryptography
+- What are the applications of cryptography
+- What is a hash algorithm
+- What SHA stands for
+- What is John the Ripper
+- How to use John the Ripper
+- How to crack advanced hashes with John the Ripper
+- What is hashcat
+- How to use hashcat
+
+## Authentication vs Authorization
+- What is the purpose of authentication in computer security
+- What is the purpose of authorization in access control systems
+- What are the fundamental differences between authentication and authorization
+- What is the correct sequence of authentication and authorization in security systems
+- What are the three main authentication factors
+- How does the authentication process work
+- What are the main authentication protocols
+- What is the difference between single-factor and multi-factor authentication
+- What HTTP status code indicates authentication failure
+- What are the main authorization models
+- How does Role-Based Access Control (RBAC) work
+- How does Attribute-Based Access Control (ABAC) differ from RBAC
+- What are the components of authorization
+- What HTTP status code indicates authorization failure
+- What are the advantages of implementing both authentication and authorization
+- What are the security risks of skipping authentication or authorization
+- How do authentication and authorization work together to protect systems
+- What is the difference between a username/password and biometric authentication
+
+## Email Security Protocols
+- What is email authentication and why is it important?
+- What are the main threats that email authentication protocols protect against?
+- How do SPF, DKIM, and DMARC work together to provide comprehensive email security?
+- What is the difference between email spoofing and domain impersonation?
+- What is SPF and what problem does it solve?
+- How does SPF authorize sending mail servers?
+- What is the correct syntax for an SPF record?
+- What are the different SPF mechanisms (ip4, include, mx, a, all) and when do you use each?
+- What are SPF qualifiers (+pass, -fail, ~softfail, ?neutral) and what do they mean?
+- What is the SPF evaluation order and why does it matter?
+- What are the different SPF results (pass, fail, softfail, neutral, temperror, permerror)?
+- What is the 10 DNS lookup limit in SPF and why does it exist?
+- Why does email forwarding break SPF and how can you mitigate this?
+- What does -all mean in an SPF record and why is it important?
+- How do you test and validate an SPF record?
+- What is DKIM and how does it differ from SPF?
+- How does DKIM use cryptographic signatures to verify email authenticity?
+- What is a DKIM selector and why are selectors used?
+- What are the components of a DKIM signature header?
+- How does the DKIM signing process work step-by-step?
+- How does the DKIM verification process work step-by-step?
+- What are canonicalization methods (simple/simple, relaxed/relaxed) and when do you use each?
+- What is the format of a DKIM DNS record?
+- How do you generate DKIM keys and what key size should you use?
+- Why is DKIM forwarding-friendly while SPF is not?
+- What is DKIM key rotation and how do you perform it?
+- How do you test and validate DKIM signatures?
+- What is DMARC and how does it build on SPF and DKIM?
+- What are the required and optional DMARC tags?
+- What are the three DMARC policy levels (none, quarantine, reject) and what does each do?
+- What is DMARC alignment and why is it important?
+- What is the difference between strict and relaxed alignment modes?
+- How does DMARC evaluate email authentication (SPF and DKIM checks)?
+- What are the conditions for a DMARC pass result?
+- What is the pct tag and how is it used for gradual policy enforcement?
+- What is the sp tag and how does it affect subdomain policies?
+- What are DMARC aggregate reports (RUA) and what information do they contain?
+- What are DMARC forensic reports (RUF) and when are they sent?
+- How do you parse and analyze DMARC reports?
+- What is the recommended DMARC deployment strategy?
+- How do SPF, DKIM, and DMARC work together in the email authentication flow?
+- What happens when SPF passes but DKIM fails (and vice versa)?
+- What happens when both SPF and DKIM fail?
+- How does DMARC use SPF and DKIM results to make policy decisions?
+- What threats does each protocol protect against?
+- What are the limitations of each protocol?
+- How do you implement SPF for a domain?
+- How do you implement DKIM for a domain?
+- How do you implement DMARC for a domain?
+- What is the correct order for implementing email authentication protocols?
+- How do you configure subdomain policies?
+- How do you handle third-party email services in SPF records?
+- How do you troubleshoot authentication failures?
+- Where are SPF, DKIM, and DMARC records published in DNS?
+- What DNS record type is used for email authentication records?
+- How do you query DNS records using dig, nslookup, or online tools?
+- What is the format of each DNS record type?
+- How do DNS lookups work for SPF includes?
+- How do DNS lookups work for DKIM public keys?
+- What are the best practices for SPF record configuration?
+- What are the best practices for DKIM key management?
+- What are the best practices for DMARC policy deployment?
+- What are common mistakes when implementing email authentication?
+- How do you avoid the SPF 10 DNS lookup limit?
+- Why should you never use +all in an SPF record?
+- Why should you start with p=none in DMARC before enforcing policies?
+- How often should you rotate DKIM keys?
+- How do you diagnose SPF authentication failures?
+- How do you diagnose DKIM signature failures?
+- How do you diagnose DMARC policy issues?
+- What tools can you use to test email authentication?
+- How do you read and interpret email headers?
+- How do you analyze DMARC aggregate reports?
+- What are common causes of authentication failures?
+## Network Protocols: Auditing and Securing
+- What are the three core security goals that secure protocols aim to achieve.
+- What is the main difference between application-layer protocols and network-layer protocols.
+- Explain the concept of port numbers and their significance in network communication.
+- What is the difference between SSL and TLS, and which one is actually used today.
+- How the TLS handshake works when visiting a secure website.
+- What problem did SSH solve that older protocols like Telnet couldn't handle.
+- How does SSH authentication with public keys work.
+- Differentiate between secure protocols like HTTPS, SFTP and their insecure counterparts HTTP, FTP.
+- Explain why HTTPS is mandatory for user trust, data protection, and modern web features.
+- What is the difference between Transport Mode and Tunnel Mode in IPSec, and which is used for VPNs.
+- What is the difference between the AH (Authentication Header) and ESP (Encapsulating Security Payload) protocols in IPSec.
+- Why should PPTP never be used for security-sensitive tasks.
+- What makes the modern WireGuard protocol faster and more efficient than traditional VPN protocols like OpenVPN
+- Explain the purpose of the Network File System (NFS) protocol and how misconfigurations can lead to exposed shares.
+- Describe how the SMTP commands VRFY and EXPN can be exploited for user enumeration on a mail server.
+- Explain the purpose of SNMP and the security risks associated with unencrypted data and default community strings.
+- Explain the importance of keeping network protocols and server configurations up-to-date and patched.
+- Explain the need for setting up basic firewall rules (like using iptables) to control network access.
+- Identify common SSH configuration weaknesses that require hardening (permitting root login, password authentication).
+## Passive Reconnaissance
+- What can we learn about a Server
+- What is a DNS server
+- What happens when we type www.holbertonschool.com and press ENTER
+- How can we find the owner information for a domain name
+- What is dig
+- What is nslookup
+- What are the different types of DNS RECORDS
+- What is DNS Dumpster
+- What is Shodan.io
+- How can we find subdomains
+- What is subfinder
+- What is the difference between Active reconnaissance and Passive reconnaissance
+## Active Reconnaissance
+- What is active reconnaissance ?
+- Why is active reconnaissance it important for cyber security?
+- How can Wappalyzer be used for active reconnaissance?
+- What is DNS enumeration ?
+- How to enumerate SMTPs using command-line tools?
+- How should we perform OS fingerprinting?
+- What is sqlmap ? How to use it ?
