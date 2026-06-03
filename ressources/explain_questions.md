@@ -116,134 +116,281 @@
 - How do you stay current with evolving technology in forensics?
 - What are the legal implications of digital forensic investigations?
 
+# Exam 1 start from here
+
 ## Networking Foundations & Architecture
-- What is networking and why is it essential?
-- What is the difference between LAN and WAN?
-- What are the main network topologies (Bus, Star, Ring, Mesh)?
-- What is the difference between physical and logical topology?
-- What are the 7 layers of the OSI model and their functions?
-- What happens at each layer during data transmission?
-- What is encapsulation and decapsulation?
-- What are the 4 layers of the TCP/IP model?
-- How does TCP/IP compare to the OSI model?
-- Protocols & Transmission
-- What are the main network protocols (HTTP, HTTPS, FTP, SSH, DNS, DHCP)?
-- What is the difference between TCP and UDP?
-- What are the different types of transmission media (wired vs wireless)?
-- What is the role of a Hub, Switch, Router, Firewall?
-- What is the difference between Layer 2 and Layer 3 devices?
-- What is a VLAN and why is it used?
-- What is 802.1Q tagging?
-- What are VLAN hopping attacks and how to prevent them?
-- What is Inter-VLAN routing?
-- What is a MAC address and how is it structured?
-- What is the difference between OUI and NIC-specific portions?
-- What are special MAC addresses (broadcast, multicast)?
-- What is an IPv4 address and its format?
-- What are IP address classes (A, B, C, D, E)?
-- What are private IP ranges (RFC 1918)?
-- What are special IP addresses (loopback, broadcast)?
-- What is CIDR notation?
-- How to calculate subnets, hosts per subnet, and network ranges?
-- How to perform subnetting manually?
-- What is ARP and how does it work?
-- What are the security concerns with ARP (ARP spoofing)?
-- Why was IPv6 developed and how does it differ from IPv4?
-- What are well-known ports (0-1023)?
-- What are registered ports and dynamic ports?
-- What is DHCP and what problem does it solve?
-- What is the DORA process (Discover, Offer, Request, Acknowledge)?
-- What is a DHCP lease and how does renewal work?
-- What are DHCP attacks (Rogue Server, Starvation)?
-- What is DHCP Snooping and how does it protect networks?
-- What is NAT and why is it used?
-- What is the difference between Static NAT, Dynamic NAT, and PAT?
-- What is Port Forwarding?
-- What is NAT Traversal (STUN, TURN, ICE)?
-- What is Carrier-Grade NAT (CGNAT)?
-- What is DNS and how does it work?
-- What is the DNS hierarchy (Root, TLD, Authoritative)?
-- What is the DNS resolution process?
-- What are the main DNS record types (A, AAAA, CNAME, MX, NS, TXT, PTR)?
-- What are DNS security threats (Spoofing, Hijacking, Tunneling)?
-- What is DNSSEC and encrypted DNS (DoH, DoT)?
-- Authentication & Directory Services
-- What is RADIUS and how does it work?
-- What is TACACS+ and how does it differ from RADIUS?
-- What is Kerberos and what attacks target it?
-- What is LDAP and how is it used in networks?
-- Why is NTP important for security?
-- What is Syslog and its severity levels?
-- What is an Autonomous System (AS) and ASN?
-- What is BGP and how does it work?
-- What are BGP hijacking attacks?
-- What is peering vs transit?
-- What is an Internet Exchange Point (IXP)?
-- What is a CDN and how does Anycast work?
-- What are the Wi-Fi frequency bands (2.4 GHz, 5 GHz, 6 GHz)?
-- What are the Wi-Fi standards (802.11a/b/g/n/ac/ax)?
-- What is the difference between WEP, WPA, WPA2, WPA3?
-- What are common wireless attacks (Evil Twin, Deauth, KRACK)?
-- What are wireless security best practices?
-- What is the difference between PSK and Enterprise authentication?
-- What is the CIA Triad (Confidentiality, Integrity, Availability)?
-- What is Defense in Depth?
-- What are the key security principles (Least Privilege, Zero Trust)?
-- What is AAA (Authentication, Authorization, Accounting)?
-- What are the main attack categories (Reconnaissance, Interception, DoS)?
-- What is a Man-in-the-Middle (MitM) attack?
-- What are DDoS attacks (Volumetric, Protocol, Application)?
-- What are common password attacks?
-- What are the types of firewalls (Packet Filtering, Stateful, NGFW)?
-- How to write firewall rules?
-- What is a DMZ?
-- What is the difference between IDS and IPS?
-- What are detection methods (Signature, Anomaly, Heuristic)?
-- What is network segmentation and why is it important?
-- What is Zero Trust architecture?
-- What is a SIEM and what logs should be monitored?
-- What is NAC (Network Access Control)?
-- What is 802.1X authentication and the EAP methods?
-- What are the types of port scans (TCP Connect, SYN, UDP)?
-- What are the port states (Open, Closed, Filtered)?
-- What protocols are used for network enumeration (SNMP, NetBIOS, SMB, LDAP)?
-- How to defend against reconnaissance?
+ - What is networking and why is it essential?
+	 - Networking connects devices to exchange data, share resources, and access services, enabling communication and centralized management.
+ - What is the difference between LAN and WAN?
+	 - LAN is a local network within a limited area; WAN connects multiple LANs across larger geographic distances.
+ - What are the main network topologies (Bus, Star, Ring, Mesh)?
+	 - Bus: single backbone; Star: central switch/hub; Ring: devices in a loop; Mesh: many redundant interconnections.
+ - What is the difference between physical and logical topology?
+	 - Physical is the actual cabling and hardware layout; logical is how traffic flows between devices.
+ - What are the 7 layers of the OSI model and their functions?
+	 - Application: user services; Presentation: formatting/encryption; Session: sessions; Transport: reliability/ports; Network: routing; Data Link: framing/MAC; Physical: bit transmission.
+ - What happens at each layer during data transmission?
+	 - Data is created at Application, formatted at Presentation, session-managed at Session, segmented at Transport, routed at Network, framed at Data Link, and transmitted as signals at Physical; receiver reverses this.
+ - What is encapsulation and decapsulation?
+	 - Encapsulation adds headers/trailers as data descends the stack; decapsulation removes them on receipt.
+ - What are the 4 layers of the TCP/IP model?
+	 - Application, Transport, Internet, Link.
+ - How does TCP/IP compare to the OSI model?
+	 - TCP/IP is a practical 4-layer suite mapping to OSI's 7-layer conceptual model.
+ - Protocols & Transmission
+ - What are the main network protocols (HTTP, HTTPS, FTP, SSH, DNS, DHCP)?
+	 - HTTP/HTTPS: web; FTP: file transfer; SSH: secure remote access; DNS: name resolution; DHCP: automated IP configuration.
+ - What is the difference between TCP and UDP?
+	 - TCP is connection-oriented and reliable; UDP is connectionless and low-latency with no delivery guarantees.
+ - What are the different types of transmission media (wired vs wireless)?
+	 - Wired: copper (Ethernet), fiber; Wireless: Wi‑Fi, Bluetooth, cellular; wired typically offers higher stability.
+ - What is the role of a Hub, Switch, Router, Firewall?
+	 - Hub: broadcasts to all ports; Switch: forwards by MAC; Router: routes between networks using IP; Firewall: filters traffic based on policy.
+ - What is the difference between Layer 2 and Layer 3 devices?
+	 - Layer 2 devices use MAC addressing to forward frames; Layer 3 devices use IP addressing to route packets.
+ - What is a VLAN and why is it used?
+	 - VLANs segment networks logically to separate broadcast domains for security and performance.
+ - What is 802.1Q tagging?
+	 - 802.1Q inserts a VLAN tag into Ethernet frames so multiple VLANs can traverse a trunk link.
+ - What are VLAN hopping attacks and how to prevent them?
+	 - VLAN hopping exploits misconfigured VLANs to access other VLANs; prevent by securing trunks, avoiding native VLANs, and enabling port security.
+ - What is Inter-VLAN routing?
+	 - Routing between VLANs performed by a router or Layer 3 switch.
+ - What is a MAC address and how is it structured?
+	 - A 48-bit hardware address (six hex octets) used to identify network interfaces at Layer 2.
+ - What is the difference between OUI and NIC-specific portions?
+	 - Organizationally Unique Identifier (OUI) (first 24 bits) identifies the vendor; network interface controller (NIC) bits (last 24) uniquely identify the interface.
+ - What are special MAC addresses (broadcast, multicast)?
+	 - Broadcast: FF:FF:FF:FF:FF:FF; multicast: ranges reserved for group delivery.
+ - What is an IPv4 address and its format?
+	 - A 32-bit address shown in dotted-decimal (e.g., 192.0.2.1).
+ - What are IP address classes (A, B, C, D, E)?
+	 - Classful legacy: A (1.0.0.0/8), B (128.0.0.0/16), C (192.0.0.0/24); D multicast; E experimental.
+ - What are private IP ranges (RFC 1918)?
+	 - 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Used in internal network to enhanced security.
+ - What are special IP addresses (loopback, broadcast)?
+	 - Loopback: 127.0.0.0/8; broadcast: highest address in a subnet (e.g., .255 for /24).
+ - What is CIDR notation?
+	 - Classless Inter-Domain Routing (CIDR) is an IP address allocation method that improves data routing efficiency on the internet.
+ - How to calculate subnets, hosts per subnet, and network ranges?
+	 - Hosts = 2^(32 - prefix) - 2; network and broadcast are first and last addresses in the subnet.
+ - How to perform subnetting manually?
+	 - Convert mask to binary/prefix, determine block size, list network addresses, compute host ranges.
+ - What is ARP and how does it work?
+	 - ARP resolves IPv4 addresses to MACs via ARP requests and replies on a LAN.
+ - What are the security concerns with ARP (ARP spoofing)?
+	 - ARP spoofing allows MITM or traffic interception; mitigate with static ARP, DHCP snooping, and DAI.
+ - Why was IPv6 developed and how does it differ from IPv4?
+	 - IPv6 provides a larger address space, simplified header, built-in autoconfiguration and improved routing/scalability.
+ - What are well-known ports (0-1023)?
+	 - Ports reserved for core services (e.g., 80 HTTP, 443 HTTPS, 22 SSH).
+ - What are registered ports and dynamic ports?
+	 - Registered: 1024–49151 for apps; Dynamic/Private: 49152–65535 for ephemeral use.
+ - What is DHCP and what problem does it solve?
+	 - DHCP automates IP address and network configuration assignment for hosts.
+ - What is the DORA process (Discover, Offer, Request, Acknowledge)?
+	 - The DHCP client sends a request (Discover) to the network and is assigned a client. The server responds with an offer (Offer). This offer contains a potential IP address and further configuration details. The client then sends back a request message (Request). Finally, the server confirms the assignment (Acknowledge).
+ - What is a DHCP lease and how does renewal work?
+	 - A time-limited IP assignment; clients request renewal before expiry, typically at 50% of lease time.
+ - What are DHCP attacks (Rogue Server, Starvation)?
+	 - Rogue servers provide malicious configs; starvation exhausts IP pool; mitigations include DHCP snooping and ACLs.
+ - What is DHCP Snooping and how does it protect networks?
+	 - DHCP Snooping filters DHCP messages on untrusted ports and maintains a binding table to prevent unauthorized servers.
+ - What is NAT and why is it used?
+	 - NAT translates private addresses to public ones to conserve IPv4 addresses and provide isolation.
+ - What is the difference between Static NAT, Dynamic NAT, and PAT?
+	 - Static NAT: fixed one-to-one; Dynamic NAT: from a pool; PAT: many-to-one using ports.
+ - What is Port Forwarding?
+	 - Forwarding a specific external port to an internal host/port to expose services.
+ - What is NAT Traversal (STUN, TURN, ICE)?
+	 - Techniques to enable P2P through NATs: STUN discovers mappings, TURN relays traffic, ICE coordinates connectivity.
+ - What is Carrier-Grade NAT (CGNAT)?
+	 - Large-scale NAT by ISPs sharing public IPs among customers, complicating inbound connectivity and logging.
+ - What is DNS and how does it work?
+	 - DNS maps domain names to IPs via hierarchical queries and caching across recursive and authoritative servers.
+ - What is the DNS hierarchy (Root, TLD, Authoritative)?
+	 - Root → TLD → Authoritative servers; each level delegates authority downward.
+ - What is the DNS resolution process?
+	 - Resolver queries recursive DNS, which follows root→TLD→authoritative to resolve names, using caches to speed responses.
+ - What are the main DNS record types (A, AAAA, CNAME, MX, NS, TXT, PTR)?
+	 - A: IPv4; AAAA: IPv6; CNAME: alias; MX: mail; NS: name server; TXT: text data; PTR: reverse lookup.
+ - What are DNS security threats (Spoofing, Hijacking, Tunneling)?
+	 - Threats include forged responses (cache poisoning), domain takeover, and covert DNS tunnels; defenses include DNSSEC and monitoring.
+ - What is DNSSEC and encrypted DNS (DoH, DoT)?
+	 - DNSSEC signs records to verify integrity; DoH/DoT encrypt queries to protect privacy.
+ - Authentication & Directory Services
+ - What is RADIUS and how does it work?
+	 - RADIUS is an AAA protocol that centralises authentication and accounting for network access devices.
+ - What is TACACS+ and how does it differ from RADIUS?
+	 - TACACS+ separates AAA, encrypts full packet payloads and typically uses TCP; RADIUS is older and UDP-based.
+ - What is Kerberos and what attacks target it?
+	 - Kerberos uses tickets issued by a KDC for authentication; attacks include ticket theft, replay and brute-force of keys.
+ - What is LDAP and how is it used in networks?
+	 - LDAP provides a protocol to query and modify directory services (users, groups) often used for auth and lookups.
+ - Why is NTP important for security?
+	 - Accurate time is required for log correlation, certificate validation and preventing replay attacks.
+ - What is Syslog and its severity levels?
+	 - Syslog transports logs; levels include emergency, alert, critical, error, warning, notice, info, debug.
+ - What is an Autonomous System (AS) and ASN?
+	 - An AS is a routing domain with a unique ASN used to identify it in BGP.
+ - What is BGP and how does it work?
+	 - BGP exchanges route announcements between ASes using path attributes to make routing decisions.
+ - What are BGP hijacking attacks?
+	 - Incorrect route announcements that divert or blackhole traffic; mitigations include prefix filtering and RPKI.
+ - What is peering vs transit?
+	 - Peering: mutual traffic exchange; Transit: paid service providing global Internet reachability.
+ - What is an Internet Exchange Point (IXP)?
+	 - An IXP is a physical location for networks to exchange traffic directly.
+ - What is a CDN and how does Anycast work?
+	 - CDN caches content globally; Anycast advertises the same IP from multiple locations so users reach the nearest server.
+ - What are the Wi-Fi frequency bands (2.4 GHz, 5 GHz, 6 GHz)?
+	 - 2.4 GHz: longer range/more interference; 5 GHz: higher throughput/less range; 6 GHz: more spectrum for Wi‑Fi 6E.
+ - What are the Wi-Fi standards (802.11a/b/g/n/ac/ax)?
+	 - Generations: a/b/g older; n (Wi‑Fi 4), ac (Wi‑Fi 5), ax (Wi‑Fi 6) offer progressive improvements.
+ - What is the difference between WEP, WPA, WPA2, WPA3?
+	 - WEP insecure; WPA improved WEP; WPA2 uses AES; WPA3 strengthens handshakes and resistance to offline attacks.
+ - What are common wireless attacks (Evil Twin, Deauth, KRACK)?
+	 - Evil Twin: rogue AP for credential capture; Deauth: force reauth to capture handshakes; KRACK: replay attack on WPA2 handshake.
+ - What are wireless security best practices?
+	 - Use WPA2/WPA3-Enterprise, strong passwords, disable WPS, segment guest networks, and keep firmware updated.
+ - What is the difference between PSK and Enterprise authentication?
+	 - PSK: shared passphrase; Enterprise: per-user credentials with RADIUS for stronger authentication.
+ - What is the CIA Triad (Confidentiality, Integrity, Availability)?
+	 - Confidentiality: protect data privacy; Integrity: ensure accuracy; Availability: ensure access when needed.
+ - What is Defense in Depth?
+	 - Multiple layered controls to reduce single points of failure and limit attack impact.
+ - What are the key security principles (Least Privilege, Zero Trust)?
+	 - Least Privilege: minimal permissions; Zero Trust: always verify and restrict access.
+ - What is AAA (Authentication, Authorization, Accounting)?
+	 - Authentication verifies identity; Authorization decides access; Accounting logs actions.
+ - What are the main attack categories (Reconnaissance, Interception, DoS)?
+	 - Reconnaissance: info gathering; Interception: eavesdropping/modification; DoS: denying service.
+ - What is a Man-in-the-Middle (MitM) attack?
+	 - An attacker intercepts and possibly alters communications between parties.
+ - What are DDoS attacks (Volumetric, Protocol, Application)?
+	 - Volumetric: overwhelm bandwidth; Protocol: consume network resources; Application: target app-layer functions.
+ - What are common password attacks?
+	 - Brute-force, dictionary, credential stuffing, phishing, and rainbow table attacks.
+ - What are the types of firewalls (Packet Filtering, Stateful, NGFW)?
+	 - Packet-filtering: L3/L4 rules; Stateful: tracks connections; NGFW: app-aware, IDS/IPS features.
+ - How to write firewall rules?
+	 - Use explicit allow/deny, specify source/dest/port/protocol, order rules by priority and log denials.
+ - What is a DMZ?
+	 - A segregated zone exposing public services while isolating internal networks.
+ - What is the difference between IDS and IPS?
+	 - IDS alerts on detections; IPS actively blocks offending traffic.
+ - What are detection methods (Signature, Anomaly, Heuristic)?
+	 - Signature: known patterns; Anomaly: deviations; Heuristic: behavior-based inference.
+ - What is network segmentation and why is it important?
+	 - Segmentation limits lateral movement, contains incidents and enforces policy boundaries.
+ - What is Zero Trust architecture?
+	 - A model requiring continuous authentication and least-privilege access controls for every request.
+ - What is a SIEM and what logs should be monitored?
+	 - SIEM aggregates and correlates logs for detection; monitor auth, firewall, DNS, DHCP, endpoints and applications.
+ - What is NAC (Network Access Control)?
+	 - NAC enforces access policies at network connection time based on identity and device posture.
+ - What is 802.1X authentication and the EAP methods?
+	 - 802.1X is port-based authentication using EAP methods like EAP-TLS, PEAP, and EAP-TTLS to authenticate clients.
+ - What are the types of port scans (TCP Connect, SYN, UDP)?
+	 - TCP Connect: completes handshake; SYN: half-open scan; UDP: probes UDP services for responses or ICMP unreachable.
+ - What are the port states (Open, Closed, Filtered)?
+	 - Open: service listening; Closed: no service; Filtered: blocked by firewall.
+ - What protocols are used for network enumeration (SNMP, NetBIOS, SMB, LDAP)?
+	 - SNMP, NetBIOS/SMB and LDAP are used to enumerate devices, shares and directory info.
+ - How to defend against reconnaissance?
+	 - Reduce exposed services, patch, use firewalls and rate-limiting, monitor logs, and deploy honeypots and IDS to detect scanning.
 
 ## Cryptography Basics
 - What is cryptography in cybersecurity
+	- Cryptography is the practice and study of techniques for securing communication and data in the presence of adversaries.
 - What are the different types of cryptography
+	- Symmetric Key Cryptography
+	- Asymmetric Key Encryption
 - What is Encryption
+	- Encryption is a way of scrambling data so that only authorized parties can understand the information. In technical terms, it is the process of converting human-readable plaintext to incomprehensible text, also known as ciphertext.
 - What is Decryption
+	- Decryption is the process of converting encrypted data back into its original form, often involving complex algorithms and operations, such as pairing operations in certain encryption schemes.
 - What is the importance of cryptography
-- What are the types of cryptography
+	- Cryptography protects data confidentiality, integrity, authentication, and secure communication from unauthorized access.
+- What are the types of cryptography (doublon)
 - What are the applications of cryptography
+	- Secure web browsing (HTTPS)
+	- Password storage
+	- Digital signatures
+	- VPNs
+	- Secure messaging
+	- Online banking and e-commerce
 - What is a hash algorithm
+	- A hash algorithm converts data into a fixed-length string (hash) that uniquely represents the original data and cannot easily be reversed.
 - What SHA stands for
+	- SHA stands for Secure Hash Algorithm.
 - What is John the Ripper
+	- John the Ripper is an open-source password recovery and auditing tool used to test password strength and recover passwords from hashes.
 - How to use John the Ripper
 - How to crack advanced hashes with John the Ripper
 - What is hashcat
+	- Hashcat is a GPU-accelerated password recovery tool used for security auditing and password strength testing.
 - How to use hashcat
 
 ## Authentication vs Authorization
 - What is the purpose of authentication in computer security
+	- To verify the identity of a user, device, or system.
 - What is the purpose of authorization in access control systems
+	- To determine what resources and actions an authenticated user is allowed to access.
 - What are the fundamental differences between authentication and authorization
+	- Authentication: Confirms who you are.
+	- Authorization: Determines what you can do.
 - What is the correct sequence of authentication and authorization in security systems
+	- Authentification then Authorization
 - What are the three main authentication factors
+	- Something you know (password, PIN)
+	- Something you have (security token, phone)
+	- Something you are (fingerprint, face scan)
 - How does the authentication process work
+	- User provides credentials.
+	- System verifies the credentials.
+	- If valid, the user is authenticated and granted a session or token.
 - What are the main authentication protocols
+	- OAuth 2.0
+	- OpenID Connect (OIDC)
+	- SAML
+	- Kerberos
+	- LDAP
 - What is the difference between single-factor and multi-factor authentication
+	- Single-Factor Authentication (SFA): Uses one authentication factor.
+	- Multi-Factor Authentication (MFA): Uses two or more authentication factors for stronger security.
 - What HTTP status code indicates authentication failure
+	- 401 Unauthorized (authentication required or failed).
 - What are the main authorization models
+	- Discretionary Access Control (DAC)
+	- Mandatory Access Control (MAC)
+	- Role-Based Access Control (RBAC)
+	- Attribute-Based Access Control (ABAC)
 - How does Role-Based Access Control (RBAC) work
+	- Permissions are assigned to roles, and users inherit permissions by being assigned those roles.
 - How does Attribute-Based Access Control (ABAC) differ from RBAC
+	- RBAC: Access is based on roles.
+	- ABAC: Access is based on attributes such as user, resource, action, and environment conditions.
 - What are the components of authorization
+	- Subject (user)
+	- Resource (object)
+	- Action (operation)
+	- Policy/Rules (permissions)
 - What HTTP status code indicates authorization failure
+	- 403 Forbidden (authenticated but not allowed to access the resource).
 - What are the advantages of implementing both authentication and authorization
+	- Verifies user identity.
+	- Restricts access to authorized resources.
+	- Improves security and compliance.
+	- Reduces unauthorized access risks.
 - What are the security risks of skipping authentication or authorization
+	- Skipping authentication: Anyone can access the system.
+	- Skipping authorization: Users can access resources they should not have access to.
 - How do authentication and authorization work together to protect systems
+	- Authentication identifies the user, and authorization controls what the user can access after identity is verified.
 - What is the difference between a username/password and biometric authentication
+	- Username/Password: Uses something the user knows.
+	- Biometric Authentication: Uses unique physical characteristics the user have such as fingerprints, face recognition, or iris scans.
 
 ## Email Security Protocols
 - What is email authentication and why is it important?
@@ -320,6 +467,7 @@
 - How do you read and interpret email headers?
 - How do you analyze DMARC aggregate reports?
 - What are common causes of authentication failures?
+
 ## Network Protocols: Auditing and Securing
 - What are the three core security goals that secure protocols aim to achieve.
 - What is the main difference between application-layer protocols and network-layer protocols.
@@ -340,6 +488,7 @@
 - Explain the importance of keeping network protocols and server configurations up-to-date and patched.
 - Explain the need for setting up basic firewall rules (like using iptables) to control network access.
 - Identify common SSH configuration weaknesses that require hardening (permitting root login, password authentication).
+
 ## Passive Reconnaissance
 - What can we learn about a Server
 - What is a DNS server
@@ -353,6 +502,8 @@
 - How can we find subdomains
 - What is subfinder
 - What is the difference between Active reconnaissance and Passive reconnaissance
+	- Active reconnaissance is when the attackers directly interact with the targeted machines to enumarate data (ping, port scanning, traceroute etc). Passive is the opposite, using OSINT, Shodan searches, WHOIS data but also non-digital forms of snooping such as monitoring buildings, eavesdropping on conversations. 
+
 ## Active Reconnaissance
 - What is active reconnaissance ?
 - Why is active reconnaissance it important for cyber security?
