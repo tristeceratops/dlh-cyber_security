@@ -5,6 +5,10 @@ if [[ $# -ne 1 ]]; then
     exit 1
 fi
 
+if [[ "$1" != \{xor\}* ]]; then
+    exit 1
+fi
+
 encoded="${1#\{xor\}}"
 
 if ! decoded=$(printf '%s' "$encoded" | base64 -d 2>/dev/null); then
