@@ -1,7 +1,7 @@
 #!/bin/bash
 
 encoded="${1#\{xor\}}"
-decoded=$(printf '%s' "$encoded" | base64 -d)
+decoded=$(echo "$encoded" | base64 -d)
 key=95
 i=0
 
@@ -11,3 +11,4 @@ do
 	printf "\\$(printf '%03o' "$((byte ^ key))")"
 	i=$((i + 1))
 done
+echo -n
