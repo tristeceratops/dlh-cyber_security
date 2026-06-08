@@ -1,16 +1,10 @@
 #!/bin/bash
 
+if [[ $# -ne 1 ]]; then
+    echo './1-xor_decoder.sh [xor to decode]'
+    exit 1
+fi
+
 encoded="${1#\{xor\}}"
-decoded=$(printf '%s' "$encoded" | base64 -d)
 
-key=95
-i=0
-
-while [ "$i" -lt "${#decoded}" ]
-do
-    byte=$(printf '%d' "'${decoded:$i:1}")
-    printf "\\$(printf '%03o' "$((byte ^ key))")"
-    i=$((i + 1))
-done
-
-printf '\n'
+echo "$encoded" | base64 -d | perl -pe 's/(.)/chr(ord($1) ^ 0x5F)/ge'
