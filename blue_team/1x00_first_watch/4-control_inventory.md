@@ -2,6 +2,9 @@
 
 ## Introduction
 
+### Goal
+Identify, classify and document existing security controls using the professional dual-axis taxonomy: category (Technical / Administrative / Physical) and function (Preventive / Detective / Corrective).
+
 ### Context
 James Chen sends you an email after the walk-through:
 
