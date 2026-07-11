@@ -21,7 +21,6 @@ Every security incident impacts at least one of these pillars. Some impact more 
 ---
 
 ## Incident log analyse
-
 | Incident | Primary CIA Pillar | Justification | Secondary CIA Pillar (if applicable) | Secondary Impact Explanation |
 |----------|---------------------|---------------|--------------------------------------|------------------------------|
 | **A – Ransomware on Billing Server** | **Availability** | The ransomware encrypted the billing server, preventing the finance team from processing insurance claims for four days. | **Integrity** | The encryption altered the system's data into an unusable state, and outdated backups increased the risk of data inconsistency or permanent data loss. |
