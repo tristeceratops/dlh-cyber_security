@@ -6,3 +6,4 @@
 - [4. The Control Landscape](4-control_inventory.md)
 - [5. The Missing Pieces](5-control_gaps.md)
 - [6. The Legacy Dilemma](6-compensating_controls.md)
+- [7. The Asset Registry](7-asset_registry.md)
