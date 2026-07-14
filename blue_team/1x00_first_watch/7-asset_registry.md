@@ -50,6 +50,9 @@ James Chen needs a single authoritative source of truth for MedDefense assets. R
 | A-031 | Westside-XRAY-WS (WS-WC-XRAY) | IoT Medical | Westside Clinic Imaging | Westside Imaging + Biomed + IT | Vendor-specific (unknown) | X-ray workstation integration | 10.10.10.100 | Active | Appears in scan but was not explicitly itemized in prior documentation. |
 | A-032 | Patient-Portal-Service | Application | Public-facing (DMZ-backed) | Clinical Applications + Web Services | Web app on Linux backend | Patient results/portal access | Internet -> DMZ -> internal dependencies | Active | Broken access control incident indicates application-layer risk (Task 1). |
 | A-033 | Microsoft-365-Tenant | Application | Cloud (SaaS) | IT + all departments | Microsoft 365 E3 | Email/collaboration/productivity | Internet (cloud) | Active | Critical enterprise SaaS documented in onboarding. |
+| A-034 | DrPatel-Personal-NAS | Data Store | Cardiology office | Cardiology (unapproved) | NAS appliance | Research data storage | Wall port / unknown segment | Shadow IT | Personal device plugged into office wall port; migrate data to approved storage and retire the device. |
+| A-035 | Marketing-Shared-Google-Drive | Application | Cloud (personal account) | Marketing (unapproved) | Google Drive / Gmail | Media files and press communications | Internet (cloud) | Shadow IT | Shared drive linked to personal Gmail; migrate content to approved corporate collaboration platform. |
+| A-036 | Second-Floor-Raspberry-Pi-Monitor | Network Device | Central Hospital second floor | Unknown (previous intern / Marcus request) | Raspberry Pi / Linux | Network monitoring / telemetry | Unknown | Shadow IT | Unmanaged monitoring device with no current owner; remove and rebuild under IT governance if still needed. |
 
 ## Reconciliation Notes
 
