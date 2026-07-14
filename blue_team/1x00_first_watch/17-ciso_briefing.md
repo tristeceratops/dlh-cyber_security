@@ -1,19 +1,3 @@
-# The CISO Briefing
-
-## Introduction
-
-### Goal
-Synthesize a complex report into a concise, persuasive executive briefing under strict format constraints.
-
-### Context
-Monday morning. James Chen calls you 30 minutes before the Board meeting.
-
-"Change of plans. The CEO just read an article about the Ascension Health ransomware attack. She's worried. She's moved our agenda slot from 20 minutes to 5. I need you to take your entire report and compress it into something I can read to the Board in under 5 minutes. 300 words. Not 301."
-
-"Focus on three things: what's wrong, what it costs us if we don't fix it and what we need to do first."
-
-## Answer
-
 MedDefense is not starting from zero, but our current security is not strong enough for a hospital that depends on electronic records, connected medical devices, and remote access. We have useful controls in place, but they are uneven, and several of our most important systems can still be reached too easily.
 
 The most dangerous gap is that an attacker can get in with a stolen password, move across a flat network, and stay hidden because we do not have two-step login, network separation, or monitoring. In the real world, that is how a local intrusion becomes a hospital-wide ransomware event: records stop, appointments are cancelled, and patient care is disrupted for days or weeks.
