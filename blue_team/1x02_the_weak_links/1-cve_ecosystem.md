@@ -28,12 +28,12 @@ Last Modified: 06/17/2026
 ```
 CVE ID: CVE-2020-25165
 NVD URL: https://nvd.nist.gov/vuln/detail/CVE-2020-25165
-Description: Using a vulnerabilty inside authentification process between BD Alaris PC Unit, Model 8015, Versions 9.33.1 and earlier and the DB Alaris Systems Manager, Versions 4.33 and earlier, one attacker could perform a denial-of-service attack on the BD Alaris PC Unit by modifying the configuration headers of data in transit.
+Description: Using a vulnerability inside the authentication process between BD Alaris PC Unit, Model 8015, Versions 9.33.1 and earlier and the DB Alaris Systems Manager, Versions 4.33 and earlier, an attacker could perform a denial-of-service attack on the BD Alaris PC Unit by modifying the configuration headers of data in transit.
 Affected Products: BD Alaris PC Unit, Model 8015, Versions 9.33.1; BD Alaris Systems Manager, Versions 4.33; and every earliers versions of theses two products.
 CVSS v3.1 Vector String: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H
 CVSS Base Score: 7.5 High
 CWE: CWE-287 Improper Authentication
-References: 
+References (only one present on NVD to this day): 
 	- Third Party Advisory, US Government: https://us-cert.cisa.gov/ics/advisories/icsma-20-317-01
 Published Date: 11/13/2020
 Last Modified: 06/16/2026
@@ -43,7 +43,7 @@ Last Modified: 06/16/2026
 CVE ID: CVE-2023-38408
 NVD URL: https://nvd.nist.gov/vuln/detail/CVE-2023-38408
 Description: Vulnerabilty lead to remote code execution due to an insufficient search path in OpenSSH.
-Affected Products: OpenSSH 9.3, Fedora 37, Fedora 38
+Affected Products: OpenSSH V 9.3 and 9.3p1, Fedora 37 and Fedora 38
 CVSS v3.1 Vector String: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
 CVSS Base Score: 9.8 Critical
 CWE: CWE-428 Unquoted Search Path or Element
