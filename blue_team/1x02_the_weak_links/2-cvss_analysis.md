@@ -30,8 +30,8 @@ The actual NVD score is 9.8 but if we change Attack Vector to Local (L) then the
 
 ### Exercise 2
 
-AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N
-NVD score: 4.7
+CVSS:3.1/AV:A/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N
+NVD score: 4.8
 Severity: Medium
 
 ### Exercise 3
