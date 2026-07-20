@@ -12,48 +12,60 @@ The flat network is not a finding in the scan report. It is the finding undernea
 
 # Segmentation Impact Analysis
 
-## CVE-2020-1938 (Ghostcat)
+## CVE: CVE-2020-1938
+Host: ehr-srv-01 (10.10.2.10)
+CVSS Base Score: 9.8
 
-**Host:** ehr-srv-01 (10.10.2.10)  
-**CVSS:** 9.8
+Scenario A: Current (flat network):
+  Who can reach this vulnerability: Any compromised host on the 10.10.0.0/16 internal network can reach the Tomcat AJP service on port 8009.
+  What the attacker can reach AFTER exploitation: The attacker can access EHR application files, potentially obtain database credentials, compromise ehr-db-01, and access other clinical systems through lateral movement.
+  Effective Risk: Critical. The flat network turns a single vulnerable server into a potential entry point to the clinical environment.
 
-| Scenario | Analysis |
-|---|---|
-| **A - Flat network** | **Reachable by:** Any host on **10.10.0.0/16**. **After exploitation:** Read configuration files, obtain DB credentials, pivot to **ehr-db-01** and other critical servers. **Risk:** **Critical**. |
-| **B - Segmented network** | **Reachable by:** Only application-tier VLAN. **After exploitation:** Limited to the application segment unless firewall rules allow further access. **Risk:** **High**. |
+Scenario B: Hypothetical (segmented network):
+  Who can reach this vulnerability: Only systems in the EHR/application VLAN with approved access to ehr-srv-01.
+  What the attacker can reach AFTER exploitation: The attacker would mainly be limited to the EHR application segment unless firewall rules allow further pivoting to databases or other clinical systems.
+  Effective Risk: High. The vulnerability remains serious, but the blast radius is reduced.
 
-**Risk Amplification Factor:** **Very High** — Flat network exposes the EHR server to every compromised internal host.
-
----
-
-## CVE-2021-44790 (Apache mod_lua RCE)
-
-**Host:** billing-srv-01 (10.10.2.15)  
-**CVSS:** 9.8
-
-| Scenario | Analysis |
-|---|---|
-| **A - Flat network** | **Reachable by:** Any internal host. **After exploitation:** Chain with F002 for root access, then reach MySQL and other servers. **Risk:** **Critical**. |
-| **B - Segmented network** | **Reachable by:** Only billing application systems. **After exploitation:** Limited to the billing VLAN. **Risk:** **High**. |
-
-**Risk Amplification Factor:** **High** — Segmentation would significantly reduce lateral movement.
+Risk Amplification Factor: Very High. The flat network increases the impact by allowing any compromised internal device to directly target a critical clinical server.
 
 ---
 
-## CVE-2019-0708 (BlueKeep)
+## CVE: CVE-2021-44790
+Host: billing-srv-01 (10.10.2.15)
+CVSS Base Score: 9.8
 
-**Host:** WS-RAD-01 (MRI Workstation)  
-**CVSS:** 9.8
+Scenario A: Current (flat network):
+  Who can reach this vulnerability: Any host within 10.10.0.0/16 can access the Apache service on billing-srv-01.
+  What the attacker can reach AFTER exploitation: The attacker can obtain remote code execution, combine with CVE-2019-0211 for root access, access billing data, and attempt movement toward other internal servers.
+  Effective Risk: Critical. The vulnerability provides a direct compromise path into a high-value server.
 
-| Scenario | Analysis |
-|---|---|
-| **A - Flat network** | **Reachable by:** Any host on **10.10.0.0/16**. **After exploitation:** Pivot to PACS, radiology systems, and adjacent clinical assets. **Risk:** **Critical**. |
-| **B - Segmented network** | **Reachable by:** Only radiology VLAN. **After exploitation:** Contained within imaging systems. **Risk:** **Medium–High**. |
+Scenario B: Hypothetical (segmented network):
+  Who can reach this vulnerability: Only systems in the billing/server VLAN with required business communication paths.
+  What the attacker can reach AFTER exploitation: The attacker would be restricted to billing infrastructure unless firewall rules permit access to databases or other zones.
+  Effective Risk: High. The server could still be compromised, but containment would be significantly improved.
 
-**Risk Amplification Factor:** **Very High** — Isolation would greatly reduce the exposure of this legacy system.
+Risk Amplification Factor: High. Segmentation would reduce the ability to turn a billing server compromise into an enterprise-wide compromise.
+
+---
+
+## CVE: CVE-2019-0708
+Host: WS-RAD-01 (10.10.1.70 - MRI Workstation)
+CVSS Base Score: 9.8
+
+Scenario A: Current (flat network):
+  Who can reach this vulnerability: Any host on the 10.10.0.0/16 network can attempt exploitation of exposed RDP services on the MRI workstation.
+  What the attacker can reach AFTER exploitation: The attacker can control the MRI workstation, disrupt radiology operations, access imaging workflows, and potentially move toward PACS and other clinical systems.
+  Effective Risk: Critical. A legacy medical device workstation becomes a pivot point into critical healthcare operations.
+
+Scenario B: Hypothetical (segmented network):
+  Who can reach this vulnerability: Only systems inside the radiology/medical device VLAN with authorized communication paths.
+  What the attacker can reach AFTER exploitation: The attacker would mainly access radiology assets in the same VLAN unless firewall rules allow movement to PACS or clinical networks.
+  Effective Risk: Medium-High. The workstation remains vulnerable, but patient-care impact is reduced.
+
+Risk Amplification Factor: Very High. Network segmentation is essential because the vulnerable XP workstation cannot be fully secured through patching.
 
 ---
 
 # Network Posture Summary
 
-The flat network is the main risk multiplier in the environment. Almost every critical finding becomes reachable from any compromised internal host, enabling rapid lateral movement between clinical, identity, and billing systems. Network segmentation would reduce the attack surface for **all** vulnerabilities simultaneously, whereas patching a single CVE only removes one attack path while leaving unrestricted lateral movement intact.
+The flat network significantly amplifies the impact of vulnerabilities across the environment because any compromised workstation, medical device, or server can directly reach critical assets. Segmentation would reduce attacker movement, limit blast radius, and protect clinical systems even when vulnerabilities remain. Therefore, segmentation provides broader risk reduction than patching a single CVE because it protects against multiple attack paths simultaneously.
