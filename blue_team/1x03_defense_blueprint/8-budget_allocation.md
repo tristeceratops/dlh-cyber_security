@@ -74,9 +74,9 @@ Part 3 – Alternative Allocation
 | Enterprise SIEM | $25,000 |
 | Offsite Immutable Backups | $18,000 |
 | Dedicated Firewall | $10,000 |
-| Outsourced 24/7 SOC | $39,000 (partial first-year managed service) |
+| Outsourced 24/7 SOC | $39,000 |
 
-**Total Cost:** $120000
+**Total Cost:** $120,000
 
 **Estimated Total ALE Reduction:** ~$4.99M/year
 
@@ -85,6 +85,14 @@ Part 3 – Alternative Allocation
 | Plan | Cost | Estimated ALE Reduction |
 |---|---:|---:|
 | Primary Recommendation (includes EDR) | $116,000 | ~$3.97M/year |
-| Alternative (replace EDR with partial SOC) | $120,000 | ~$4.99M/year |
+| Alternative (replace EDR with SOC) | $120,000 | ~$4.99M/year |
 
-**Recommendation:** The **primary plan** provides the best balance of prevention, detection, and resilience while staying under budget. If MedDefense can negotiate a lower cost managed SOC service, the **alternative plan** could deliver greater overall risk reduction by improving continuous monitoring instead of investing in a premium EDR upgrade.
+### Trade-off Analysis
+
+The alternative plan improves detection capability by adding 24/7 monitoring, faster alert investigation, and better visibility into attacker activity. However, removing EDR creates a specific security weakness: MedDefense loses stronger endpoint-level prevention and response capabilities, including malware blocking, host isolation, and rapid containment of compromised workstations or servers.
+
+The SOC can identify and respond to attacks, but it does not fully replace EDR because detection occurs after suspicious activity begins. Without EDR, ransomware or malware running on endpoints may have a larger window to spread before analysts can intervene.
+
+The primary plan provides stronger defense-in-depth by combining core prevention (EDR), identity protection (MFA), segmentation, and recovery controls. The alternative accepts higher endpoint exposure in exchange for improved monitoring coverage.
+
+**Recommendation:** The primary plan remains the preferred allocation because MedDefense has limited internal security staff and needs both prevention and detection. If a lower cost SOC option becomes available, the alternative could be reconsidered, but management must explicitly accept the trade-off of improved visibility versus weaker endpoint protection.
