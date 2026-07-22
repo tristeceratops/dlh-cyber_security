@@ -31,7 +31,7 @@ Part 1 – Control Selection ($120,000 Budget)
 
 **Total Spend:** $116,000
 
-**Budget Remaining:** $4,000
+**Budget remaining:** $4,000
 
 ---
 
