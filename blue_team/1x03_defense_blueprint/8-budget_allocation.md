@@ -55,7 +55,7 @@ Part 2 – Opportunity Cost
 
 - **Outsourced 24/7 SOC:** By deferring this control, MedDefense accepts an estimated **$950,000/year** of additional residual risk reduction that could have been achieved through faster detection and response.
 
-- **Medical Device Network Isolation:** By rejecting this control, MedDefense accepts approximately **$45,000/year** in residual medical device risk because the control is not cost-effective under the current budget.
+- **Medical Device Network Isolation:** By rejecting this control, MedDefense accepts approximately **$45,000/year** in annual risk exposure because the control is not cost-effective under the current budget.
 
 ================================================================================
 Part 3 – Alternative Allocation
