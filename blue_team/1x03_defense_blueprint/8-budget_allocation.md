@@ -83,4 +83,4 @@ Part 3 – Alternative Allocation
 | Primary Recommendation (includes EDR) | $116,000 | ~$3.97M/year |
 | Alternative (replace EDR with partial SOC) | $120,000 | ~$4.99M/year |
 
-**Recommendation:** The **primary plan** provides the best balance of prevention, detection, and resilience while staying under budget. If MedDefense can negotiate a lower-cost managed SOC service, the **alternative plan** could deliver greater overall risk reduction by improving continuous monitoring instead of investing in a premium EDR upgrade.
+**Recommendation:** The **primary plan** provides the best balance of prevention, detection, and resilience while staying under budget. If MedDefense can negotiate a lower cost managed SOC service, the **alternative plan** could deliver greater overall risk reduction by improving continuous monitoring instead of investing in a premium EDR upgrade.
