@@ -71,28 +71,25 @@ Part 3 – Alternative Allocation
 |---|---:|
 | MFA | $8,000 |
 | Network Segmentation | $20,000 |
-| Enterprise SIEM | $25,000 |
-| Offsite Immutable Backups | $18,000 |
+| SIEM | $25,000 |
+| Immutable Backups | $18,000 |
 | Dedicated Firewall | $10,000 |
-| Outsourced 24/7 SOC | $39,000 |
+| Managed SOC | $39,000 |
 
-**Total Cost:** $120000
-
-**Estimated Total ALE Reduction:** ~$4.99M/year
+**Total spend:** $120000  
+**Budget remaining:** $0
 
 ### Comparison
 
-| Plan | Cost | Estimated ALE Reduction |
+| Plan | Cost | Risk reduction |
 |---|---:|---:|
-| Primary Recommendation (includes EDR) | $116,000 | ~$3.97M/year |
-| Alternative (replace EDR with SOC) | $120,000 | ~$4.99M/year |
+| Primary plan (includes EDR) | $116,000 | ~$3.97M ALE reduction/year |
+| Alternative (replaces EDR with SOC) | $120000 | ~$4.99M ALE reduction/year |
 
-### Trade-off Analysis
+### Decision
 
-The alternative plan improves detection capability by adding 24/7 monitoring, faster alert investigation, and better visibility into attacker activity. However, removing EDR creates a specific security weakness: MedDefense loses stronger endpoint-level prevention and response capabilities, including malware blocking, host isolation, and rapid containment of compromised workstations or servers.
+The Alternative provides higher estimated risk reduction at the same budget by improving monitoring and response. However, the trade-off is clear: by removing EDR, MedDefense accepts weaker endpoint protection, including less malware prevention, slower host isolation, and reduced ransomware containment.
 
-The SOC can identify and respond to attacks, but it does not fully replace EDR because detection occurs after suspicious activity begins. Without EDR, ransomware or malware running on endpoints may have a larger window to spread before analysts can intervene.
+The primary plan keeps stronger endpoint controls, while the Alternative improves detection coverage. The choice depends on whether MedDefense prioritizes prevention at endpoints or faster detection through a SOC.
 
-The primary plan provides stronger defense-in-depth by combining core prevention (EDR), identity protection (MFA), segmentation, and recovery controls. The alternative accepts higher endpoint exposure in exchange for improved monitoring coverage.
-
-**Recommendation:** The primary plan remains the preferred allocation because MedDefense has limited internal security staff and needs both prevention and detection. If a lower cost SOC option becomes available, the alternative could be reconsidered, but management must explicitly accept the trade-off of improved visibility versus weaker endpoint protection.
+The Alternative achieves higher risk reduction at a lower cost than adding a full SOC plus EDR, but management must accept the remaining endpoint exposure.
