@@ -31,30 +31,30 @@ Part 1 – Final Security Investment Selection
 **Budget:** $120000  
 **Budget remaining:** $4,000
 
-This portfolio is funded because it provides the highest combined risk reduction by addressing ransomware entry, lateral movement, data loss, detection gaps, and endpoint compromise.
+This portfolio is funded because it provides the highest risk reduction against ransomware, credential attacks, lateral movement, data loss, and endpoint compromise.
 
 ### Defer
 
 | Control | Reason |
 |---|---|
-| 24/7 Managed SOC | Defer to next fiscal year because SIEM deployment improves visibility first and a SOC requires additional recurring budget. |
-| Full Medical Device Network Isolation | Defer because segmentation reduces immediate exposure while full device isolation requires a larger clinical network redesign. |
+| 24/7 Managed SOC | Defer to next fiscal year because SIEM deployment provides internal visibility first and SOC services create a significant recurring cost. |
+| Full Medical Device Network Isolation | Defer because segmentation reduces immediate exposure while full isolation requires additional clinical network redesign and funding. |
 
 ### Reject
 
 | Control | Reason |
 |---|---|
-| None | All remaining controls provide security value; they are deferred rather than rejected because budget limits prevent immediate implementation. |
+| Full penetration testing program | Reject for the current fiscal year because it provides less immediate risk reduction than preventive controls already selected. With no mature vulnerability management process, the return on investment is lower than funding MFA, backups, SIEM, and segmentation first. |
 
 ================================================================================
 Part 2 – Opportunity Cost
 ================================================================================
 
-By deferring 24/7 Managed SOC, MedDefense accepts an estimated $900,000 in annual risk exposure because delayed detection increases ransomware dwell time and incident impact.
+By deferring 24/7 Managed SOC, MedDefense accepts an estimated $900,000 in annual risk exposure because slower detection increases the potential impact of ransomware and insider incidents.
 
-By deferring Full Medical Device Network Isolation, MedDefense accepts an estimated $300,000 in annual risk exposure because medical devices remain exposed to compromise through the flat network.
+By deferring Full Medical Device Network Isolation, MedDefense accepts an estimated $300,000 in annual risk exposure because medical devices remain exposed through the existing network architecture.
 
-The remaining ALE after funded controls is reduced, but these deferred risks represent the main unresolved exposure areas.
+The remaining ALE after the funded controls is reduced, but these deferred risks represent the main unresolved exposure areas.
 
 ================================================================================
 Part 3 – Alternative Allocation
@@ -74,13 +74,11 @@ Part 3 – Alternative Allocation
 **Alternative spend:** $106,000  
 **Budget remaining:** $14,000
 
-### Comparison
-
 | Plan | Spend | Estimated ALE Risk Reduction |
 |---|---:|---:|
 | Recommended Portfolio with EDR | $116,000 | ~$3.97M/year |
 | Alternative with SOC | $106,000 | ~$3.80M/year |
 
-The Alternative achieves similar risk reduction at a lower cost, but it trades endpoint protection for monitoring. Removing EDR reduces malware prevention, host isolation capability, and ransomware containment speed.
+The Alternative provides similar risk reduction at a lower cost, but replacing EDR with SOC reduces endpoint prevention, malware blocking, and ransomware containment capability. The trade-off is better detection and monitoring versus weaker host-level protection.
 
-Final recommendation: fund the $116,000 portfolio because MedDefense has limited security staff and needs both prevention and recovery controls. The Alternative is acceptable only if management accepts higher endpoint risk in exchange for lower cost.
+Final recommendation: fund the $116,000 portfolio because MedDefense needs stronger prevention and resilience with limited internal security resources. The Alternative is only suitable if management accepts the increased endpoint exposure.
