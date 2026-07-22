@@ -44,7 +44,7 @@ James Chen raises this concern: "Right now, security decisions are made by whoev
 
 ---
 
-# Part 3 – The CISO Question
+# Part 3 – The vacant CISO Question
 
 The absence of a dedicated CISO leaves MedDefense without an executive responsible for cybersecurity governance, enterprise risk management, and Board reporting. James, as Deputy CISO, can coordinate operational security but cannot fully assume strategic leadership while managing daily security activities. Given the fixed **$120,000 annual security budget**, hiring a full-time CISO (typically exceeding the entire available budget) is not financially realistic. A **vCISO** provides executive governance, compliance oversight, risk management, and Board reporting at a much lower annual cost, allowing MedDefense to invest the remaining budget in higher-impact initiatives such as MFA, vulnerability management, SIEM/MDR, and network segmentation. As the security program matures and funding increases, transitioning to a full-time CISO should be reconsidered.
 e's security program matures and the budget increases, transitioning to a full-time CISO can be reconsidered.
