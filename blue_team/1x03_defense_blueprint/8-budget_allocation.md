@@ -53,9 +53,13 @@ Part 1 – Control Selection ($120,000 Budget)
 Part 2 – Opportunity Cost
 ================================================================================
 
-- **Outsourced 24/7 SOC:** By deferring this control, MedDefense accepts an estimated **$950,000/year** of additional residual risk reduction that could have been achieved through faster detection and response.
+Opportunity cost is expressed as the **annual risk exposure (ALE) that remains because a control is not implemented**.
 
-- **Medical Device Network Isolation:** By rejecting this control, MedDefense accepts approximately **$45,000/year** in annual risk exposure because the control is not cost-effective under the current budget.
+- **Outsourced 24/7 SOC:** By deferring this control, MedDefense accepts an estimated **$950,000 in annual risk exposure (ALE)** that could otherwise be reduced through faster detection, containment, and incident response.
+
+- **Medical Device Network Isolation:** By rejecting this control, MedDefense accepts approximately **$45,000 in annual risk exposure (ALE)** associated with medical device compromise because the expected annual loss is lower than the implementation cost.
+
+**Summary:** Deferring the managed SOC leaves the largest amount of residual annual risk ($950,000 ALE) and should be the highest-priority investment in the next fiscal year if additional funding becomes available. The medical device isolation project is intentionally rejected because its annual risk reduction ($45,000 ALE) does not justify its $60,000 implementation cost under MedDefense's fixed $120,000 security budget.
 
 ================================================================================
 Part 3 – Alternative Allocation
