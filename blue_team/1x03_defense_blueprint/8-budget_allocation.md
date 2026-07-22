@@ -72,7 +72,7 @@ Part 3 – Alternative Allocation
 | Dedicated Firewall | $10,000 |
 | Outsourced 24/7 SOC | $39,000 (partial first-year managed service) |
 
-**Total Cost:** $120,000
+**Total Cost:** $120000
 
 **Estimated Total ALE Reduction:** ~$4.99M/year
 
