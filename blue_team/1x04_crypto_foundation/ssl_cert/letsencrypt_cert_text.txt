@@ -1,0 +1,76 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            05:05:bb:29:ef:e3:ee:15:2b:a3:e9:e6:87:28:10:b5:fe:b9
+        Signature Algorithm: ecdsa-with-SHA384
+        Issuer: C=US, O=Let's Encrypt, CN=YE2
+        Validity
+            Not Before: Jul  6 15:24:34 2026 GMT
+            Not After : Oct  4 15:24:33 2026 GMT
+        Subject: CN=letsencrypt.org
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:e1:54:c0:c9:89:29:67:e0:61:3e:38:9a:46:61:
+                    9c:62:eb:19:48:5e:8a:c4:1a:8c:3e:1f:56:32:e7:
+                    97:df:d3:2a:15:ab:21:cf:07:1c:58:76:11:eb:66:
+                    fa:33:7f:e1:4c:87:4b:19:43:5a:6e:f3:f5:68:f9:
+                    97:a9:bb:ca:b7
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                01:EB:C6:26:00:9E:FE:A5:D0:0A:8C:A1:95:94:F5:44:90:36:D1:9E
+            X509v3 Authority Key Identifier: 
+                B9:59:F2:8E:CF:22:F0:86:D3:37:48:FF:76:14:18:BA:82:D8:55:87
+            Authority Information Access: 
+                CA Issuers - URI:http://ye2.i.lencr.org/
+            X509v3 Subject Alternative Name: 
+                DNS:cp.letsencrypt.org, DNS:cp.root-x1.letsencrypt.org, DNS:cps.letsencrypt.org, DNS:cps.root-x1.letsencrypt.org, DNS:lencr.org, DNS:letsencrypt.com, DNS:letsencrypt.org, DNS:www.lencr.org, DNS:www.letsencrypt.com, DNS:www.letsencrypt.org
+            X509v3 Certificate Policies: 
+                Policy: 2.23.140.1.2.1
+            X509v3 CRL Distribution Points: 
+                Full Name:
+                  URI:http://ye2.c.lencr.org/58.crl
+
+            CT Precertificate SCTs: 
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : 94:4E:43:87:FA:EC:C1:EF:81:F3:19:24:26:A8:18:65:
+                                01:C7:D3:5F:38:02:01:3F:72:67:7D:55:37:2E:19:D8
+                    Timestamp : Jul  6 16:23:04.810 2026 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:44:02:20:47:C1:BD:14:0F:10:D4:04:C6:45:83:9D:
+                                EA:99:BB:3E:23:00:7C:57:48:BD:D9:8B:32:49:AB:CF:
+                                53:38:B1:EF:02:20:64:5D:1F:D7:3E:0A:1C:E0:9E:97:
+                                AC:FF:44:D2:ED:74:FE:14:77:9E:1D:B5:2B:F4:D2:F6:
+                                A2:4E:63:0C:87:E7
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : 1A:8B:9D:6B:0F:FE:BF:81:B4:79:39:C6:D2:31:0A:86:
+                                D6:D1:02:D4:F0:46:E2:18:2C:9D:E3:5F:5E:26:25:EF
+                    Timestamp : Jul  6 16:23:05.726 2026 GMT
+                    Extensions: 00:00:05:00:26:D8:5D:88
+                    Signature : ecdsa-with-SHA256
+                                30:46:02:21:00:CC:DE:1C:FC:E4:27:9E:ED:5E:1F:D5:
+                                77:61:9F:3D:12:5D:2E:7E:55:86:3A:1F:FA:C4:27:AE:
+                                72:63:37:4C:89:02:21:00:FD:E9:D2:D8:0B:D0:FC:98:
+                                A8:C2:80:05:E0:BC:20:3F:68:80:C3:B6:55:F1:EB:F1:
+                                13:77:7B:2D:E3:AF:67:D6
+    Signature Algorithm: ecdsa-with-SHA384
+    Signature Value:
+        30:65:02:31:00:bc:39:e9:cd:11:f2:2a:f7:53:d8:17:36:a7:
+        88:22:fd:1d:e2:22:14:c9:d1:07:75:ba:93:3c:72:99:d6:a0:
+        4a:23:d4:28:c2:ea:b8:f5:de:c3:4c:c4:36:d1:9a:98:cd:02:
+        30:69:ff:93:a4:f3:c7:fd:0e:fe:af:a7:ba:10:95:2b:de:1c:
+        16:05:34:79:ab:7f:cc:ed:af:0b:c7:a0:48:9a:4f:67:f6:e0:
+        eb:16:ae:ca:15:c0:85:60:2b:57:85:02:8a
