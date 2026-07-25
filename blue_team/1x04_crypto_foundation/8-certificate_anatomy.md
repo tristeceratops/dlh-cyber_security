@@ -86,16 +86,35 @@ openssl s_client -connect expired.badssl.com:443 -servername expired.badssl.com 
 | Authority Information Access (CA Issuer URL) | http://ye2.i.lencr.org/ | http://crt.sectigo.com/SectigoPublicServerAuthenticationCADVE36.crt | http://crt.comodoca.com/COMODORSADomainValidationSecureServerCA.crt |
 | Notes | Uses ECC P-256 key and is issued by Let's Encrypt YE2. | Uses ECC P-256 key issued by Sectigo. | Uses RSA-2048 key; intentionally expired certificate used for TLS testing. |
 
+## Certificate Field Analysis (Explanation)
+
+The **Subject** field identifies who the certificate belongs to. The Common Name (CN) and Subject Alternative Name (SAN) fields tell browsers which domain names are allowed to use the certificate. The **Issuer** identifies the Certificate Authority (CA) that signed the certificate and confirms which trusted organization verified the certificate.
+
+The **Serial Number** is a unique identifier assigned by the CA to each certificate. It allows certificates to be tracked, managed, and revoked if the private key is compromised or the certificate is no longer trusted.
+
+The **Validity Period** defines when the certificate is trusted. A certificate outside this date range will cause browser warnings because it may no longer be secure or controlled by the original owner.
+
+The **Signature Algorithm** shows how the CA signed the certificate. It proves that the certificate was issued by a trusted CA and that the certificate data has not been modified. Modern algorithms such as ECDSA with SHA-256/SHA-384 provide stronger security than older algorithms.
+
+The **Public Key Algorithm and Key Size** define the cryptographic strength of the certificate. ECC P-256 provides strong security with smaller keys, while RSA-2048 is still widely accepted but requires larger keys.
+
+The **SAN extension** lists all domain names covered by the certificate. Browsers mainly use SAN instead of CN to verify that the website address matches the certificate. If the requested website is not included in SAN, the browser will show a certificate mismatch warning.
+
+The **Key Usage** field limits what the certificate key can be used for, such as creating digital signatures or encrypting data. The **Extended Key Usage (EKU)** specifies the purpose more precisely, such as TLS Web Server Authentication, preventing certificates from being misused for other purposes.
+
+The **Authority Information Access (AIA)** extension provides information about the CA, including OCSP URLs used to check whether a certificate has been revoked and CA Issuer URLs to download the issuing certificate.
+
+
 ## Part 2
 
-The badssl.com certificate is invalid because it expired on April 12, 2015, so browsers no longer trust it. A browser would display an error such as "Your connection is not private" or "NET::ERR_CERT_DATE_INVALID". This creates a risk because users cannot confirm they are connecting to the legitimate website, allowing possible man-in-the-middle attacks. I would not advise a patient to continue to a healthcare portal showing this warning because sensitive medical and personal information could be exposed.
+The badssl.com certificate is invalid because it expired on April 12, 2015, meaning it is outside its validity period. A browser would display an error such as "Your connection is not private" or "NET::ERR_CERT_DATE_INVALID". This creates a risk because the browser cannot confirm that the certificate is still trustworthy, increasing the chance of a man-in-the-middle attack. I would not advise a patient to continue to a healthcare portal showing this warning because medical information and login credentials could be exposed.
 
 ## Part 3
 
-MedDefense's patient portal should use an OV (Organization Validation) certificate because it confirms that the website belongs to the real MedDefense organization, which is important for a healthcare portal handling patient data.
+MedDefense's patient portal should use an **OV (Organization Validation)** certificate because it provides confirmation that the certificate belongs to the real MedDefense organization, which is important for a healthcare service handling patient information.
 
-The certificate should be issued by a trusted CA such as DigiCert, Sectigo, or Let's Encrypt so that browsers and patients can trust it. The SAN entries should include the official portal address, for example portal.meddefense.com.
+The certificate should be issued by a trusted CA such as DigiCert, Sectigo, or Let's Encrypt because browsers already trust these authorities. The SAN entries should include only the official portal domains, for example `portal.meddefense.com`.
 
-The certificate should use ECC P-256 or RSA-2048 because both provide strong security and good performance. The validity period should be short (around 90 days to 1 year) with automatic renewal to avoid expired certificates like the badssl.com example.
+The certificate should use **ECC P-256** or **RSA-2048** because they provide strong security with good performance. The validity period should be short (around 90 days to 1 year) with automatic renewal to reduce the risk of expired certificates.
 
-A single-domain certificate is better than a wildcard certificate because it limits the damage if the private key is stolen. A wildcard certificate would protect many subdomains, but a compromise would affect more systems.
+A **single-domain certificate** is more appropriate than a wildcard certificate because it limits exposure. If the private key is compromised, only the patient portal is affected instead of every subdomain covered by a wildcard certificate.
