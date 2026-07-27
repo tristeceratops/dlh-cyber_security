@@ -12,7 +12,7 @@ KEY_DIR="./private"
 CSR_DIR="./csr"
 
 CONFIG_FILE="./openssl-san.cnf"
-KEY_FILE="$KEY_DIR/portalkey.pem"
+KEY_FILE="$KEY_DIR/portal_key.pem"
 CSR_FILE="$CSR_DIR/portal.csr"
 
 echo "=== MedDefense CSR Generation ==="
