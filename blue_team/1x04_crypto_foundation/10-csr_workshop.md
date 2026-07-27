@@ -110,20 +110,20 @@ Generate a Certificate Signing Request (CSR) on the web server using the server'
 #### Step 2 – Submission to CA
 Submit the CSR to a trusted Certificate Authority (CA). For MedDefense, Let's Encrypt is recommended because it is free, trusted by all major browsers, and supports automatic certificate management through ACME. A commercial CA may be used if required by organizational policy.
 
-#### Step 3 – Complete the Validation Process
+#### Step 3 – Validation process
 Complete the validation process requested by the CA. If using Let's Encrypt, perform the required ACME challenge (HTTP-01 or DNS-01) to prove ownership of the domain. Wait for the CA to successfully validate the request.
 
-#### Step 4 – Obtain the Certificate
+#### Step 4 – Certificate issuance
 After validation is complete, download the issued SSL/TLS certificate along with the required intermediate certificate(s). Check that the certificate contains the correct CN, SANs, issuing CA, and expiration date.
 
-#### Step 5 – Install the Certificate
+#### Step 5 – Installation on the web server
 Copy the new certificate and the CA certificate chain to the public web server (web-srv-01). Configure the web server to use the new certificate together with the existing private key, then reload or restart the web server to apply the changes.
 
-#### Step 6 – Verify the Installation
+#### Step 6 – Verification that the new certificate is serving correctly
 Access the patient portal using HTTPS and confirm that the new certificate is being presented. Verify that the browser reports the connection as secure, the certificate chain is valid, and the CN and SANs match the expected hostnames.
 
-#### Step 7 – Remove the Old Certificate
+#### Step 7 – Decommission of the old certificate
 Once the new certificate has been verified, remove the old certificate from the web server configuration. Archive the old certificate if required by organizational policy and securely delete any private keys that are no longer needed.
 
-#### Step 8 – Monitor and Renew
+#### Step 8 – Monitoring for the next renewal
 Monitor the certificate's expiration date and renew it before it expires. If using Let's Encrypt, ensure the ACME client performs automatic renewals every 90 days and periodically verify that the renewal process completes successfully.
