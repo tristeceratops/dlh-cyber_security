@@ -2,7 +2,7 @@
 
 # 12-luks_manager.sh
 # Usage:
-#   sudo ./12-luks_manager.sh create <size>
+#   sudo ./12-luks_manager.sh create
 #   sudo ./12-luks_manager.sh open
 #   sudo ./12-luks_manager.sh close
 
@@ -11,31 +11,34 @@ set -e
 VOLUME="encrypted_volume.img"
 MAPPER="secure_vol"
 MOUNT_POINT="/mnt/secure_vol"
+SIZE="500"
 
 case "$1" in
 
 create)
-    if [ -z "$2" ]; then
-        echo "Usage: sudo $0 create <size>"
-        echo "Example: sudo $0 create 100M"
-        exit 1
-    fi
+    echo "[+] Creating a ${SIZE}MB file to use as a virtual disk..."
 
-    echo "[+] Creating encrypted volume of size $2..."
+    # Create 500MB file using dd
+    dd if=/dev/zero of="$VOLUME" bs=1M count="$SIZE" status=progress
 
-    # Create empty file
-    fallocate -l "$2" "$VOLUME"
+    echo "[+] Formatting file with LUKS encryption..."
 
-    # Format as LUKS
+    # Format with LUKS
     cryptsetup luksFormat "$VOLUME"
 
-    echo "[+] Opening LUKS volume..."
+    echo "[+] Opening encrypted volume..."
+
+    # Open the encrypted volume
     cryptsetup luksOpen "$VOLUME" "$MAPPER"
+
+    echo "[+] Creating ext4 filesystem..."
 
     # Create filesystem
     mkfs.ext4 "/dev/mapper/$MAPPER"
 
-    # Close after creation
+    echo "[+] Closing encrypted volume..."
+
+    # Unmount and close
     cryptsetup luksClose "$MAPPER"
 
     echo "[+] LUKS volume created successfully."
@@ -44,20 +47,29 @@ create)
 open)
     echo "[+] Opening encrypted volume..."
 
+    # Open the encrypted volume
     cryptsetup luksOpen "$VOLUME" "$MAPPER"
 
+    # Create mount point
     mkdir -p "$MOUNT_POINT"
 
+    echo "[+] Mounting encrypted filesystem..."
+
+    # Mount volume
     mount "/dev/mapper/$MAPPER" "$MOUNT_POINT"
 
     echo "[+] Volume mounted at $MOUNT_POINT"
     ;;
 
 close)
-    echo "[+] Closing encrypted volume..."
+    echo "[+] Unmounting encrypted volume..."
 
+    # Unmount filesystem
     umount "$MOUNT_POINT"
 
+    echo "[+] Closing LUKS volume..."
+
+    # Close encrypted volume
     cryptsetup luksClose "$MAPPER"
 
     echo "[+] Volume unmounted and closed."
@@ -65,7 +77,7 @@ close)
 
 *)
     echo "Usage:"
-    echo "  sudo $0 create <size>"
+    echo "  sudo $0 create"
     echo "  sudo $0 open"
     echo "  sudo $0 close"
     exit 1
