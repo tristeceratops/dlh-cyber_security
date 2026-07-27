@@ -14,7 +14,7 @@ Before you touch production, you practice on a safe target: a loop device on you
 
 ### Part 1
 ```bash
-dd if=/dev/zero of=encrypted_volume.img bs=1M count=500
+ dd if=/dev/zero of=encrypted_volume.img bs=1M count=500
 500+0 records in
 500+0 records out
 524288000 bytes (524 MB, 500 MiB) copied, 2.80282 s, 187 MB/s
