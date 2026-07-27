@@ -57,16 +57,12 @@ This is a test file for LUKS encryption.
 cat /mnt/secure_vol/test.txt
 This is a test file for LUKS encryption.
 
-sudo cryptsetup luksClose secure_vol
-Device secure_vol is still in use.
-
 sudo umount /mnt/secure_vol
 
 sudo cryptsetup luksClose secure_vol
 ```
 
 ### Part 2
-unmount:
 
 ```bash
 strings encrypted_volume.img | head -50
@@ -120,10 +116,9 @@ c1QC
 svwq
 <ZN{M
         [y\
-```
 
-mount:
-```bash
+sudo mount /dev/mapper/secure_vol /mnt/secure_vol
+
 strings encrypted_volume.img | head -50          
 LUKS
 sha256
