@@ -107,7 +107,7 @@ SANs are present (`DNS:portal.meddefense.local, DNS:login.meddefense.local, DNS:
 #### Step 1 – Generate the CSR
 Generate a Certificate Signing Request (CSR) on the web server using the server's private key. Verify that the CSR contains the correct Common Name (CN) and all required Subject Alternative Names (SANs) before continuing.
 
-#### Step 2 – Submit the CSR to the Certificate Authority
+#### Step 2 – Submission to CA
 Submit the CSR to a trusted Certificate Authority (CA). For MedDefense, Let's Encrypt is recommended because it is free, trusted by all major browsers, and supports automatic certificate management through ACME. A commercial CA may be used if required by organizational policy.
 
 #### Step 3 – Complete the Validation Process
