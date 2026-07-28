@@ -10,31 +10,88 @@ The patient portal certificate is a symptom, not the disease. The disease is tha
 
 ## Answer
 
-# MedDefense Cryptographic Attack Analysis
+# MedDefense Certificate Lifecycle Management Plan
 
-| Attack | Mechanism | MedDefense Vulnerability | Evidence | Viable Today | Mitigation |
-|---|---|---|---|---|---|
-| TLS Downgrade (forcing TLS 1.0 on patient portal) | An attacker forces a client and server to negotiate an older TLS version instead of a secure protocol. TLS 1.0 contains weaknesses that allow downgrade attacks and weaker encryption negotiation. | Patient portal/web server still supports TLS 1.0, allowing attackers to target outdated cryptographic protocols. | Finding 005: TLS 1.0 support enables deprecated cryptographic protocols. Gap-023: Patient portal allows legacy TLS configuration. | **Yes.** An attacker with network visibility could attempt downgrade attacks against users connecting to the portal. | Disable TLS 1.0/1.1 completely. Require TLS 1.2 or TLS 1.3 using AES-256-GCM or ChaCha20-Poly1305 cipher suites. Automate certificate renewal (Finding 013). |
-| Collision Attack (MD5 in Kerberos tickets) | A collision attack creates two different inputs that produce the same hash value. Because MD5 is mathematically broken, attackers can generate matching hashes and bypass integrity assumptions. | Legacy authentication systems may still rely on weak hashing algorithms. MedDefense has outdated cryptographic configurations that allow insecure algorithms. | Crypto audit: MD5 is deprecated. Finding 018 identified weak Kerberos encryption types (DES/RC4), although MD5 specifically is not recommended for security use. | **No/Low.** MD5 collision attacks are generally not the direct attack path against current Kerberos, but any remaining MD5 use creates unnecessary cryptographic weakness. | Remove MD5 from all systems. Use SHA-256/SHA-3 for integrity checks and modern AES-based Kerberos encryption. |
-| Birthday Attack (hash collision probability) | A birthday attack exploits the mathematics behind hash collisions. The probability of finding two matching hashes increases much faster than expected because attackers compare many possible combinations (approximately 2^(n/2) attempts for an n-bit hash). | MedDefense legacy systems using weak hashes could become vulnerable to forged integrity checks or certificates. | Crypto analysis: MD5 and SHA-1 are deprecated due to practical collision attacks. Legacy systems should not depend on them. | **Mostly No.** Current MedDefense systems using SHA-256/AES are not realistically vulnerable, but legacy applications could be exposed. | Replace MD5/SHA-1 with SHA-256 or SHA-3. Require modern certificate signatures and integrity validation methods. |
-| Kerberoasting (RC4/DES Kerberos cracking) | Attackers request Kerberos service tickets and extract encrypted ticket material. They then perform offline password cracking against weak Kerberos encryption types such as RC4 or DES. | Active Directory allows legacy Kerberos encryption types. Weak service account passwords could allow attackers to recover credentials offline. | Finding 018: Weak Kerberos encryption types (DES and RC4) enabled. Data Protection Map: Credentials protected by NT hashes and legacy Kerberos options. | **Yes.** Attackers with domain access could request tickets and attempt offline cracking. | Disable DES and RC4 Kerberos encryption. Require AES-128/AES-256 Kerberos. Enforce strong service account passwords and monitor abnormal ticket requests. |
-| On-path/MITM on unencrypted channels (DICOM/MySQL/PostgreSQL) | An attacker positioned on the network intercepts plaintext traffic, reads sensitive information, or modifies communications before they reach the destination. | PACS DICOM traffic is unencrypted. MySQL connections are plaintext. PostgreSQL allows non-SSL connections through hostnossl rules. | Finding 024: DICOM traffic without TLS encryption. Finding 003: PostgreSQL insecure access configuration. Crypto audit: MySQL SSL not enforced. | **Yes.** A compromised internal device on MedDefense's flat network could capture patient or financial data. | Encrypt all sensitive communications using TLS 1.2/1.3. Enable DICOM TLS with AES-GCM. Require PostgreSQL/MySQL SSL connections and remove plaintext communication paths. |
-| Key Recovery from Memory (AES keys in RAM) | If an attacker gains administrator/root privileges, they may dump system memory and search for encryption keys temporarily stored by running applications. Disk encryption does not protect data while it is actively decrypted in memory. | If billing-srv-01 is compromised, attackers with root access may inspect MySQL processes and recover encryption keys from memory. | Risk 4: Billing Server Ransomware. Finding 001: Billing server compromise path. Data Protection Map: Billing data has no in-use encryption protection. | **Yes.** Root compromise provides sufficient privileges to inspect memory and running processes. | Reduce privileged access, deploy EDR, enable database key isolation through KMS/HSM, rotate keys regularly, patch billing systems, and limit administrator access. For high-value keys, use HSM-backed storage so keys are not directly exposed in application memory. |
+## 1. Certificate Inventory
 
-# Top Cryptographic Priorities for MedDefense
+| Certificate | Current Issuer | Estimated Expiration | Responsible Owner | Purpose |
+|---|---|---|---|---|
+| Patient Portal TLS Certificate | Public CA (unknown; Finding 013 indicates certificate management weakness) | Unknown / potentially expiring soon | IT Director Sarah Park | Protects patient portal HTTPS connections and PHI submitted by ~800 daily patients |
+| EHR Internal TLS Certificate (ehr-db-01 / ehr-srv-01) | Internal CA or self-signed (needs validation) | Unknown | Clinical Data Owner + Deputy CISO James Chen | Encrypts EHR application and PostgreSQL database communications |
+| VPN Gateway Certificate (FortiGate VPN) | Public CA or vendor certificate | Unknown | IT Director Sarah Park | Authenticates remote access VPN connections |
+| PACS/DICOM TLS Certificate | Not currently deployed (Finding 024: DICOM traffic unencrypted) | N/A | Radiology Department Head + Clinical Engineering | Required to encrypt medical image transfers |
+| Email Signing Certificate (S/MIME) | Not currently deployed | N/A | Microsoft 365 Administrator | Provides signed and encrypted email for sensitive PHI communication |
+| Code Signing Certificate | Not currently deployed | N/A | Development/Application Owner | Signs internal applications/scripts to verify integrity before deployment |
+| Backup System Certificate (NAS-01) | Unknown / likely self-managed | Unknown | IT Operations Manager | Secures backup management interfaces and encrypted backup communication |
+| Medical Device Certificates (MRI, BD Alaris Pumps) | Manufacturer/vendor CA | Vendor-controlled | Clinical Engineering Manager | Supports device authentication and secure firmware communication |
 
-1. **Encrypt patient and financial communications**
-   - Addresses Finding 024 (DICOM plaintext traffic) and MySQL/PostgreSQL plaintext connections.
-   - Prevents internal attackers from intercepting PHI and financial information.
+# 2. Auto-Renewal Strategy
 
-2. **Remove weak authentication cryptography**
-   - Addresses Finding 018 (Kerberos DES/RC4).
-   - Prevents Kerberoasting and credential compromise.
+| Certificate Type | Recommended Approach | Reason |
+|---|---|---|
+| Patient Portal | Commercial CA with ACME automation | The portal handles patient PHI and serves 800 daily users. A certificate expiration would immediately block access to healthcare services, create patient disruption, and damage trust. A commercial CA provides stronger validation, support, and automated renewal reduces expiration risk. |
+| Internal EHR Services | Internal CA + automated renewal | Internal systems do not require public trust. MedDefense controls the CA and can automate renewal through enterprise certificate management. |
+| VPN Certificate | Commercial CA + automated renewal | VPN access protects remote healthcare operations. Expiration could prevent clinicians and administrators from accessing systems during emergencies. |
+| PACS/DICOM Certificates | Internal CA + automated renewal | These are internal medical workflows and require trusted encryption rather than public internet validation. |
+| Email Signing Certificates | Commercial CA | Email trust requires compatibility with external organizations and healthcare partners. |
+| Code Signing Certificate | Commercial CA | Signed software requires external trust validation to prove application authenticity. |
 
-3. **Strengthen encryption key protection**
-   - Addresses EHR, billing, and backup encryption requirements.
-   - Prevents attackers with administrator access from easily recovering encryption keys.
+Recommended Standard:
+- Use ACME automation wherever technically supported.
+- Use commercial CA certificates for internet-facing and externally trusted systems.
+- Use MedDefense Internal CA for internal infrastructure.
 
-# Overall Assessment
+# 3. Monitoring and Alerting
 
-MedDefense's strongest cryptographic risk is not broken modern encryption algorithms but incorrect deployment: plaintext databases, unencrypted medical traffic, and legacy authentication settings create avoidable exposure. Modern algorithms such as AES-256, SHA-256, and TLS 1.3 should be combined with proper key management to reduce the impact of system compromise.
+Monitoring System:
+- Deploy certificate monitoring through SIEM/MDR platform.
+- Integrate with Microsoft Defender, FortiGate monitoring, and internal certificate management tools.
+- Maintain a centralized certificate inventory database.
+
+| Alert Threshold | Action | Notification Recipient |
+|---|---|---|
+| 90 days before expiration | Early warning; renewal process begins | IT Operations Manager |
+| 60 days before expiration | Renewal must be scheduled | Certificate Owner + IT Operations Manager |
+| 30 days before expiration | Escalation; renewal becomes priority task | IT Director Sarah Park + Certificate Owner |
+| 7 days before expiration | Critical escalation; immediate remediation required | Deputy CISO James Chen + IT Director + System Owner |
+| Expired | Incident response process begins | Security Team + Business Owner |
+
+Key Performance Indicator:
+- 100% of production certificates tracked.
+- 0 unexpected certificate expirations.
+- Renewal completed at least 30 days before expiration.
+
+# 4. MedDefense Certificate Policy Rules
+
+1. All production systems must use certificates issued by a trusted public CA or the MedDefense internal CA.
+   Self-signed certificates are prohibited in production environments.
+
+2. All certificates must be recorded in the centralized certificate inventory with:
+   - owner,
+   - purpose,
+   - issuer,
+   - expiration date,
+   - renewal process.
+
+3. Internet-facing systems, including the patient portal and VPN gateway, must use automated certificate renewal whenever supported.
+
+4. Certificate private keys must be protected using approved key management controls.
+   High-value keys (EHR encryption, VPN, signing certificates) must use KMS or HSM-backed storage when possible.
+
+5. Certificates must be renewed before expiration.
+   Systems with certificates expiring within 30 days require priority remediation and owner notification.
+
+# MedDefense Priority Actions
+
+1. Replace the current patient portal certificate management process.
+   - Finding 013 identified certificate expiration and renewal weaknesses.
+   - Implement automated monitoring and renewal.
+
+2. Deploy TLS certificates for currently unencrypted medical communication.
+   - Address Finding 024 by enabling DICOM TLS for PACS.
+
+3. Create centralized certificate ownership.
+   - Every certificate must have a named technical owner and business owner.
+
+Expected Result:
+MedDefense moves from reactive certificate management to a controlled lifecycle process that prevents outages, protects PHI, and supports HIPAA security requirements.
