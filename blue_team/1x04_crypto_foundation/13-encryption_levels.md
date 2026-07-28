@@ -35,12 +35,14 @@ Choosing the wrong level either leaves data exposed or creates operational probl
 
 ## MedDefense Encryption Level Map
 
-| Data Store | Recommended Level | Justification |
-|------------|-------------------|---------------|
-| Patient records (ehr-db-01) | Database + Record | Encrypt the database and sensitive PHI fields for HIPAA compliance. |
-| Backup data (NAS-01) | Full-disk | Protects all backup data if the NAS is stolen or compromised. |
-| Financial records (billing-srv-01) | Database | Secures MySQL financial data while maintaining application performance. |
-| Medical images (pacs-srv-01) | Volume | Efficiently protects large imaging repositories across storage volumes. |
-| Email data (O365) | File | Microsoft 365 encrypts individual mailbox content and attachments. |
-| Employee laptops | Full-disk | Prevents data exposure from lost or stolen laptops. |
-| BD Alaris pump firmware/configuration | File | Protects firmware and configuration files from unauthorized modification. |
+## MedDefense Encryption Level Map
+
+| MedDefense Data Store | Encryption Level | Justification |
+|-----------------------|------------------|---------------|
+| **PostgreSQL (ehr-db-01) – Patient Records** | **Database + Record** | Use database encryption for all data and record/field encryption for highly sensitive PHI (e.g., SSNs, diagnoses) to meet HIPAA requirements. |
+| **NAS-01 – Backup Data** | **Full-disk** | Encrypt the entire backup repository so all stored backups remain protected if the NAS is stolen or accessed without authorization. |
+| **MySQL (billing-srv-01) – Financial Records** | **Database** | Database encryption protects all billing and financial data while maintaining application performance and centralized key management. |
+| **PACS (pacs-srv-01) – Medical Images** | **Volume** | PACS stores very large imaging datasets, so volume encryption secures the entire image repository with lower overhead than file-level encryption. |
+| **Microsoft 365 (Email Data)** | **Database** | Exchange Online stores mailbox data in encrypted databases, making database-level encryption the most appropriate protection for email at rest. |
+| **Employee Laptops** | **Full-disk** | Full-disk encryption (e.g., BitLocker) protects all local data if a laptop is lost or stolen. |
+| **BD Alaris Pump Firmware / Configuration** | **File** | Encrypt and digitally protect firmware/configuration files so only authorized updates and configurations can be installed on the devices. |
