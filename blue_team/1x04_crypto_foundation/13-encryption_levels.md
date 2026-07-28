@@ -12,28 +12,34 @@ Choosing the wrong level either leaves data exposed or creates operational probl
 
 ## Answer
 
-## Encryption Levels Comparison
+### Encryption Levels Comparison
 
 | Level | Scope | Performance Impact | Key Management | Use Case |
 |-------|-------|--------------------|----------------|----------|
-| Full-disk | Entire physical/virtual disk | Low | One key per disk/device (TPM/BitLocker/LUKS) | Protects lost or stolen devices |
-| Partition | One logical partition | Low | One key per partition | Protects specific OS or data partitions |
-| Volume | Logical volume (may span disks) | Low-Medium | One key per volume | Encrypts storage pools or server volumes |
-| File | Individual files | Medium | Per file or user keys | Protects selected sensitive documents |
-| Database | Entire database or tablespace | Medium | Database-managed keys/KMS | Protects structured application data |
-| Record | Individual fields or records | High | Fine-grained application/KMS keys | Protects highly sensitive data such as PHI or PII |
+| Full-disk | Entire physical or virtual disk | Low impact because encryption is applied at the storage layer and is usually hardware-assisted | Usually one main key per device managed through TPM, BitLocker, LUKS, or enterprise key management | Protects complete devices such as laptops and servers against data exposure if the hardware is lost, stolen, or removed from service |
+| Partition | One logical partition on a disk | Low impact because only the selected partition is encrypted instead of the entire disk | Separate encryption key managed for each protected partition | Useful when an organization needs to isolate and protect a specific operating system or sensitive data partition while leaving other partitions accessible |
+| Volume | A logical storage volume that may combine multiple disks | Low to medium impact depending on storage size and encryption method | Encryption key managed per volume, often integrated with enterprise storage or cloud key management systems | Better than partition encryption for servers, storage arrays, and virtual environments where data is organized into large shared storage volumes |
+| File | Individual files or groups of files | Medium impact because encryption and decryption occur each time protected files are accessed or shared | Keys may be assigned per file, user, group, or managed through enterprise rights management systems | Best when only specific documents require protection, especially when files must be securely shared without encrypting the entire storage location |
+| Database | Entire database, tables, or database structures | Medium impact because encryption occurs during database operations, but modern systems optimize performance | Keys are usually managed through database encryption features, KMS, or enterprise key management platforms | Better than file encryption for applications storing structured sensitive information because it protects large amounts of organized data while allowing normal application access |
+| Record | Individual fields, rows, or specific records inside a database | Highest impact because each protected element requires additional encryption and access processing | Requires detailed key management, often with application-level encryption and separate keys for sensitive fields | Best for extremely sensitive information such as medical diagnoses, financial identifiers, or personal data where only specific values require stronger protection |
 
-**Best choice:**
-- **Full-disk:** Best for laptops and servers to protect data if the device is stolen.
-- **Partition:** Best when only one partition requires encryption without affecting the whole disk.
-- **Volume:** Best for shared storage or virtualized environments with multiple disks.
-- **File:** Best when only selected files need protection or secure sharing.
-- **Database:** Best for enterprise databases containing sensitive business or healthcare data.
-- **Record:** Best when only the most sensitive fields (e.g., SSNs or diagnoses) require extra protection.
+### When Each Level Is the Better Choice
+
+- **Full-disk encryption:** The best option when the main concern is physical loss or theft because it protects everything on the device with minimal management complexity, making it preferable to file-level protection for laptops and portable systems.
+
+- **Partition encryption:** A better choice than full-disk encryption when only a dedicated area requires protection, such as separating sensitive data from a standard operating system partition while reducing unnecessary encryption overhead.
+
+- **Volume encryption:** More suitable than partition encryption for enterprise servers and storage systems because it protects large-scale data repositories while supporting flexible storage expansion and virtualization.
+
+- **File encryption:** Preferred over database or volume encryption when only selected documents need confidentiality, such as protecting exported patient reports or financial documents that must be shared securely.
+
+- **Database encryption:** Usually the strongest balance for healthcare and business applications because it protects structured data at rest without requiring every user or application to manage encrypted individual files.
+
+- **Record encryption:** The strongest and most targeted option because it protects only the highest-value information, but it is usually reserved for extremely sensitive fields due to higher complexity, performance cost, and key management requirements.
 
 ---
 
-## MedDefense Encryption Level Map
+### MedDefense Encryption Level Map
 
 | MedDefense Data Store | Recommended Encryption Level | Justification |
 |-----------------------|------------------------------|---------------|
