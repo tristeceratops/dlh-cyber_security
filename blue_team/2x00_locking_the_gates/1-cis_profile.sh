@@ -40,7 +40,7 @@ jq -n '
       threat_mapping: [
         "MITRE ATT&CK: T1110 (Brute Force)"
       ],
-      implementation_task: "Edit `/etc/login.defs` and configure `PASS_MAX_DAYS` with a value greater than `0` according to the local security policy. The CIS Benchmark recommends `365`.",
+      implementation_task: "PAM control, Edit `/etc/login.defs` and configure `PASS_MAX_DAYS` with a value greater than `0` according to the local security policy. The CIS Benchmark recommends `365`.",
       verification_method: "Run `grep -Pi -- \"^\\h*PASS_MAX_DAYS\\h+\\d+\\b\" /etc/login.defs` and verify the value is set to `365`.",
       justification: "Limiting password lifetime reduces the window of opportunity for attackers to exploit compromised credentials. Regular password rotation decreases the impact of credential theft while remaining aligned with CIS recommendations."
     },
@@ -212,7 +212,7 @@ jq -n '
     ],
     "implementation_task": "Configure a restrictive default umask value. Edit `/etc/login.defs`, `/etc/profile`, and shell configuration files to set `umask 027` or stricter according to organizational policy.",
     "verification_method": "Run `grep -R \"umask\" /etc/login.defs /etc/profile /etc/bash.bashrc` and verify that the configured value is 027 or more restrictive.",
-    "justification": "A restrictive umask prevents newly created files and directories from being readable or writable by unauthorized users, reducing accidental data exposure."
+    "justification": "A restrictive umask prevents newly created files and directories from being readable or writable by unauthorized users, reducing accidental data exposure and assuring filesystem permission for every user."
     }
   ],
 }
