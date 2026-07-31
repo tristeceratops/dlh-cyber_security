@@ -27,7 +27,7 @@ jq -n '
       threat_mapping: [
         "MITRE ATT&CK: T1003 (OS Credential Dumping)"
       ],
-      implementation_task: "Inside `/etc/sysctl.d/`, edit or create a `.conf` file and add the following line: `fs.suid_dumpable = 0`. Apply the change with `sysctl --system`.",
+      implementation_task: "Kernel control, inside `/etc/sysctl.d/`, edit or create a `.conf` file and add the following line: `fs.suid_dumpable = 0`. Apply the change with `sysctl --system`.",
       verification_method: "Run `sysctl fs.suid_dumpable` and verify the value is set to `0`.",
       justification: "Core dumps may contain sensitive information such as passwords, cryptographic keys, or other confidential data stored in memory. Disabling setuid core dumps reduces the risk of credential disclosure."
     },
@@ -218,4 +218,24 @@ jq -n '
 }
 ' > "$filename"
 
-echo "Profile successfully generated: $filename"
+
+echo ""
+echo "CIS Profile Generation Summary"
+echo "=============================="
+
+controls=$(jq '.controls | length' cis_profile.json)
+critical=$(jq '[.controls[] | select(.severity=="critical")] | length' cis_profile.json)
+high=$(jq '[.controls[] | select(.severity=="high")] | length' cis_profile.json)
+medium=$(jq '[.controls[] | select(.severity=="medium")] | length' cis_profile.json)
+
+sections=$(jq '[.controls[].cis_section[]] | unique | length' cis_profile.json)
+
+tasks=$(jq '[.controls[] | select(.implementation_task != null and .implementation_task != "")] | length' cis_profile.json)
+
+echo "Controls selected: $controls"
+echo "Critical: $critical"
+echo "High: $high"
+echo "Medium: $medium"
+echo "CIS sections covered: $sections"
+echo "Mapped implementation tasks: $tasks"
+echo "Report saved to: $filename"
