@@ -27,7 +27,7 @@ jq -n '
       threat_mapping: [
         "MITRE ATT&CK: T1003 (OS Credential Dumping)"
       ],
-      implementation_task: "Kernel control, inside `/etc/sysctl.d/`, edit or create a `.conf` file and add the following line: `fs.suid_dumpable = 0`. Apply the change with `sysctl --system`.",
+      implementation_task: "kernel control, inside `/etc/sysctl.d/`, edit or create a `.conf` file and add the following line: `fs.suid_dumpable = 0`. Apply the change with `sysctl --system`.",
       verification_method: "Run `sysctl fs.suid_dumpable` and verify the value is set to `0`.",
       justification: "Core dumps may contain sensitive information such as passwords, cryptographic keys, or other confidential data stored in memory. Disabling setuid core dumps reduces the risk of credential disclosure."
     },
