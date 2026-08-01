@@ -12,6 +12,18 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1078 (Valid Accounts)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "SSH-7408"
+	      ],
+	      "keywords":
+	      [
+		  "SSH",
+		  "PermitRootLogin",
+		  "hardening SSH configuration"
+	      ]
+      },
       "implementation_task": "Set `PermitRootLogin no` in `/etc/ssh/sshd_config` or a configuration file under `/etc/ssh/sshd_config.d/`, then reload the SSH daemon.",
       "verification_method": "Run `sshd -T | grep permitrootlogin`. The output must be `permitrootlogin no`.",
       "justification": "Disabling direct root logins over SSH forces administrators to authenticate with individual user accounts before using privilege escalation (for example, `sudo`). This improves accountability, provides an audit trail, and reduces the risk associated with direct root credential compromise."
@@ -27,6 +39,20 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1003 (OS Credential Dumping)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "KRNL-6000"
+	      ],
+	      "keywords":
+	      [
+		      "core dump",
+		      "suid_dumpable",
+		      "sysctl",
+		      "fs.suid_dumpable"
+	      ]
+      },
+
       "implementation_task": "Inside `/etc/sysctl.d/`, edit or create a `.conf` file and add the following line: `fs.suid_dumpable = 0`. Apply the change with `sysctl --system`.",
       "verification_method": "Run `sysctl fs.suid_dumpable` and verify the value is set to `0`.",
       "justification": "Core dumps may contain sensitive information such as passwords, cryptographic keys, or other confidential data stored in memory. Disabling setuid core dumps reduces the risk of credential disclosure."
@@ -43,6 +69,22 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1110 (Brute Force)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "AUTH-9282",
+		      "AUTH-9286"
+	      ],
+	      "keywords":
+	      [
+		  "expire dates",
+		  "password age",
+		  "minimum password age",
+		  "maximum password age",
+		  "login.defs"
+	      ]
+      },
+
       "implementation_task": "Edit `/etc/login.defs` and configure `PASS_MAX_DAYS` with a value greater than `0` according to the local security policy. The CIS Benchmark recommends `365`.",
       "verification_method": "Run `grep -Pi -- \"^\\h*PASS_MAX_DAYS\\h+\\d+\\b\" /etc/login.defs` and verify the value is set to `365`.",
       "justification": "Limiting password lifetime reduces the window of opportunity for attackers to exploit compromised credentials. Regular password rotation decreases the impact of credential theft while remaining aligned with CIS recommendations."
@@ -59,6 +101,19 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1021.001 (Remote Services: Remote Desktop Protocol/Remote Login)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "DEB-0880"
+	      ],
+	      "keywords":
+	      [
+		  "telnet",
+		  "remote services",
+		  "hardening SSH configuration"
+	      ]
+      },
+
       "implementation_task": "Remove Telnet clients by running `apt purge telnet inetutils-telnet`.",
       "verification_method": "Run `dpkg-query -s telnet >/dev/null 2>&1 && echo 'telnet package is installed'` and `dpkg-query -s inetutils-telnet >/dev/null 2>&1 && echo 'inetutils-telnet package is installed'`. No output should be returned.",
       "justification": "The Telnet protocol transmits all communications, including credentials, in clear text. SSH provides encrypted communications and should be used instead."
@@ -75,6 +130,20 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1098 (Account Manipulation)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "ACCT-9630"
+	      ],
+	      "keywords":
+	      [
+		  "audit daemon",
+		  "audit rules",
+		  "/etc/group",
+		  "identity"
+	      ]
+      },
+
       "implementation_task": "Create or edit a file ending with `.rules` under `/etc/audit/rules.d/` and add the rule `-w /etc/group -p wa -k identity`. Load the new rules with `augenrules --load`.",
       "verification_method": "Run `auditctl -l | grep /etc/group` and `grep /etc/group /etc/audit/rules.d/*.rules`. The configured audit rule must be present in both outputs.",
       "justification": "Monitoring modifications to `/etc/group` helps detect unauthorized privilege changes or account manipulation attempts. Such events are valuable indicators of compromise and support forensic investigations."
@@ -91,6 +160,20 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1110 (Brute Force)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "SSH-7408"
+	      ],
+	      "keywords":
+	      [
+		  "MaxAuthTries",
+		  "SSH",
+		  "authentication attempts",
+		  "hardening SSH configuration"
+	      ]
+      },
+
       "implementation_task": "Edit `/etc/ssh/sshd_config` (or a file under `/etc/ssh/sshd_config.d/`) and set `MaxAuthTries 3`. Reload the SSH daemon using `systemctl reload ssh`.",
       "verification_method": "Run `sshd -T | grep maxauthtries` and verify the output is `maxauthtries 3` or a lower value.",
       "justification": "Limiting the number of authentication attempts reduces the effectiveness of brute-force attacks against SSH services while remaining compliant with the CIS Ubuntu Benchmark."
@@ -107,6 +190,22 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1110 (Brute Force)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "AUTH-9408",
+		      "AUTH-9402",
+		      "AUTH-9328"
+	      ],
+	      "keywords":
+	      [
+		  "password quality",
+		  "pwquality",
+		  "PAM",
+		  "password complexity"
+	      ]
+      },
+
       "implementation_task": "Install `libpam-pwquality` if required and configure `/etc/security/pwquality.conf` with at least `minlen = 14`, `minclass = 4` (or equivalent character class settings), and ensure `retry=3` is configured in `/etc/pam.d/common-password`.",
       "verification_method": "Run `grep ^minlen /etc/security/pwquality.conf` and verify `minlen = 14`. Also verify `pam_pwquality.so` is referenced in `/etc/pam.d/common-password` with `retry=3`.",
       "justification": "Strong password complexity requirements significantly increase the cost of password guessing and brute-force attacks while aligning with CIS Ubuntu Benchmark 22.04 recommendations."
@@ -123,6 +222,19 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1083 (File and Directory Discovery)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "AUTH-9328"
+	      ],
+	      "keywords":
+	      [
+		  "umask",
+		  "login.defs",
+		  "027"
+	      ]
+      },
+
       "implementation_task": "Configure `UMASK 027` in `/etc/login.defs` and ensure login shells inherit this value.",
       "verification_method": "Run `grep ^UMASK /etc/login.defs` and verify the configured value is `027` or more restrictive.",
       "justification": "A restrictive default umask prevents newly created files and directories from being unnecessarily accessible to other local users, reducing the exposure of sensitive information."
@@ -140,6 +252,22 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1046 (Network Service Discovery)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "FIRE-4512",
+		      "FIRE-4513",
+		      "FIRE-4594"
+	      ],
+	      "keywords":
+	      [
+		  "iptables",
+		  "firewall",
+		  "rules active",
+		  "default any"
+	      ]
+      },
+
       "implementation_task": "Configure UFW with a default deny policy for incoming traffic using `ufw default deny incoming`, allow required services only, then enable the firewall using `ufw enable`.",
       "verification_method": "Run `ufw status verbose` and verify the default policy is `deny (incoming)` and only required ports are allowed.",
       "justification": "A default-deny firewall policy minimizes network exposure by ensuring only explicitly authorized services are reachable, reducing the attack surface of the server."
@@ -156,6 +284,19 @@
         "MITRE ATT&CK: T1059 (Command and Scripting Interpreter)",
         "MITRE ATT&CK: T1190 (Exploit Public-Facing Application)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "BOOT-5264"
+	      ],
+	      "keywords":
+	      [
+		  "system services",
+		  "hardening services",
+		  "enabled services"
+	      ]
+      },
+
       "implementation_task": "Review enabled systemd services and disable services that are not required for system operation. Example: `systemctl disable --now service_name`. Services such as snapd, ModemManager, avahi, bluetooth, or unused database/web services should be removed or disabled when not required.",
       "verification_method": "Run `systemctl list-unit-files --type=service --state=enabled` and verify that only required services are enabled. Review services using `systemctl status service_name`.",
       "justification": "Every enabled service increases the attack surface of the system. Reducing unnecessary services limits the number of exposed components that could contain vulnerabilities or be abused by attackers."
@@ -172,6 +313,20 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1542.003 (Boot or Logon Autostart Execution: Boot or Logon Initialization Scripts)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "BOOT-5122"
+	      ],
+	      "keywords":
+	      [
+		  "GRUB",
+		  "boot loader",
+		  "boot configuration",
+		  "password"
+	      ]
+      },
+
       "implementation_task": "Configure authentication protection for GRUB2 by creating a GRUB administrator password using `grub-mkpasswd-pbkdf2`, adding the generated password hash to `/etc/grub.d/40_custom`, then regenerate the configuration with `update-grub`.",
       "verification_method": "Run `grep password /boot/grub/grub.cfg` and verify that a GRUB password configuration exists.",
       "justification": "Without GRUB authentication, an attacker with physical access can modify boot parameters, bypass security controls, or boot into recovery environments with elevated privileges."
@@ -190,6 +345,21 @@
         "MITRE ATT&CK: T1046 (Network Service Scanning)",
         "MITRE ATT&CK: T1190 (Exploit Public-Facing Application)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "FIRE-4512",
+		      "FIRE-4513",
+		      "FIRE-4594"
+	      ],
+	      "keywords":
+	      [
+		  "iptables",
+		  "firewall rules",
+		  "network filtering"
+	      ]
+      },
+
       "implementation_task": "Configure host-based firewall rules according to server requirements. For Ubuntu systems, configure UFW or nftables rules and ensure default policies restrict unauthorized inbound traffic. Example: `ufw default deny incoming` and allow only required ports.",
       "verification_method": "Run `ufw status verbose` or `iptables -L -n -v` and verify that firewall rules exist and that unnecessary inbound connections are blocked.",
       "justification": "A properly configured firewall reduces exposure of network services and prevents unauthorized access attempts against vulnerable or unnecessary listening ports."
@@ -208,6 +378,20 @@
         "MITRE ATT&CK: T1565.001 (Data Manipulation: Stored Data Manipulation)",
         "MITRE ATT&CK: T1070 (Indicator Removal)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "FINT-4350"
+	      ],
+	      "keywords":
+	      [
+		  "file integrity",
+		  "AIDE",
+		  "integrity monitoring",
+		  "critical files"
+	      ]
+      },
+
       "implementation_task": "Install and configure a file integrity monitoring solution such as AIDE. Example: `apt install aide aide-common`, initialize the database with `aideinit`, then schedule regular integrity checks.",
       "verification_method": "Run `dpkg -s aide` and verify the package is installed. Run `aide --check` and verify unauthorized modifications are detected.",
       "justification": "File integrity monitoring helps detect unauthorized changes to critical operating system files, binaries, and configuration files that could indicate compromise."
@@ -224,6 +408,20 @@
         "MITRE ATT&CK: T1070 (Indicator Removal)",
         "MITRE ATT&CK: T1562.002 (Impair Defenses: Disable Windows Event Logging equivalent)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "LOGG-2154"
+	      ],
+	      "keywords":
+	      [
+		  "external logging",
+		  "remote logging",
+		  "rsyslog",
+		  "centralized logging"
+	      ]
+      },
+
       "implementation_task": "Configure rsyslog to forward security logs to a centralized logging server. Edit `/etc/rsyslog.conf` or files under `/etc/rsyslog.d/` and configure remote forwarding using TCP or UDP.",
       "verification_method": "Run `grep @ /etc/rsyslog.conf /etc/rsyslog.d/*.conf` and verify that remote logging destinations are configured. Restart rsyslog using `systemctl restart rsyslog`.",
       "justification": "Remote log storage prevents attackers from deleting local evidence after compromising a system and improves incident investigation capabilities."
@@ -241,6 +439,21 @@
       "threat_mapping": [
         "MITRE ATT&CK: T1222.001 (File and Directory Permissions Modification: Linux and Mac File and Directory Permissions Modification)"
       ],
+      "lynis_mapping": {
+	      "test_ids":
+	      [
+		      "FILE-7524",
+		      "AUTH-9328"
+	      ],
+	      "keywords":
+	      [
+		  "file permissions",
+		  "umask",
+		  "chmod",
+		  "permissions"
+	      ]
+      },
+
       "implementation_task": "Configure a restrictive default umask value. Edit `/etc/login.defs`, `/etc/profile`, and shell configuration files to set `umask 027` or stricter according to organizational policy.",
       "verification_method": "Run `grep -R \"umask\" /etc/login.defs /etc/profile /etc/bash.bashrc` and verify that the configured value is 027 or more restrictive.",
       "justification": "A restrictive umask prevents newly created files and directories from being readable or writable by unauthorized users, reducing accidental data exposure."
