@@ -27,120 +27,84 @@ echo "[*] Backing up $SSHD_CONFIG"
 cp "$SSHD_CONFIG" "$BACKUP"
 
 
-
 echo "[*] Applying SSH hardening settings..."
 
 
-
-set_sshd_option() {
-
-    local option="$1"
-    local value="$2"
-    local comment="$3"
-
-
-    # Remove existing active or commented configuration line
-    sed -i -E "/^[# ]*${option}[[:space:]]+/d" "$SSHD_CONFIG"
+# Disable direct root login - addresses privilege escalation and stolen credential abuse
+sed -i '/^[#]*PermitRootLogin/d' "$SSHD_CONFIG"
+echo "PermitRootLogin no" >> "$SSHD_CONFIG"
+echo "    PermitRootLogin no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-    echo "" >> "$SSHD_CONFIG"
-    echo "# $comment" >> "$SSHD_CONFIG"
-    echo "${option} ${value}" >> "$SSHD_CONFIG"
+# Disable password authentication - addresses brute force attacks and password compromise
+sed -i '/^[#]*PasswordAuthentication/d' "$SSHD_CONFIG"
+echo "PasswordAuthentication no" >> "$SSHD_CONFIG"
+echo "    PasswordAuthentication no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-    echo "    ${option} ${value}"
+# Prevent empty passwords - addresses unauthorized account access
+sed -i '/^[#]*PermitEmptyPasswords/d' "$SSHD_CONFIG"
+echo "PermitEmptyPasswords no" >> "$SSHD_CONFIG"
+echo "    PermitEmptyPasswords no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-    SETTINGS_APPLIED=$((SETTINGS_APPLIED + 1))
-}
-
-
-
-# Disable direct root login - addresses privilege escalation and credential compromise threats
-set_sshd_option \
-"PermitRootLogin" \
-"no" \
-"Disable direct root login - addresses unauthorized privilege escalation and stolen root credential abuse"
-
-
-
-# Disable SSH password authentication - addresses brute force attacks and password theft
-set_sshd_option \
-"PasswordAuthentication" \
-"no" \
-"Disable SSH password authentication - addresses brute force attacks and compromised password usage"
-
-
-
-# Prevent empty passwords - addresses unauthorized account access vulnerabilities
-set_sshd_option \
-"PermitEmptyPasswords" \
-"no" \
-"Prevent empty passwords - addresses weak authentication and unauthorized access"
-
-
-
-# Disable X11 forwarding - addresses SSH session attack surface expansion
-set_sshd_option \
-"X11Forwarding" \
-"no" \
-"Disable X11 forwarding - addresses unnecessary remote session attack surface"
-
+# Disable X11 forwarding - addresses unnecessary SSH attack surface
+sed -i '/^[#]*X11Forwarding/d' "$SSHD_CONFIG"
+echo "X11Forwarding no" >> "$SSHD_CONFIG"
+echo "    X11Forwarding no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
 # Limit authentication attempts - addresses SSH brute force attacks
-set_sshd_option \
-"MaxAuthTries" \
-"3" \
-"Limit authentication attempts - addresses SSH brute force and credential guessing attacks"
+sed -i '/^[#]*MaxAuthTries/d' "$SSHD_CONFIG"
+echo "MaxAuthTries 3" >> "$SSHD_CONFIG"
+echo "    MaxAuthTries 3"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-
-# Configure idle timeout - addresses abandoned SSH sessions and session hijacking risks
-set_sshd_option \
-"ClientAliveInterval" \
-"300" \
-"Set SSH idle timeout interval - addresses abandoned sessions and session hijacking"
-
+# Configure idle timeout - addresses abandoned SSH sessions and session hijacking
+sed -i '/^[#]*ClientAliveInterval/d' "$SSHD_CONFIG"
+echo "ClientAliveInterval 300" >> "$SSHD_CONFIG"
+echo "    ClientAliveInterval 300"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-# Configure idle timeout maximum count - addresses persistent inactive sessions
-set_sshd_option \
-"ClientAliveCountMax" \
-"2" \
-"Limit inactive SSH sessions - addresses unauthorized session persistence"
+# Limit inactive sessions - addresses persistent unauthorized sessions
+sed -i '/^[#]*ClientAliveCountMax/d' "$SSHD_CONFIG"
+echo "ClientAliveCountMax 2" >> "$SSHD_CONFIG"
+echo "    ClientAliveCountMax 2"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-
-# Restrict SSH access - addresses unauthorized administrator access attempts
-set_sshd_option \
-"AllowUsers" \
-"medadmin sysadmin" \
-"Restrict SSH users - addresses unauthorized account access"
-
+# Restrict SSH access - addresses unauthorized administrator access
+sed -i '/^[#]*AllowUsers/d' "$SSHD_CONFIG"
+echo "AllowUsers medadmin sysadmin" >> "$SSHD_CONFIG"
+echo "    AllowUsers medadmin sysadmin"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
 # Force SSH protocol version 2 - addresses legacy SSH protocol vulnerabilities
-set_sshd_option \
-"Protocol" \
-"2" \
-"Force SSH protocol version 2 - addresses insecure legacy SSH protocol usage"
+sed -i '/^[#]*Protocol/d' "$SSHD_CONFIG"
+echo "Protocol 2" >> "$SSHD_CONFIG"
+echo "    Protocol 2"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-
-# Reduce login window - addresses brute force timing and resource exhaustion attacks
-set_sshd_option \
-"LoginGraceTime" \
-"60" \
-"Reduce login grace period - addresses SSH brute force and connection exhaustion"
-
+# Reduce login grace period - addresses brute force and connection exhaustion
+sed -i '/^[#]*LoginGraceTime/d' "$SSHD_CONFIG"
+echo "LoginGraceTime 60" >> "$SSHD_CONFIG"
+echo "    LoginGraceTime 60"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
-# Configure security banner - addresses unauthorized access deterrence requirements
-set_sshd_option \
-"Banner" \
-"$BANNER" \
-"Configure SSH warning banner - addresses unauthorized access and legal compliance requirements"
+# Configure SSH banner - addresses unauthorized access warning requirements
+sed -i '/^[#]*Banner/d' "$SSHD_CONFIG"
+echo "Banner /etc/issue.net" >> "$SSHD_CONFIG"
+echo "    Banner /etc/issue.net"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
 
 
 
@@ -183,7 +147,6 @@ echo "[*] Restarting SSH service..."
 systemctl restart ssh
 
 
-
 if systemctl is-active --quiet ssh; then
 
     echo "    ssh.service: active (running)"
@@ -193,16 +156,13 @@ else
     echo "[!] SSH service failed after restart"
     echo "[!] Restoring backup"
 
-
     cp "$BACKUP" "$SSHD_CONFIG"
 
     systemctl restart ssh
 
-
     exit 1
 
 fi
-
 
 
 echo "Settings applied: $SETTINGS_APPLIED"
