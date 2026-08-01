@@ -1,0 +1,4234 @@
+{
+  "remediation_queue": [
+    {
+      "control_id": "CIS-9",
+      "title": "Ensure a default deny firewall policy is configured",
+      "affected_asset": "Linux/Ubuntu servers",
+      "remediation_script": "Configure UFW with a default deny policy for incoming traffic using `ufw default deny incoming`, allow required services only, then enable the firewall using `ufw enable`.",
+      "severity": "critical",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 100,
+      "operational_risk": "A default-deny firewall policy minimizes network exposure by ensuring only explicitly authorized services are reachable, reducing the attack surface of the server.",
+      "expected_validation_check": "Run `ufw status verbose` and verify the default policy is `deny (incoming)` and only required ports are allowed."
+    },
+    {
+      "control_id": "CIS-12",
+      "title": "Ensure firewall rules are configured and active",
+      "affected_asset": "Ubuntu 22.04 LTS servers using iptables or nftables firewall",
+      "remediation_script": "Configure host-based firewall rules according to server requirements. For Ubuntu systems, configure UFW or nftables rules and ensure default policies restrict unauthorized inbound traffic. Example: `ufw default deny incoming` and allow only required ports.",
+      "severity": "high",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 85,
+      "operational_risk": "A properly configured firewall reduces exposure of network services and prevents unauthorized access attempts against vulnerable or unnecessary listening ports.",
+      "expected_validation_check": "Run `ufw status verbose` or `iptables -L -n -v` and verify that firewall rules exist and that unnecessary inbound connections are blocked."
+    },
+    {
+      "control_id": "CIS-11",
+      "title": "Ensure GRUB bootloader password is configured",
+      "affected_asset": "Ubuntu 22.04 LTS servers using GRUB2 bootloader",
+      "remediation_script": "Configure authentication protection for GRUB2 by creating a GRUB administrator password using `grub-mkpasswd-pbkdf2`, adding the generated password hash to `/etc/grub.d/40_custom`, then regenerate the configuration with `update-grub`.",
+      "severity": "high",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 85,
+      "operational_risk": "Without GRUB authentication, an attacker with physical access can modify boot parameters, bypass security controls, or boot into recovery environments with elevated privileges.",
+      "expected_validation_check": "Run `grep password /boot/grub/grub.cfg` and verify that a GRUB password configuration exists."
+    },
+    {
+      "control_id": "CIS-7",
+      "title": "Ensure password quality requirements are configured",
+      "affected_asset": "Linux/Ubuntu servers",
+      "remediation_script": "Install `libpam-pwquality` if required and configure `/etc/security/pwquality.conf` with at least `minlen = 14`, `minclass = 4` (or equivalent character class settings), and ensure `retry=3` is configured in `/etc/pam.d/common-password`.",
+      "severity": "high",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 85,
+      "operational_risk": "Strong password complexity requirements significantly increase the cost of password guessing and brute-force attacks while aligning with CIS Ubuntu Benchmark 22.04 recommendations.",
+      "expected_validation_check": "Run `grep ^minlen /etc/security/pwquality.conf` and verify `minlen = 14`. Also verify `pam_pwquality.so` is referenced in `/etc/pam.d/common-password` with `retry=3`."
+    },
+    {
+      "control_id": "CIS-6",
+      "title": "Ensure SSH MaxAuthTries is set to 3 or less",
+      "affected_asset": "Linux/Ubuntu servers running OpenSSH",
+      "remediation_script": "Edit `/etc/ssh/sshd_config` (or a file under `/etc/ssh/sshd_config.d/`) and set `MaxAuthTries 3`. Reload the SSH daemon using `systemctl reload ssh`.",
+      "severity": "high",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 85,
+      "operational_risk": "Limiting the number of authentication attempts reduces the effectiveness of brute-force attacks against SSH services while remaining compliant with the CIS Ubuntu Benchmark.",
+      "expected_validation_check": "Run `sshd -T | grep maxauthtries` and verify the output is `maxauthtries 3` or a lower value."
+    },
+    {
+      "control_id": "CIS-5",
+      "title": "Ensure events that modify /etc/group information are collected",
+      "affected_asset": "Linux/Ubuntu servers",
+      "remediation_script": "Create or edit a file ending with `.rules` under `/etc/audit/rules.d/` and add the rule `-w /etc/group -p wa -k identity`. Load the new rules with `augenrules --load`.",
+      "severity": "high",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 85,
+      "operational_risk": "Monitoring modifications to `/etc/group` helps detect unauthorized privilege changes or account manipulation attempts. Such events are valuable indicators of compromise and support forensic investigations.",
+      "expected_validation_check": "Run `auditctl -l | grep /etc/group` and `grep /etc/group /etc/audit/rules.d/*.rules`. The configured audit rule must be present in both outputs."
+    },
+    {
+      "control_id": "CIS-4",
+      "title": "Ensure telnet client is not installed",
+      "affected_asset": "Linux/Ubuntu servers",
+      "remediation_script": "Remove Telnet clients by running `apt purge telnet inetutils-telnet`.",
+      "severity": "high",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 85,
+      "operational_risk": "The Telnet protocol transmits all communications, including credentials, in clear text. SSH provides encrypted communications and should be used instead.",
+      "expected_validation_check": "Run `dpkg-query -s telnet >/dev/null 2>&1 && echo 'telnet package is installed'` and `dpkg-query -s inetutils-telnet >/dev/null 2>&1 && echo 'inetutils-telnet package is installed'`. No output should be returned."
+    },
+    {
+      "control_id": "CIS-1",
+      "title": "Ensure SSH root login is disabled",
+      "affected_asset": "Linux servers running OpenSSH",
+      "remediation_script": "Set `PermitRootLogin no` in `/etc/ssh/sshd_config` or a configuration file under `/etc/ssh/sshd_config.d/`, then reload the SSH daemon.",
+      "severity": "high",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 85,
+      "operational_risk": "Disabling direct root logins over SSH forces administrators to authenticate with individual user accounts before using privilege escalation (for example, `sudo`). This improves accountability, provides an audit trail, and reduces the risk associated with direct root credential compromise.",
+      "expected_validation_check": "Run `sshd -T | grep permitrootlogin`. The output must be `permitrootlogin no`."
+    },
+    {
+      "control_id": "CIS-15",
+      "title": "Ensure default permissions and umask are configured securely",
+      "affected_asset": "Ubuntu 22.04 LTS user environments and system accounts",
+      "remediation_script": "Configure a restrictive default umask value. Edit `/etc/login.defs`, `/etc/profile`, and shell configuration files to set `umask 027` or stricter according to organizational policy.",
+      "severity": "medium",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 65,
+      "operational_risk": "A restrictive umask prevents newly created files and directories from being readable or writable by unauthorized users, reducing accidental data exposure.",
+      "expected_validation_check": "Run `grep -R \"umask\" /etc/login.defs /etc/profile /etc/bash.bashrc` and verify that the configured value is 027 or more restrictive."
+    },
+    {
+      "control_id": "CIS-14",
+      "title": "Ensure system logging is configured for remote log storage",
+      "affected_asset": "Ubuntu 22.04 LTS servers requiring centralized logging",
+      "remediation_script": "Configure rsyslog to forward security logs to a centralized logging server. Edit `/etc/rsyslog.conf` or files under `/etc/rsyslog.d/` and configure remote forwarding using TCP or UDP.",
+      "severity": "medium",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 65,
+      "operational_risk": "Remote log storage prevents attackers from deleting local evidence after compromising a system and improves incident investigation capabilities.",
+      "expected_validation_check": "Run `grep @ /etc/rsyslog.conf /etc/rsyslog.d/*.conf` and verify that remote logging destinations are configured. Restart rsyslog using `systemctl restart rsyslog`."
+    },
+    {
+      "control_id": "CIS-13",
+      "title": "Ensure file integrity monitoring software is installed",
+      "affected_asset": "Ubuntu 22.04 LTS servers containing sensitive system files",
+      "remediation_script": "Install and configure a file integrity monitoring solution such as AIDE. Example: `apt install aide aide-common`, initialize the database with `aideinit`, then schedule regular integrity checks.",
+      "severity": "medium",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 65,
+      "operational_risk": "File integrity monitoring helps detect unauthorized changes to critical operating system files, binaries, and configuration files that could indicate compromise.",
+      "expected_validation_check": "Run `dpkg -s aide` and verify the package is installed. Run `aide --check` and verify unauthorized modifications are detected."
+    },
+    {
+      "control_id": "CIS-10",
+      "title": "Ensure unnecessary services are disabled",
+      "affected_asset": "Ubuntu 22.04 LTS servers running unnecessary enabled services",
+      "remediation_script": "Review enabled systemd services and disable services that are not required for system operation. Example: `systemctl disable --now service_name`. Services such as snapd, ModemManager, avahi, bluetooth, or unused database/web services should be removed or disabled when not required.",
+      "severity": "medium",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 65,
+      "operational_risk": "Every enabled service increases the attack surface of the system. Reducing unnecessary services limits the number of exposed components that could contain vulnerabilities or be abused by attackers.",
+      "expected_validation_check": "Run `systemctl list-unit-files --type=service --state=enabled` and verify that only required services are enabled. Review services using `systemctl status service_name`."
+    },
+    {
+      "control_id": "CIS-8",
+      "title": "Ensure default user umask is 027 or more restrictive",
+      "affected_asset": "Linux/Ubuntu servers",
+      "remediation_script": "Configure `UMASK 027` in `/etc/login.defs` and ensure login shells inherit this value.",
+      "severity": "medium",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 65,
+      "operational_risk": "A restrictive default umask prevents newly created files and directories from being unnecessarily accessible to other local users, reducing the exposure of sensitive information.",
+      "expected_validation_check": "Run `grep ^UMASK /etc/login.defs` and verify the configured value is `027` or more restrictive."
+    },
+    {
+      "control_id": "CIS-3",
+      "title": "Ensure password expiration is configured",
+      "affected_asset": "Linux/Ubuntu servers",
+      "remediation_script": "Edit `/etc/login.defs` and configure `PASS_MAX_DAYS` with a value greater than `0` according to the local security policy. The CIS Benchmark recommends `365`.",
+      "severity": "medium",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 65,
+      "operational_risk": "Limiting password lifetime reduces the window of opportunity for attackers to exploit compromised credentials. Regular password rotation decreases the impact of credential theft while remaining aligned with CIS recommendations.",
+      "expected_validation_check": "Run `grep -Pi -- \"^\\h*PASS_MAX_DAYS\\h+\\d+\\b\" /etc/login.defs` and verify the value is set to `365`."
+    },
+    {
+      "control_id": "CIS-2",
+      "title": "Ensure fs.suid_dumpable is configured",
+      "affected_asset": "Linux/Ubuntu servers",
+      "remediation_script": "Inside `/etc/sysctl.d/`, edit or create a `.conf` file and add the following line: `fs.suid_dumpable = 0`. Apply the change with `sysctl --system`.",
+      "severity": "medium",
+      "matching_findings": [
+        {
+          "test_id": "LYNIS",
+          "severity": "suggestion",
+          "message": "This release is more than 4 months old. Check the website or GitHub to see if there is an update available."
+        },
+        {
+          "test_id": "DEB-0280",
+          "severity": "suggestion",
+          "message": "Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions"
+        },
+        {
+          "test_id": "DEB-0810",
+          "severity": "suggestion",
+          "message": "Install apt-listbugs to display a list of critical bugs prior to each APT installation."
+        },
+        {
+          "test_id": "DEB-0811",
+          "severity": "suggestion",
+          "message": "Install apt-listchanges to display any significant changes prior to any upgrade via APT."
+        },
+        {
+          "test_id": "DEB-0880",
+          "severity": "suggestion",
+          "message": "Install fail2ban to automatically ban hosts that commit multiple authentication errors."
+        },
+        {
+          "test_id": "BOOT-5122",
+          "severity": "suggestion",
+          "message": "Set a password on GRUB boot loader to prevent altering boot configuration (e.g. boot in single user mode without password)"
+        },
+        {
+          "test_id": "BOOT-5264",
+          "severity": "suggestion",
+          "message": "Consider hardening system services"
+        },
+        {
+          "test_id": "KRNL-5820",
+          "severity": "suggestion",
+          "message": "If not required, consider explicit disabling of core dump in /etc/security/limits.conf file"
+        },
+        {
+          "test_id": "AUTH-9230",
+          "severity": "suggestion",
+          "message": "Configure password hashing rounds in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9282",
+          "severity": "suggestion",
+          "message": "When possible set expire dates for all password protected accounts"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure minimum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9286",
+          "severity": "suggestion",
+          "message": "Configure maximum password age in /etc/login.defs"
+        },
+        {
+          "test_id": "AUTH-9328",
+          "severity": "suggestion",
+          "message": "Default umask in /etc/login.defs could be more strict like 027"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /home file system, place /home on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /tmp file system, place /tmp on a separate partition"
+        },
+        {
+          "test_id": "FILE-6310",
+          "severity": "suggestion",
+          "message": "To decrease the impact of a full /var file system, place /var on a separate partition"
+        },
+        {
+          "test_id": "USB-1000",
+          "severity": "suggestion",
+          "message": "Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft"
+        },
+        {
+          "test_id": "NAME-4028",
+          "severity": "suggestion",
+          "message": "Check DNS configuration for the dns domain name"
+        },
+        {
+          "test_id": "PKGS-7370",
+          "severity": "suggestion",
+          "message": "Install debsums utility for the verification of packages with known good database."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "warning",
+          "message": "Found one or more vulnerable packages."
+        },
+        {
+          "test_id": "PKGS-7392",
+          "severity": "suggestion",
+          "message": "Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades"
+        },
+        {
+          "test_id": "PKGS-7394",
+          "severity": "suggestion",
+          "message": "Install package apt-show-versions for patch management purposes"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'dccp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'sctp' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'rds' is really needed on this system"
+        },
+        {
+          "test_id": "NETW-3200",
+          "severity": "suggestion",
+          "message": "Determine if protocol 'tipc' is really needed on this system"
+        },
+        {
+          "test_id": "FIRE-4512",
+          "severity": "warning",
+          "message": "iptables module(s) loaded, but no rules active"
+        },
+        {
+          "test_id": "FIRE-4513",
+          "severity": "suggestion",
+          "message": "Check iptables rules to see which rules are currently not used"
+        },
+        {
+          "test_id": "HTTP-6640",
+          "severity": "suggestion",
+          "message": "Install Apache mod_evasive to guard webserver against DoS/brute force attempts"
+        },
+        {
+          "test_id": "HTTP-6643",
+          "severity": "suggestion",
+          "message": "Install Apache modsecurity to guard webserver against web application attacks"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "SSH-7408",
+          "severity": "suggestion",
+          "message": "Consider hardening SSH configuration"
+        },
+        {
+          "test_id": "LOGG-2154",
+          "severity": "suggestion",
+          "message": "Enable logging to an external logging host for archiving purposes and additional protection"
+        },
+        {
+          "test_id": "LOGG-2190",
+          "severity": "suggestion",
+          "message": "Check what deleted files are still in use and why."
+        },
+        {
+          "test_id": "BANN-7126",
+          "severity": "suggestion",
+          "message": "Add a legal banner to /etc/issue, to warn unauthorized users"
+        },
+        {
+          "test_id": "BANN-7130",
+          "severity": "suggestion",
+          "message": "Add legal banner to /etc/issue.net, to warn unauthorized users"
+        },
+        {
+          "test_id": "ACCT-9622",
+          "severity": "suggestion",
+          "message": "Enable process accounting"
+        },
+        {
+          "test_id": "ACCT-9626",
+          "severity": "suggestion",
+          "message": "Enable sysstat to collect accounting (no results)"
+        },
+        {
+          "test_id": "ACCT-9630",
+          "severity": "suggestion",
+          "message": "Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules"
+        },
+        {
+          "test_id": "FINT-4350",
+          "severity": "suggestion",
+          "message": "Install a file integrity tool to monitor changes to critical and sensitive files"
+        },
+        {
+          "test_id": "TOOL-5002",
+          "severity": "suggestion",
+          "message": "Determine if automation tools are present for system management"
+        },
+        {
+          "test_id": "FILE-7524",
+          "severity": "suggestion",
+          "message": "Consider restricting file permissions"
+        },
+        {
+          "test_id": "KRNL-6000",
+          "severity": "suggestion",
+          "message": "One or more sysctl values differ from the scan profile and could be tweaked"
+        },
+        {
+          "test_id": "HRDN-7222",
+          "severity": "suggestion",
+          "message": "Harden compilers like restricting access to root user only"
+        },
+        {
+          "test_id": "HRDN-7230",
+          "severity": "suggestion",
+          "message": "Harden the system by installing at least one malware scanner, to perform periodic file system scans"
+        }
+      ],
+      "priority_score": 65,
+      "operational_risk": "Core dumps may contain sensitive information such as passwords, cryptographic keys, or other confidential data stored in memory. Disabling setuid core dumps reduces the risk of credential disclosure.",
+      "expected_validation_check": "Run `sysctl fs.suid_dumpable` and verify the value is set to `0`."
+    }
+  ]
+}
