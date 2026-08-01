@@ -131,7 +131,7 @@ if sshd -t; then
 else
 
     echo "    sshd -t: FAILED"
-    echo "[!] Restoring backup configuration"
+    echo "[!] restore backup configuration"
 
     cp "$BACKUP" "$SSHD_CONFIG"
 
