@@ -157,6 +157,10 @@ cat > "$IMPROVEMENT_LOG" <<EOF
 }
 EOF
 
+##############################################
+# JSON END
+##############################################
+
 echo
 echo "Steps completed: $COMPLETED"
 echo "Steps failed: 0"
