@@ -51,6 +51,7 @@ cat > "$RULES_FILE" <<EOF
 -w /var/lib/mysql/ -p wa -k meddefense_db
 -w /etc/apache2/ -p wa -k meddefense_web
 -w /etc/init.d/ -p wa -k startup_scripts
+-w /etc/cron.d/ -p wa -k cron_config
 EOF
 
 
