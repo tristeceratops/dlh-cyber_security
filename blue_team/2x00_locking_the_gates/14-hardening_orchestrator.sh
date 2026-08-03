@@ -26,7 +26,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-echo "[*] Performing pre-checks..."
+echo "[*] Performing pre-checks for required scripts..."
 
 for script in "${SCRIPTS[@]}"; do
     if [[ ! -f "$script" ]]; then
