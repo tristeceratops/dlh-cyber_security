@@ -30,7 +30,7 @@ echo "[*] Performing pre-checks..."
 
 for script in "${SCRIPTS[@]}"; do
     if [[ ! -f "$script" ]]; then
-        echo "Missing script: $script"
+        echo "$script exists: NO"
         exit 1
     fi
 
