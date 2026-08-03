@@ -1,0 +1,1375 @@
+#!/bin/bash
+
+set -euo pipefail
+
+
+SSHD_CONFIG="/etc/ssh/sshd_config"
+BACKUP="/etc/ssh/sshd_config.bak"
+BANNER="/etc/issue.net"
+
+SETTINGS_APPLIED=0
+
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+
+if [[ ! -f "$SSHD_CONFIG" ]]; then
+    echo "Error: $SSHD_CONFIG not found"
+    exit 1
+fi
+
+
+echo "[*] Backing up $SSHD_CONFIG"
+
+cp "$SSHD_CONFIG" "$BACKUP"
+
+
+echo "[*] Applying SSH hardening settings..."
+
+
+# Disable direct root login - addresses privilege escalation and stolen credential abuse
+sed -i '/^[#]*PermitRootLogin/d' "$SSHD_CONFIG"
+echo "PermitRootLogin no" >> "$SSHD_CONFIG"
+echo "    PermitRootLogin no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Disable password authentication - addresses brute force attacks and password compromise
+sed -i '/^[#]*PasswordAuthentication/d' "$SSHD_CONFIG"
+echo "PasswordAuthentication no" >> "$SSHD_CONFIG"
+echo "    PasswordAuthentication no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Prevent empty passwords - addresses unauthorized account access
+sed -i '/^[#]*PermitEmptyPasswords/d' "$SSHD_CONFIG"
+echo "PermitEmptyPasswords no" >> "$SSHD_CONFIG"
+echo "    PermitEmptyPasswords no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Disable X11 forwarding - addresses unnecessary SSH attack surface
+sed -i '/^[#]*X11Forwarding/d' "$SSHD_CONFIG"
+echo "X11Forwarding no" >> "$SSHD_CONFIG"
+echo "    X11Forwarding no"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Limit authentication attempts - addresses SSH brute force attacks
+sed -i '/^[#]*MaxAuthTries/d' "$SSHD_CONFIG"
+echo "MaxAuthTries 3" >> "$SSHD_CONFIG"
+echo "    MaxAuthTries 3"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Configure idle timeout - addresses abandoned SSH sessions and session hijacking
+sed -i '/^[#]*ClientAliveInterval/d' "$SSHD_CONFIG"
+echo "ClientAliveInterval 300" >> "$SSHD_CONFIG"
+echo "    ClientAliveInterval 300"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Limit inactive sessions - addresses persistent unauthorized sessions
+sed -i '/^[#]*ClientAliveCountMax/d' "$SSHD_CONFIG"
+echo "ClientAliveCountMax 2" >> "$SSHD_CONFIG"
+echo "    ClientAliveCountMax 2"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Restrict SSH access - addresses unauthorized administrator access
+sed -i '/^[#]*AllowUsers/d' "$SSHD_CONFIG"
+echo "AllowUsers medadmin sysadmin" >> "$SSHD_CONFIG"
+echo "    AllowUsers medadmin sysadmin"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Force SSH protocol version 2 - addresses legacy SSH protocol vulnerabilities
+sed -i '/^[#]*Protocol/d' "$SSHD_CONFIG"
+echo "Protocol 2" >> "$SSHD_CONFIG"
+echo "    Protocol 2"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Reduce login grace period - addresses brute force and connection exhaustion
+sed -i '/^[#]*LoginGraceTime/d' "$SSHD_CONFIG"
+echo "LoginGraceTime 60" >> "$SSHD_CONFIG"
+echo "    LoginGraceTime 60"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+# Configure SSH banner - addresses unauthorized access warning requirements
+sed -i '/^[#]*Banner/d' "$SSHD_CONFIG"
+echo "Banner /etc/issue.net" >> "$SSHD_CONFIG"
+echo "    Banner /etc/issue.net"
+SETTINGS_APPLIED=$((SETTINGS_APPLIED+1))
+
+
+
+echo "[*] Creating SSH banner file..."
+
+
+cat > "$BANNER" <<EOF
+******************************************************************
+* WARNING: Authorized access only                                  *
+* All SSH activity may be monitored and recorded.                 *
+* Unauthorized access is prohibited and may be prosecuted.         *
+******************************************************************
+EOF
+
+
+
+echo "[*] Validating SSH configuration..."
+
+
+if sshd -t; then
+
+    echo "    sshd -t: OK"
+
+else
+
+    echo "    sshd -t: FAILED"
+    echo "[!] restore backup configuration"
+
+    cp "$BACKUP" "$SSHD_CONFIG"
+
+    exit 1
+
+fi
+
+
+
+echo "[*] Restarting SSH service..."
+
+
+systemctl restart ssh
+
+
+if systemctl is-active --quiet ssh; then
+
+    echo "    ssh.service: active (running)"
+
+else
+
+    echo "[!] SSH service failed after restart"
+    echo "[!] Restoring backup"
+
+    cp "$BACKUP" "$SSHD_CONFIG"
+
+    systemctl restart ssh
+
+    exit 1
+
+fi
+
+
+echo "Settings applied: $SETTINGS_APPLIED"
+#!/bin/bash
+
+set -euo pipefail
+
+SYSCTL_CONF="/etc/sysctl.conf"
+BACKUP="/etc/sysctl.conf.bak"
+
+PARAMETERS_APPLIED=0
+PASS_COUNT=0
+FAIL_COUNT=0
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+if [[ ! -f "$SYSCTL_CONF" ]]; then
+    echo "Error: $SYSCTL_CONF not found"
+    exit 1
+fi
+
+echo "[*] Backing up $SYSCTL_CONF"
+
+cp "$SYSCTL_CONF" "$BACKUP"
+
+echo "[*] Applying kernel hardening parameters..."
+
+# Disable IPv4 forwarding - prevents packet forwarding/routing abuse
+sed -i '/^net\.ipv4\.ip_forward/d' "$SYSCTL_CONF"
+echo "net.ipv4.ip_forward = 0" >> "$SYSCTL_CONF"
+
+# Disable ICMP redirects - mitigates MITM attacks
+sed -i '/^net\.ipv4\.conf\.all\.accept_redirects/d' "$SYSCTL_CONF"
+echo "net.ipv4.conf.all.accept_redirects = 0" >> "$SYSCTL_CONF"
+
+# Disable ICMP redirects on new interfaces - mitigates MITM attacks
+sed -i '/^net\.ipv4\.conf\.default\.accept_redirects/d' "$SYSCTL_CONF"
+echo "net.ipv4.conf.default.accept_redirects = 0" >> "$SYSCTL_CONF"
+
+# Disable sending ICMP redirects - prevents route manipulation
+sed -i '/^net\.ipv4\.conf\.all\.send_redirects/d' "$SYSCTL_CONF"
+echo "net.ipv4.conf.all.send_redirects = 0" >> "$SYSCTL_CONF"
+
+# Disable source routed packets - prevents spoofing attacks
+sed -i '/^net\.ipv4\.conf\.all\.accept_source_route/d' "$SYSCTL_CONF"
+echo "net.ipv4.conf.all.accept_source_route = 0" >> "$SYSCTL_CONF"
+
+# Log suspicious packets - improves attack detection
+sed -i '/^net\.ipv4\.conf\.all\.log_martians/d' "$SYSCTL_CONF"
+echo "net.ipv4.conf.all.log_martians = 1" >> "$SYSCTL_CONF"
+
+# Enable SYN cookies - mitigates SYN flood attacks
+sed -i '/^net\.ipv4\.tcp_syncookies/d' "$SYSCTL_CONF"
+echo "net.ipv4.tcp_syncookies = 1" >> "$SYSCTL_CONF"
+
+# Ignore broadcast ICMP requests - mitigates Smurf attacks
+sed -i '/^net\.ipv4\.icmp_echo_ignore_broadcasts/d' "$SYSCTL_CONF"
+echo "net.ipv4.icmp_echo_ignore_broadcasts = 1" >> "$SYSCTL_CONF"
+
+# Disable IPv6
+sed -i '/^net\.ipv6\.conf\.all\.disable_ipv6/d' "$SYSCTL_CONF"
+echo "net.ipv6.conf.all.disable_ipv6 = 1" >> "$SYSCTL_CONF"
+
+# Disable IPv6 by default
+sed -i '/^net\.ipv6\.conf\.default\.disable_ipv6/d' "$SYSCTL_CONF"
+echo "net.ipv6.conf.default.disable_ipv6 = 1" >> "$SYSCTL_CONF"
+
+# Enable ASLR - mitigates memory corruption attacks
+sed -i '/^kernel\.randomize_va_space/d' "$SYSCTL_CONF"
+echo "kernel.randomize_va_space = 2" >> "$SYSCTL_CONF"
+
+# Disable SUID core dumps - prevents credential leakage
+sed -i '/^fs\.suid_dumpable/d' "$SYSCTL_CONF"
+echo "fs.suid_dumpable = 0" >> "$SYSCTL_CONF"
+
+# Restrict dmesg - prevents kernel information disclosure
+sed -i '/^kernel\.dmesg_restrict/d' "$SYSCTL_CONF"
+echo "kernel.dmesg_restrict = 1" >> "$SYSCTL_CONF"
+
+# Hide kernel pointers - mitigates kernel exploitation
+sed -i '/^kernel\.kptr_restrict/d' "$SYSCTL_CONF"
+echo "kernel.kptr_restrict = 2" >> "$SYSCTL_CONF"
+
+PARAMETERS_APPLIED=14
+
+if ! sysctl -p "$SYSCTL_CONF"; then
+    echo "[!] Failed to apply sysctl parameters"
+    cp "$BACKUP" "$SYSCTL_CONF"
+    sysctl -p  "$SYSCTL_CONF"
+    exit 1
+fi
+
+check_parameter() {
+
+    local key="$1"
+    local expected="$2"
+
+    local proc="/proc/sys/${key//./\/}"
+
+    printf "%-45s" "$key = $expected"
+
+    if [[ -f "$proc" ]] && [[ "$(cat "$proc")" == "$expected" ]]; then
+        echo "[PASS]"
+        PASS_COUNT=$((PASS_COUNT+1))
+    else
+        echo "[FAIL]"
+        FAIL_COUNT=$((FAIL_COUNT+1))
+    fi
+}
+
+check_parameter net.ipv4.ip_forward 0
+check_parameter net.ipv4.conf.all.accept_redirects 0
+check_parameter net.ipv4.conf.default.accept_redirects 0
+check_parameter net.ipv4.conf.all.send_redirects 0
+check_parameter net.ipv4.conf.all.accept_source_route 0
+check_parameter net.ipv4.conf.all.log_martians 1
+check_parameter net.ipv4.tcp_syncookies 1
+check_parameter net.ipv4.icmp_echo_ignore_broadcasts 1
+check_parameter net.ipv6.conf.all.disable_ipv6 1
+check_parameter net.ipv6.conf.default.disable_ipv6 1
+check_parameter kernel.randomize_va_space 2
+check_parameter fs.suid_dumpable 0
+check_parameter kernel.dmesg_restrict 1
+check_parameter kernel.kptr_restrict 2
+
+echo "Parameters applied: $PARAMETERS_APPLIED"
+echo "Verified PASS: $PASS_COUNT"
+echo "Verified FAIL: $FAIL_COUNT
+#!/bin/bash
+
+set -euo pipefail
+
+SUID_REMOVED=0
+SGID_REMOVED=0
+WORLD_FIXED=0
+
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+
+echo "[*] Checking SUID binaries..."
+
+
+SUID_WHITELIST=(
+"/usr/bin/passwd"
+"/usr/bin/sudo"
+"/usr/bin/su"
+"/usr/bin/chsh"
+"/usr/bin/chfn"
+"/usr/bin/gpasswd"
+"/usr/bin/newgrp"
+"/usr/bin/mount"
+"/usr/bin/umount"
+"/usr/bin/fusermount3"
+"/usr/bin/pkexec"
+"/usr/lib/openssh/ssh-keysign"
+"/usr/lib/dbus-1.0/dbus-daemon-launch-helper"
+"/usr/lib/snapd/snap-confine"
+"/usr/bin/at"
+"/usr/bin/crontab"
+"/usr/bin/chage"
+)
+
+
+is_suid_whitelisted() {
+
+    local file="$1"
+
+    for allowed in "${SUID_WHITELIST[@]}"; do
+        [[ "$file" == "$allowed" ]] && return 0
+    done
+
+    return 1
+}
+
+
+
+mapfile -t SUID_FILES < <(
+    find / \
+    -path /proc -prune -o \
+    -path /sys -prune -o \
+    -path /dev -prune -o \
+    -type f -perm -4000 -print 2>/dev/null
+)
+
+
+echo "Found ${#SUID_FILES[@]} SUID binaries"
+
+
+SUID_ALLOWED=0
+SUID_UNEXPECTED=0
+
+
+for file in "${SUID_FILES[@]}"; do
+
+    if is_suid_whitelisted "$file"; then
+
+        SUID_ALLOWED=$((SUID_ALLOWED+1))
+
+    else
+
+        SUID_UNEXPECTED=$((SUID_UNEXPECTED+1))
+
+
+        FSTYPE=$(findmnt -no FSTYPE "$file" 2>/dev/null || true)
+
+        if [[ "$FSTYPE" == "squashfs" ]]; then
+
+            echo "  $file [SKIPPED - READ ONLY]"
+
+        elif chmod u-s "$file"; then
+
+            echo "  $file [SUID REMOVED]"
+            SUID_REMOVED=$((SUID_REMOVED+1))
+
+        else
+
+            echo "  $file [FAILED]"
+
+        fi
+
+    fi
+
+done
+
+
+echo "Whitelisted: $SUID_ALLOWED"
+echo "Non-whitelisted: $SUID_UNEXPECTED"
+
+
+
+echo
+echo "[*] Checking SGID binaries..."
+
+
+
+SGID_WHITELIST=(
+"/usr/bin/wall"
+"/usr/bin/write"
+"/usr/bin/crontab"
+"/usr/bin/expiry"
+"/usr/bin/ssh-agent"
+"/usr/lib/dbus-1.0/dbus-daemon-launch-helper"
+)
+
+
+
+is_sgid_whitelisted() {
+
+    local file="$1"
+
+    for allowed in "${SGID_WHITELIST[@]}"; do
+        [[ "$file" == "$allowed" ]] && return 0
+    done
+
+    return 1
+}
+
+
+
+mapfile -t SGID_FILES < <(
+    find / \
+    -path /proc -prune -o \
+    -path /sys -prune -o \
+    -path /dev -prune -o \
+    -type f -perm -2000 -print 2>/dev/null
+)
+
+
+
+echo "Found ${#SGID_FILES[@]} SGID binaries"
+
+
+
+SGID_ALLOWED=0
+SGID_UNEXPECTED=0
+
+
+
+for file in "${SGID_FILES[@]}"; do
+
+
+    if is_sgid_whitelisted "$file"; then
+
+        SGID_ALLOWED=$((SGID_ALLOWED+1))
+
+    else
+
+        SGID_UNEXPECTED=$((SGID_UNEXPECTED+1))
+
+
+        FSTYPE=$(findmnt -no FSTYPE "$file" 2>/dev/null || true)
+
+
+        if [[ "$FSTYPE" == "squashfs" ]]; then
+
+            echo "  $file [SKIPPED - READ ONLY]"
+
+        elif chmod g-s "$file"; then
+
+            echo "  $file [SGID REMOVED]"
+            SGID_REMOVED=$((SGID_REMOVED+1))
+
+        else
+
+            echo "  $file [FAILED]"
+
+        fi
+
+    fi
+
+done
+
+
+echo "Whitelisted: $SGID_ALLOWED"
+echo "Non-whitelisted: $SGID_UNEXPECTED"
+
+
+
+echo
+echo "[*] Checking world writable files..."
+
+
+
+mapfile -t WORLD_WRITABLE < <(
+    find / \
+    -path /proc -prune -o \
+    -path /sys -prune -o \
+    -path /dev -prune -o \
+    -type f -perm -0002 -print 2>/dev/null
+)
+
+
+
+echo "Found ${#WORLD_WRITABLE[@]} world-writable files"
+
+
+
+for file in "${WORLD_WRITABLE[@]}"; do
+
+
+    if chmod o-w "$file"; then
+
+        echo "  $file [FIXED]"
+        WORLD_FIXED=$((WORLD_FIXED+1))
+
+    else
+
+        echo "  $file [FAILED]"
+
+    fi
+
+done
+
+
+
+echo
+echo "[*] Checking mount options..."
+
+
+
+harden_mount() {
+
+    local mountpoint="$1"
+
+
+    if mountpoint -q "$mountpoint"; then
+
+
+        OPTIONS=$(findmnt -no OPTIONS "$mountpoint")
+
+
+        if [[ "$OPTIONS" == *noexec* &&
+              "$OPTIONS" == *nosuid* &&
+              "$OPTIONS" == *nodev* ]]; then
+
+
+            echo "$mountpoint: noexec,nosuid,nodev [OK]"
+
+
+        else
+
+
+            if mount -o remount,noexec,nosuid,nodev "$mountpoint"; then
+
+                echo "$mountpoint: noexec,nosuid,nodev [APPLIED]"
+
+            else
+
+                echo "$mountpoint: noexec,nosuid,nodev [FAILED]"
+
+            fi
+
+
+        fi
+
+
+    else
+
+        echo "$mountpoint: not mounted [SKIPPED]"
+
+    fi
+
+}
+
+
+
+harden_mount /tmp
+harden_mount /var/tmp
+harden_mount /dev/shm
+
+
+
+echo
+echo "[*] Restricting cron access..."
+
+
+
+echo "root" > /etc/cron.allow
+chmod 600 /etc/cron.allow
+
+rm -f /etc/cron.deny
+
+
+
+echo
+echo "==============================="
+echo "Filesystem hardening summary"
+echo "==============================="
+echo "SUID remediated: $SUID_REMOVED"
+echo "SGID remediated: $SGID_REMOVED"
+echo "World-writable fixed: $WORLD_FIXED"
+#!/bin/bash
+
+set -euo pipefail
+
+DISABLED_COUNT=0
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+
+echo "[*] Scanning enabled services..."
+
+
+mapfile -t ENABLED_SERVICES < <(
+    systemctl list-unit-files \
+        --type=service \
+        --state=enabled \
+        --no-legend \
+    | awk '{print $1}'
+)
+
+BEFORE_COUNT=${#ENABLED_SERVICES[@]}
+
+echo "    Enabled services found: $BEFORE_COUNT"
+
+echo
+echo "[*] Comparing against MedDefense whitelist (9 required services)..."
+
+# Secure remote administration
+# Required for administrator SSH access
+#
+# Web server hosting MedDefense application
+#
+# Database backend for MedDefense
+#
+# Host firewall
+#
+# Security auditing
+#
+# Mandatory Access Control
+#
+# Scheduled system maintenance
+#
+# Centralized logging
+#
+# Time synchronization
+WHITELIST=(
+"ssh.service"
+"apache2.service"
+"mysql.service"
+"ufw.service"
+"auditd.service"
+"apparmor.service"
+"cron.service"
+"rsyslog.service"
+"systemd-timesyncd.service"
+)
+
+
+is_whitelisted() {
+
+    local service="$1"
+
+    for allowed in "${WHITELIST[@]}"; do
+        [[ "$service" == "$allowed" ]] && return 0
+    done
+
+    return 1
+}
+
+
+for service in "${ENABLED_SERVICES[@]}"; do
+
+    if is_whitelisted "$service"; then
+        continue
+    fi
+
+    systemctl stop "$service" 2>/dev/null || true
+    systemctl disable "$service" >/dev/null 2>&1 || true
+
+    echo "  $service     [STOPPED] [DISABLED]"
+
+    DISABLED_COUNT=$((DISABLED_COUNT + 1))
+
+done
+
+
+for service in "${WHITELIST[@]}"; do
+
+    systemctl enable "$service" >/dev/null 2>&1 || true
+    systemctl start "$service" >/dev/null 2>&1 || true
+
+    if systemctl is-active --quiet "$service"; then
+        echo "  $service     [ACTIVE]"
+    else
+        echo "  $service     [FAILED]"
+    fi
+
+done
+
+
+mapfile -t REMAINING_SERVICES < <(
+    systemctl list-unit-files \
+        --type=service \
+        --state=enabled \
+        --no-legend \
+    | awk '{print $1}'
+)
+
+AFTER_COUNT=${#REMAINING_SERVICES[@]}
+
+echo
+echo "Before: $BEFORE_COUNT | After: $AFTER_COUNT | Disabled: $DISABLED_COUNT"
+#!/bin/bash
+
+set -euo pipefail
+
+PWQUALITY_CONF="/etc/security/pwquality.conf"
+COMMON_AUTH="/etc/pam.d/common-auth"
+COMMON_PASSWORD="/etc/pam.d/common-password"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+
+echo "[*] Checking libpam-pwquality..."
+
+if dpkg -s libpam-pwquality >/dev/null 2>&1; then
+
+    VERSION=$(dpkg-query -W -f='${Version}' libpam-pwquality)
+    echo "    Already installed: libpam-pwquality $VERSION"
+
+else
+
+    apt-get update
+    apt-get install -y libpam-pwquality
+
+    VERSION=$(dpkg-query -W -f='${Version}' libpam-pwquality)
+    echo "    Installed: libpam-pwquality $VERSION"
+
+fi
+
+
+echo "[*] Configuring password quality ($PWQUALITY_CONF)..."
+
+sed -i '/^minlen/d' "$PWQUALITY_CONF"
+echo "minlen = 14" >> "$PWQUALITY_CONF"
+echo "    minlen = 14                      [SET]"
+
+sed -i '/^dcredit/d' "$PWQUALITY_CONF"
+echo "dcredit = -1" >> "$PWQUALITY_CONF"
+echo "    dcredit = -1                     [SET]"
+
+sed -i '/^ucredit/d' "$PWQUALITY_CONF"
+echo "ucredit = -1" >> "$PWQUALITY_CONF"
+echo "    ucredit = -1                     [SET]"
+
+sed -i '/^lcredit/d' "$PWQUALITY_CONF"
+echo "lcredit = -1" >> "$PWQUALITY_CONF"
+echo "    lcredit = -1                     [SET]"
+
+sed -i '/^ocredit/d' "$PWQUALITY_CONF"
+echo "ocredit = -1" >> "$PWQUALITY_CONF"
+echo "    ocredit = -1                     [SET]"
+
+sed -i '/^maxrepeat/d' "$PWQUALITY_CONF"
+echo "maxrepeat = 3" >> "$PWQUALITY_CONF"
+echo "    maxrepeat = 3                    [SET]"
+
+sed -i '/^reject_username/d' "$PWQUALITY_CONF"
+echo "reject_username" >> "$PWQUALITY_CONF"
+echo "    reject_username                  [SET]"
+
+
+echo "[*] Configuring account lockout (pam_faillock)..."
+
+sed -i '/pam_faillock.so/d' "$COMMON_AUTH"
+
+sed -i '1iauth required pam_faillock.so preauth silent deny=5 unlock_time=900 fail_interval=900' "$COMMON_AUTH"
+
+echo 'auth [default=die] pam_faillock.so authfail deny=5 unlock_time=900 fail_interval=900' >> "$COMMON_AUTH"
+
+echo 'account required pam_faillock.so' >> "$COMMON_AUTH"
+
+echo "    deny = 5                         [SET]"
+echo "    unlock_time = 900                [SET]"
+echo "    fail_interval = 900              [SET]"
+
+
+echo "[*] Configuring password history..."
+
+sed -i '/pam_pwhistory.so/d' "$COMMON_PASSWORD"
+
+sed -i '/pam_unix.so/ s/$/ remember=12/' "$COMMON_PASSWORD"
+
+echo "password required pam_pwhistory.so remember=12 use_authtok" >> "$COMMON_PASSWORD"
+
+echo "    remember = 12                    [SET]"
+
+
+grep -q '^minlen = 14' "$PWQUALITY_CONF"
+grep -q '^dcredit = -1' "$PWQUALITY_CONF"
+grep -q '^ucredit = -1' "$PWQUALITY_CONF"
+grep -q '^lcredit = -1' "$PWQUALITY_CONF"
+grep -q '^ocredit = -1' "$PWQUALITY_CONF"
+grep -q '^maxrepeat = 3' "$PWQUALITY_CONF"
+grep -q '^reject_username' "$PWQUALITY_CONF"
+
+grep -q 'deny=5' "$COMMON_AUTH"
+grep -q 'unlock_time=900' "$COMMON_AUTH"
+grep -q 'fail_interval=900' "$COMMON_AUTH"
+
+grep -q 'remember=12' "$COMMON_PASSWORD"
+
+
+echo
+echo "Password minimum length: 14 | Lockout: 5 attempts / 15 min | History: 12"
+#!/bin/bash
+
+set -euo pipefail
+
+PROFILE="/etc/apparmor.d/opt.meddefense.billing-app"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+
+echo "[*] Checking AppArmor status..."
+
+if ! command -v aa-status >/dev/null 2>&1; then
+    echo "AppArmor is not installed."
+    exit 1
+fi
+
+if [[ -d /sys/module/apparmor ]]; then
+    echo "    AppArmor module: loaded"
+else
+    echo "    AppArmor module: not loaded"
+    exit 1
+fi
+
+if systemctl is-active --quiet apparmor; then
+    echo "    AppArmor service: active"
+else
+    echo "    AppArmor service: inactive"
+    exit 1
+fi
+
+
+echo "[*] Profile enforcement:"
+
+
+switch_profile() {
+
+    local binary="$1"
+
+    if aa-status | grep -A100 "profiles are in complain mode" | grep -q "$binary"; then
+
+        aa-enforce "$binary" >/dev/null
+
+        printf "    %-25s complain -> enforce  [ENFORCED]\n" "$binary"
+
+    elif aa-status | grep -A100 "profiles are in enforce mode" | grep -q "$binary"; then
+
+        printf "    %-25s enforce              [OK]\n" "$binary"
+
+    else
+
+        printf "    %-25s profile not found    [SKIPPED]\n" "$binary"
+
+    fi
+}
+
+
+switch_profile "/usr/sbin/apache2"
+switch_profile "/usr/sbin/mysqld"
+switch_profile "/usr/sbin/sshd"
+
+
+cat > "$PROFILE" <<'EOF'
+#include <tunables/global>
+
+profile opt.meddefense.billing-app /opt/meddefense/billing-app {
+
+    #include <abstractions/base>
+
+    /opt/meddefense/billing-app rix,
+
+    /opt/meddefense/** rw,
+
+    /etc/meddefense/** r,
+
+    /var/lib/meddefense/** rw,
+
+    /var/log/meddefense/** rw,
+
+    /tmp/** rw,
+
+    deny /** w,
+
+}
+EOF
+
+apparmor_parser -r "$PROFILE"
+
+aa-enforce "$PROFILE" >/dev/null 2>&1 || true
+
+echo "[*] Custom profile: /opt/meddefense/billing-app   [CREATED] [ENFORCED]"
+
+
+echo "[*] Unconfined network-exposed processes:"
+
+UNCONFINED=0
+
+while read -r process; do
+
+    [[ -z "$process" ]] && continue
+
+    printf "    %-25s [UNCONFINED - Profile recommended]\n" "$process"
+
+    UNCONFINED=$((UNCONFINED + 1))
+
+done < <(
+    aa-status |
+    awk '
+        /processes are unconfined/ {flag=1; next}
+        /^$/ {flag=0}
+        flag {print $1}
+    '
+)
+
+
+ENFORCE=$(aa-status | awk '/profiles are in enforce mode/ {print $1}')
+COMPLAIN=$(aa-status | awk '/profiles are in complain mode/ {print $1}')
+
+echo
+echo "Profiles in enforce: $ENFORCE | Complain: $COMPLAIN | Unconfined: $UNCONFINED"
+#!/bin/bash
+
+set -euo pipefail
+
+RULES_FILE="/etc/audit/rules.d/meddefense.rules"
+
+RULE_COUNT=0
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+
+echo "[*] Checking auditd..."
+
+if ! dpkg -s auditd >/dev/null 2>&1; then
+    apt-get update
+    apt-get install -y auditd audispd-plugins
+fi
+
+
+systemctl enable auditd >/dev/null
+systemctl restart auditd >/dev/null
+
+echo "[*] Enabling auditd service..."
+
+if systemctl is-active --quiet auditd; then
+    echo "    auditd.service: active (running)"
+else
+    echo "Error: auditd failed to start"
+    exit 1
+fi
+
+
+echo "[*] Deploying MedDefense audit rules..."
+
+
+cat > "$RULES_FILE" <<EOF
+-w /etc/passwd -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/group -p wa -k identity
+-w /etc/pam.d/ -p wa -k pam_config
+-w /etc/ssh/sshd_config -p wa -k sshd_config
+-w /usr/bin/sudo -p x -k priv_esc
+-w /usr/bin/su -p x -k priv_esc
+-w /etc/sudoers -p wa -k sudoers
+-w /usr/bin/wget -p x -k suspicious_download
+-w /usr/bin/curl -p x -k suspicious_download
+-w /usr/bin/nc -p x -k suspicious_netcat
+-w /var/lib/mysql/ -p wa -k meddefense_db
+-w /etc/apache2/ -p wa -k meddefense_web
+-w /etc/init.d/ -p wa -k startup_scripts
+-w /etc/cron.d/ -p wa -k cron_config
+EOF
+
+
+while read -r rule; do
+    [[ -z "$rule" ]] && continue
+    echo "    $rule  [ADDED]"
+    RULE_COUNT=$((RULE_COUNT + 1))
+done < "$RULES_FILE"
+
+
+echo "[*] Loading rules..."
+
+if augenrules --load >/dev/null 2>&1; then
+    echo "    augenrules --load: OK"
+else
+    echo "    augenrules --load: FAILED"
+    exit 1
+fi
+
+
+echo "[*] Verifying..."
+
+LOADED_RULES=$(auditctl -l | wc -l)
+
+echo "    auditctl -l: $LOADED_RULES rules loaded"
+
+
+echo "[*] Test: reading /etc/shadow..."
+
+cat /etc/shadow >/dev/null
+
+
+sleep 2
+
+
+EVENTS=$(ausearch -ts recent -k identity 2>/dev/null | grep -c "^type=" || true)
+
+if [[ "$EVENTS" -gt 0 ]]; then
+    echo "    ausearch -ts recent -k identity: $EVENTS event found [PASS]"
+else
+    echo "    ausearch -ts recent -k identity: 0 event found [FAIL]"
+fi
+#!/bin/bash
+
+set -euo pipefail
+
+REPORT="audit_validation.json"
+
+STARTUP_TEST="/etc/init.d/meddefense_test"
+CRON_TEST="/etc/cron.d/meddefense_test"
+
+TOTAL=0
+CAPTURED=0
+MISSED=0
+
+RESULTS="[]"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+cleanup() {
+    rm -f "$STARTUP_TEST"
+    rm -f "$CRON_TEST"
+}
+
+trap cleanup EXIT
+
+echo "[*] Running audit telemetry coverage tests..."
+
+run_test() {
+
+    local number="$1"
+    local name="$2"
+    local key="$3"
+    local command="$4"
+
+    TOTAL=$((TOTAL + 1))
+
+    local timestamp
+    timestamp=$(date --iso-8601=seconds)
+
+    eval "$command"
+
+    sleep 2
+
+    local excerpt
+    excerpt=$(ausearch -ts recent -k "$key" 2>/dev/null | tail -5)
+
+    local events
+    events=$(grep -c "^type=" <<<"$excerpt" || true)
+
+    local status
+
+    if [[ "$events" -gt 0 ]]; then
+        status="CAPTURED"
+        CAPTURED=$((CAPTURED + 1))
+    else
+        status="MISSED"
+        MISSED=$((MISSED + 1))
+    fi
+
+    printf "[%d/6] %-32s [%s]\n" "$number" "$name" "$status"
+
+    RESULTS=$(
+        jq \
+        --arg test "$name" \
+        --arg key "$key" \
+        --arg cmd "$command" \
+        --arg ts "$timestamp" \
+        --arg status "$status" \
+        --arg excerpt "$excerpt" \
+        --argjson count "$events" \
+        '. += [{
+            test_name:$test,
+            expected_audit_key:$key,
+            command:$cmd,
+            timestamp:$ts,
+            capture_status:$status,
+            matching_event_count:$count,
+            event_excerpt:$excerpt
+        }]' <<<"$RESULTS"
+    )
+}
+
+
+run_test \
+1 \
+"sudo execution" \
+"priv_esc" \
+"sudo -l >/dev/null 2>&1 || true"
+
+
+run_test \
+2 \
+"shadow access" \
+"identity" \
+"head -1 /etc/shadow >/dev/null"
+
+
+run_test \
+3 \
+"suspicious download tool" \
+"suspicious_download" \
+"curl --version >/dev/null"
+
+
+run_test \
+4 \
+"sshd config read" \
+"sshd_config" \
+"stat /etc/ssh/sshd_config >/dev/null"
+
+
+run_test \
+5 \
+"monitored test file write" \
+"startup_scripts" \
+"echo test > $STARTUP_TEST"
+
+
+run_test \
+6 \
+"cron configuration check" \
+"cron_config" \
+"touch $CRON_TEST"
+
+
+echo
+echo "[*] Cleaning test artifacts..."
+
+cleanup
+
+jq -n \
+--arg generated "$(date --iso-8601=seconds)" \
+--argjson tests "$RESULTS" \
+--argjson executed "$TOTAL" \
+--argjson captured "$CAPTURED" \
+--argjson missed "$MISSED" \
+'{
+    generated: $generated,
+    tests_executed: $executed,
+    captured: $captured,
+    missed: $missed,
+    results: $tests
+}' > "$REPORT"
+
+echo "Tests executed: $TOTAL"
+echo "Captured: $CAPTURED"
+echo "Missed: $MISSED"
+echo "Report saved to: $REPORT"
+#!/bin/bash
+
+set -euo pipefail
+
+RSYSLOG_CONF="/etc/rsyslog.d/50-meddefense.conf"
+LOGROTATE_CONF="/etc/logrotate.d/meddefense"
+
+LOG_SOURCES=0
+ROTATION_POLICIES=0
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+echo "[*] Configuring rsyslog..."
+
+cat > "$RSYSLOG_CONF" <<EOF
+# MedDefense logging configuration
+
+template(name="MedDefenseFormat" type="string"
+string="%timegenerated% %HOSTNAME% %syslogtag%%msg%\n")
+
+auth,authpriv.*                 action(type="omfile" file="/var/log/auth.log" template="MedDefenseFormat")
+*.info;auth.none;authpriv.none  action(type="omfile" file="/var/log/syslog" template="MedDefenseFormat")
+EOF
+
+systemctl restart rsyslog
+
+echo "    auth,authpriv.* -> /var/log/auth.log     [CONFIGURED]"
+LOG_SOURCES=$((LOG_SOURCES+1))
+
+echo "    *.info;auth.none -> /var/log/syslog      [CONFIGURED]"
+LOG_SOURCES=$((LOG_SOURCES+1))
+
+echo
+echo "[*] Setting log rotation policies..."
+
+cat > "$LOGROTATE_CONF" <<EOF
+/var/log/auth.log
+{
+    daily
+    rotate 90
+    missingok
+    notifempty
+    compress
+    delaycompress
+    sharedscripts
+    create 640 root adm
+    postrotate
+        systemctl reload rsyslog >/dev/null 2>&1 || true
+    endscript
+}
+
+/var/log/syslog
+{
+    daily
+    rotate 60
+    missingok
+    notifempty
+    compress
+    delaycompress
+    sharedscripts
+    create 640 root adm
+    postrotate
+        systemctl reload rsyslog >/dev/null 2>&1 || true
+    endscript
+}
+EOF
+
+echo "    /var/log/auth.log: rotate 90, compress after 7d  [SET]"
+ROTATION_POLICIES=$((ROTATION_POLICIES+1))
+
+echo "    /var/log/syslog: rotate 60, compress after 7d    [SET]"
+ROTATION_POLICIES=$((ROTATION_POLICIES+1))
+
+echo
+echo "[*] Verifying log activity..."
+
+logger -p authpriv.notice "MedDefense authentication log test"
+logger -p user.info "MedDefense syslog test"
+
+sleep 2
+
+if tail -20 /var/log/auth.log | grep -q "MedDefense authentication log test"; then
+    echo "    /var/log/auth.log: receiving events       [OK]"
+else
+    echo "    /var/log/auth.log: receiving events       [FAIL]"
+fi
+
+if tail -20 /var/log/syslog | grep -q "MedDefense syslog test"; then
+    echo "    /var/log/syslog: receiving events         [OK]"
+else
+    echo "    /var/log/syslog: receiving events         [FAIL]"
+fi
+
+echo
+echo "[*] Securing log file permissions..."
+
+chown root:adm /var/log/auth.log
+chmod 640 /var/log/auth.log
+
+echo "    /var/log/auth.log: 640 root:adm          [OK]"
+
+chown root:adm /var/log/syslog
+chmod 640 /var/log/syslog
+
+echo "    /var/log/syslog: 640 root:adm            [OK]"
+
+echo
+echo "Log sources configured: $LOG_SOURCES | Rotation policies: $ROTATION_POLICIES | Permissions: secured"
+#!/bin/bash
+
+set -euo pipefail
+
+MANAGEMENT_NET="10.10.1.0/24"
+APPLICATION_NET="10.10.2.0/24"
+
+RULES=0
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Error: run this script as root"
+    exit 1
+fi
+
+echo "[*] Configuring UFW..."
+
+if ! dpkg -s ufw >/dev/null 2>&1; then
+    apt-get update
+    apt-get install -y ufw
+fi
+
+ufw --force reset >/dev/null
+
+ufw default deny incoming >/dev/null
+ufw default allow outgoing >/dev/null
+
+echo "    Default incoming: deny"
+echo "    Default outgoing: allow"
+
+echo
+echo "[*] Adding allow rules..."
+
+ufw allow from "$MANAGEMENT_NET" to any port 22 proto tcp >/dev/null
+echo "    22/tcp from $MANAGEMENT_NET   [ADDED] SSH - management only"
+RULES=$((RULES+1))
+
+ufw allow 80/tcp >/dev/null
+echo "    80/tcp                     [ADDED] HTTP"
+RULES=$((RULES+1))
+
+ufw allow 443/tcp >/dev/null
+echo "    443/tcp                    [ADDED] HTTPS"
+RULES=$((RULES+1))
+
+ufw allow from "$APPLICATION_NET" to any port 3306 proto tcp >/dev/null
+echo "    3306/tcp from $APPLICATION_NET [ADDED] MySQL - app network only"
+RULES=$((RULES+1))
+
+echo
+echo "[*] Enabling logging..."
+
+ufw logging low >/dev/null
+
+echo "    Logging: on (low)"
+
+echo
+echo "[*] Activating firewall..."
+
+ufw --force enable >/dev/null
+
+if ufw status | grep -q "Status: active"; then
+    echo "    UFW: active"
+else
+    echo "    UFW: inactive"
+    exit 1
+fi
+
+echo "    Rules: $RULES allow, default deny"
+
+echo
+echo "[*] Active firewall rules:"
+ufw status numbered
