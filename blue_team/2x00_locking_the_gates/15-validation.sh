@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -uo pipefail
+set -euo pipefail
 
 PASS_COUNT=0
 FAIL_COUNT=0
