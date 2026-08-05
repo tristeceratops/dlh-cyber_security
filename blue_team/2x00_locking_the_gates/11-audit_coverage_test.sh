@@ -99,10 +99,15 @@ run_test \
 
 run_test \
 3 \
-"suspicious download tool" \
+"suspicious download tool (curl)" \
 "suspicious_download" \
 "curl --version >/dev/null"
 
+ru_test \
+4 \
+"suspicious download tool (wget)" \
+"suspicious_download" \
+"wget --version >/dev/null"
 
 run_test \
 4 \
