@@ -11,7 +11,7 @@ TOTAL=0
 CAPTURED=0
 MISSED=0
 
-RESULTS="[]"
+RESPONSES="[]"
 
 if [[ $EUID -ne 0 ]]; then
     echo "Error: run this script as root"
@@ -61,7 +61,7 @@ run_test() {
 
     printf "[%d/6] %-32s [%s]\n" "$number" "$name" "$status"
 
-    RESULTS=$(
+    RESPONSES=$(
         jq \
         --arg test "$name" \
         --arg key "$key" \
@@ -78,7 +78,7 @@ run_test() {
             capture_status:$status,
             matching_event_count:$count,
             event_excerpt:$excerpt
-        }]' <<<"$RESULTS"
+        }]' <<<"$RESPONSES"
     )
 }
 
@@ -132,7 +132,7 @@ cleanup
 
 jq -n \
 --arg generated "$(date --iso-8601=seconds)" \
---argjson tests "$RESULTS" \
+--argjson tests "$RESPONSES" \
 --argjson executed "$TOTAL" \
 --argjson captured "$CAPTURED" \
 --argjson missed "$MISSED" \
