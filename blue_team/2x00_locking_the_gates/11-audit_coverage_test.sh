@@ -6,6 +6,7 @@ REPORT="audit_validation.json"
 
 STARTUP_TEST="/etc/init.d/meddefense_test"
 CRON_TEST="/etc/cron.d/meddefense_test"
+TEMP_USER="audit_test_user"
 
 TOTAL=0
 CAPTURED=0
@@ -21,6 +22,10 @@ fi
 cleanup() {
     rm -f "$STARTUP_TEST"
     rm -f "$CRON_TEST"
+
+    if id "$TEMP_USER" &>/dev/null; then
+        userdel "$TEMP_USER" >/dev/null 2>&1 || true
+    fi
 }
 
 trap cleanup EXIT
@@ -59,7 +64,7 @@ run_test() {
         MISSED=$((MISSED + 1))
     fi
 
-    printf "[%d/6] %-32s [%s]\n" "$number" "$name" "$status"
+    printf "[%d/8] %-32s [%s]\n" "$number" "$name" "$status"
 
     RESPONSES=$(
         jq \
@@ -82,13 +87,11 @@ run_test() {
     )
 }
 
-
 run_test \
 1 \
 "sudo execution" \
 "priv_esc" \
 "sudo -l >/dev/null 2>&1 || true"
-
 
 run_test \
 2 \
@@ -96,39 +99,40 @@ run_test \
 "identity" \
 "head -1 /etc/shadow >/dev/null"
 
-
 run_test \
 3 \
+"user add/delete" \
+"identity" \
+"id $TEMP_USER >/dev/null 2>&1 && userdel $TEMP_USER >/dev/null 2>&1 || true; useradd -M -r $TEMP_USER >/dev/null 2>&1 && userdel $TEMP_USER >/dev/null 2>&1"
+
+run_test \
+4 \
 "suspicious download tool (curl)" \
 "suspicious_download" \
 "curl --version >/dev/null"
 
-ru_test \
-4 \
+run_test \
+5 \
 "suspicious download tool (wget)" \
 "suspicious_download" \
 "wget --version >/dev/null"
 
 run_test \
-4 \
+6 \
 "sshd config read" \
 "sshd_config" \
 "stat /etc/ssh/sshd_config >/dev/null"
 
-
 run_test \
-5 \
+7 \
 "monitored test file write" \
 "startup_scripts" \
 "echo test > $STARTUP_TEST"
 
-
 run_test \
-6 \
+8 \
 "cron configuration check" \
-"cron_config" \
 "touch $CRON_TEST"
-
 
 echo
 echo "[*] Cleaning test artifacts..."
@@ -149,6 +153,7 @@ jq -n \
     results: $tests
 }' > "$REPORT"
 
+echo
 echo "Tests executed: $TOTAL"
 echo "Captured: $CAPTURED"
 echo "Missed: $MISSED"
