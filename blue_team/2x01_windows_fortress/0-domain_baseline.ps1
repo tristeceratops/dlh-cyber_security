@@ -1,6 +1,33 @@
-# 0-domain_baseline.ps1
-# MedDefense Domain Security baseline audit
-# Tristeceratops, 05/08/2026
+<#
+.SYNOPSIS
+    0-domain_baseline.ps1
+
+.DESCRIPTION
+    Captures the complete security state of the MedDefense domain and produces
+    a structured report.
+
+    The script collects:
+    - Domain information: domain name, forest level, domain controllers
+    - All user accounts: name, enabled/disabled, last logon, password last set,
+      password never expires flag
+    - All groups and their members
+    - All service accounts (accounts with "svc" in the name or in the Service Accounts OU)
+    - All GPOs linked to the domain and OUs
+    - Current password policy: minimum length, complexity, history, max age
+    - Current account lockout policy
+    - Kerberos encryption types supported
+    - All users with Domain Admin or Enterprise Admin privileges
+    - Security findings summary with severity count
+
+.NOTES
+    Script Name: 0-domain_baseline.ps1
+    Purpose: Active Directory domain security baseline audit
+    Author: Tristeceratops
+    Date: 05/08/2026
+#>
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
 
 Import-Module ActiveDirectory
 Import-Module GroupPolicy
