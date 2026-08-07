@@ -87,7 +87,7 @@ $Events = @(
     @{
         EventID = 4688
         Description = "Process Creation"
-        Subcategory = "Process Creation"
+        Subcategory = "Process Tracking"
     },
     @{
         EventID = 4720
