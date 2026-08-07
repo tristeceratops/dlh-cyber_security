@@ -16,7 +16,7 @@ The assessment includes:
 - Password and account lockout policy gaps
 - Advanced Audit Policy, PowerShell logging, and Sysmon readiness
 - Service account security risks, including:
-    - Interactive logon exposure
+    - interactive logon exposure
     - Unconstrained delegation
     - DES-only Kerberos encryption
     - Privileged group membership
