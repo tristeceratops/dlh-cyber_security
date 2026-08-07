@@ -136,25 +136,25 @@ foreach ($user in $users) {
 # 2 DISABLED PRIVILEGED ACCOUNTS
 #########################################################
 
-$PrivilegedGroups=@(
-"Domain Admins",
-"Enterprise Admins",
-"G_IT_Admins"
+$PrivilegedGroups = @(
+    "Domain Admins",
+    "Enterprise Admins",
+    "G_IT_Admins"
 )
 
-foreach($group in $PrivilegedGroups){
+foreach ($group in $PrivilegedGroups) {
 
-    $members=Get-ADGroupMember $group -Recursive -ErrorAction SilentlyContinue
+    $members = Get-ADGroupMember $group -Recursive -ErrorAction SilentlyContinue
 
-    foreach($member in $members){
+    foreach ($member in $members) {
 
-        if($member.objectClass -ne "user"){
+        if ($member.objectClass -ne "user") {
             continue
         }
 
-        $user=Get-ADUser $member -Properties Enabled
+        $user = Get-ADUser $member -Properties Enabled,MemberOf
 
-        if($user.Enabled){
+        if ($user.Enabled) {
             continue
         }
 
@@ -164,11 +164,12 @@ foreach($group in $PrivilegedGroups){
             -Category "Privileged Accounts" `
             -Asset $user.SamAccountName `
             -Evidence @{
-                Group=$group
-                Enabled=$false
+                PrivilegedGroup = $group
+                Enabled         = $false
+                DirectGroups    = $user.MemberOf
             } `
-            -Risk "Disabled account remains privileged." `
-            -Remediation "Remove from privileged group." `
+            -Risk "Disabled account remains a member of a privileged group." `
+            -Remediation "Remove the account from the privileged group or delete it if no longer required." `
             -Task "Disabled privileged account"
     }
 }

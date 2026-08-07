@@ -28,11 +28,14 @@
         "category":  "Privileged Accounts",
         "asset":  "rkim",
         "evidence":  {
-                         "Enabled":  false,
-                         "Group":  "G_IT_Admins"
+                         "PrivilegedGroup":  "G_IT_Admins",
+                         "DirectGroups":  [
+
+                                          ],
+                         "Enabled":  false
                      },
-        "risk":  "Disabled account remains privileged.",
-        "recommended_remediation":  "Remove from privileged group.",
+        "risk":  "Disabled account remains a member of a privileged group.",
+        "recommended_remediation":  "Remove the account from the privileged group or delete it if no longer required.",
         "mapped_task":  "Disabled privileged account"
     },
     {
