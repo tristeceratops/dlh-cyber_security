@@ -290,17 +290,30 @@ foreach($gpo in $gpos){
     }
 }
 
-if(!$auditFound){
+$AuditChecks = @(
+    "Process Creation",
+    "Special Logon",
+    "User Account Management",
+    "Security Group Management",
+    "File System"
+)
 
-    Add-Finding `
-        -Id "AUD-001" `
-        -Severity "High" `
-        -Category "Audit Policy" `
-        -Asset "Advanced Audit Policy" `
-        -Evidence "Missing" `
-        -Risk "Process creation, logon, account management or object access auditing not configured." `
-        -Remediation "Deploy Advanced Audit Policy." `
-        -Task "Audit policy"
+foreach ($subcategory in $AuditChecks) {
+
+    $result = auditpol /get /subcategory:"$subcategory"
+
+    if ($result -notmatch "Success") {
+
+        Add-Finding `
+            -Id "AUD-001" `
+            -Severity "High" `
+            -Category "Audit Policy" `
+            -Asset $subcategory `
+            -Evidence $result `
+            -Risk "$subcategory auditing is not enabled." `
+            -Remediation "Enable Success auditing." `
+            -Task "Advanced Audit Policy"
+    }
 }
 
 if(!$psLogging){
