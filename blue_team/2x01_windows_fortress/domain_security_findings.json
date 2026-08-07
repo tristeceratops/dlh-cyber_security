@@ -1,0 +1,203 @@
+[
+    {
+        "id":  "PW-001",
+        "severity":  "High",
+        "category":  "Password Policy",
+        "asset":  "Administrator",
+        "evidence":  {
+                         "PasswordLastSet":  "\/Date(1776372363831)\/",
+                         "Groups":  [
+                                        "Domain Users",
+                                        "Administrators",
+                                        "Schema Admins",
+                                        "Enterprise Admins",
+                                        "Domain Admins",
+                                        "Group Policy Creator Owners"
+                                    ],
+                         "ServiceAccount":  false,
+                         "PasswordNeverExpires":  true,
+                         "Enabled":  true
+                     },
+        "risk":  "Password never expires.",
+        "recommended_remediation":  "Disable Password Never Expires unless justified.",
+        "mapped_task":  "PasswordNeverExpires"
+    },
+    {
+        "id":  "PRIV-001",
+        "severity":  "High",
+        "category":  "Privileged Accounts",
+        "asset":  "rkim",
+        "evidence":  {
+                         "Enabled":  false,
+                         "Group":  "G_IT_Admins"
+                     },
+        "risk":  "Disabled account remains privileged.",
+        "recommended_remediation":  "Remove from privileged group.",
+        "mapped_task":  "Disabled privileged account"
+    },
+    {
+        "id":  "COMP-001",
+        "severity":  "Medium",
+        "category":  "Computer Objects",
+        "asset":  "BILLING-SRV-01",
+        "evidence":  {
+                         "LastLogon":  null,
+                         "Enabled":  true
+                     },
+        "risk":  "Computer inactive for over 90 days.",
+        "recommended_remediation":  "Disable or remove stale computer object.",
+        "mapped_task":  "Stale computer"
+    },
+    {
+        "id":  "COMP-001",
+        "severity":  "Medium",
+        "category":  "Computer Objects",
+        "asset":  "WEB-SRV-01",
+        "evidence":  {
+                         "LastLogon":  null,
+                         "Enabled":  true
+                     },
+        "risk":  "Computer inactive for over 90 days.",
+        "recommended_remediation":  "Disable or remove stale computer object.",
+        "mapped_task":  "Stale computer"
+    },
+    {
+        "id":  "COMP-001",
+        "severity":  "Medium",
+        "category":  "Computer Objects",
+        "asset":  "LOG-SRV-01",
+        "evidence":  {
+                         "LastLogon":  null,
+                         "Enabled":  true
+                     },
+        "risk":  "Computer inactive for over 90 days.",
+        "recommended_remediation":  "Disable or remove stale computer object.",
+        "mapped_task":  "Stale computer"
+    },
+    {
+        "id":  "COMP-001",
+        "severity":  "Medium",
+        "category":  "Computer Objects",
+        "asset":  "NURSE-WS-01",
+        "evidence":  {
+                         "LastLogon":  null,
+                         "Enabled":  true
+                     },
+        "risk":  "Computer inactive for over 90 days.",
+        "recommended_remediation":  "Disable or remove stale computer object.",
+        "mapped_task":  "Stale computer"
+    },
+    {
+        "id":  "POL-001",
+        "severity":  "Critical",
+        "category":  "Password Policy",
+        "asset":  "Minimum Password Length",
+        "evidence":  7,
+        "risk":  "Minimum password length below Fortress baseline.",
+        "recommended_remediation":  "Configure minimum length of 14.",
+        "mapped_task":  "Password policy"
+    },
+    {
+        "id":  "POL-002",
+        "severity":  "Critical",
+        "category":  "Password Policy",
+        "asset":  "Password Complexity",
+        "evidence":  false,
+        "risk":  "Complexity disabled.",
+        "recommended_remediation":  "Enable password complexity.",
+        "mapped_task":  "Password policy"
+    },
+    {
+        "id":  "POL-003",
+        "severity":  "Critical",
+        "category":  "Password Policy",
+        "asset":  "Password History",
+        "evidence":  0,
+        "risk":  "Password history below Fortress baseline.",
+        "recommended_remediation":  "Configure history to 24.",
+        "mapped_task":  "Password policy"
+    },
+    {
+        "id":  "POL-004",
+        "severity":  "Critical",
+        "category":  "Lockout Policy",
+        "asset":  "Lockout Threshold",
+        "evidence":  0,
+        "risk":  "Lockout threshold not set to 5.",
+        "recommended_remediation":  "Configure lockout threshold to 5.",
+        "mapped_task":  "Lockout policy"
+    },
+    {
+        "id":  "AUD-001",
+        "severity":  "High",
+        "category":  "Audit Policy",
+        "asset":  "Advanced Audit Policy",
+        "evidence":  "Missing",
+        "risk":  "Process creation, logon, account management or object access auditing not configured.",
+        "recommended_remediation":  "Deploy Advanced Audit Policy.",
+        "mapped_task":  "Audit policy"
+    },
+    {
+        "id":  "AUD-002",
+        "severity":  "High",
+        "category":  "PowerShell Logging",
+        "asset":  "PowerShell",
+        "evidence":  "Disabled",
+        "risk":  "PowerShell activity not fully visible.",
+        "recommended_remediation":  "Enable Script Block and Module Logging.",
+        "mapped_task":  "PowerShell logging"
+    },
+    {
+        "id":  "AUD-003",
+        "severity":  "Medium",
+        "category":  "Sysmon",
+        "asset":  "Endpoints",
+        "evidence":  "Not detected",
+        "risk":  "Limited endpoint visibility.",
+        "recommended_remediation":  "Deploy Sysmon with enterprise configuration.",
+        "mapped_task":  "Sysmon"
+    },
+    {
+        "id":  "SVC-003",
+        "severity":  "High",
+        "category":  "Service Accounts",
+        "asset":  "svc_backup",
+        "evidence":  null,
+        "risk":  "Service account password older than one year.",
+        "recommended_remediation":  "Rotate service account password.",
+        "mapped_task":  "Password rotation"
+    },
+    {
+        "id":  "SVC-003",
+        "severity":  "High",
+        "category":  "Service Accounts",
+        "asset":  "svc_ehr",
+        "evidence":  null,
+        "risk":  "Service account password older than one year.",
+        "recommended_remediation":  "Rotate service account password.",
+        "mapped_task":  "Password rotation"
+    },
+    {
+        "id":  "SVC-003",
+        "severity":  "High",
+        "category":  "Service Accounts",
+        "asset":  "svc_sql",
+        "evidence":  null,
+        "risk":  "Service account password older than one year.",
+        "recommended_remediation":  "Rotate service account password.",
+        "mapped_task":  "Password rotation"
+    },
+    {
+        "id":  "GPO-001",
+        "severity":  "Medium",
+        "category":  "Group Policy",
+        "asset":  "Domain GPOs",
+        "evidence":  [
+                         "Default Domain Policy",
+                         "Default Domain Controllers Policy"
+                     ],
+        "risk":  "No MedDefense hardening GPOs detected.",
+        "recommended_remediation":  "Deploy security baseline GPOs.",
+        "mapped_task":  "GPO Hardening"
+    }
+]
