@@ -1,7 +1,49 @@
 <#
-    1-domain_findings.ps1
-    Audits meddefense.local
-    Outputs: domain_security_findings.json
+.SYNOPSIS
+1-domain_findings.ps1
+
+.DESCRIPTION
+Audits the MedDefense Active Directory domain (meddefense.local) and
+identifies security findings against the Windows Fortress target state.
+
+The script performs security assessments and generates a structured JSON
+report (domain_security_findings.json) containing all identified findings.
+
+The assessment includes:
+- Accounts with PasswordNeverExpires enabled
+- Disabled accounts that remain members of privileged groups
+- Stale computer accounts with no authentication activity for 90+ days
+- Password and account lockout policy gaps
+- Advanced Audit Policy, PowerShell logging, and Sysmon readiness
+- Service account security risks, including:
+    - Interactive logon exposure
+    - Unconstrained delegation
+    - DES-only Kerberos encryption
+    - Privileged group membership
+    - Stale passwords
+    - Suspicious last logon activity
+- Group Policy security posture, including missing hardening GPOs and
+  GPOs without a clear security purpose
+
+Each finding contains:
+- id
+- severity
+- category
+- asset
+- evidence
+- risk
+- recommended_remediation
+- mapped_task
+
+.OUTPUTS
+domain_security_findings.json
+
+.NOTES
+Script Name : 1-domain_findings.ps1
+Purpose     : Active Directory security findings assessment
+Target      : meddefense.local
+Author      : Tristeceratops
+Date        : 07/08/2026
 #>
 
 Import-Module ActiveDirectory
