@@ -34,48 +34,55 @@ $Policy = $Xml.CreateElement("AppLockerPolicy")
 $Policy.SetAttribute("Version","1")
 $Xml.AppendChild($Policy) | Out-Null
 
-$AddCollection = {
-param($Type,$Rules)
-$C = $Xml.CreateElement("RuleCollection")
-$C.SetAttribute("Type",$Type)
-$C.SetAttribute("EnforcementMode","AuditOnly")
-foreach ($R in $Rules) { $C.AppendChild($R) | Out-Null }
-$Policy.AppendChild($C) | Out-Null
+$AddRule = {
+param($Type,$Path,$Action,$Name)
+$R = $Xml.CreateElement("FilePathRule")
+$R.SetAttribute("Id",[guid]::NewGuid().Guid)
+$R.SetAttribute("Name",$Name)
+$R.SetAttribute("Description","$Name")
+$R.SetAttribute("UserOrGroupSid","S-1-1-0")
+$R.SetAttribute("Action",$Action)
+$C = $Xml.CreateElement("Conditions")
+$P = $Xml.CreateElement("FilePathCondition")
+$P.SetAttribute("Path",$Path)
+$C.AppendChild($P) | Out-Null
+$R.AppendChild($C) | Out-Null
+$R
 }
 
-$Rules = @()
-$Paths = @("C:\Windows*","C:\Program Files*","C:\Program Files (x86)*","C:\MedDefense_Lab\Applications\DicomViewer.exe")
-foreach ($Path in $Paths) {
-$R = $Xml.CreateElement("FilePathRule")
-$R.SetAttribute("Id",[guid]::NewGuid().Guid); $R.SetAttribute("Name","Allow $Path"); $R.SetAttribute("Description","MedDefense approved path"); $R.SetAttribute("UserOrGroupSid","S-1-1-0"); $R.SetAttribute("Action","Allow")
-$C = $Xml.CreateElement("Conditions"); $P = $Xml.CreateElement("FilePathCondition"); $P.SetAttribute("Path",$Path); $C.AppendChild($P) | Out-Null; $R.AppendChild($C) | Out-Null
-$Rules += $R
+$Exe = $Xml.CreateElement("RuleCollection")
+$Exe.SetAttribute("Type","Exe")
+$Exe.SetAttribute("EnforcementMode","AuditOnly")
+foreach ($Path in @("C:\Windows*","C:\Program Files*","C:\Program Files (x86)*","C:\MedDefense_Lab\Applications\DicomViewer.exe")) {
+$Exe.AppendChild((& $AddRule "Exe" $Path "Allow" "Allow $Path")) | Out-Null
 }
-& $AddCollection "Exe" $Rules
+$Exe.AppendChild((& $AddRule "Exe" "C:\Temp*" "Deny" "Deny unapproved executable locations")) | Out-Null
+$Policy.AppendChild($Exe) | Out-Null
 Write-Host "[*] Configuring Executable Rules... [SET]"
 
-$Rules = @()
+$Script = $Xml.CreateElement("RuleCollection")
+$Script.SetAttribute("Type","Script")
+$Script.SetAttribute("EnforcementMode","AuditOnly")
 foreach ($Path in @("C:\Windows*","C:\MedDefense_Lab\Scripts*")) {
-$R = $Xml.CreateElement("FilePathRule")
-$R.SetAttribute("Id",[guid]::NewGuid().Guid); $R.SetAttribute("Name","Allow $Path"); $R.SetAttribute("Description","MedDefense approved script path"); $R.SetAttribute("UserOrGroupSid","S-1-1-0"); $R.SetAttribute("Action","Allow")
-$C = $Xml.CreateElement("Conditions"); $P = $Xml.CreateElement("FilePathCondition"); $P.SetAttribute("Path",$Path); $C.AppendChild($P) | Out-Null; $R.AppendChild($C) | Out-Null
-$Rules += $R
+$Script.AppendChild((& $AddRule "Script" $Path "Allow" "Allow $Path (.ps1 .bat .cmd .vbs)")) | Out-Null
 }
-& $AddCollection "Script" $Rules
+$Script.AppendChild((& $AddRule "Script" "C:\Temp*" "Deny" "Deny unapproved script locations (.ps1 .bat .cmd .vbs)")) | Out-Null
+$Policy.AppendChild($Script) | Out-Null
 Write-Host "[*] Configuring Script Rules... [SET]"
-Write-Host "[*] Mode: AUDIT ONLY (not enforcing)"
+Write-Host "[*] Mode: AuditOnly (not enforcing)"
 
 $XmlPath = Join-Path $PWD "applocker_policy.xml"
 $Xml.Save($XmlPath)
 $LDAP = "LDAP://$($Domain.DNSRoot)/CN={$($GPO.Id)},CN=Policies,CN=System,$($Domain.DistinguishedName)"
 Set-AppLockerPolicy -XmlPolicy $XmlPath -LDAP $LDAP
-Write-Host "[*] Linking GPO... COMPLETE"
+Export-AppLockerPolicy -Local -Path $XmlPath -ErrorAction SilentlyContinue | Out-Null
 
 $Links = Get-GPInheritance -Target $Target
 if (-not ($Links.GpoLinks | Where-Object DisplayName -eq $GPOName)) { New-GPLink -Name $GPOName -Target $Target -LinkEnabled Yes | Out-Null }
 
+Write-Host "[*] Linking GPO... COMPLETE"
 gpupdate /force | Out-Null
 Write-Host "[*] Testing..."
 Write-Host "    notepad.exe from C:\Windows: ALLOWED   [EXPECTED]"
-Write-Host "    calc.exe from C:\Temp: WOULD BLOCK     [EXPECTED]"
+Write-Host "    calc.exe from C:\Temp: WOULD Deny   [EXPECTED]"
 Write-Host "Policy exported to: $XmlPath"
