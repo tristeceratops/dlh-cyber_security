@@ -27,7 +27,6 @@ $Groups = @($A.MemberOf | ForEach-Object { (Get-ADGroup $_).Name })
 $SPN = @($A.ServicePrincipalName)
 $DES = (($A.UserAccountControl -band 2097152) -ne 0)
 
-```
 Write-Host "$($A.SamAccountName):"
 Write-Host "  Password age: $Age days $(if($Age -gt 180){'[!]'}else{'[OK]'})"
 Write-Host "  Delegation: $(if($A.TrustedForDelegation){'Unconstrained [!]'}else{'Restricted [OK]'})"
@@ -45,7 +44,6 @@ if ($DES) { Set-ADAccountControl -Identity $A -UseDESKeyOnly $false }
 foreach ($G in $Groups | Where-Object {$_ -in $Privileged}) {
     Remove-ADGroupMember -Identity $G -Members $A -Confirm:$false
 }
-```
 
 }
 
