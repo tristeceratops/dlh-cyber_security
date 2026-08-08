@@ -4,12 +4,12 @@
 
 .DESCRIPTION
 Generates windows_event_reference.json containing a compact reference for
-Security, PowerShell, and Sysmon telemetry used for Windows threat detection.
+Security, PowerShell, and Sysmon telemetry used for Windows threat detection. (failed logon)
 
 .NOTES
 Script Name: 3-telemetry_reference.ps1
 Purpose: Windows event telemetry reference generation
-Author:
+Author: Tristeceratops
 Date: 2026-08-08
 #>
 
