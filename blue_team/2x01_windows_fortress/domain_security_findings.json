@@ -23,20 +23,106 @@
         "mapped_task":  "PasswordNeverExpires"
     },
     {
-        "id":  "PRIV-001",
+        "id":  "PW-001",
         "severity":  "High",
-        "category":  "Privileged Accounts",
-        "asset":  "rkim",
+        "category":  "Password Policy",
+        "asset":  "Guest",
         "evidence":  {
-                         "PrivilegedGroup":  "G_IT_Admins",
-                         "DirectGroups":  [
-
-                                          ],
+                         "PasswordLastSet":  null,
+                         "Groups":  [
+                                        "Domain Guests",
+                                        "Guests"
+                                    ],
+                         "ServiceAccount":  false,
+                         "PasswordNeverExpires":  true,
                          "Enabled":  false
                      },
-        "risk":  "Disabled account remains a member of a privileged group.",
-        "recommended_remediation":  "Remove the account from the privileged group or delete it if no longer required.",
-        "mapped_task":  "Disabled privileged account"
+        "risk":  "Password never expires.",
+        "recommended_remediation":  "Disable Password Never Expires unless justified.",
+        "mapped_task":  "PasswordNeverExpires"
+    },
+    {
+        "id":  "PW-001",
+        "severity":  "High",
+        "category":  "Password Policy",
+        "asset":  "dpatel",
+        "evidence":  {
+                         "PasswordLastSet":  "\/Date(1776343522879)\/",
+                         "Groups":  "Domain Users",
+                         "ServiceAccount":  false,
+                         "PasswordNeverExpires":  true,
+                         "Enabled":  true
+                     },
+        "risk":  "Password never expires.",
+        "recommended_remediation":  "Disable Password Never Expires unless justified.",
+        "mapped_task":  "PasswordNeverExpires"
+    },
+    {
+        "id":  "PW-001",
+        "severity":  "High",
+        "category":  "Password Policy",
+        "asset":  "rkim",
+        "evidence":  {
+                         "PasswordLastSet":  "\/Date(1776343522941)\/",
+                         "Groups":  [
+                                        "Domain Users",
+                                        "G_IT_Admins"
+                                    ],
+                         "ServiceAccount":  false,
+                         "PasswordNeverExpires":  true,
+                         "Enabled":  true
+                     },
+        "risk":  "Password never expires.",
+        "recommended_remediation":  "Disable Password Never Expires unless justified.",
+        "mapped_task":  "PasswordNeverExpires"
+    },
+    {
+        "id":  "PW-001",
+        "severity":  "High",
+        "category":  "Password Policy",
+        "asset":  "svc_backup",
+        "evidence":  {
+                         "PasswordLastSet":  "\/Date(1776343523398)\/",
+                         "Groups":  "Domain Users",
+                         "ServiceAccount":  true,
+                         "PasswordNeverExpires":  true,
+                         "Enabled":  true
+                     },
+        "risk":  "Password never expires.",
+        "recommended_remediation":  "Disable Password Never Expires unless justified.",
+        "mapped_task":  "PasswordNeverExpires"
+    },
+    {
+        "id":  "PW-001",
+        "severity":  "High",
+        "category":  "Password Policy",
+        "asset":  "svc_ehr",
+        "evidence":  {
+                         "PasswordLastSet":  "\/Date(1776343523464)\/",
+                         "Groups":  "Domain Users",
+                         "ServiceAccount":  true,
+                         "PasswordNeverExpires":  true,
+                         "Enabled":  true
+                     },
+        "risk":  "Password never expires.",
+        "recommended_remediation":  "Disable Password Never Expires unless justified.",
+        "mapped_task":  "PasswordNeverExpires"
+    },
+    {
+        "id":  "PW-001",
+        "severity":  "High",
+        "category":  "Password Policy",
+        "asset":  "svc_sql",
+        "evidence":  {
+                         "PasswordLastSet":  "\/Date(1776343523515)\/",
+                         "Groups":  "Domain Users",
+                         "ServiceAccount":  true,
+                         "PasswordNeverExpires":  true,
+                         "Enabled":  true
+                     },
+        "risk":  "Password never expires.",
+        "recommended_remediation":  "Disable Password Never Expires unless justified.",
+        "mapped_task":  "PasswordNeverExpires"
     },
     {
         "id":  "COMP-001",
@@ -134,11 +220,86 @@
         "id":  "AUD-001",
         "severity":  "High",
         "category":  "Audit Policy",
-        "asset":  "Advanced Audit Policy",
-        "evidence":  "Missing",
-        "risk":  "Process creation, logon, account management or object access auditing not configured.",
-        "recommended_remediation":  "Deploy Advanced Audit Policy.",
-        "mapped_task":  "Audit policy"
+        "asset":  "Process Creation",
+        "evidence":  [
+                         "System audit policy",
+                         "",
+                         "Category/Subcategory                      Setting",
+                         "Detailed Tracking",
+                         "  Process Creation                        No Auditing",
+                         ""
+                     ],
+        "risk":  "Process Creation auditing is not enabled.",
+        "recommended_remediation":  "Enable Success auditing.",
+        "mapped_task":  "Advanced Audit Policy"
+    },
+    {
+        "id":  "AUD-001",
+        "severity":  "High",
+        "category":  "Audit Policy",
+        "asset":  "Special Logon",
+        "evidence":  [
+                         "System audit policy",
+                         "",
+                         "Category/Subcategory                      Setting",
+                         "Logon/Logoff",
+                         "  Special Logon                           No Auditing",
+                         ""
+                     ],
+        "risk":  "Special Logon auditing is not enabled.",
+        "recommended_remediation":  "Enable Success auditing.",
+        "mapped_task":  "Advanced Audit Policy"
+    },
+    {
+        "id":  "AUD-001",
+        "severity":  "High",
+        "category":  "Audit Policy",
+        "asset":  "User Account Management",
+        "evidence":  [
+                         "System audit policy",
+                         "",
+                         "Category/Subcategory                      Setting",
+                         "Account Management",
+                         "  User Account Management                 No Auditing",
+                         ""
+                     ],
+        "risk":  "User Account Management auditing is not enabled.",
+        "recommended_remediation":  "Enable Success auditing.",
+        "mapped_task":  "Advanced Audit Policy"
+    },
+    {
+        "id":  "AUD-001",
+        "severity":  "High",
+        "category":  "Audit Policy",
+        "asset":  "Security Group Management",
+        "evidence":  [
+                         "System audit policy",
+                         "",
+                         "Category/Subcategory                      Setting",
+                         "Account Management",
+                         "  Security Group Management               No Auditing",
+                         ""
+                     ],
+        "risk":  "Security Group Management auditing is not enabled.",
+        "recommended_remediation":  "Enable Success auditing.",
+        "mapped_task":  "Advanced Audit Policy"
+    },
+    {
+        "id":  "AUD-001",
+        "severity":  "High",
+        "category":  "Audit Policy",
+        "asset":  "File System",
+        "evidence":  [
+                         "System audit policy",
+                         "",
+                         "Category/Subcategory                      Setting",
+                         "Object Access",
+                         "  File System                             No Auditing",
+                         ""
+                     ],
+        "risk":  "File System auditing is not enabled.",
+        "recommended_remediation":  "Enable Success auditing.",
+        "mapped_task":  "Advanced Audit Policy"
     },
     {
         "id":  "AUD-002",
@@ -161,34 +322,44 @@
         "mapped_task":  "Sysmon"
     },
     {
-        "id":  "SVC-003",
+        "id":  "SVC-001",
         "severity":  "High",
         "category":  "Service Accounts",
         "asset":  "svc_backup",
-        "evidence":  null,
-        "risk":  "Service account password older than one year.",
-        "recommended_remediation":  "Rotate service account password.",
-        "mapped_task":  "Password rotation"
+        "evidence":  "TrustedForDelegation",
+        "risk":  "Unconstrained delegation enabled.",
+        "recommended_remediation":  "Use constrained delegation.",
+        "mapped_task":  "Delegation"
     },
     {
-        "id":  "SVC-003",
+        "id":  "SVC-001",
         "severity":  "High",
         "category":  "Service Accounts",
         "asset":  "svc_ehr",
-        "evidence":  null,
-        "risk":  "Service account password older than one year.",
-        "recommended_remediation":  "Rotate service account password.",
-        "mapped_task":  "Password rotation"
+        "evidence":  "TrustedForDelegation",
+        "risk":  "Unconstrained delegation enabled.",
+        "recommended_remediation":  "Use constrained delegation.",
+        "mapped_task":  "Delegation"
     },
     {
-        "id":  "SVC-003",
+        "id":  "SVC-001",
         "severity":  "High",
         "category":  "Service Accounts",
         "asset":  "svc_sql",
-        "evidence":  null,
-        "risk":  "Service account password older than one year.",
-        "recommended_remediation":  "Rotate service account password.",
-        "mapped_task":  "Password rotation"
+        "evidence":  "TrustedForDelegation",
+        "risk":  "Unconstrained delegation enabled.",
+        "recommended_remediation":  "Use constrained delegation.",
+        "mapped_task":  "Delegation"
+    },
+    {
+        "id":  "SVC-002",
+        "severity":  "Critical",
+        "category":  "Kerberos",
+        "asset":  "svc_sql",
+        "evidence":  "DES Only",
+        "risk":  "DES encryption enabled.",
+        "recommended_remediation":  "Disable DES support.",
+        "mapped_task":  "Kerberos"
     },
     {
         "id":  "GPO-001",
