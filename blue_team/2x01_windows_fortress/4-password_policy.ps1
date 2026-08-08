@@ -10,7 +10,7 @@ and verifies the resulting policy using live Active Directory values.
 .NOTES
 Script Name: 4-password_policy.ps1
 Purpose: Active Directory password and account lockout policy configuration
-Author:
+Author: Tristeceratops
 Date: 2026-08-08
 #>
 
