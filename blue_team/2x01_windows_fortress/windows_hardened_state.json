@@ -1,0 +1,153 @@
+{
+    "domain_metadata":  {
+                            "domain_name":  "meddefense.local",
+                            "timestamp":  "2026-08-08T22:17:45.1248749+02:00",
+                            "domain_controller":  "DC01.meddefense.local",
+                            "script_runner":  "analyst"
+                        },
+    "gpo_inventory":  [
+                          {
+                              "linked_scopes":  [
+
+                                                ],
+                              "name":  "Default Domain Policy",
+                              "id":  "31b2f340-016d-11d2-945f-00c04fb984f9",
+                              "enabled":  "AllSettingsEnabled"
+                          },
+                          {
+                              "linked_scopes":  [
+
+                                                ],
+                              "name":  "Default Domain Controllers Policy",
+                              "id":  "6ac1786c-016f-11d2-945f-00c04fb984f9",
+                              "enabled":  "AllSettingsEnabled"
+                          },
+                          {
+                              "linked_scopes":  [
+
+                                                ],
+                              "name":  "MedDefense - AppLocker Policy",
+                              "id":  "c32b336f-ce4b-4cee-8b77-bf1b834771ab",
+                              "enabled":  "AllSettingsEnabled"
+                          }
+                      ],
+    "audit_policy":  {
+                         "raw":  "System audit policy\r\n\r\nCategory/Subcategory                      Setting\r\nSystem\r\n  Security System Extension               No Auditing\r\n\r\n  System Integrity                        No Auditing\r\n\r\n  IPsec Driver                            No Auditing\r\n\r\n  Other System Events                     No Auditing\r\n\r\n  Security State Change                   No Auditing\r\n\r\nLogon/Logoff\r\n  Logon                                   Success and Failure\r\n\r\n  Logoff                                  No Auditing\r\n\r\n  Account Lockout                         No Auditing\r\n\r\n  IPsec Main Mode                         No Auditing\r\n\r\n  IPsec Quick Mode                        No Auditing\r\n\r\n  IPsec Extended Mode                     No Auditing\r\n\r\n  Special Logon                           No Auditing\r\n\r\n  Other Logon/Logoff Events               No Auditing\r\n\r\n  Network Policy Server                   No Auditing\r\n\r\n  User / Device Claims                    No Auditing\r\n\r\n  Group Membership                        No Auditing\r\n\r\nObject Access\r\n  File System                             No Auditing\r\n\r\n  Registry                                No Auditing\r\n\r\n  Kernel Object                           No Auditing\r\n\r\n  SAM                                     No Auditing\r\n\r\n  Certification Services                  No Auditing\r\n\r\n  Application Generated                   No Auditing\r\n\r\n  Handle Manipulation                     No Auditing\r\n\r\n  File Share                              No Auditing\r\n\r\n  Filtering Platform Packet Drop          No Auditing\r\n\r\n  Filtering Platform Connection           No Auditing\r\n\r\n  Other Object Access Events              No Auditing\r\n\r\n  Detailed File Share                     No Auditing\r\n\r\n  Removable Storage                       No Auditing\r\n\r\n  Central Policy Staging                  No Auditing\r\n\r\nPrivilege Use\r\n  Non Sensitive Privilege Use             No Auditing\r\n\r\n  Other Privilege Use Events              No Auditing\r\n\r\n  Sensitive Privilege Use                 No Auditing\r\n\r\nDetailed Tracking\r\n  Process Creation                        No Auditing\r\n\r\n  Process Termination                     No Auditing\r\n\r\n  DPAPI Activity                          No Auditing\r\n\r\n  RPC Events                              No Auditing\r\n\r\n  Plug and Play Events                    No Auditing\r\n\r\n  Token Right Adjusted Events             No Auditing\r\n\r\nPolicy Change\r\n  Audit Policy Change                     No Auditing\r\n\r\n  Authentication Policy Change            No Auditing\r\n\r\n  Authorization Policy Change             No Auditing\r\n\r\n  MPSSVC Rule-Level Policy Change         No Auditing\r\n\r\n  Filtering Platform Policy Change        No Auditing\r\n\r\n  Other Policy Change Events              No Auditing\r\n\r\nAccount Management\r\n  Computer Account Management             No Auditing\r\n\r\n  Security Group Management               No Auditing\r\n\r\n  Distribution Group Management           No Auditing\r\n\r\n  Application Group Management            No Auditing\r\n\r\n  Other Account Management Events         No Auditing\r\n\r\n  User Account Management                 No Auditing\r\n\r\nDS Access\r\n  Directory Service Access                No Auditing\r\n\r\n  Directory Service Changes               No Auditing\r\n\r\n  Directory Service Replication           No Auditing\r\n\r\n  Detailed Directory Service Replication  No Auditing\r\n\r\nAccount Logon\r\n  Kerberos Service Ticket Operations      No Auditing\r\n\r\n  Other Account Logon Events              No Auditing\r\n\r\n  Kerberos Authentication Service         No Auditing\r\n\r\n  Credential Validation                   No Auditing\r\n\r\n",
+                         "required_subcategories":  [
+                                                        "Process Creation",
+                                                        "Command-line logging",
+                                                        "Security log",
+                                                        "4624",
+                                                        "4625",
+                                                        "4688",
+                                                        "1102",
+                                                        "4103",
+                                                        "4104"
+                                                    ]
+                     },
+    "powershell_logging":  {
+                               "Event IDs":  [
+                                                 4103,
+                                                 4104
+                                             ],
+                               "Script Block Logging":  "not_found",
+                               "Module Logging":  "not_found",
+                               "Transcription":  "not_found"
+                           },
+    "sysmon_posture":  {
+                           "active_event_ids":  [
+                                                    3,
+                                                    1,
+                                                    11,
+                                                    22,
+                                                    13,
+                                                    5
+                                                ],
+                           "config_path":  "not_found",
+                           "driver":  "Running",
+                           "service":  "Running",
+                           "custom_rule_count":  5
+                       },
+    "firewall_posture":  {
+                             "profiles":  [
+                                              {
+                                                  "outbound":  "Allow",
+                                                  "name":  "Domain",
+                                                  "LogBlocked":  0,
+                                                  "inbound":  "Allow",
+                                                  "enabled":  1
+                                              },
+                                              {
+                                                  "outbound":  "NotConfigured",
+                                                  "name":  "Private",
+                                                  "LogBlocked":  0,
+                                                  "inbound":  "NotConfigured",
+                                                  "enabled":  0
+                                              },
+                                              {
+                                                  "outbound":  "NotConfigured",
+                                                  "name":  "Public",
+                                                  "LogBlocked":  0,
+                                                  "inbound":  "NotConfigured",
+                                                  "enabled":  0
+                                              }
+                                          ],
+                             "rules":  [
+
+                                       ]
+                         },
+    "applocker_posture":  {
+                              "script_rules":  0,
+                              "enforcement_mode":  "not_found",
+                              "executable_rules":  0,
+                              "exported_policy_path":  "not_found"
+                          },
+    "rdp_posture":  {
+                        "NLA":  0,
+                        "drive_redirection":  "disabled",
+                        "allowed_group":  "G_IT_Admins",
+                        "clipboard":  "disabled",
+                        "session_timeout":  "15 minutes"
+                    },
+    "authentication_protocols":  {
+                                     "DES":  false,
+                                     "AES128":  false,
+                                     "NTLMv1":  "disabled",
+                                     "SMBv1":  "disabled",
+                                     "SMB signing":  "required",
+                                     "RC4":  false,
+                                     "AES256":  false
+                                 },
+    "service_account_posture":  [
+                                    {
+                                        "privileged membership":  [
+
+                                                                  ],
+                                        "name":  "svc_backup",
+                                        "interactive logon risk":  "delegation enabled",
+                                        "delegation":  true,
+                                        "password age":  114
+                                    },
+                                    {
+                                        "privileged membership":  [
+
+                                                                  ],
+                                        "name":  "svc_ehr",
+                                        "interactive logon risk":  "delegation enabled",
+                                        "delegation":  true,
+                                        "password age":  114
+                                    },
+                                    {
+                                        "privileged membership":  [
+
+                                                                  ],
+                                        "name":  "svc_sql",
+                                        "interactive logon risk":  "delegation enabled",
+                                        "delegation":  true,
+                                        "password age":  114
+                                    }
+                                ],
+    "validation_summary":  {
+                               "status":  "not_found"
+                           }
+}
