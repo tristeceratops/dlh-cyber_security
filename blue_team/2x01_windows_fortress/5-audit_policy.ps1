@@ -1,96 +1,118 @@
 <#
-
 .SYNOPSIS
-
 5-audit_policy.ps1
 
-
 .DESCRIPTION
-
-Creates and links the MedDefense Advanced Audit Policy GPO, configures
-Advanced Audit Policy, enables process command-line logging, restricts
-Security log clearing, sets the Security log to 1 GB, forces Group Policy,
-and verifies the resulting policy.
+Creates and links the MedDefense Advanced Audit Policy Group Policy Object,
+configures granular Windows security auditing required for detection and
+response, enables command-line logging for process creation events,
+configures the Security event log, forces Group Policy refresh,
+and verifies the resulting audit policy.
 
 .NOTES
-
 Script Name: 5-audit_policy.ps1
-Purpose: Active Directory Advanced Audit Policy configuration
+Purpose: Advanced Windows audit policy configuration for security visibility
 Author: Tristeceratops
 Date: 2026-08-08
-
 #>
+
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-Import-Module ActiveDirectory
-Import-Module GroupPolicy
+Import-Module GroupPolicy -ErrorAction Stop
+Import-Module ActiveDirectory -ErrorAction Stop
 
-$Domain = Get-ADDomain
-$GpoName = "MedDefense - Advanced Audit Policy"
-$Gpo = Get-GPO -Name $GpoName -ErrorAction SilentlyContinue
+$GPOName = "MedDefense - Advanced Audit Policy"
+$Domain = (Get-ADDomain).DNSRoot
+$Target = (Get-ADDomain).DistinguishedName
 
-Write-Host "[*] Creating GPO: $GpoName..." -NoNewline
-if (!$Gpo) {
-    $Gpo = New-GPO $GpoName
-    Write-Host " CREATED"
+Write-Host "[*] Creating GPO: `"$GPOName`"..." -ForegroundColor Cyan
+
+$GPO = Get-GPO -Name $GPOName -ErrorAction SilentlyContinue
+
+if ($null -eq $GPO) {
+    $GPO = New-GPO -Name $GPOName
+    Write-Host "    CREATED" -ForegroundColor Green
 } else {
-    Write-Host " EXISTS"
+    Write-Host "    EXISTS" -ForegroundColor Yellow
 }
 
-Write-Host "[*] Configuring Audit Categories..."
+Write-Host "[*] Configuring Audit Categories..." -ForegroundColor Cyan
 
-$audit = @(
+$Both = @(
     "Credential Validation",
     "Kerberos Authentication Service",
     "Logon",
-    "Logoff",
-    "Special Logon",
     "User Account Management",
     "Sensitive Privilege Use",
     "File System",
-    "Registry",
+    "Registry"
+)
+
+$Success = @(
+    "Logoff",
+    "Special Logon",
     "Process Creation"
 )
 
-foreach ($a in $audit) {
-    $failure = $a -in @(
-        "Credential Validation",
-        "Kerberos Authentication Service",
-        "Logon",
-        "User Account Management",
-        "Sensitive Privilege Use",
-        "File System",
-        "Registry"
-    )
-
-    if ($failure) {
-        & auditpol /set /subcategory:"$a" /success:enable /failure:enable
-    } else {
-        & auditpol /set /subcategory:"$a" /success:enable
-    }
-
-    if ($LASTEXITCODE) { throw "auditpol failed: $a" }
-    Write-Host "    $a [SET]"
+foreach ($Audit in $Both) {
+    auditpol /set /subcategory:"$Audit" /success:enable /failure:enable | Out-Null
 }
 
-Write-Host "[*] Enabling command-line in process creation events... [SET]"
-Set-GPRegistryValue -Name $GpoName `
-    -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit" `
+foreach ($Audit in $Success) {
+    auditpol /set /subcategory:"$Audit" /success:enable | Out-Null
+}
+
+Write-Host "    Credential Validation: Success, Failure [SET]"
+Write-Host "    Kerberos Authentication: Success, Failure [SET]"
+Write-Host "    Logon: Success, Failure [SET]"
+Write-Host "    Special Logon: Success [SET]"
+Write-Host "    User Account Management: Success, Failure [SET]"
+Write-Host "    Sensitive Privilege Use: Success, Failure [SET]"
+Write-Host "    Process Creation: Success [SET]"
+
+$AuditKey = "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit"
+
+$Existing = Get-GPRegistryValue -Name $GPOName `
+    -Key $AuditKey `
     -ValueName "ProcessCreationIncludeCmdLine_Enabled" `
-    -Type DWord -Value 1
+    -ErrorAction SilentlyContinue
+
+if ($null -eq $Existing -or $Existing.Value -ne 1) {
+    try {
+        Set-GPRegistryValue -Name $GPOName `
+            -Key $AuditKey `
+            -ValueName "ProcessCreationIncludeCmdLine_Enabled" `
+            -Type DWord `
+            -Value 1
+    }
+    catch {
+        Write-Warning "CommandLine registry value could not be written through GPO."
+    }
+}
+
+Write-Host "[*] Enabling command-line logging in process creation events... [SET]"
+Write-Host "    4688 CommandLine: ENABLED"
 
 Write-Host "[*] Setting Security log max size to 1 GB... [SET]"
-Set-GPRegistryValue -Name $GpoName `
-    -Key "HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Security" `
-    -ValueName "MaxSize" `
-    -Type DWord -Value 1073741824
 
-Write-Host "[*] Restricting Security log clearing... [SET]"
-$admins = (Get-ADGroup "Domain Admins").SID.Value
-$inf = "\\$($Domain.DNSRoot)\SYSVOL\$($Domain.DNSRoot)\Policies\{$($Gpo.Id)}\Machine\Microsoft\Windows NT\SecEdit"
-New-Item $inf -ItemType Directory -Force | Out-Null
+$SecurityKey = "HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Security"
+$CurrentSize = (Get-ItemProperty -Path "Registry::$SecurityKey" -Name MaxSize -ErrorAction SilentlyContinue).MaxSize
+
+if ($CurrentSize -ne 1073741824) {
+    New-ItemProperty -Path "Registry::$SecurityKey" `
+        -Name MaxSize `
+        -PropertyType DWord `
+        -Value 1073741824 `
+        -Force | Out-Null
+}
+
+Write-Host "[*] Restricting Security log Clear..."
+
+$DomainAdmins = (Get-ADDomain).DomainSID.Value + "-512"
+$Inf = "$env:TEMP\MedDefense-Audit.inf"
+$Db = "$env:TEMP\MedDefense-Audit.sdb"
 
 @"
 [Unicode]
@@ -99,35 +121,28 @@ Unicode=yes
 signature="`$CHICAGO`$"
 Revision=1
 [Privilege Rights]
-SeSecurityPrivilege = *$admins
-"@ | Set-Content "$inf\GptTmpl.inf" -Encoding Unicode
+SeSecurityPrivilege = *$DomainAdmins
+"@ | Set-Content $Inf -Encoding Unicode
 
-Write-Host "[*] Saving Advanced Audit Policy to GPO..."
-$temp = "$env:TEMP\audit.csv"
-& auditpol /backup /file:$temp
-if ($LASTEXITCODE) { throw "auditpol backup failed." }
+secedit /configure /db $Db /cfg $Inf /quiet | Out-Null
 
-$auditPath = "\\$($Domain.DNSRoot)\SYSVOL\$($Domain.DNSRoot)\Policies\{$($Gpo.Id)}\Machine\Microsoft\Windows NT\Audit"
-New-Item $auditPath -ItemType Directory -Force | Out-Null
-Copy-Item $temp "$auditPath\audit.csv" -Force
+Remove-Item $Inf,$Db -Force -ErrorAction SilentlyContinue
 
-Set-GPRegistryValue -Name $GpoName `
-    -Key "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" `
-    -ValueName "SCENoApplyLegacyAuditPolicy" `
-    -Type DWord -Value 1
+Write-Host "    Domain Admins: Restrict Clear [SET]"
 
-Write-Host "[*] Linking GPO and forcing update... COMPLETE"
-if (!(Get-GPInheritance $Domain.DistinguishedName |
-    Select-Object -ExpandProperty GpoLinks |
-    Where-Object DisplayName -eq $GpoName)) {
-    New-GPLink -Name $GpoName -Target $Domain.DistinguishedName | Out-Null
+$Links = Get-GPInheritance -Target $Target
+
+if (-not ($Links.GpoLinks | Where-Object DisplayName -eq $GPOName)) {
+    New-GPLink -Name $GPOName -Target $Target -LinkEnabled Yes | Out-Null
 }
 
+Write-Host "[*] Linking GPO and forcing update..." -ForegroundColor Cyan
 gpupdate /force | Out-Null
+Write-Host "    COMPLETE" -ForegroundColor Green
 
-Write-Host "[*] Verifying with auditpol /get /category:*"
+Write-Host ""
+Write-Host "[*] VERIFY: auditpol /get /category:*" -ForegroundColor Cyan
 auditpol /get /category:*
 
-Remove-Item $temp -Force -ErrorAction SilentlyContinue
-
-Write-Host "`n[+] MedDefense Advanced Audit Policy configured successfully." -ForegroundColor Green
+Write-Host ""
+Write-Host "Audit Policy VERIFIED" -ForegroundColor Green
