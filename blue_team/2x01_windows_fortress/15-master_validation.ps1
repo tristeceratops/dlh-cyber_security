@@ -74,7 +74,7 @@ Write-Host "`n--- RDP ---"
 Test-Check "NLA: Required" ($RDP.UserAuthentication -eq 1)
 Test-Check "G_IT_Admins only" (($Groups.Name -match "G_IT_Admins").Count -gt 0) $false
 
-Write-Host "`n--- Service Accounts ---"
+Write-Host "`n--- service accounts ---"
 $Svc = Get-ADUser -Filter 'SamAccountName -like "svc*"' -Properties AccountNotDelegated,PasswordLastSet
 $Delegation = @($Svc | Where-Object { $_.AccountNotDelegated }).Count
 Test-Check "Delegation restricted: $Delegation/$($Svc.Count)" ($Svc.Count -eq 0 -or $Delegation -eq $Svc.Count)
