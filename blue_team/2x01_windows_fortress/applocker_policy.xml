@@ -1,0 +1,36 @@
+<AppLockerPolicy Version="1">
+  <RuleCollection Type="Exe" EnforcementMode="AuditOnly">
+    <FilePathRule Id="8e2df1e7-af23-4d07-9fa0-707a2617143d" Name="Allow C:\Windows*" Description="MedDefense approved path" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="C:\Windows*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="e9fe6c7b-c994-48e8-a982-c06efd75fafd" Name="Allow C:\Program Files*" Description="MedDefense approved path" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="C:\Program Files*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="873ff990-00a7-4ac8-af57-dee5fc50f264" Name="Allow C:\Program Files (x86)*" Description="MedDefense approved path" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="C:\Program Files (x86)*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="1d7c53de-ed98-4948-987d-5f39b070b257" Name="Allow C:\MedDefense_Lab\Applications\DicomViewer.exe" Description="MedDefense approved path" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="C:\MedDefense_Lab\Applications\DicomViewer.exe" />
+      </Conditions>
+    </FilePathRule>
+  </RuleCollection>
+  <RuleCollection Type="Script" EnforcementMode="AuditOnly">
+    <FilePathRule Id="5c7abe71-291d-4412-9e6c-04d8ac61a9d3" Name="Allow C:\Windows*" Description="MedDefense approved script path" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="C:\Windows*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="dce9e738-c06a-4838-9291-8d974889a96e" Name="Allow C:\MedDefense_Lab\Scripts*" Description="MedDefense approved script path" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="C:\MedDefense_Lab\Scripts*" />
+      </Conditions>
+    </FilePathRule>
+  </RuleCollection>
+</AppLockerPolicy>
