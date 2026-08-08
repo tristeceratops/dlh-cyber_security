@@ -4,7 +4,7 @@
 
 .DESCRIPTION
 Hardens Kerberos encryption, removes DES from service accounts, restricts
-Kerberos to AES128 and AES256, disables NTLMv1, configures Credential Guard,
+Kerberos to AES128 and AES256, disables NTLMv1 and RC4, configures Credential Guard,
 and verifies the resulting authentication security configuration.
 
 .NOTES
