@@ -96,8 +96,8 @@ try {
 
 Write-Host '    [1/5] Process creation (Event ID 1)...'
 
-$Timestamp = Get-Date
-$SearchStart = $Timestamp.AddSeconds(-1)
+$timestamp = Get-Date
+$SearchStart = $timestamp.AddSeconds(-1)
 
 cmd.exe /c whoami | Out-Null
 
@@ -119,8 +119,8 @@ Add-TestResult `
 
 Write-Host '    [2/5] Network connection (Event ID 3)...'
 
-$Timestamp = Get-Date
-$SearchStart = $Timestamp.AddSeconds(-1)
+$timestamp = Get-Date
+$SearchStart = $timestamp.AddSeconds(-1)
 
 $DestinationIp = '1.1.1.1'
 $DestinationPort = 443
@@ -150,8 +150,8 @@ Add-TestResult `
 
 Write-Host '    [3/5] File creation (Event ID 11)...'
 
-$Timestamp = Get-Date
-$SearchStart = $Timestamp.AddSeconds(-1)
+$timestamp = Get-Date
+$SearchStart = $timestamp.AddSeconds(-1)
 
 Set-Content `
     -LiteralPath $TempFile `
@@ -177,8 +177,8 @@ Add-TestResult `
 
 Write-Host '    [4/5] Registry modification (Event ID 13)...'
 
-$Timestamp = Get-Date
-$SearchStart = $Timestamp.AddSeconds(-1)
+$timestamp = Get-Date
+$SearchStart = $timestamp.AddSeconds(-1)
 
 New-Item `
     -Path $RegistryPath `
@@ -211,8 +211,8 @@ Add-TestResult `
 
 Write-Host '    [5/5] DNS query (Event ID 22)...'
 
-$Timestamp = Get-Date
-$SearchStart = $Timestamp.AddSeconds(-1)
+$timestamp = Get-Date
+$SearchStart = $timestamp.AddSeconds(-1)
 
 $Domain = 'example.com'
 
