@@ -82,7 +82,7 @@ if ($EventTypes.ContainsKey($EventName)) {
     }
 
     $MatchMode = ''
-
+	# Collect include/exclude rules
     if ($EventNode.Attributes['onmatch']) {
         $MatchMode = $EventNode.Attributes['onmatch'].Value
     }
