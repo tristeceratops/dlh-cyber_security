@@ -7,10 +7,10 @@ Validates PowerShell ScriptBlock logging, encoded commands, module logging,
 multi-line ScriptBlock capture, and Transcript output.
 
 .NOTES
-Script Name: 2-powershell_logging_validation.ps1
-Purpose: Validate PowerShell logging coverage
-Author: Tristeceratops
-Date: 10/08/2026
+Script name: 2-powershell_logging_validation.ps1
+purpose: Validate PowerShell logging coverage
+author: Tristeceratops
+date: 10/08/2026
 #>
 
 Set-StrictMode -Version Latest
