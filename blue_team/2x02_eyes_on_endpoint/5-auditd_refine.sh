@@ -49,7 +49,7 @@ add_rule "socket/connect syscall tracking" \
     "-a always,exit -F arch=b64 -S socket -S connect -k network_connect"
 
 add_rule "SSH key file monitoring" \
-    "-w /home/analyst/.ssh/ -p rwa -k ssh_keys"
+    "-w /home/*/.ssh/ -p rwa -k ssh_keys"
 
 add_rule "Cron directory monitoring" \
     "-w /etc/cron.d/ -p wa -k cron_persist"
