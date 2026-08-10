@@ -15,9 +15,9 @@ The script triggers each action, searches the Sysmon event log, and verifies
 that the expected Event ID and relevant event details are present.
 
 .NOTES
-Script Name: 0-sysmon_validation.ps1
-Purpose: Validate Sysmon telemetry collection and event detail levels
-Author: Tristeceratops
+Script name: 0-sysmon_validation.ps1
+purpose: Validate Sysmon telemetry collection and event detail levels
+author: Tristeceratops
 Date: 10/08/2026
 #>
 
