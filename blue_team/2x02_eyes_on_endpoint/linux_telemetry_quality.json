@@ -1,0 +1,35 @@
+{
+  "event_distribution": {
+    "auth.log": 0,
+    "audit.log": 162110,
+    "syslog": 0
+  },
+  "source_distribution": {
+    "auth.log": 0,
+    "audit.log": 162110,
+    "syslog": 0
+  },
+  "total_events": 162110,
+  "time_coverage": {
+    "events_per_hour": [],
+    "hours_with_events": 0,
+    "hours_without_events": 24
+  },
+  "gap_detection": {
+    "threshold_minutes": 30,
+    "gaps_over_30_minutes": 0
+  },
+  "field_completeness": {
+    "timestamp": 0,
+    "hostname": 0,
+    "source_type": 0,
+    "event_category": 0,
+    "execve_command_line": 0,
+    "ssh_source_ip_user": 0,
+    "auditd_file_path": 0
+  },
+  "quality_score": {
+    "score": 0,
+    "assessment": "poor"
+  }
+}
