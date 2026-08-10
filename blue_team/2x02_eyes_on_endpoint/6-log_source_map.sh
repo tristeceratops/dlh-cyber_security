@@ -21,7 +21,7 @@ declare -a SOURCES=(
 )
 
 printf "%-20s %-32s %-9s %-12s %-10s %s\n" \
-    "Source" "Path" "Format" "Rotation" "events/hr" "Relevance"
+    "Source" "Path" "Format" "Rotation" "Events/hr" "Relevance"
 printf "%-20s %-32s %-9s %-12s %-10s %s\n" \
     "------" "----" "------" "--------" "---------" "---------"
 
@@ -52,6 +52,7 @@ rotation() {
     fi
 }
 
+# calculate events/hr
 events_per_hour() {
     local path="$1"
 
