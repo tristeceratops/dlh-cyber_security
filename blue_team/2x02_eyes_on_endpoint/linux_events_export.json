@@ -1,23 +1,29 @@
 {
   "hostname": "billing-srv-01",
+  "timestamp": "2026-08-10T16:03:47Z",
   "source_type": "linux",
   "event_category": "telemetry_export",
-  "timestamp": "2026-08-10T15:57:28Z",
   "counts": {
-    "auth": 0,
-    "audit": 7850,
+    "auth.log": 0,
+    "audit.log": 162110,
     "syslog": 0
   },
-  "categories": {
-    "ssh": 0,
+  "audit": {
+    "execve": 50647,
+    "file_access": 50617,
+    "network": 9157,
+    "other": 51689
+  },
+  "auth": {
+    "sshd": 0,
     "sudo": 0,
     "su": 0,
-    "pam": 0,
-    "execve": 963,
-    "file_access": 1941,
-    "network": 1022,
-    "service": 0,
-    "error": 0
+    "PAM": 0
   },
-  "total_events": 7850
+  "syslog": {
+    "service": 0,
+    "error": 0,
+    "other": 0
+  },
+  "total_events": 162110
 }
