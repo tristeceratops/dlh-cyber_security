@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # name: 8-linux_telemetry_quality.sh
-# purpose: Analyze Linux telemetry export quality
+# purpose: Analyze Linux telemetry quality
 # author: Tristeceratops
 
 set -euo pipefail
@@ -9,217 +9,96 @@ set -euo pipefail
 INPUT="linux_events_export.json"
 OUTPUT="linux_telemetry_quality.json"
 
-if ! command -v jq >/dev/null 2>&1; then
-    echo "jq is required"
-    exit 1
-fi
-
-if [[ ! -f "$INPUT" ]]; then
-    echo "Missing: $INPUT"
-    exit 1
-fi
+command -v jq >/dev/null || { echo "jq required"; exit 1; }
+[[ -f "$INPUT" ]] || { echo "$INPUT not found"; exit 1; }
 
 echo "[*] Analyzing $INPUT..."
 
-TOTAL=$(jq -r '.total_events // 0' "$INPUT")
+TOTAL=$(jq '.events | length' "$INPUT")
+EVENTS=$(jq '[.events[] | .event_category] | group_by(.) | map({event_category:.[0],count:length,percentage:(length/'"$TOTAL"')*100})' "$INPUT")
+SOURCES=$(jq '[.events[] | .source_type] | group_by(.) | map({source_type:.[0],count:length,percentage:(length/'"$TOTAL"')*100})' "$INPUT")
+HOURS=$(jq '[.events[] | .timestamp[0:13]] | group_by(.) | map({hour:.[0],count:length})' "$INPUT")
+HOURS_WITH=$(jq 'length' <<< "$HOURS")
+GAPS=$(jq '[.events | sort_by(.timestamp) | .[] as $e | . as $all | select(false)]' "$INPUT")
 
-events_per_hour=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | .timestamp[0:13]]
-        | group_by(.)
-        | map({hour: .[0], count: length})
-    else []
-    end
-' "$INPUT")
+PCT() { awk -v a="$1" -v b="$2" 'BEGIN{printf "%.1f",b ? a/b*100 : 0}'; }
 
-HOURS_WITH=$(printf '%s' "$events_per_hour" | jq 'length')
-HOURS_TOTAL=24
-HOURS_WITHOUT=$((HOURS_TOTAL - HOURS_WITH))
-
-gap_count=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | .timestamp | fromdateiso8601] |
-        sort |
-        [range(1; length) as $i |
-         .[$i] - .[$i-1] |
-         select(. > 1800)] |
-        length
-    else 0
-    end
-' "$INPUT")
-
-timestamp_total=$(jq -r '
-    if (.events | type) == "array" then (.events | length) else 0 end
-' "$INPUT")
-
-timestamp_good=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.timestamp != null and .timestamp != "")] | length
-    else 0
-    end
-' "$INPUT")
-
-hostname_good=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.hostname != null and .hostname != "")] | length
-    else 0
-    end
-' "$INPUT")
-
-source_good=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.source_type != null and .source_type != "")] | length
-    else 0
-    end
-' "$INPUT")
-
-category_good=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.event_category != null and .event_category != "")] | length
-    else 0
-    end
-' "$INPUT")
-
-exec_total=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.event_category == "execve")] | length
-    else 0
-    end
-' "$INPUT")
-
-exec_good=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.event_category == "execve")
-         | select(.command_line != null and .command_line != "")] | length
-    else 0
-    end
-' "$INPUT")
-
-ssh_total=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.event_category == "ssh")] | length
-    else 0
-    end
-' "$INPUT")
-
-ssh_good=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.event_category == "ssh")
-         | select(.source_ip != null and .source_ip != "" and
-                 .user != null and .user != "")] | length
-    else 0
-    end
-' "$INPUT")
-
-file_total=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.event_category == "file_access")] | length
-    else 0
-    end
-' "$INPUT")
-
-file_good=$(jq -r '
-    if (.events | type) == "array" then
-        [.events[] | select(.event_category == "file_access")
-         | select(.path != null and .path != "")] | length
-    else 0
-    end
-' "$INPUT")
-
-percent() {
-    if (( $2 == 0 )); then
-        echo "0.0"
-    else
-        awk "BEGIN {printf \"%.1f\", ($1/$2)*100}"
-    fi
+FIELD() {
+    jq --arg f "$1" '[.events[] | select(.[$f] != null and .[$f] != "")] | length' "$INPUT"
 }
 
-timestamp_pct=$(percent "$timestamp_good" "$timestamp_total")
-hostname_pct=$(percent "$hostname_good" "$timestamp_total")
-source_pct=$(percent "$source_good" "$timestamp_total")
-category_pct=$(percent "$category_good" "$timestamp_total")
-exec_pct=$(percent "$exec_good" "$exec_total")
-ssh_pct=$(percent "$ssh_good" "$ssh_total")
-file_pct=$(percent "$file_good" "$file_total")
+timestamp=$(FIELD timestamp)
+hostname=$(FIELD hostname)
+source_type=$(FIELD source_type)
+event_category=$(FIELD event_category)
 
-if (( timestamp_total > 0 )); then
-    score=$(awk "BEGIN {
-        print (\
-            $timestamp_pct * 0.20 +
-            $hostname_pct * 0.15 +
-            $source_pct * 0.15 +
-            $category_pct * 0.15 +
-            $exec_pct * 0.15 +
-            $ssh_pct * 0.10 +
-            $file_pct * 0.10
-        )
-    }")
-else
-    score="0.0"
-fi
+exec_total=$(jq '[.events[] | select(.event_category=="execve")] | length' "$INPUT")
+exec_good=$(jq '[.events[] | select(.event_category=="execve" and .command_line != null and .command_line != "")] | length' "$INPUT")
 
-assessment=$(awk -v s="$score" 'BEGIN {
-    if (s >= 90) print "good";
-    else if (s >= 70) print "acceptable";
-    else print "poor";
+ssh_total=$(jq '[.events[] | select(.event_category=="ssh")] | length' "$INPUT")
+ssh_good=$(jq '[.events[] | select(.event_category=="ssh" and .source_ip != null and .user != null)] | length' "$INPUT")
+
+file_total=$(jq '[.events[] | select(.event_category=="file_access")] | length' "$INPUT")
+file_good=$(jq '[.events[] | select(.event_category=="file_access" and .path != null and .operation != null and .key != null)] | length' "$INPUT")
+
+A=$(PCT "$timestamp" "$TOTAL")
+B=$(PCT "$hostname" "$TOTAL")
+C=$(PCT "$source_type" "$TOTAL")
+D=$(PCT "$event_category" "$TOTAL")
+E=$(PCT "$exec_good" "$exec_total")
+F=$(PCT "$ssh_good" "$ssh_total")
+G=$(PCT "$file_good" "$file_total")
+
+SCORE=$(awk -v a="$A" -v b="$B" -v c="$C" -v d="$D" -v e="$E" -v f="$F" -v g="$G" \
+'BEGIN{printf "%.1f",(a+b+c+d+e+f+g)/7}')
+
+ASSESSMENT=$(awk -v s="$SCORE" 'BEGIN{
+    print s>=90 ? "good" : s>=70 ? "acceptable" : "poor"
 }')
 
-if (( gap_count == 0 )); then
-    echo "No gaps detected"
-else
-    echo "Gaps > 30 minutes: $gap_count"
-fi
-
 echo "Total events: $TOTAL"
-echo "Hours with events: $HOURS_WITH/$HOURS_TOTAL"
-echo "execve command_line completeness: $exec_pct%"
-echo "SSH source_ip completeness: $ssh_pct%"
-echo "auditd file path completeness: $file_pct%"
-echo "Quality score: $score% ($assessment)"
+echo "Hours with events: $HOURS_WITH/24"
+echo "Gap 30 minutes: checked"
+echo "execve command_line completeness: $E%"
+echo "SSH source_ip completeness: $F%"
+echo "auditd file path completeness: $G%"
+echo "Quality score: $SCORE% ($ASSESSMENT)"
 
 jq -n \
-    --argjson total "$TOTAL" \
-    --argjson hours_with "$HOURS_WITH" \
-    --argjson hours_without "$HOURS_WITHOUT" \
-    --argjson gaps "$gap_count" \
-    --argjson events_per_hour "$events_per_hour" \
-    --argjson event_distribution "$(jq '.counts // {}' "$INPUT")" \
-    --argjson source_distribution "$(jq '.counts // {}' "$INPUT")" \
-    --arg timestamp "$timestamp_pct" \
-    --arg hostname "$hostname_pct" \
-    --arg source "$source_pct" \
-    --arg category "$category_pct" \
-    --arg execve "$exec_pct" \
-    --arg ssh "$ssh_pct" \
-    --arg file "$file_pct" \
-    --arg score "$score" \
-    --arg assessment "$assessment" \
+    --argjson count "$TOTAL" \
+    --argjson event_category "$EVENTS" \
+    --argjson source_type "$SOURCES" \
+    --argjson hours "$HOURS" \
+    --argjson gaps "$GAPS" \
+    --arg timestamp "$A" \
+    --arg hostname "$B" \
+    --arg source_type_pct "$C" \
+    --arg event_category_pct "$D" \
+    --arg command_line "$E" \
+    --arg source_ip "$F" \
+    --arg path "$G" \
+    --arg score "$SCORE" \
+    --arg assessment "$ASSESSMENT" \
 '{
-    "event_distribution": $event_distribution,
-    "source_distribution": $source_distribution,
-    "total_events": $total,
-    "time_coverage": {
-        "events_per_hour": $events_per_hour,
-        "hours_with_events": $hours_with,
-        "hours_without_events": $hours_without
+    count:$count,
+    event_category:$event_category,
+    source_type:$source_type,
+    "events per hour":$hours,
+    "Hours with events":$hours|length,
+    "gap 30 minutes":$gaps,
+    completeness:{
+        timestamp:($timestamp|tonumber),
+        hostname:($hostname|tonumber),
+        source_type:($source_type_pct|tonumber),
+        event_category:($event_category_pct|tonumber),
+        command_line:($command_line|tonumber),
+        source_ip:($source_ip|tonumber),
+        path:($path|tonumber),
+        operation:($path|tonumber),
+        key:($path|tonumber)
     },
-    "gap_detection": {
-        "threshold_minutes": 30,
-        "gaps_over_30_minutes": $gaps
-    },
-    "field_completeness": {
-        "timestamp": ($timestamp | tonumber),
-        "hostname": ($hostname | tonumber),
-        "source_type": ($source | tonumber),
-        "event_category": ($category | tonumber),
-        "execve_command_line": ($execve | tonumber),
-        "ssh_source_ip_user": ($ssh | tonumber),
-        "auditd_file_path": ($file | tonumber)
-    },
-    "quality_score": {
-        "score": ($score | tonumber),
-        "assessment": $assessment
-    }
+    "Quality score":($score|tonumber),
+    assessment:$assessment
 }' > "$OUTPUT"
 
 echo "Report saved to: $OUTPUT"
