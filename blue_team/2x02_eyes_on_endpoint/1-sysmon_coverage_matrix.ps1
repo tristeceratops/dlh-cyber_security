@@ -7,10 +7,10 @@ Parses a Sysmon configuration and generates an ATT&CK coverage matrix
 based on the configured Sysmon Event IDs and filtering rules.
 
 .NOTES
-Script Name: 1-sysmon_coverage_matrix.ps1
-Purpose: Generate Sysmon ATT&CK coverage matrix
-Author: Tristeceratops
-Date: 10/08/2026
+Script name: 1-sysmon_coverage_matrix.ps1
+purpose: Generate Sysmon ATT&CK coverage matrix
+author: Tristeceratops
+date: 10/08/2026
 #>
 
 Set-StrictMode -Version Latest
