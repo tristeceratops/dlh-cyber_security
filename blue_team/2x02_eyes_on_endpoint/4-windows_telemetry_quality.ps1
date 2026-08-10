@@ -13,6 +13,9 @@ author: Tristeceratops
 date: 10/08/2026
 #>
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'SilentlyContinue'
+
 Write-Host "[*] Analyzing windows_events_export.json..."
 
 $events = Get-Content windows_events_export.json -Raw | ConvertFrom-Json
