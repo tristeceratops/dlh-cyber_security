@@ -71,6 +71,8 @@ total=$((auth_count + audit_count + syslog_count))
 
 echo "Total events: $total"
 
+# normalizes timestamp to ISO 8601 UTC
+
 cat > "$OUTPUT" <<EOF
 {
   "hostname": "$(hostname)",
