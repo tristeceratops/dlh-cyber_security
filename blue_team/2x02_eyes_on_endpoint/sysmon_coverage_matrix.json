@@ -1,0 +1,167 @@
+{
+    "generated_at":  "2026-08-10T12:23:57",
+    "config_file":  "C:\\Users\\analyst\\Documents\\2x02\\sysmonconfig.xml",
+    "enabled_event_ids":  [
+                              15
+                          ],
+    "summary":  {
+                    "techniques_assessed":  7,
+                    "covered":  0,
+                    "partial":  1,
+                    "blind":  6
+                },
+    "matrix":  [
+                   {
+                       "technique_id":  "T1059",
+                       "technique_name":  "Command and Scripting Interpreter",
+                       "required_event_ids":  [
+                                                  1
+                                              ],
+                       "enabled_event_ids":  [
+
+                                             ],
+                       "filter_conflicts":  [
+
+                                            ],
+                       "coverage_status":  "blind",
+                       "reason":  "None of the required Event IDs are enabled.",
+                       "evidence_fields_expected":  [
+                                                        "Image",
+                                                        "CommandLine",
+                                                        "User",
+                                                        "ParentImage"
+                                                    ],
+                       "recommendation":  "Enable Event ID(s): 1."
+                   },
+                   {
+                       "technique_id":  "T1053",
+                       "technique_name":  "Scheduled Task/Job",
+                       "required_event_ids":  [
+                                                  1
+                                              ],
+                       "enabled_event_ids":  [
+
+                                             ],
+                       "filter_conflicts":  [
+
+                                            ],
+                       "coverage_status":  "blind",
+                       "reason":  "None of the required Event IDs are enabled.",
+                       "evidence_fields_expected":  [
+                                                        "Image",
+                                                        "CommandLine",
+                                                        "ParentImage"
+                                                    ],
+                       "recommendation":  "Enable Event ID(s): 1."
+                   },
+                   {
+                       "technique_id":  "T1547",
+                       "technique_name":  "Boot or Logon Autostart Execution",
+                       "required_event_ids":  [
+                                                  13
+                                              ],
+                       "enabled_event_ids":  [
+
+                                             ],
+                       "filter_conflicts":  [
+
+                                            ],
+                       "coverage_status":  "blind",
+                       "reason":  "None of the required Event IDs are enabled.",
+                       "evidence_fields_expected":  [
+                                                        "TargetObject",
+                                                        "Details",
+                                                        "Image"
+                                                    ],
+                       "recommendation":  "Enable Event ID(s): 13."
+                   },
+                   {
+                       "technique_id":  "T1055",
+                       "technique_name":  "Process Injection",
+                       "required_event_ids":  [
+                                                  8,
+                                                  10
+                                              ],
+                       "enabled_event_ids":  [
+
+                                             ],
+                       "filter_conflicts":  [
+
+                                            ],
+                       "coverage_status":  "blind",
+                       "reason":  "None of the required Event IDs are enabled.",
+                       "evidence_fields_expected":  [
+                                                        "SourceImage",
+                                                        "TargetImage",
+                                                        "GrantedAccess"
+                                                    ],
+                       "recommendation":  "Enable Event ID(s): 8, 10."
+                   },
+                   {
+                       "technique_id":  "T1071",
+                       "technique_name":  "Application Layer Protocol",
+                       "required_event_ids":  [
+                                                  3,
+                                                  22
+                                              ],
+                       "enabled_event_ids":  [
+
+                                             ],
+                       "filter_conflicts":  [
+
+                                            ],
+                       "coverage_status":  "blind",
+                       "reason":  "None of the required Event IDs are enabled.",
+                       "evidence_fields_expected":  [
+                                                        "Image",
+                                                        "DestinationIp",
+                                                        "DestinationPort",
+                                                        "QueryName"
+                                                    ],
+                       "recommendation":  "Enable Event ID(s): 3, 22."
+                   },
+                   {
+                       "technique_id":  "T1574.002",
+                       "technique_name":  "DLL Side-Loading",
+                       "required_event_ids":  [
+                                                  7
+                                              ],
+                       "enabled_event_ids":  [
+
+                                             ],
+                       "filter_conflicts":  [
+
+                                            ],
+                       "coverage_status":  "blind",
+                       "reason":  "None of the required Event IDs are enabled.",
+                       "evidence_fields_expected":  [
+                                                        "Image",
+                                                        "ImageLoaded",
+                                                        "Hashes"
+                                                    ],
+                       "recommendation":  "Enable Event ID(s): 7."
+                   },
+                   {
+                       "technique_id":  "T1027",
+                       "technique_name":  "Obfuscated or Compressed Files",
+                       "required_event_ids":  [
+                                                  11,
+                                                  15
+                                              ],
+                       "enabled_event_ids":  [
+                                                 15
+                                             ],
+                       "filter_conflicts":  [
+
+                                            ],
+                       "coverage_status":  "partial",
+                       "reason":  "Required Event ID(s) missing: 11.",
+                       "evidence_fields_expected":  [
+                                                        "Image",
+                                                        "TargetFilename",
+                                                        "Hashes"
+                                                    ],
+                       "recommendation":  "Enable missing Event ID(s): 11."
+                   }
+               ]
+}
