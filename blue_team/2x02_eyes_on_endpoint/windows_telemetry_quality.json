@@ -1,0 +1,165 @@
+{
+    "Event Distribution":  [
+                               {
+                                   "EventID":  "4624",
+                                   "count":  366,
+                                   "percentage":  19.14
+                               },
+                               {
+                                   "EventID":  "4648",
+                                   "count":  10,
+                                   "percentage":  0.52
+                               },
+                               {
+                                   "EventID":  "4616",
+                                   "count":  2,
+                                   "percentage":  0.1
+                               },
+                               {
+                                   "EventID":  "4688",
+                                   "count":  11,
+                                   "percentage":  0.58
+                               },
+                               {
+                                   "EventID":  "4826",
+                                   "count":  1,
+                                   "percentage":  0.05
+                               },
+                               {
+                                   "EventID":  "4696",
+                                   "count":  1,
+                                   "percentage":  0.05
+                               },
+                               {
+                                   "EventID":  "1",
+                                   "count":  270,
+                                   "percentage":  14.12
+                               },
+                               {
+                                   "EventID":  "11",
+                                   "count":  280,
+                                   "percentage":  14.64
+                               },
+                               {
+                                   "EventID":  "22",
+                                   "count":  148,
+                                   "percentage":  7.74
+                               },
+                               {
+                                   "EventID":  "13",
+                                   "count":  446,
+                                   "percentage":  23.33
+                               },
+                               {
+                                   "EventID":  "12",
+                                   "count":  12,
+                                   "percentage":  0.63
+                               },
+                               {
+                                   "EventID":  "3",
+                                   "count":  17,
+                                   "percentage":  0.89
+                               },
+                               {
+                                   "EventID":  "2",
+                                   "count":  2,
+                                   "percentage":  0.1
+                               },
+                               {
+                                   "EventID":  "5",
+                                   "count":  1,
+                                   "percentage":  0.05
+                               },
+                               {
+                                   "EventID":  "4",
+                                   "count":  1,
+                                   "percentage":  0.05
+                               },
+                               {
+                                   "EventID":  "4100",
+                                   "count":  9,
+                                   "percentage":  0.47
+                               },
+                               {
+                                   "EventID":  "4104",
+                                   "count":  142,
+                                   "percentage":  7.43
+                               },
+                               {
+                                   "EventID":  "4103",
+                                   "count":  136,
+                                   "percentage":  7.11
+                               },
+                               {
+                                   "EventID":  "40962",
+                                   "count":  19,
+                                   "percentage":  0.99
+                               },
+                               {
+                                   "EventID":  "53504",
+                                   "count":  19,
+                                   "percentage":  0.99
+                               },
+                               {
+                                   "EventID":  "40961",
+                                   "count":  19,
+                                   "percentage":  0.99
+                               }
+                           ],
+    "Channel Distribution":  [
+                                 {
+                                     "Channel":  "Security",
+                                     "count":  391,
+                                     "percentage":  20.45
+                                 },
+                                 {
+                                     "Channel":  "Sysmon",
+                                     "count":  1177,
+                                     "percentage":  61.56
+                                 },
+                                 {
+                                     "Channel":  "PowerShell",
+                                     "count":  344,
+                                     "percentage":  17.99
+                                 }
+                             ],
+    "Time Coverage":  {
+                          "events per hour":  478,
+                          "Hours with events":  5,
+                          "Hours without events":  0,
+                          "gap 30 minutes":  [
+                                                 {
+                                                     "Start":  {
+                                                                   "value":  "\/Date(1786357757102)\/",
+                                                                   "DateTime":  "Monday, August 10, 2026 12:29:17 PM"
+                                                               },
+                                                     "End":  {
+                                                                 "value":  "\/Date(1786362989015)\/",
+                                                                 "DateTime":  "Monday, August 10, 2026 1:56:29 PM"
+                                                             },
+                                                     "Minutes":  87.2
+                                                 },
+                                                 {
+                                                     "Start":  {
+                                                                   "value":  "\/Date(1786363124967)\/",
+                                                                   "DateTime":  "Monday, August 10, 2026 1:58:44 PM"
+                                                               },
+                                                     "End":  {
+                                                                 "value":  "\/Date(1786365547738)\/",
+                                                                 "DateTime":  "Monday, August 10, 2026 2:39:07 PM"
+                                                             },
+                                                     "Minutes":  40.38
+                                                 }
+                                             ],
+                          "Largest gap minutes":  87.2
+                      },
+    "Field Completeness":  {
+                               "CommandLine":  "96.09%",
+                               "SourceIP":  "100%",
+                               "ScriptBlockText":  "100%"
+                           },
+    "Quality score":  {
+                          "Score":  98.63,
+                          "Assessment":  "good"
+                      }
+}
