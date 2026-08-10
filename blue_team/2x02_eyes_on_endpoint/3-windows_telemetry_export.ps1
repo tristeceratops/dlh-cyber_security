@@ -65,20 +65,37 @@ function Convert-Event($e,$source_type) {
     [pscustomobject]$o
 }
 
-$logs = @{
-    Security="Security"
-    Sysmon="Microsoft-Windows-Sysmon/Operational"
-    PowerShell="Microsoft-Windows-PowerShell/Operational"
-}
-$all = foreach($k in $logs.Keys) {
-    Get-WinEvent -FilterHashtable @{LogName=$logs[$k];StartTime=$StartTime;EndTime=$EndTime} -ErrorAction SilentlyContinue |
-        % { Convert-Event $_ $k }
-}
+$SecurityEvents = Get-WinEvent -FilterHashtable @{
+    LogName="Security"
+    StartTime=$StartTime
+    EndTime=$EndTime
+} -ErrorAction SilentlyContinue | % { Convert-Event $_ "Security" }
+
+$SysmonEvents = Get-WinEvent -FilterHashtable @{
+    LogName="Microsoft-Windows-Sysmon/Operational"
+    StartTime=$StartTime
+    EndTime=$EndTime
+} -ErrorAction SilentlyContinue | % { Convert-Event $_ "Sysmon" }
+
+$PowerShellEvents = Get-WinEvent -FilterHashtable @{
+    LogName="Microsoft-Windows-PowerShell/Operational"
+    StartTime=$StartTime
+    EndTime=$EndTime
+} -ErrorAction SilentlyContinue | % { Convert-Event $_ "PowerShell" }
+
+$all = $SecurityEvents + $SysmonEvents + $PowerShellEvents
 
 $all | ConvertTo-Json -Depth 6 | Set-Content windows_events_export.json -Encoding UTF8
 
-$all | Group-Object source_type | % { "$($_.Name) events: $($_.Count)" }
+"Security events: $($SecurityEvents.Count)"
+"Sysmon events: $($SysmonEvents.Count)"
+"PowerShell events: $($PowerShellEvents.Count)"
 "Total events: $($all.Count)"
-"Top Event IDs: " + (($all | Group-Object { "$($_.source_type)-$($_.event_id)" } |
-    Sort-Object Count -Descending | Select-Object -First 4 | % Name) -join ", ")
+
+"Top Event IDs: " + (($all |
+    Group-Object { "$($_.source_type)-$($_.event_id)" } |
+    Sort-Object Count -Descending |
+    Select-Object -First 4 |
+    % Name) -join ", ")
+
 "Output: windows_events_export.json"
