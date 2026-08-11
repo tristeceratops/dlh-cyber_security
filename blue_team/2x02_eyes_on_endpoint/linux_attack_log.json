@@ -1,0 +1,10 @@
+{
+  "events": [
+    {"action":1/6,"description":"Creating user testattacker...","timestamp":"2026-08-11T08:48:45Z","technique":"T1136.001","MITRE":"T1136.001","expected":"auditd_USER_ACCT"}    ,
+    {"action":2/6,"description":"Modifying sudoers...","timestamp":"2026-08-11T08:48:45Z","technique":"T1548.003","MITRE":"T1548.003","expected":"auditd_PATH_SYSCALL"}    ,
+    {"action":3/6,"description":"Executing from /tmp...","timestamp":"2026-08-11T08:48:45Z","technique":"T1059","MITRE":"T1059","expected":"auditd_execve"}    ,
+    {"action":4/6,"description":"Reverse shell attempt (localhost)...","timestamp":"2026-08-11T08:48:45Z","technique":"T1059.004","MITRE":"T1059.004","expected":"auditd_network"}    ,
+    {"action":5/6,"description":"Cron persistence...","timestamp":"2026-08-11T08:48:46Z","technique":"T1053.003","MITRE":"T1053.003","expected":"auditd_PATH_SYSCALL"}    ,
+    {"action":6/6,"description":"Accessing /etc/shadow...","timestamp":"2026-08-11T08:48:46Z","technique":"T1552.001","MITRE":"T1552.001","expected":"auditd_PATH_SYSCALL"}
+  ]
+}
