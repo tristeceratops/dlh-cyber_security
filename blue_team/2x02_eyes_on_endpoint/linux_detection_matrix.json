@@ -1,0 +1,68 @@
+{
+  "actions": 6,
+  "captured": 6,
+  "capture_percent": 100,
+  "multi_source": 0,
+  "events": [
+    {
+      "action": "Creating user testattacker...",
+      "source": "auth.log",
+      "key": "identity",
+      "detail": "Partial",
+      "status": "CAPTURED",
+      "start": "2026-08-11T08:48:45Z",
+      "end_time": "2026-08-11T08:49:15Z",
+      "key_fields": "user"
+    },
+    {
+      "action": "Modifying sudoers...",
+      "source": "auth.log",
+      "key": "sudoers",
+      "detail": "Partial",
+      "status": "CAPTURED",
+      "start": "2026-08-11T08:48:45Z",
+      "end_time": "2026-08-11T08:49:15Z",
+      "key_fields": "user"
+    },
+    {
+      "action": "Executing from /tmp...",
+      "source": "auth.log",
+      "key": "process_exec",
+      "detail": "Partial",
+      "status": "CAPTURED",
+      "start": "2026-08-11T08:48:45Z",
+      "end_time": "2026-08-11T08:49:15Z",
+      "key_fields": "user"
+    },
+    {
+      "action": "Reverse shell attempt (localhost)...",
+      "source": "auth.log",
+      "key": "network_connect",
+      "detail": "Partial",
+      "status": "CAPTURED",
+      "start": "2026-08-11T08:48:45Z",
+      "end_time": "2026-08-11T08:49:15Z",
+      "key_fields": "user"
+    },
+    {
+      "action": "Cron persistence...",
+      "source": "auth.log",
+      "key": "cron_persist",
+      "detail": "Partial",
+      "status": "CAPTURED",
+      "start": "2026-08-11T08:48:46Z",
+      "end_time": "2026-08-11T08:49:16Z",
+      "key_fields": "user"
+    },
+    {
+      "action": "Accessing /etc/shadow...",
+      "source": "auth.log",
+      "key": "identity",
+      "detail": "Partial",
+      "status": "CAPTURED",
+      "start": "2026-08-11T08:48:46Z",
+      "end_time": "2026-08-11T08:49:16Z",
+      "key_fields": "user"
+    }
+  ]
+}
