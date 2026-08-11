@@ -227,7 +227,7 @@ jq '
   ]
 ' /tmp/attack_coverage.json > /tmp/known_gaps.json
 
-# Final report.
+# Final report with simulated actions from detection matrix, attack coverage, gaps and a resume of event distribution.
 jq -n \
   --argjson summary "$(cat /tmp/event_summary.json)" \
   --argjson coverage "$(cat /tmp/attack_coverage.json)" \
