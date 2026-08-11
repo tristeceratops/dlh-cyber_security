@@ -83,6 +83,7 @@ matrix_captured() {
   ' "$1"
 }
 
+# for multi-source
 matrix_multi() {
   jq '
     if .actions? then
