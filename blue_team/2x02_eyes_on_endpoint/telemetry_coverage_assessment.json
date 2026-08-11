@@ -1,0 +1,67 @@
+{
+  "total_events": 4292,
+  "event_distribution": {
+    "platform": {
+      "Windows": 2270,
+      "Linux": 2022
+    },
+    "source_type": {
+      "PowerShell": 850,
+      "Security": 1120,
+      "Sysmon": 300,
+      "linux": 2022
+    },
+    "event_category": {
+      "process": 980,
+      "authentication": 620,
+      "file_access": 510,
+      "network": 730,
+      "service": 420,
+      "other": 1032
+    }
+  },
+  "detection_matrix": {
+    "simulated_actions": 12,
+    "captured": 11,
+    "missed": 1,
+    "multi_source": 4
+  },
+  "attack_coverage": {
+    "covered": [
+      "T1059",
+      "T1059.004",
+      "T1136.001",
+      "T1548.003",
+      "T1053.003",
+      "T1552.001"
+    ],
+    "partial": [
+      "T1021",
+      "T1071"
+    ],
+    "blind": [
+      "T1046"
+    ]
+  },
+  "known_gaps": [
+    {
+      "description": "No telemetry coverage detected",
+      "impacted_platform": "Windows/Linux",
+      "impacted_technique": "T1046",
+      "reason": "No matching detection source",
+      "recommendation": "Add or enable endpoint instrumentation for the technique"
+    },
+    {
+      "description": "Partial telemetry coverage",
+      "impacted_platform": "Windows/Linux",
+      "impacted_technique": "T1021",
+      "reason": "Detection exists but telemetry is incomplete",
+      "recommendation": "Increase audit/Sysmon coverage and validate event collection"
+    }
+  ],
+  "quality_summary": {
+    "windows_score": 94.2,
+    "linux_score": 96.1,
+    "final_handoff_confidence": "acceptable"
+  }
+}
