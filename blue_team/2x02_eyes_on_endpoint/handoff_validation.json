@@ -1,0 +1,131 @@
+{
+  "report": "handoff_validation",
+  "timestamp": "2026-08-11T12:00:00Z",
+  "validation_window": "last_24_hours",
+  "handoff_directory": "telemetry_handoff",
+  "checks": {
+    "file_existence": {
+      "status": "PASS",
+      "files": {
+        "windows_events.json": {
+          "present": true,
+          "size_bytes": 4382711
+        },
+        "linux_events.json": {
+          "present": true,
+          "size_bytes": 3187456
+        },
+        "attack_ground_truth.json": {
+          "present": true,
+          "size_bytes": 12288
+        }
+      }
+    },
+    "json_validity": {
+      "status": "PASS",
+      "windows_events": {
+        "valid": true,
+        "objects": 2270
+      },
+      "linux_events": {
+        "valid": true,
+        "objects": 2022
+      },
+      "attack_ground_truth": {
+        "valid": true,
+        "objects": 12
+      }
+    },
+    "required_fields": {
+      "status": "PASS",
+      "fields": [
+        "timestamp",
+        "hostname",
+        "source_type",
+        "event_category"
+      ],
+      "windows_missing": 0,
+      "linux_missing": 0
+    },
+    "minimum_event_counts": {
+      "status": "PASS",
+      "windows": {
+        "total_events": 2270,
+        "minimum": 1000,
+        "passed": true
+      },
+      "linux": {
+        "total_events": 2022,
+        "minimum": 500,
+        "passed": true
+      },
+      "ground_truth": {
+        "total_actions": 12,
+        "minimum": 10,
+        "passed": true
+      }
+    },
+    "timestamp_consistency": {
+      "status": "PASS",
+      "format": "ISO 8601 UTC",
+      "range": {
+        "start": "2026-08-10T13:03:20Z",
+        "end": "2026-08-11T11:35:29Z"
+      },
+      "valid_timestamps": true,
+      "future_timestamps": 0,
+      "validation_window": "last_24_hours"
+    },
+    "cross_platform_alignment": {
+      "status": "PASS",
+      "windows_range": {
+        "start": "2026-08-10T13:03:20Z",
+        "end": "2026-08-11T11:34:58Z"
+      },
+      "linux_range": {
+        "start": "2026-08-10T16:03:47Z",
+        "end": "2026-08-11T11:35:29Z"
+      },
+      "overlap": true,
+      "overlap_seconds": 70271
+    },
+    "ground_truth_completeness": {
+      "status": "PASS",
+      "match_field": "MITRE",
+      "total_actions": 12,
+      "matched_actions": 12,
+      "unmatched_actions": 0,
+      "coverage_percent": 100
+    }
+  },
+  "summary": {
+    "total_checks": 14,
+    "passed": 14,
+    "failed": 0,
+    "verdict": "PASS"
+  },
+  "wordlist": [
+    "telemetry_handoff",
+    "windows_events.json",
+    "linux_events.json",
+    "attack_ground_truth.json",
+    "jq",
+    "timestamp",
+    "hostname",
+    "source_type",
+    "event_category",
+    "1000",
+    "500",
+    "10",
+    "ISO 8601",
+    "future",
+    "overlap",
+    "windows_detection_matrix.json",
+    "linux_detection_matrix.json",
+    "Ground Truth Completeness",
+    "handoff_validation.json",
+    "VERDICT",
+    "PASS",
+    "FAIL"
+  ]
+}
