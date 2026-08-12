@@ -52,6 +52,7 @@ get_service_states() {
     while IFS= read -r service_name; do
         [ -z "$service_name" ] && continue
 
+	# get service states
         local service_state
         service_state=$(systemctl is-active "$service_name" 2>/dev/null || true)
 
