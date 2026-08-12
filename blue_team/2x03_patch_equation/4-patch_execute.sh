@@ -112,7 +112,7 @@ run_apt_upgrade() {
         fi
 
         if grep -qiE \
-            'Could not get lock|Unable to acquire.*lock|Could not open lock file|dpkg frontend lock' \
+            'Could not get lock - backoff |Unable to acquire.*lock|Could not open lock file|dpkg frontend lock' \
             "$error_file"; then
 
             if [ "$elapsed" -ge "$LOCK_TIMEOUT" ]; then
