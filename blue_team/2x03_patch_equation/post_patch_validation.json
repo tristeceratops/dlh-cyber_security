@@ -1,0 +1,357 @@
+{
+  "total_checks": 70,
+  "passed": 69,
+  "failed": 1,
+  "details": [
+    {
+      "type": "service_state",
+      "name": "apache2.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "apparmor.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "apport.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "auditd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "blk-availability.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "cloud-config.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "cloud-final.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "cloud-init-local.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "cloud-init.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "console-setup.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "cron.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "dbus.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "finalrd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "getty@tty1.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "irqbalance.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "keyboard-setup.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "kmod-static-nodes.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "lvm2-monitor.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "lvm2-pvscan@8:3.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "ModemManager.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "multipathd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "mysql.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "netfilter-persistent.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "networkd-dispatcher.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "packagekit.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "plymouth-quit-wait.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "plymouth-quit.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "plymouth-read-write.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "polkit.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "rsyslog.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "setvtrgb.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "snapd.apparmor.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "snapd.seeded.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "snapd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "snmpd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "ssh.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-binfmt.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-fsck@dev-disk-byx2duuid-907d4524x2dc1c7x2d4387x2da530x2d8bfda4b27e0d.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-journal-flush.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-journald.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-logind.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-modules-load.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-networkd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-random-seed.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-remount-fs.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-resolved.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-sysctl.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-sysusers.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-timesyncd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-tmpfiles-setup-dev.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-tmpfiles-setup.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-udev-trigger.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-udevd.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-update-utmp.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "systemd-user-sessions.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "udisks2.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "unattended-upgrades.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "user-runtime-dir@1000.service",
+      "status": "pass"
+    },
+    {
+      "type": "service_state",
+      "name": "user@1000.service",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "Local",
+      "status": "regression"
+    },
+    {
+      "type": "socket",
+      "name": "53",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "68",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "161",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "161",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "22",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "33060",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "3306",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "53",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "22",
+      "status": "pass"
+    },
+    {
+      "type": "socket",
+      "name": "80",
+      "status": "pass"
+    }
+  ]
+}
