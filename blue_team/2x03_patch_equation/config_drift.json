@@ -1,0 +1,48 @@
+{
+  "summary": {
+    "unchanged": 977,
+    "modified": 2,
+    "missing": 0,
+    "new": 0,
+    "unexpected": 2
+  },
+  "files": [
+    {
+      "path": "/etc/ssh/sshd_config",
+      "owning_package": "openssh-server",
+      "classification": "unchanged",
+      "old_hash": "8c4b7d1e2a9f3c6b5d8e7f1a2b3c4d5e6f7081928374655647382910abcdef12",
+      "new_hash": "8c4b7d1e2a9f3c6b5d8e7f1a2b3c4d5e6f7081928374655647382910abcdef12",
+      "expected": false,
+      "diff": ""
+    },
+    {
+      "path": "/etc/ssl/openssl.cnf",
+      "owning_package": "openssl",
+      "classification": "unchanged",
+      "old_hash": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+      "new_hash": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+      "expected": false,
+      "diff": ""
+    },
+    {
+      "path": "/etc/cloud/templates/chrony.conf.freebsd.tmpl",
+      "owning_package": "cloud-init",
+      "classification": "modified",
+      "old_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "new_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "expected": true,
+      "diff": "---\n+++ /etc/cloud/templates/chrony.conf.freebsd.tmpl\n@@\n server 0.pool.ntp.org iburst\n+server 1.pool.ntp.org iburst"
+    },
+    {
+      "path": "/etc/pam.conf",
+      "owning_package": "libpam-modules",
+      "classification": "modified",
+      "old_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "new_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "expected": false,
+      "diff": "---\n+++ /etc/pam.conf\n@@\n auth required pam_unix.so\n+auth required pam_faillock.so"
+    }
+  ]
+}
+
