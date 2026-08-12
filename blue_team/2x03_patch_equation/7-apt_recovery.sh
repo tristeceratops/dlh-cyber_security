@@ -440,7 +440,7 @@ main() {
         echo "    Diagnose complete. Refusing to repair while live process is running."
 
         build_report
-        return 2
+        exit 2
     fi
 
     echo "[*] Repairing..."
@@ -467,9 +467,8 @@ main() {
         return 0
     fi
 
-    return 1
+    exit 1
 }
 
 main
-exit $?
 
