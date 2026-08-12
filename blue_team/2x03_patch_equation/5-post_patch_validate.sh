@@ -246,12 +246,11 @@ run_validation() {
         SERVICE_PASSED - SOCKET_PASSED - PROBE_PASSED))
 
     if [ "$failed_checks" -gt 0 ]; then
-        return 1
+        exit 1
     fi
 
-    return 0
+    exit 0
 }
 
 run_validation
-exit $?
 
