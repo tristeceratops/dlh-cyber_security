@@ -1,0 +1,78 @@
+{
+  "started_at": "2026-08-12T14:00:00Z",
+  "finished_at": "2026-08-12T14:01:24Z",
+  "hostname": "billing-srv-01",
+  "plan_source_hash": "d4c846dc46dbc054d20d27ebed532dedee4d9a73717208641fdfc56d8c7ed243",
+  "entries": [
+    {
+      "package": "udev",
+      "priority": "scheduled",
+      "pre": {
+        "installed_version": "249.11-0ubuntu3.12",
+        "service_states": {}
+      },
+      "post": {
+        "installed_version": "249.11-0ubuntu3.13",
+        "service_states": {}
+      },
+      "status": "success",
+      "duration_seconds": 0.8,
+      "stdout_tail": "Reading package lists...\nBuilding dependency tree...\nReading state information...\nThe following packages will be upgraded:\n  udev",
+      "stderr_tail": "",
+      "apt_exit_status": 0,
+      "restart_results": {}
+    },
+    {
+      "package": "libssl3",
+      "priority": "urgent",
+      "pre": {
+        "installed_version": "3.0.2-0ubuntu1.19",
+        "service_states": {
+          "apache2.service": "active",
+          "ssh.service": "active"
+        }
+      },
+      "post": {
+        "installed_version": "3.0.2-0ubuntu1.20",
+        "service_states": {
+          "apache2.service": "active",
+          "ssh.service": "active"
+        }
+      },
+      "status": "success",
+      "duration_seconds": 3.1,
+      "stdout_tail": "Preparing to unpack ...\nUnpacking libssl3:amd64 ...\nSetting up libssl3:amd64 ...\nProcessing triggers for libc-bin ...",
+      "stderr_tail": "",
+      "apt_exit_status": 0,
+      "restart_results": {
+        "apache2.service": "restarted",
+        "ssh.service": "restarted"
+      }
+    },
+    {
+      "package": "openssh-server",
+      "priority": "urgent",
+      "pre": {
+        "installed_version": "1:8.9p1-3ubuntu0.10",
+        "service_states": {
+          "ssh.service": "active"
+        }
+      },
+      "post": {
+        "installed_version": "1:8.9p1-3ubuntu0.11",
+        "service_states": {
+          "ssh.service": "active"
+        }
+      },
+      "status": "success",
+      "duration_seconds": 2.8,
+      "stdout_tail": "Preparing to unpack ...\nUnpacking openssh-server ...\nSetting up openssh-server ...",
+      "stderr_tail": "",
+      "apt_exit_status": 0,
+      "restart_results": {
+        "ssh.service": "restarted"
+      }
+    }
+  ]
+}
+
