@@ -3,7 +3,7 @@
 SNAPSHOT_FILE="pre_patch_state.json"
 DEPENDENCY_FILE="service_dependency_map.json"
 
-PACKAGE_NAME="${1:-}"
+PACKAGE_NAME="$1"
 
 get_current_version() {
     dpkg-query -W -f='${Version}' "$PACKAGE_NAME" 2>/dev/null || echo "unknown"
