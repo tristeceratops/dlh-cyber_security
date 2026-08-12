@@ -1,0 +1,18 @@
+{
+  "initial_diagnosis": {
+    "live_processes": "50353 apt-get\n50603 apt-get install --only-upgrade -y ubuntu-pro-client\n50614 sh -c if [ -d /var/lib/update-notifier ]; then touch /var/lib/update-notifier/dpkg-run-stamp; fi; /usr/lib/update-notifier/update-motd-updates-available 2>/dev/null || true\n50630 /usr/bin/python3 /usr/lib/update-notifier/apt-check --human-readable ",
+    "stale_locks": [
+      "/var/lib/dpkg/lock-frontend",
+      "/var/lib/dpkg/lock",
+      "/var/cache/apt/archives/lock"
+    ],
+    "dpkg_audit": "clean",
+    "broken_packages": [],
+    "free_space_root": "17257MB",
+    "free_space_var": "17257MB"
+  },
+  "actions_taken": [],
+  "final_state": "aborted: live process detected",
+  "recovered": false,
+  "duration_seconds": 0
+}
