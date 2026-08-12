@@ -8,7 +8,7 @@ initialize_output() {
 }
 
 get_installed_packages() {
-    dpkg-query -W -f='${binary:Package} ${Version}\n' 2>/dev/null
+    dpkg-query -W -f='${binary:Package} ${Version} ${Status}\n' 2>/dev/null
 }
 
 get_package_name() {
