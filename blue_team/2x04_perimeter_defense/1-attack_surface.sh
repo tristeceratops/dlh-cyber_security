@@ -139,38 +139,44 @@ def parse_local:
 
             exposure_flags: [
                 if ($socket.peer | startswith("0.0.0.0:"))
-                   and ($socket.function == "database" or $socket.function == "rpc")
-                then "wildcard_bind_database_or_rpc"
+                   and ($socket.function == "database")
+                then "database_exposed"
                 else empty
                 end,
 
+		if ($socket.peer | startswith("0.0.0.0:"))
+		   and ($socket.function == "rpc")
+		then "rpc_exposed"
+		else empty
+		end,
+
                 if $socket.function == "telnet"
-                then "insecure_telnet"
+                then "insecure_protocol_telnet"
                 else empty
                 end,
 
                 if $socket.function == "ftp"
-                then "insecure_ftp"
+                then "insecure_protocol_ftp"
                 else empty
                 end,
 
                 if $socket.function == "snmpv1"
-                then "insecure_snmpv1"
+                then "insecure_protocol_snmpv1"
                 else empty
                 end,
 
                 if $socket.function == "snmpv2c"
-                then "insecure_snmpv2c"
+                then "insecure_protocol_snmpv2c"
                 else empty
                 end,
 
                 if $socket.function == "rlogin"
-                then "insecure_rlogin"
+                then "insecure_protocol_rlogin"
                 else empty
                 end,
 
                 if $socket.function == "nfs v2/v3"
-                then "insecure_nfs_v2_v3"
+                then "insecure_protocol_nfs_v2_v3"
                 else empty
                 end
             ]
