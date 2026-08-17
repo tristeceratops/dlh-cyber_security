@@ -50,7 +50,7 @@ while IFS= read -r socket; do
 		 	[[ "$SERVICE" == *.service ]] || SERVICE=""
 		fi
 	fi
-
+# Tag each socket with a function label drawn from a provided service_catalog.json (values include database, web, ssh, dns, ntp, rpc, smb, print, telemetry, unknown)
 	FUNCTION=$(jq -r \
 		--arg service "$SERVICE" \
 		'.[] | select(.service == $service) | .function' \
@@ -58,7 +58,7 @@ while IFS= read -r socket; do
 		head -n1)
 
 	[ -n "$FUNCTION" ] || FUNCTION="unknown"
-
+# Tag each socket with a criticality label from a provided service_criticality.json (values: critical, high, medium, low)
 	CRITICAL_VALUE=$(jq -r \
 		--arg service "$SERVICE" \
 		'.[] | select(.service == $service) | .criticality' \
@@ -81,6 +81,7 @@ while IFS= read -r socket; do
 
 done | jq -s . )
 
+# Flag every socket that matches at least one "should not be exposed" rule: bound to 0.0.0.0 on a service tagged database or rpc, or on any socket whose function is telnet, ftp, snmpv1, snmpv2c, rlogin, or nfs v2/v3
 EXPOSED_SOCKETS=$(jq -c '
 	map(
 		select(
@@ -100,6 +101,8 @@ EXPOSED_SOCKETS=$(jq -c '
 
 TIMESTAMP=$(date --iso-8601=seconds)
 HOSTNAME=$(hostname)
+
+# Emit attack_surface.json with generated_at, hostname, sockets (array with proto, port, bind_addr, process, package, function, criticality, exposure_flags) and a summary block counting flagged sockets by severity
 
 jq -n \
     --arg generated_at "$TIMESTAMP" \
