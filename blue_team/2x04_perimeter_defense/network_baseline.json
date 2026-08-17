@@ -1,0 +1,276 @@
+{
+  "timestamp": "2026-08-17T12:20:18+02:00",
+  "hostname": "billing-srv-01",
+  "interfaces": [
+    {
+      "name": "lo",
+      "mac": "00:00:00:00:00:00",
+      "link_state": [
+        "LOOPBACK",
+        "UP",
+        "LOWER_UP"
+      ],
+      "addresses": [
+        {
+          "family": "inet",
+          "address": "127.0.0.1",
+          "prefixlen": 8
+        },
+        {
+          "family": "inet6",
+          "address": "::1",
+          "prefixlen": 128
+        }
+      ]
+    },
+    {
+      "name": "enp0s3",
+      "mac": "08:00:27:f2:02:af",
+      "link_state": [
+        "BROADCAST",
+        "MULTICAST",
+        "UP",
+        "LOWER_UP"
+      ],
+      "addresses": [
+        {
+          "family": "inet",
+          "address": "10.0.2.15",
+          "prefixlen": 24
+        },
+        {
+          "family": "inet6",
+          "address": "fe80::a00:27ff:fef2:2af",
+          "prefixlen": 64
+        }
+      ]
+    },
+    {
+      "name": "enp0s8",
+      "mac": "08:00:27:69:74:e5",
+      "link_state": [
+        "BROADCAST",
+        "MULTICAST",
+        "UP",
+        "LOWER_UP"
+      ],
+      "addresses": [
+        {
+          "family": "inet",
+          "address": "10.10.1.10",
+          "prefixlen": 24
+        },
+        {
+          "family": "inet",
+          "address": "10.10.3.1",
+          "prefixlen": 24
+        },
+        {
+          "family": "inet6",
+          "address": "fe80::a00:27ff:fe69:74e5",
+          "prefixlen": 64
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "dst": "default",
+      "gateway": "10.0.2.2",
+      "dev": "enp0s3",
+      "protocol": "dhcp",
+      "prefsrc": "10.0.2.15",
+      "metric": 100,
+      "flags": []
+    },
+    {
+      "dst": "10.0.2.0/24",
+      "dev": "enp0s3",
+      "protocol": "kernel",
+      "scope": "link",
+      "prefsrc": "10.0.2.15",
+      "metric": 100,
+      "flags": []
+    },
+    {
+      "dst": "10.0.2.2",
+      "dev": "enp0s3",
+      "protocol": "dhcp",
+      "scope": "link",
+      "prefsrc": "10.0.2.15",
+      "metric": 100,
+      "flags": []
+    },
+    {
+      "dst": "10.10.1.0/24",
+      "dev": "enp0s8",
+      "protocol": "kernel",
+      "scope": "link",
+      "prefsrc": "10.10.1.10",
+      "flags": []
+    },
+    {
+      "dst": "10.10.3.0/24",
+      "dev": "enp0s8",
+      "protocol": "kernel",
+      "scope": "link",
+      "prefsrc": "10.10.3.1",
+      "flags": []
+    },
+    {
+      "dst": "192.168.1.1",
+      "gateway": "10.0.2.2",
+      "dev": "enp0s3",
+      "protocol": "dhcp",
+      "prefsrc": "10.0.2.15",
+      "metric": 100,
+      "flags": []
+    }
+  ],
+  "neighbors": {
+    "IP": "10.0.2.2",
+    "MAC": "52:54:00:12:35:02",
+    "state": [
+      "REACHABLE"
+    ]
+  },
+  "listening_sockets": [
+    {
+      "netid": "udp",
+      "state": "UNCONN",
+      "local": "127.0.0.53%lo:53",
+      "peer": "0.0.0.0:*",
+      "process": "systemd-resolve",
+      "pid": 692,
+      "fd": 13
+    },
+    {
+      "netid": "udp",
+      "state": "UNCONN",
+      "local": "10.0.2.15%enp0s3:68",
+      "peer": "0.0.0.0:*",
+      "process": "systemd-network",
+      "pid": 690,
+      "fd": 21
+    },
+    {
+      "netid": "udp",
+      "state": "UNCONN",
+      "local": "127.0.0.1:161",
+      "peer": "0.0.0.0:*",
+      "process": "snmpd",
+      "pid": 725,
+      "fd": 6
+    },
+    {
+      "netid": "udp",
+      "state": "UNCONN",
+      "local": "[::1]:161",
+      "peer": "[::]:*",
+      "process": "snmpd",
+      "pid": 725,
+      "fd": 7
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "0.0.0.0:3306",
+      "peer": "0.0.0.0:*",
+      "process": "mysqld",
+      "pid": 887,
+      "fd": 33
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "127.0.0.53%lo:53",
+      "peer": "0.0.0.0:*",
+      "process": "systemd-resolve",
+      "pid": 692,
+      "fd": 14
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "127.0.0.1:33060",
+      "peer": "0.0.0.0:*",
+      "process": "mysqld",
+      "pid": 887,
+      "fd": 21
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "0.0.0.0:22",
+      "peer": "0.0.0.0:*",
+      "process": "sshd",
+      "pid": 799,
+      "fd": 3
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "*:80",
+      "peer": "*:*",
+      "process": "apache2",
+      "pid": 916,
+      "fd": 4
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "*:80",
+      "peer": "*:*",
+      "process": "apache2",
+      "pid": 915,
+      "fd": 4
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "*:80",
+      "peer": "*:*",
+      "process": "apache2",
+      "pid": 912,
+      "fd": 4
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "*:80",
+      "peer": "*:*",
+      "process": "apache2",
+      "pid": 892,
+      "fd": 4
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "*:80",
+      "peer": "*:*",
+      "process": "apache2",
+      "pid": 891,
+      "fd": 4
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "*:80",
+      "peer": "*:*",
+      "process": "apache2",
+      "pid": 824,
+      "fd": 4
+    },
+    {
+      "netid": "tcp",
+      "state": "LISTEN",
+      "local": "[::]:22",
+      "peer": "[::]:*",
+      "process": "sshd",
+      "pid": 799,
+      "fd": 4
+    }
+  ],
+  "established_connections": [],
+  "dns_resolvers": []
+}
