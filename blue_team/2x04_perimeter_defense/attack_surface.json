@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-08-17T19:32:34+02:00",
+  "hostname": "billing-srv-01",
+  "sockets": [
+    {
+      "proto": "udp",
+      "port": 161,
+      "bind_addr": "127.0.0.1",
+      "process": "snmpd",
+      "package": "snmpd",
+      "function": "snmpv2c",
+      "criticality": "high",
+      "exposure_flags": [
+        "insecure_snmpv2c"
+      ]
+    },
+    {
+      "proto": "udp",
+      "port": 161,
+      "bind_addr": "::1",
+      "process": "snmpd",
+      "package": "snmpd",
+      "function": "snmpv2c",
+      "criticality": "high",
+      "exposure_flags": [
+        "insecure_snmpv2c"
+      ]
+    },
+    {
+      "proto": "tcp",
+      "port": 3306,
+      "bind_addr": "0.0.0.0",
+      "process": "mysqld",
+      "package": "mysql-server-core-8.0",
+      "function": "database",
+      "criticality": "critical",
+      "exposure_flags": [
+        "wildcard_bind_database_or_rpc"
+      ]
+    },
+    {
+      "proto": "tcp",
+      "port": 33060,
+      "bind_addr": "127.0.0.1",
+      "process": "mysqld",
+      "package": "mysql-server-core-8.0",
+      "function": "database",
+      "criticality": "critical",
+      "exposure_flags": [
+        "wildcard_bind_database_or_rpc"
+      ]
+    }
+  ],
+  "summary": {
+    "flagged": 4,
+    "by_severity": {
+      "critical": 2,
+      "high": 2,
+      "medium": 0,
+      "low": 0
+    }
+  }
+}

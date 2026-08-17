@@ -1,0 +1,94 @@
+[
+  {
+    "service": "mysql.service",
+    "process": "mysqld",
+    "package": "mysql-server-core-8.0",
+    "name": "MySQL Database Server",
+    "criticality": "critical"
+  },
+  {
+    "service": "ssh.service",
+    "process": "sshd",
+    "package": "openssh-server",
+    "name": "OpenSSH Server",
+    "criticality": "high"
+  },
+  {
+    "service": "apache2.service",
+    "process": "apache2",
+    "package": "apache2-bin",
+    "name": "Apache HTTP Server",
+    "criticality": "medium"
+  },
+  {
+    "service": "snmpd.service",
+    "process": "snmpd",
+    "package": "snmpd",
+    "name": "Net-SNMP Agent",
+    "criticality": "high"
+  },
+  {
+    "service": "systemd-resolved.service",
+    "process": "systemd-resolve",
+    "package": "systemd",
+    "name": "systemd-resolved",
+    "criticality": "medium"
+  },
+  {
+    "service": "isc-dhcp-client",
+    "process": "dhclient",
+    "package": "isc-dhcp-client",
+    "name": "ISC DHCP Client",
+    "criticality": "low"
+  },
+  {
+    "service": "telnet.service",
+    "process": "telnetd",
+    "package": "inetutils-telnetd",
+    "name": "Telnet Daemon",
+    "criticality": "critical"
+  },
+  {
+    "service": "vsftpd.service",
+    "process": "vsftpd",
+    "package": "vsftpd",
+    "name": "Very Secure FTP Daemon",
+    "criticality": "high"
+  },
+  {
+    "service": "rlogin.service",
+    "process": "rlogind",
+    "package": "inetutils-rlogind",
+    "name": "BSD rlogin Daemon",
+    "criticality": "high"
+  },
+  {
+    "service": "nfs-server.service",
+    "process": "rpc.nfsd",
+    "package": "nfs-kernel-server",
+    "name": "NFS Server (v2/v3)",
+    "criticality": "medium"
+  },
+  {
+    "service": "rpcbind.service",
+    "process": "rpcbind",
+    "package": "rpcbind",
+    "name": "RPC Portmapper",
+    "criticality": "medium"
+  },
+  {
+    "service": "smbd.service",
+    "process": "smbd",
+    "package": "samba",
+    "name": "Samba File Server",
+    "criticality": "high"
+  },
+  {
+    "service": "chronyd.service",
+    "process": "chronyd",
+    "package": "chrony",
+    "name": "Chrony NTP Daemon",
+    "criticality": "low"
+  }
+]
+

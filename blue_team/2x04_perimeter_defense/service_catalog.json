@@ -1,0 +1,107 @@
+[
+  {
+    "service": "mysql.service",
+    "process": "mysqld",
+    "package": "mysql-server-core-8.0",
+    "name": "MySQL Database Server",
+    "function": "database",
+    "description": "Primary billing/clinical relational database engine."
+  },
+  {
+    "service": "ssh.service",
+    "process": "sshd",
+    "package": "openssh-server",
+    "name": "OpenSSH Server",
+    "function": "ssh",
+    "description": "Encrypted remote administration shell access."
+  },
+  {
+    "service": "apache2.service",
+    "process": "apache2",
+    "package": "apache2-bin",
+    "name": "Apache HTTP Server",
+    "function": "web",
+    "description": "Web front end serving billing portal and admin console."
+  },
+  {
+    "service": "snmpd.service",
+    "process": "snmpd",
+    "package": "snmpd",
+    "name": "Net-SNMP Agent",
+    "function": "snmpv2c",
+    "description": "SNMP agent still answering community-string (v1/v2c) queries."
+  },
+  {
+    "service": "systemd-resolved.service",
+    "process": "systemd-resolve",
+    "package": "systemd",
+    "name": "systemd-resolved",
+    "function": "dns",
+    "description": "Local stub DNS resolver used by the host."
+  },
+  {
+    "service": "isc-dhcp-client",
+    "process": "dhclient",
+    "package": "isc-dhcp-client",
+    "name": "ISC DHCP Client",
+    "function": "dhcp-client",
+    "description": "Client-side DHCP lease negotiation, not a listening server role."
+  },
+  {
+    "service": "telnet.service",
+    "process": "telnetd",
+    "package": "inetutils-telnetd",
+    "name": "Telnet Daemon",
+    "function": "telnet",
+    "description": "Legacy cleartext remote-login service, found on the radiology lab PC."
+  },
+  {
+    "service": "vsftpd.service",
+    "process": "vsftpd",
+    "package": "vsftpd",
+    "name": "Very Secure FTP Daemon",
+    "function": "ftp",
+    "description": "Cleartext file transfer service."
+  },
+  {
+    "service": "rlogin.service",
+    "process": "rlogind",
+    "package": "inetutils-rlogind",
+    "name": "BSD rlogin Daemon",
+    "function": "rlogin",
+    "description": "Legacy trusted-host remote login, cleartext credentials."
+  },
+  {
+    "service": "nfs-server.service",
+    "process": "rpc.nfsd",
+    "package": "nfs-kernel-server",
+    "name": "NFS Server (v2/v3)",
+    "function": "nfs v2/v3",
+    "description": "Legacy NFS export using AUTH_SYS trust and no encryption."
+  },
+  {
+    "service": "rpcbind.service",
+    "process": "rpcbind",
+    "package": "rpcbind",
+    "name": "RPC Portmapper",
+    "function": "rpc",
+    "description": "ONC RPC portmapper, commonly paired with NFS/NIS exposure."
+  },
+  {
+    "service": "smbd.service",
+    "process": "smbd",
+    "package": "samba",
+    "name": "Samba File Server",
+    "function": "smb",
+    "description": "SMB/CIFS file sharing service."
+  },
+  {
+    "service": "chronyd.service",
+    "process": "chronyd",
+    "package": "chrony",
+    "name": "Chrony NTP Daemon",
+    "function": "ntp",
+    "description": "Network time synchronization service."
+  }
+]
+
