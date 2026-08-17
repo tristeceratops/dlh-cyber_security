@@ -5,6 +5,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+# get name, MAC, link state and all assigned addresses 
 ADDRS=$(ip -j addr show | jq -c '[.[] | {
   name: .ifname,
   mac: .address,
@@ -64,6 +65,22 @@ jq -c -s .)
 if systemctl is-active --quiet systemd-resolved; then
     RESOLV_CONF=$(cat /etc/resolv.conf)
     RESOLVECTL_STATUS=$(resolvectl status --no-pager)
+fi
+
+if systemctl is-active --quiet systemd-resolved; then
+    RESOLV_CONF=$(cat /etc/resolv.conf)
+    RESOLVECTL_STATUS=$(resolvectl status --no-pager)
+
+    DNS_RESOLVERS=$(jq -n \
+        --arg resolv_conf "$RESOLV_CONF" \
+        --arg resolvectl_status "$RESOLVECTL_STATUS" \
+        '{
+            systemd_resolved: true,
+            resolv_conf: $resolv_conf,
+            resolvectl_status: $resolvectl_status
+        }')
+else
+    DNS_RESOLVERS='{"systemd_resolved":false}'
 fi
 
 TIMESTAMP=$(date --iso-8601=seconds)
