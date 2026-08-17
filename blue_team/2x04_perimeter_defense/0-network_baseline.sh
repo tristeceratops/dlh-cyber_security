@@ -13,10 +13,13 @@ ADDRS=$(ip -j addr show | jq -c '[.[] | {
   addresses: [.addr_info[] | {family: .family, address: .local, prefixlen: .prefixlen}]
 }]')
 
+# Capture the routing table with ip -j route show including the default gateway
 ROUTES=$(ip -j route show)
 
+# Capture the ARP neighbors table with ip -j neigh show and retain IP, MAC and state
 ARP=$(ip -j neigh show | jq -c '.[] | {IP: .dst, MAC: .lladdr, state: .state}')
 
+# Enumerate listening TCP and UDP sockets with ss -tulnpH and resolve each socket to its owning process and PID
 SOCKETS=$(ss -H -tulnp |
 awk '
 {
@@ -41,6 +44,7 @@ awk '
 }' |
 jq -c -s .)
 
+# Enumerate established outbound connections with ss -tnpH state established and resolve each to its owning process
 OUTBOUNDS=$(ss -tnpH state established |
 awk '
 {
@@ -62,6 +66,7 @@ awk '
 }' |
 jq -c -s .)
 
+# Capture the DNS resolver configuration from /etc/resolv.conf and resolvectl status --no-pager if systemd-resolved is active
 if systemctl is-active --quiet systemd-resolved; then
     RESOLV_CONF=$(cat /etc/resolv.conf)
     RESOLVECTL_STATUS=$(resolvectl status --no-pager)
@@ -83,6 +88,7 @@ else
     DNS_RESOLVERS='{"systemd_resolved":false}'
 fi
 
+# Emit network_baseline.json with top-level keys: timestamp, hostname, interfaces, routes, neighbors, listening_sockets, established_connections, dns_resolvers
 TIMESTAMP=$(date --iso-8601=seconds)
 HOSTNAME=$(hostname)
 
