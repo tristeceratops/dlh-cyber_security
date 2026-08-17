@@ -30,11 +30,11 @@ while IFS= read -r socket; do
 
 	PACKAGE=""
 	if [ -n "$BINARY" ]; then
-		PACKAGE=$(dpkg-query -S "$BINARY" 2>/dev/null |
+		PACKAGE=$(dpkg -S "$BINARY" 2>/dev/null |
 			cut -d: -f1 |
 			head -n1)
 		if [ -z "$PACKAGE" ] && [[ "$BINARY" == /usr/lib/* ]]; then
-			PACKAGE=$(dpkg-query -S "/lib/${BINARY#/usr/lib/}" 2>/dev/null |
+			PACKAGE=$(dpkg -S "/lib/${BINARY#/usr/lib/}" 2>/dev/null |
 				cut -d: -f1 |
 				head -n1)
 		fi
