@@ -1,4 +1,58 @@
 #!/usr/bin/env pwsh
+<#
+.SYNOPSIS
+6-windows_firewall.ps1
+
+.DESCRIPTION
+Aligns Windows Firewall with the MedDefense network segmentation design
+defined in segmentation_rules.json.
+
+The script determines the local zone from the host IPv4 addresses and
+creates inbound Windows Firewall rules for authorized flows terminating
+on this host.
+
+The script performs the following actions:
+- Reads segmentation_rules.json from the project directory
+- Determines the local zone from the host IPv4 addresses
+- Captures the existing Windows Firewall configuration before modification
+- Saves the pre-change state as a structured JSON artifact
+- Sets Domain, Private, and Public profiles to:
+    - DefaultInboundAction = Block
+    - DefaultOutboundAction = Allow
+    - LogBlocked = True
+    - LogFileName = %systemroot%\system32\LogFiles\Firewall\meddefense.log
+- Removes all existing MedDefense-* rules
+- Recreates authorized inbound rules from the segmentation flow matrix
+- Uses the source zone CIDR as the RemoteAddress
+- Verifies that the expected number of MedDefense rules were created
+- Captures the resulting Windows Firewall configuration as JSON
+
+The script is idempotent. Existing MedDefense-* rules are removed before
+the ruleset is recreated.
+
+Each firewall rule uses:
+- DisplayName: MedDefense-<src_zone>-<proto>-<dport>
+- Direction: Inbound
+- Action: Allow
+- Protocol: TCP or UDP
+- LocalPort: destination port from the flow
+- RemoteAddress: source zone CIDR
+- Profile: Any
+
+The script has no Internet dependency and uses only local system state
+and the project-provided segmentation_rules.json file.
+
+.OUTPUTS
+windows_firewall_prechange.json
+windows_firewall_postchange.json
+
+.NOTES
+Script Name : 6-windows_firewall.ps1
+Purpose     : Windows Firewall segmentation enforcement
+Target      : Windows host aligned with the MedDefense segmentation design
+Author      : Tristeceratops
+Date        : 18/08/2026
+#>
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
