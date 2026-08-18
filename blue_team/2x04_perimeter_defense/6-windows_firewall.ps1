@@ -26,6 +26,7 @@ The script performs the following actions:
 - Uses the source zone CIDR as the RemoteAddress
 - Verifies that the expected number of MedDefense rules were created
 - Captures the resulting Windows Firewall configuration as JSON
+- Exports the resulting MedDefense Windows Firewall rules to windows_firewall_rules.json
 
 The script is idempotent. Existing MedDefense-* rules are removed before
 the ruleset is recreated.
@@ -45,6 +46,7 @@ and the project-provided segmentation_rules.json file.
 .OUTPUTS
 windows_firewall_prechange.json
 windows_firewall_postchange.json
+windows_firewall_rules.json
 
 .NOTES
 Script Name : 6-windows_firewall.ps1
@@ -60,6 +62,7 @@ $ErrorActionPreference = 'Stop'
 $SegmentationFile = Join-Path $PSScriptRoot 'segmentation_rules.json'
 $PreChangeJson = Join-Path $PSScriptRoot 'windows_firewall_prechange.json'
 $PostChangeJson = Join-Path $PSScriptRoot 'windows_firewall_postchange.json'
+$RulesJson = Join-Path $PSScriptRoot 'windows_firewall_rules.json'
 $LogFileName = '%systemroot%\system32\LogFiles\Firewall\meddefense.log'
 $RulePrefix = 'MedDefense-'
 
@@ -333,21 +336,58 @@ $ExpectedRuleCount = $CreatedRules.Count
 
 Write-Host "[*] Expected MedDefense rules: $ExpectedRuleCount"
 
+Write-Host '[*] Verifying loaded rules...'
+
 $LoadedRules = @(
     Get-NetFirewallRule -ErrorAction Stop |
-        Where-Object { $_.DisplayName -like "$RulePrefix*" }
+        Where-Object { $_.DisplayName -like "$RulePrefix*" } |
+        ForEach-Object {
+            $Rule = $_
+            $PortFilter = Get-NetFirewallPortFilter -AssociatedNetFirewallRule $Rule
+            $AddressFilter = Get-NetFirewallAddressFilter -AssociatedNetFirewallRule $Rule
+
+            [PSCustomObject]@{
+                DisplayName = $Rule.DisplayName
+                Direction = [string]$Rule.Direction
+                Action = [string]$Rule.Action
+                Enabled = [string]$Rule.Enabled
+                Profile = [string]$Rule.Profile
+                Protocol = [string]$PortFilter.Protocol
+                LocalPort = @($PortFilter.LocalPort)
+                RemoteAddress = @($AddressFilter.RemoteAddress)
+            }
+        }
 )
 
 $ActualRuleCount = $LoadedRules.Count
 
-Write-Host "[*] Verifying loaded rules..."
 Write-Host "  Expected rules: $ExpectedRuleCount"
 Write-Host "  Actual rules:   $ActualRuleCount"
 
 if ($ActualRuleCount -ne $ExpectedRuleCount) {
     Write-Error 'Loaded MedDefense rule count does not match expected rule count.'
+    Write-Error 'The firewall configuration was modified, but verification failed.'
     exit 1
 }
+
+Write-Host '  Rule count verification passed. [OK]'
+
+$RulesArtifact = [PSCustomObject]@{
+    Timestamp = (Get-Date).ToUniversalTime().ToString('o')
+    ComputerName = $env:COMPUTERNAME
+    LocalIPv4 = $LocalIPv4
+    LocalZones = @($LocalZones)
+    RulePrefix = $RulePrefix
+    ExpectedRuleCount = $ExpectedRuleCount
+    ActualRuleCount = $ActualRuleCount
+    Rules = @($LoadedRules)
+}
+
+$RulesArtifact |
+    ConvertTo-Json -Depth 10 |
+    Set-Content -LiteralPath $RulesJson -Encoding UTF8
+
+Write-Host "Rules artifact saved to: $RulesJson"
 
 $ProfilesAfter = @(
     Get-NetFirewallProfile -Profile Domain,Private,Public |
@@ -368,26 +408,7 @@ $PostChangeState = [PSCustomObject]@{
     ExpectedRuleCount = $ExpectedRuleCount
     ActualRuleCount = $ActualRuleCount
     Profiles = $ProfilesAfter
-    MedDefenseRules = @(
-        Get-NetFirewallRule -ErrorAction Stop |
-            Where-Object { $_.DisplayName -like "$RulePrefix*" } |
-            ForEach-Object {
-                $Rule = $_
-                $PortFilter = Get-NetFirewallPortFilter -AssociatedNetFirewallRule $Rule
-                $AddressFilter = Get-NetFirewallAddressFilter -AssociatedNetFirewallRule $Rule
-
-                [PSCustomObject]@{
-                    DisplayName = $Rule.DisplayName
-                    Direction = [string]$Rule.Direction
-                    Action = [string]$Rule.Action
-                    Enabled = [string]$Rule.Enabled
-                    Profile = [string]$Rule.Profile
-                    Protocol = [string]$PortFilter.Protocol
-                    LocalPort = @($PortFilter.LocalPort)
-                    RemoteAddress = @($AddressFilter.RemoteAddress)
-                }
-            }
-    )
+    MedDefenseRules = @($LoadedRules)
 }
 
 $PostChangeState |
