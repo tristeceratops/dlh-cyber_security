@@ -8,6 +8,8 @@ LOG_PREFIX="nft-meddefense"
 
 BACKUP_DIR="/var/backups"
 TIMESTAMP=$(date '+%Y%m%d%H%M%S')
+
+# pattern /var/backups/nftables-rollback-<timestamp>.nft
 ROLLBACK="$BACKUP_DIR/nftables-rollback-$TIMESTAMP.nft"
 PRECHANGE_JSON="nftables_prechange.json"
 POSTCHANGE_JSON="nftables_postchange.json"
