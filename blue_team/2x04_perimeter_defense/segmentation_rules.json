@@ -1,0 +1,203 @@
+{
+  "zones": [
+    {
+      "name": "DMZ",
+      "cidr": "10.10.2.0/24",
+      "purpose": "Public-facing services",
+      "default_inbound": "drop",
+      "default_outbound": {
+        "action": "accept",
+        "restrictions": [
+          "no_mgmt_access",
+          "no_meddev_access"
+        ]
+      }
+    },
+    {
+      "name": "INTERNAL",
+      "cidr": "10.10.1.0/24",
+      "purpose": "Clinical applications and databases",
+      "default_inbound": "drop",
+      "default_outbound": {
+        "action": "accept",
+        "restrictions": [
+          "no_meddev_access"
+        ]
+      }
+    },
+    {
+      "name": "MGMT",
+      "cidr": "192.168.10.0/24",
+      "purpose": "Administration and management",
+      "default_inbound": "drop",
+      "default_outbound": {
+        "action": "accept",
+        "restrictions": []
+      }
+    },
+    {
+      "name": "MEDDEV",
+      "cidr": "10.10.3.0/24",
+      "purpose": "Medical device VLAN",
+      "default_inbound": "drop",
+      "default_outbound": {
+        "action": "accept",
+        "restrictions": [
+          "no_dmz_access",
+          "no_public_internet_access"
+        ]
+      }
+    }
+  ],
+  "flows": [
+    {
+      "src_zone": "MGMT",
+      "dst_zone": "INTERNAL",
+      "proto": "tcp",
+      "dport": 22,
+      "justification": "Administration of internal hosts",
+      "action": "allow"
+    },
+    {
+      "src_zone": "MGMT",
+      "dst_zone": "DMZ",
+      "proto": "tcp",
+      "dport": 22,
+      "justification": "Administration of DMZ hosts",
+      "action": "allow"
+    },
+    {
+      "src_zone": "INTERNAL",
+      "dst_zone": "INTERNAL",
+      "src_hosts": [
+        "clinical-workstations"
+      ],
+      "dst_hosts": [
+        "internal-server-hosts"
+      ],
+      "proto": "tcp",
+      "dport": 443,
+      "justification": "Clinical workstation access to internal application servers",
+      "action": "allow"
+    },
+    {
+      "src_zone": "INTERNAL",
+      "dst_zone": "INTERNAL",
+      "src_hosts": [
+        "clinical-workstations"
+      ],
+      "dst_hosts": [
+        "internal-server-hosts"
+      ],
+      "proto": "tcp",
+      "dport": 3306,
+      "justification": "Clinical workstation access to internal database servers",
+      "action": "allow"
+    },
+    {
+      "src_zone": "DMZ",
+      "dst_zone": "INTERNAL",
+      "src_hosts": [
+        "dmz-app-01",
+        "dmz-app-02"
+      ],
+      "dst_hosts": [
+        "internal-databases"
+      ],
+      "proto": "tcp",
+      "dport": 3306,
+      "justification": "DMZ application access to internal databases",
+      "action": "allow"
+    },
+    {
+      "src_zone": "MEDDEV",
+      "dst_zone": "INTERNAL",
+      "dst_hosts": [
+        "internal-pacs"
+      ],
+      "proto": "tcp",
+      "dport": 4242,
+      "justification": "DICOM imaging to PACS",
+      "action": "allow"
+    },
+    {
+      "src_zone": "MEDDEV",
+      "dst_zone": "INTERNAL",
+      "dst_hosts": [
+        "internal-ehr"
+      ],
+      "proto": "tcp",
+      "dport": 443,
+      "justification": "EHR web integration for device display",
+      "action": "allow"
+    },
+    {
+      "src_zone": "MGMT",
+      "dst_zone": "MEDDEV",
+      "proto": "tcp",
+      "dport": 22,
+      "justification": "Administration of medical devices",
+      "action": "allow"
+    },
+    {
+      "src_zone": "MGMT",
+      "dst_zone": "MEDDEV",
+      "proto": "tcp",
+      "dport": 4242,
+      "justification": "Medical device management using DICOM",
+      "action": "allow"
+    },
+    {
+      "src_zone": "ALL",
+      "dst_zone": "MGMT",
+      "dst_hosts": [
+        "mgmt-resolver"
+      ],
+      "proto": "udp",
+      "dport": 53,
+      "justification": "DNS resolution through management resolver",
+      "action": "allow"
+    },
+    {
+      "src_zone": "ALL",
+      "dst_zone": "MGMT",
+      "dst_hosts": [
+        "mgmt-resolver"
+      ],
+      "proto": "tcp",
+      "dport": 53,
+      "justification": "TCP DNS resolution through management resolver",
+      "action": "allow"
+    },
+    {
+      "src_zone": "DMZ",
+      "dst_zone": "MEDDEV",
+      "action": "deny_all",
+      "justification": "No cross-zone flows are authorized"
+    },
+    {
+      "src_zone": "INTERNAL",
+      "dst_zone": "DMZ",
+      "action": "deny_all",
+      "justification": "No cross-zone flows are authorized"
+    },
+    {
+      "src_zone": "INTERNAL",
+      "dst_zone": "MEDDEV",
+      "action": "deny_all",
+      "justification": "No cross-zone flows are authorized"
+    },
+    {
+      "src_zone": "MEDDEV",
+      "dst_zone": "DMZ",
+      "action": "deny_all",
+      "justification": "No cross-zone flows are authorized"
+    }
+  ],
+  "summary": {
+    "flow_count": 15,
+    "allow_count": 11,
+    "deny_count": 4,
+    "cross_zone_pairs": 12
+  }
+}
