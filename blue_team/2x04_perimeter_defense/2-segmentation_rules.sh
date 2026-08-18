@@ -50,7 +50,14 @@ ZONES_JSON=$(jq -n '[
   }
 ]')
 
-
+# MGMT to INTERNAL on tcp/22 for administration
+# MGMT to DMZ on tcp/22 for administration
+# INTERNAL clinical workstations to INTERNAL server hosts on tcp/443 and tcp/3306
+# DMZ to INTERNAL databases on tcp/3306 only from named DMZ application hosts
+# MEDDEV to INTERNAL hosts on tcp/4242 (DICOM) and tcp/443 (EHR web) only
+# ALL to MGMT resolver on udp/53 and tcp/53
+# No flows from MEDDEV to DMZ or the public Internet
+# No flows from any zone into MEDDEV except MGMT on tcp/22 and tcp/4242
 FLOWS_JSON=$(jq -n '[
   {
     src_zone: "MGMT",
