@@ -124,6 +124,8 @@ SMOKE_EVE="$SMOKE_LOG_DIR/eve.json"
 
 mkdir -p "$SMOKE_LOG_DIR"
 
+# not run suricata.service
+
 suricata \
     -c "$CONFIG_FILE" \
     -r "$SMOKE_PCAP" \
