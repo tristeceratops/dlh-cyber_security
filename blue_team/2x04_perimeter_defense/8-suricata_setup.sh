@@ -124,7 +124,7 @@ SMOKE_EVE="$SMOKE_LOG_DIR/eve.json"
 
 mkdir -p "$SMOKE_LOG_DIR"
 
-# not run suricata.service
+# here suricata.service do not start
 
 suricata \
     -c "$CONFIG_FILE" \
