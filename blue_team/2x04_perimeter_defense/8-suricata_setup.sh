@@ -63,7 +63,7 @@ default-rule-path: $RULES_DIR
 
 rule-files:
 EOF
-
+#fileinfo does not work on older version, change to files
     find "$RULES_DIR" -maxdepth 1 -type f -name '*.rules' -printf '  - %f\n' | sort
 
     cat <<EOF
