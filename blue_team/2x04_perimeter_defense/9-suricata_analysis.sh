@@ -7,6 +7,7 @@ if [[ $EUID -ne 0 ]]; then
         exit 1
 fi
 
+#$1
 PCAP_PATH="${1:-/home/analyst/MedDefense_Lab/PCAPs/mixed_traffic.pcap}"
 
 TMPDIR="/tmp/suricata-$(basename "$PCAP_PATH" .pcap)"
