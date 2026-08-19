@@ -1,0 +1,8 @@
+{
+  "installed_version": "6.0.4 RELEASE",
+  "rule_files_loaded": 53,
+  "rule_count": 45022,
+  "config_test_exit": 0,
+  "smoke_pcap": "/home/analyst/MedDefense_Lab/PCAPs/smoke.pcap",
+  "smoke_alerts": 6
+}
