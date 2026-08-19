@@ -114,6 +114,8 @@ jq -s '
 
 CLASSIFIED_ALERTS_JSON="$TMPDIR/alerts_classified.json"
 
+#Classify each signature into one of: reconnaissance, exploit, lateral_movement, exfiltration, malware_c2, policy_violation, other using a provided signature_categories.json map shipped with the project
+
 echo "Classifying alerts..."
 
 jq -c --slurpfile categories "$SIGNATURE_CATEGORIES" '
@@ -136,6 +138,8 @@ jq -s '
     }) |
     sort_by(-.count)
 ' "$CLASSIFIED_ALERTS_JSON"
+
+# Emit suricata_alerts.json with pcap, started_at, finished_at, total_alerts, unique_signatures, severity_distribution, by_category, top_sources, top_destinations, alerts (full array)
 
 OUTPUT_JSON="suricata_alerts.json"
 
