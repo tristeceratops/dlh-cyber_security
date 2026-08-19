@@ -2,10 +2,9 @@
 
 set -euo pipefail
 
-CONFIG_FILE="./suricata.yaml"
 RULE_FILE="./meddefense.rules"
 LABEL_DIR="/home/analyst/MedDefense_Lab/PCAPs/labels"
-RESULT_FILE="./rule_validation.json"
+JSON_OUTPUT="./rule_validation.json"
 
 declare -A TESTS=(
     [9000001]="MEDDEV to Internet|meddev_egress.pcap"
@@ -16,44 +15,39 @@ declare -A TESTS=(
     [9000006]="Telnet to MEDDEV|telnet_meddev.pcap"
 )
 
-[[ $EUID -eq 0 ]] || {
-    echo "ERROR: run as root." >&2
-    exit 1
-}
-
-[[ -f "$RULE_FILE" ]] || {
+if [[ ! -f "$RULE_FILE" ]]; then
     echo "ERROR: $RULE_FILE not found." >&2
     exit 1
-}
+fi
 
-[[ -f "$CONFIG_FILE" ]] || {
-    echo "ERROR: $CONFIG_FILE not found." >&2
-    exit 1
-}
-
-[[ -d "$LABEL_DIR" ]] || {
+if [[ ! -d "$LABEL_DIR" ]]; then
     echo "ERROR: $LABEL_DIR not found." >&2
     exit 1
-}
+fi
 
-rule_count=$(grep -cE '^[[:space:]]*alert .*sid:900000[1-7];' "$RULE_FILE" || true)
+rule_count=$(grep -cE 'sid:900000[1-6];' "$RULE_FILE" || true)
 
 echo "[*] Loading meddefense.rules...          $rule_count rules"
 
+if [[ "$rule_count" -ne 6 ]]; then
+    echo "ERROR: expected 6 validation rules." >&2
+    exit 1
+fi
+
 echo "[*] Validating rule syntax..."
-if ! suricata -T -c "$CONFIG_FILE" >/dev/null 2>&1; then
-    echo "ERROR: Suricata configuration/rules failed validation." >&2
+
+if ! suricata -T -c ./suricata.yaml >/tmp/meddefense-rule-test.log 2>&1; then
+    cat /tmp/meddefense-rule-test.log >&2
+    echo "ERROR: Suricata rule validation failed." >&2
     exit 1
 fi
 
 echo "[*] Running validation against labeled PCAPs..."
 echo
 
-results_file="/tmp/rule-validation-results.jsonl"
-: > "$results_file"
-
 passed=0
 failed=0
+results="[]"
 
 for sid in 9000001 9000002 9000003 9000004 9000005 9000006; do
     IFS='|' read -r name pcap <<< "${TESTS[$sid]}"
@@ -66,121 +60,71 @@ for sid in 9000001 9000002 9000003 9000004 9000005 9000006; do
     echo "  target: $pcap"
     echo "  expected: fire"
 
+    status="fail"
+    hits=0
+
     if [[ ! -f "$LABEL_DIR/$pcap" ]]; then
-        echo "  observed: PCAP NOT FOUND                FAIL"
-
-        jq -n \
-            --arg sid "$sid" \
-            --arg name "$name" \
-            --arg pcap "$pcap" \
-            '{
-                sid: ($sid | tonumber),
-                name: $name,
-                target: $pcap,
-                expected: "fire",
-                observed: "pcap_not_found",
-                hits: 0,
-                passed: false
-            }' >> "$results_file"
-
-        failed=$((failed + 1))
-        echo
-        continue
-    fi
-
-    if ! suricata \
-        -c "$CONFIG_FILE" \
+        echo "  observed: PCAP NOT FOUND                  FAIL"
+    elif suricata \
+        -c ./suricata.yaml \
         -r "$LABEL_DIR/$pcap" \
-        -l "$output_dir" \
-        >/dev/null 2>&1; then
+        -l "$output_dir" >/dev/null 2>&1; then
 
-        echo "  observed: Suricata execution failed    FAIL"
-
-        jq -n \
+        hits=$(jq -r \
             --arg sid "$sid" \
-            --arg name "$name" \
-            --arg pcap "$pcap" \
-            '{
-                sid: ($sid | tonumber),
-                name: $name,
-                target: $pcap,
-                expected: "fire",
-                observed: "suricata_failed",
-                hits: 0,
-                passed: false
-            }' >> "$results_file"
+            'select(
+                .event_type == "alert" and
+                (.alert.signature_id | tostring) == $sid
+            )' \
+            "$output_dir/eve.json" 2>/dev/null | wc -l)
 
-        failed=$((failed + 1))
-        echo
-        continue
-    fi
-
-    hits=$(jq -s \
-        --arg sid "$sid" \
-        'map(select(
-            .event_type == "alert" and
-            ((.alert.signature_id | tostring) == $sid)
-        )) | length' \
-        "$output_dir/eve.json")
-
-    if (( hits > 0 )); then
-        echo "  observed: fire ($hits hits)                PASS"
-        passed=$((passed + 1))
-        result=true
-        observed="fire"
+        if (( hits > 0 )); then
+            status="pass"
+            passed=$((passed + 1))
+            echo "  observed: fire ($hits hits)                PASS"
+        else
+            failed=$((failed + 1))
+            echo "  observed: no hits                         FAIL"
+        fi
     else
-        echo "  observed: no hits                         FAIL"
         failed=$((failed + 1))
-        result=false
-        observed="no_hits"
+        echo "  observed: Suricata execution failed        FAIL"
     fi
 
-    jq -n \
+    results=$(jq \
         --arg sid "$sid" \
         --arg name "$name" \
         --arg pcap "$pcap" \
-        --arg observed "$observed" \
+        --arg status "$status" \
         --argjson hits "$hits" \
-        --argjson passed "$result" \
-        '{
+        '. + [{
             sid: ($sid | tonumber),
             name: $name,
             target: $pcap,
             expected: "fire",
-            observed: $observed,
-            hits: $hits,
-            passed: $passed
-        }' >> "$results_file"
+            observed: $status,
+            hits: $hits
+        }]' <<< "$results")
 
     echo
 done
 
-overall_passed=false
-if (( failed == 0 )); then
-    overall_passed=true
-fi
-
-jq -s \
-    --argjson rule_count "$rule_count" \
+jq -n \
+    --argjson rules "$rule_count" \
     --argjson passed "$passed" \
     --argjson failed "$failed" \
-    --argjson overall_passed "$overall_passed" \
+    --argjson results "$results" \
     '{
-        rules: $rule_count,
-        tests: length,
+        rules: $rules,
         passed: $passed,
         failed: $failed,
-        overall_passed: $overall_passed,
-        results: .
-    }' \
-    "$results_file" > "$RESULT_FILE"
+        results: $results
+    }' > "$JSON_OUTPUT"
 
-rm -f "$results_file"
-
-echo "Rules:  6"
+echo "Rules:  $((passed + failed))"
 echo "Passed: $passed"
 echo "Failed: $failed"
-echo "Result: $RESULT_FILE"
+echo "JSON:   $JSON_OUTPUT"
 
 if (( failed != 0 )); then
     exit 1
