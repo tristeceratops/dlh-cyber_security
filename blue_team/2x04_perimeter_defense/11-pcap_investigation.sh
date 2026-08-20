@@ -107,6 +107,7 @@ TOP=$(
 )
 
 echo
+# top 10
 echo "Top conversations:"
 while read -r pkts b proto src dst; do
     [[ -n "$pkts" ]] || continue
