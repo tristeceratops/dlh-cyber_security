@@ -148,6 +148,7 @@ printf '      -> %-20s expected allow      %s\n' "${UNKNOWN_ANSWER:-NO ANSWER}" 
 
 AFTER_CONFIG=$(sha256sum "$BLOCKCONF" | awk '{print $1}')
 
+#instead of jq
 python3 - "$JSON" <<PY
 import json
 
