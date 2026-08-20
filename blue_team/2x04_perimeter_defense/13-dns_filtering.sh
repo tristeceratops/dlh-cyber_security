@@ -13,7 +13,7 @@ UPSTREAM="/etc/dnsmasq.d/meddefense-upstream.conf"
 BLOCKCONF="/etc/dnsmasq.d/meddefense-blocklist.conf"
 MAINCONF="/etc/dnsmasq.d/meddefense.conf"
 LOGFILE="/var/log/dnsmasq.log"
-JSON="$BASE/dns/dns_filtering.json"
+JSON="$BASE/dns/dns_filter_report.json"
 
 die() {
     echo "[!] $*" >&2
