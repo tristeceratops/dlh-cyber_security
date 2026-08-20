@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+# get /home/analyst/MedDefense_Lab/dns/blocklist.txt and /home/analyst/MedDefense_Lab/allowlist.txt
+
 BASE="/home/analyst/MedDefense_Lab"
 BLOCKLIST="$BASE/dns/blocklist.txt"
 ALLOWLIST="$BASE/dns/allowlist.txt"
