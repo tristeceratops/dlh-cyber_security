@@ -33,7 +33,7 @@ BEFORE_CONFIG=$(sha256sum "$BLOCKCONF" 2>/dev/null | awk '{print $1}' || echo "a
 # ---------------------------------------------------------------------------
 
 echo -n "[*] Ensuring dnsmasq is installed...     "
-
+# idempotent
 if ! command -v dnsmasq >/dev/null 2>&1; then
     if command -v apt-get >/dev/null 2>&1; then
         apt-get install -y dnsmasq >/dev/null
