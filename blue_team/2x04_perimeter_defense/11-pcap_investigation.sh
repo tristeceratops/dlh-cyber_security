@@ -131,7 +131,7 @@ else
     echo "  (none)"
 fi
 
-# JSON
+# JSON insteaed of jq
 python3 - "$PCAP" "$DURATION" "$PACKETS" \
     "$TCP" "$UDP" "$DNS" "$HTTP" "$TLS" "$FILES" \
     "$TCP_P" "$UDP_P" "$ICMP_P" "$OTHER_P" "$LONG_DNS" <<'PY'
