@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# do not rewrite /etc/resolv.conf
+
 set -euo pipefail
 
 # get /home/analyst/MedDefense_Lab/dns/blocklist.txt and /home/analyst/MedDefense_Lab/allowlist.txt
