@@ -132,7 +132,7 @@ else
     echo "  (none)"
 fi
 
-# JSON insteaed of jq
+# JSON insteaed of jq, not pcap_investigation.json but pcap_findings.json
 python3 - "$PCAP" "$DURATION" "$PACKETS" \
     "$TCP" "$UDP" "$DNS" "$HTTP" "$TLS" "$FILES" \
     "$TCP_P" "$UDP_P" "$ICMP_P" "$OTHER_P" "$LONG_DNS" <<'PY'
