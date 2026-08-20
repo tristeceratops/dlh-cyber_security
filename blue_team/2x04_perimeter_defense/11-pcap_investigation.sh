@@ -67,7 +67,7 @@ printf '[*] Extracting HTTP requests...          (%s)\n' "$HC"
 printf '[*] Extracting TLS SNI...                (%s)\n' "$TLSC"
 printf '[*] Extracting file transfers...         (%s)\n' "$FC"
 
-# Protocol distribution
+# protocol distribution
 ## tshark -q -z io,phs
 read -r TP UP IP OP TOTAL < <(
     tshark -r "$PCAP" -T fields -e _ws.col.Protocol 2>/dev/null |
