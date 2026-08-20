@@ -1,0 +1,1552 @@
+{
+  "pcap": "/home/analyst/MedDefense_Lab/PCAPs/suspicious_session.pcap",
+  "duration_seconds": 486.0,
+  "packets": 942,
+  "tcp_conversations": [
+    {
+      "src": "10.10.1.10:50000",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52000",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50001",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52001",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50002",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50003",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52002",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50004",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50005",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52003",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50006",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50007",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52004",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50008",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50009",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52005",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50010",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50011",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52006",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50012",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50013",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52007",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50014",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50015",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52008",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50016",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52009",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50017",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50018",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52010",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50019",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50020",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52011",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50021",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50022",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52012",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50023",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50024",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52013",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50025",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50026",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52014",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50027",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50028",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52015",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50029",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50030",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52016",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50031",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52017",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50032",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50033",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52018",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50034",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50035",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52019",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50036",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50037",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52020",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50038",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50039",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52021",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50040",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50041",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52022",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50042",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50043",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52023",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50044",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50045",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:52024",
+      "dst": "10.10.1.50:3306",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 554
+    },
+    {
+      "src": "10.10.1.10:50046",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50047",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50048",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50049",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50050",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50051",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50052",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50053",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50054",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50055",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50056",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50057",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50058",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:50059",
+      "dst": "185.220.101.42:443",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 704
+    },
+    {
+      "src": "10.10.1.10:55555",
+      "dst": "185.220.101.42:8080",
+      "protocol": "tcp",
+      "packets": 10,
+      "bytes": 841
+    }
+  ],
+  "udp_conversations": [
+    {
+      "src": "10.10.1.10:40000",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40001",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40002",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40003",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40004",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:40005",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40006",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40007",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40008",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40009",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:40010",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40011",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40012",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40013",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40014",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:40015",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40016",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40017",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40018",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40019",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:40020",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40021",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40022",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40023",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40024",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:40025",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40026",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40027",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40028",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40029",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:40030",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40031",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40032",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40033",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40034",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:40035",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 196
+    },
+    {
+      "src": "10.10.1.10:40036",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 208
+    },
+    {
+      "src": "10.10.1.10:40037",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 199
+    },
+    {
+      "src": "10.10.1.10:40038",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 172
+    },
+    {
+      "src": "10.10.1.10:40039",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 2,
+      "bytes": 214
+    },
+    {
+      "src": "10.10.1.10:41234",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 1,
+      "bytes": 121
+    },
+    {
+      "src": "10.10.1.10:41235",
+      "dst": "8.8.8.8:53",
+      "protocol": "udp",
+      "packets": 1,
+      "bytes": 134
+    }
+  ],
+  "dns_queries": [
+    {
+      "timestamp": "1755100000.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100012.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100024.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100036.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100048.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100060.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100072.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100084.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100096.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100108.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100120.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100132.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100144.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100156.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100168.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100180.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100192.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100204.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100216.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100228.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100240.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100252.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100264.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100276.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100288.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100300.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100312.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100324.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100336.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100348.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100360.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100372.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100384.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100396.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100408.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100420.000000000",
+      "src": "10.10.1.10",
+      "query": "ntp.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100432.000000000",
+      "src": "10.10.1.10",
+      "query": "billing.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100444.000000000",
+      "src": "10.10.1.10",
+      "query": "updates.microsoft.com",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100456.000000000",
+      "src": "10.10.1.10",
+      "query": "pool.ntp.org",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100468.000000000",
+      "src": "10.10.1.10",
+      "query": "clamav-db.meddefense.local",
+      "type": "1"
+    },
+    {
+      "timestamp": "1755100483.000000000",
+      "src": "10.10.1.10",
+      "query": "ZG9jdW1lbnQuZXhlLm1kZC5jcmltc29uLXRpZGUtb3BzLnh5eg.c2.example",
+      "type": "16"
+    },
+    {
+      "timestamp": "1755100486.000000000",
+      "src": "10.10.1.10",
+      "query": "cGF0aWVudF9leHBvcnRfYmF0Y2hfMDA0Mi5jc3YuZ3oubWRkLmNyaW1zb24tdGl.c2.example",
+      "type": "16"
+    }
+  ],
+  "http_requests": [
+    {
+      "timestamp": "1755100480.090000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "host": "cdn.crimson-tide-ops.xyz",
+      "method": "GET",
+      "uri": "/update.bin"
+    }
+  ],
+  "tls_sni": [
+    {
+      "timestamp": "1755100000.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100008.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100016.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100024.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100032.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100040.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100048.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100056.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100064.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100072.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100080.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100088.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100096.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100104.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100112.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100120.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100128.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100136.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100144.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100152.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100160.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100168.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100176.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100184.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100192.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100200.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100208.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100216.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100224.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100232.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100240.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100248.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100256.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100264.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100272.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100280.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100288.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100296.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100304.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100312.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100320.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100328.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100336.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100344.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100352.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100360.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100368.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100376.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100384.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100392.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100400.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100408.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100416.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100424.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100432.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100440.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100448.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100456.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100464.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    },
+    {
+      "timestamp": "1755100472.060000000",
+      "src": "10.10.1.10",
+      "dst": "185.220.101.42",
+      "sni": "cdn.crimson-tide-ops.xyz"
+    }
+  ],
+  "file_transfers": [
+    {
+      "timestamp": "1755100480.150000000",
+      "src": "185.220.101.42",
+      "dst": "10.10.1.10",
+      "http_file_data": "",
+      "smb2_filename": ""
+    }
+  ],
+  "protocol_distribution": {
+    "tcp_percent": 76,
+    "udp_percent": 0,
+    "icmp_percent": 0,
+    "other_percent": 24
+  },
+  "long_dns_labels": [
+    {
+      "query": "cGF0aWVudF9leHBvcnRfYmF0Y2hfMDA0Mi5jc3YuZ3oubWRkLmNyaW1zb24tdGl.c2.example",
+      "leftmost_label_length": 63
+    }
+  ]
+}
