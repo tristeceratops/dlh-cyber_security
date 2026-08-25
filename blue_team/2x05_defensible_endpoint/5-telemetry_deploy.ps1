@@ -472,6 +472,7 @@ try {
             "yyyy-MM-ddTHH:mm:ssZ"
         )
         hostname = $env:COMPUTERNAME
+		# last 10 minutes
         collection_window_minutes = 10
         actions = @($coverage)
     }
