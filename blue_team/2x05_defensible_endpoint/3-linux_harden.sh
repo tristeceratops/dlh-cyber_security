@@ -188,7 +188,7 @@ run_step() {
     fi
 }
 
-
+# list of target-state control IDs modified by this step
 controls_touched=()
 
 for step in "${steps[@]}"; do
