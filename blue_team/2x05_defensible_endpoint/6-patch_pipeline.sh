@@ -13,6 +13,7 @@ PATCH_DIR="$CAPSTONE_DIR/patch"
 SUMMARY_FILE="$PATCH_DIR/patch_pipeline.json"
 
 CVE_FEED="/home/analyst/MedDefense_Lab/capstone/cve_feed.json"
+# mandated blacklist
 BLACKLIST_FILE="/home/analyst/MedDefense_Lab/capstone/blacklist.json"
 PATCH_PIPELINE_SCRIPT="${PATCH_PIPELINE_SCRIPT:-$BASE_DIR/5-patch_pipeline.sh}"
 
