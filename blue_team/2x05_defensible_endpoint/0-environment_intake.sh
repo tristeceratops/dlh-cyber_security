@@ -5,8 +5,7 @@
 # 1 = controlled failure
 # 2 = environment error
 
-# .json jq
-
+OUTPUT_FILE="capstone.json"
 status=0
 
 fail_control() {
@@ -20,20 +19,22 @@ fail_environment() {
 }
 
 # Required commands
-for command in hostname uname awk find wc; do
+for command in hostname uname awk find wc jq; do
     if ! command -v "$command" >/dev/null 2>&1; then
         fail_environment "missing dependency: $command"
     fi
 done
 
-printf 'hostname=%s\n' "$(hostname)"
-printf 'kernel_release=%s\n' "$(uname -r)"
+# Host information
+hostname_value=$(hostname)
+kernel_release=$(uname -r)
 
 # Distribution
 if [[ -r /etc/os-release ]]; then
+    # shellcheck disable=SC1091
     . /etc/os-release
-    printf 'distribution=%s\n' "${PRETTY_NAME:-unknown}"
-    printf 'patch_level=%s\n' "${VERSION_ID:-unknown}"
+    distribution="${PRETTY_NAME:-unknown}"
+    patch_level="${VERSION_ID:-unknown}"
 else
     fail_environment "missing input file: /etc/os-release"
 fi
@@ -41,19 +42,19 @@ fi
 # Installed packages
 if command -v dpkg-query >/dev/null 2>&1; then
     if package_count=$(dpkg-query -W 2>/dev/null | wc -l); then
-        printf 'installed_package_count=%s\n' "$package_count"
+        :
     else
+        package_count=0
         fail_control "dpkg-query failed"
-        printf 'installed_package_count=unavailable\n'
     fi
 else
     fail_environment "missing dependency: dpkg-query"
 fi
 
 # Listening sockets
-printf 'listening_sockets=\n'
 if command -v ss >/dev/null 2>&1; then
-    if ! ss -tulnpH; then
+    if ! listening_sockets=$(ss -tulnpH 2>/dev/null); then
+        listening_sockets=""
         fail_control "ss failed"
     fi
 else
@@ -61,9 +62,15 @@ else
 fi
 
 # Active systemd services
-printf 'active_systemd_services=\n'
 if command -v systemctl >/dev/null 2>&1; then
-    if ! systemctl list-units --type=service --state=active --no-legend --no-pager; then
+    if ! active_services=$(
+        systemctl list-units \
+            --type=service \
+            --state=active \
+            --no-legend \
+            --no-pager 2>/dev/null
+    ); then
+        active_services=""
         fail_control "systemctl failed"
     fi
 else
@@ -71,23 +78,24 @@ else
 fi
 
 # sshd_config
-printf 'sshd_config=\n'
 if [[ -r /etc/ssh/sshd_config ]]; then
-    awk '
-        /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
-        {
-            key=$1
-            $1=""
-            sub(/^[[:space:]]+/, "")
-            print key "=" $0
-        }
-    ' /etc/ssh/sshd_config
+    sshd_config=$(
+        awk '
+            /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+            {
+                key=$1
+                $1=""
+                sub(/^[[:space:]]+/, "")
+                print key "=" $0
+            }
+        ' /etc/ssh/sshd_config
+    )
 else
     fail_environment "missing input file: /etc/ssh/sshd_config"
 fi
 
 # Sysctl security parameters
-printf 'sysctl_security_parameters=\n'
+sysctl_json="{}"
 
 if command -v sysctl >/dev/null 2>&1; then
     sysctl_params=(
@@ -109,9 +117,18 @@ if command -v sysctl >/dev/null 2>&1; then
 
     for parameter in "${sysctl_params[@]}"; do
         if value=$(sysctl -n "$parameter" 2>/dev/null); then
-            printf '%s=%s\n' "$parameter" "$value"
+            sysctl_json=$(
+                jq -c \
+                    --arg key "$parameter" \
+                    --arg value "$value" \
+                    '. + {($key): $value}' <<< "$sysctl_json"
+            )
         else
-            printf '%s=unavailable\n' "$parameter"
+            sysctl_json=$(
+                jq -c \
+                    --arg key "$parameter" \
+                    '. + {($key): null}' <<< "$sysctl_json"
+            )
             fail_control "unable to read sysctl: $parameter"
         fi
     done
@@ -119,28 +136,31 @@ else
     fail_environment "missing dependency: sysctl"
 fi
 
-
 # SUID and SGID binaries
-printf 'suid_sgid_binary_count='
-if ! find / -xdev -perm /6000 -type f -print 2>/dev/null | wc -l; then
+if ! suid_sgid_count=$(
+    find / -xdev -perm /6000 -type f -print 2>/dev/null | wc -l
+); then
+    suid_sgid_count=0
     fail_control "SUID/SGID search failed"
 fi
 
 # World-writable files
-printf 'world_writable_file_count='
-if ! find / \
-    -xdev \
-    -path /proc -prune -o \
-    -path /sys -prune -o \
-    -perm -0002 -type f -print 2>/dev/null |
-    wc -l; then
+if ! world_writable_count=$(
+    find / \
+        -xdev \
+        -path /proc -prune -o \
+        -path /sys -prune -o \
+        -perm -0002 -type f -print 2>/dev/null |
+        wc -l
+); then
+    world_writable_count=0
     fail_control "world-writable file search failed"
 fi
 
 # Firewall
-printf 'firewall_ruleset_length='
 if command -v nft >/dev/null 2>&1; then
-    if ! nft list ruleset 2>/dev/null | wc -c; then
+    if ! firewall_ruleset_length=$(nft list ruleset 2>/dev/null | wc -c); then
+        firewall_ruleset_length=0
         fail_control "nft failed"
     fi
 else
@@ -148,37 +168,95 @@ else
 fi
 
 # Telemetry
-printf 'telemetry=\n'
+auditd_status="not_running"
+rsyslog_status="not_running"
 
 if command -v systemctl >/dev/null 2>&1; then
     if systemctl is-active --quiet auditd 2>/dev/null; then
-        printf 'auditd=running\n'
-    else
-        printf 'auditd=not_running\n'
+        auditd_status="running"
     fi
 
     if systemctl is-active --quiet rsyslog 2>/dev/null; then
-        printf 'rsyslog=running\n'
-    else
-        printf 'rsyslog=not_running\n'
+        rsyslog_status="running"
     fi
 else
     fail_environment "missing dependency: systemctl"
 fi
 
-#Sysmon-for-linux
+# Sysmon-for-Linux
+sysmon_present=false
+
 if command -v sysmon >/dev/null 2>&1 ||
     command -v sysmon-for-linux >/dev/null 2>&1 ||
     [[ -f /opt/sysmon/sysmon ]]; then
-    printf 'sysmon_for_linux=present\n'
-else
-    printf 'sysmon_for_linux=not_present\n'
+    sysmon_present=true
+fi
+
+# Build JSON
+if ! jq -n \
+    --arg hostname "$hostname_value" \
+    --arg kernel_release "$kernel_release" \
+    --arg distribution "$distribution" \
+    --arg patch_level "$patch_level" \
+    --argjson package_count "$package_count" \
+    --arg listening_sockets "$listening_sockets" \
+    --arg active_services "$active_services" \
+    --arg sshd_config "$sshd_config" \
+    --argjson sysctl_security_parameters "$sysctl_json" \
+    --argjson suid_sgid_binary_count "$suid_sgid_count" \
+    --argjson world_writable_file_count "$world_writable_count" \
+    --argjson firewall_ruleset_length "$firewall_ruleset_length" \
+    --arg auditd "$auditd_status" \
+    --arg rsyslog "$rsyslog_status" \
+    --argjson sysmon_for_linux "$sysmon_present" \
+    '
+    def lines:
+        if . == "" then [] else split("\n") end;
+
+    {
+        hostname: $hostname,
+        kernel_release: $kernel_release,
+        distribution: $distribution,
+        patch_level: $patch_level,
+
+        installed_package_count: $package_count,
+
+        listening_sockets: ($listening_sockets | lines),
+
+        active_systemd_services: ($active_services | lines),
+
+        sshd_config: (
+            $sshd_config
+            | lines
+            | map(
+                split("=")
+                | {(.[0]): (.[1:] | join("="))}
+            )
+            | add // {}
+        ),
+
+        sysctl_security_parameters: $sysctl_security_parameters,
+
+        suid_sgid_binary_count: $suid_sgid_binary_count,
+
+        world_writable_file_count: $world_writable_file_count,
+
+        firewall: {
+            nft_ruleset_length: $firewall_ruleset_length
+        },
+
+        telemetry: {
+            auditd: $auditd,
+            rsyslog: $rsyslog,
+            sysmon_for_linux: $sysmon_for_linux
+        }
+    }
+    ' > "$OUTPUT_FILE"; then
+    fail_control "failed to create $OUTPUT_FILE"
 fi
 
 if [[ "$status" -eq 0 ]]; then
-    printf 'result=success\n'
     exit 0
 fi
 
-printf 'result=controlled_failure\n'
 exit 1
