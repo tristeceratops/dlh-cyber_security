@@ -486,6 +486,7 @@ catch {
 }
 
 # expected record are fine
+# expected event
 if ($exitCode -eq 0) {
     exit 0
 }

@@ -191,6 +191,7 @@ if ! jq -n \
 fi
 
 # expected record
+# expected event
 if [[ "$status" -eq 0 ]]; then
     exit 0
 fi
