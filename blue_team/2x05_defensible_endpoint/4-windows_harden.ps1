@@ -3,12 +3,10 @@
 # 1 = controlled failure
 # 2 = environment error
 
-Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
-
 [CmdletBinding()]
 param ()
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
