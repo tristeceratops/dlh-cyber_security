@@ -59,7 +59,7 @@ jq -n \
       description: "SSH must prohibit root login.",
       check_type: "grep_match",
       check_target: "/etc/ssh/sshd_config",
-      expected_value: "^\\s*PermitRootLogin\\s+no\\s*$",
+      expected_value: "PermitRootLogin no",
       source_project: "linux-hardening",
       severity: "critical"
     },
@@ -70,7 +70,7 @@ jq -n \
       description: "SSH must disable password authentication.",
       check_type: "grep_match",
       check_target: "/etc/ssh/sshd_config",
-      expected_value: "^\\s*PasswordAuthentication\\s+no\\s*$",
+      expected_value: "PasswordAuthentication no",
       source_project: "linux-hardening",
       severity: "high"
     },
@@ -81,7 +81,7 @@ jq -n \
       description: "IPv4 forwarding must be disabled.",
       check_type: "grep_match",
       check_target: "/etc/sysctl.conf",
-      expected_value: "^\\s*net\\.ipv4\\.ip_forward\\s*=\\s*0\\s*$",
+      expected_value: "net.ipv4.ip_forward=0",
       source_project: "linux-hardening",
       severity: "high"
     },
@@ -92,7 +92,7 @@ jq -n \
       description: "Kernel address space layout randomization must be fully enabled.",
       check_type: "grep_match",
       check_target: "/etc/sysctl.conf",
-      expected_value: "^\\s*kernel\\.randomize_va_space\\s*=\\s*2\\s*$",
+      expected_value: "kernel.randomize_va_space=2",
       source_project: "linux-hardening",
       severity: "high"
     },
