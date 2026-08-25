@@ -15,7 +15,7 @@ SUMMARY_FILE="$PATCH_DIR/patch_pipeline.json"
 CVE_FEED="/home/analyst/MedDefense_Lab/capstone/cve_feed.json"
 # mandated blacklist
 BLACKLIST_FILE="/home/analyst/MedDefense_Lab/capstone/blacklist.json"
-PATCH_PIPELINE_SCRIPT="${PATCH_PIPELINE_SCRIPT:-$BASE_DIR/5-patch_pipeline.sh}"
+PATCH_PIPELINE_SCRIPT="${PATCH_PIPELINE_SCRIPT:-$BASE_DIR/13-patch_pipeline.sh}"
 
 APT_CONFIG="/etc/apt/apt.conf.d/52meddefense-unattended-upgrades"
 LOG_FILE="$PATCH_DIR/patch_pipeline.log"
