@@ -10,9 +10,13 @@ set -o pipefail
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CAPSTONE_DIR="$BASE_DIR/capstone"
 EXEC_DIR="$CAPSTONE_DIR/exec"
+# capstone/exec/linux_harden.log
 LOG_FILE="$EXEC_DIR/linux_harden.log"
+# capstone/exec/linux_harden.json
 HARDEN_FILE="$EXEC_DIR/linux_harden.json"
+# capstone/baseline_linux.json
 BASELINE_FILE="$CAPSTONE_DIR/baseline_linux.json"
+# capstone/target_state.json
 TARGET_FILE="$CAPSTONE_DIR/target_state.json"
 
 status=0
