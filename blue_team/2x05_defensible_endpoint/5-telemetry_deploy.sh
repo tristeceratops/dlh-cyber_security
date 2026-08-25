@@ -83,19 +83,21 @@ verify_audit_key() {
 # User management test with ausearch -k meddefense-user-mgmt.
 userdel -r "$TEST_USER" >/dev/null 2>&1 || true
 
+# create a user
 if ! useradd "$TEST_USER" >/dev/null 2>&1; then
     fail_control "unable to create test user"
 else
     verify_audit_key "meddefense-user-mgmt"
 fi
 
+# remove the user
 if ! userdel -r "$TEST_USER" >/dev/null 2>&1; then
     fail_control "unable to remove test user"
 else
     verify_audit_key "meddefense-user-mgmt"
 fi
 
-# Service management test.
+# run a service management action
 if systemctl list-units --type=service --no-pager >/dev/null 2>&1; then
     verify_audit_key "meddefense-service-mgmt"
 else
