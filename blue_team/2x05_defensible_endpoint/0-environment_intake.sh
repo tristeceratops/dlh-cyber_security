@@ -5,7 +5,7 @@
 # 1 = controlled failure
 # 2 = environment error
 
-# .json
+# .json jq
 
 status=0
 
