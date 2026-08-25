@@ -485,7 +485,7 @@ catch {
     Stop-EnvironmentError "Unable to write telemetry JSON: $($_.Exception.Message)"
 }
 
-# expected records are fine
+# expected record are fine
 if ($exitCode -eq 0) {
     exit 0
 }
