@@ -97,18 +97,17 @@ run_step() {
     local start_time
     local end_time
     local duration
-    local output
     local exit_code
     local changed=false
 
     if [[ ! -f "$script_path" ]]; then
         printf 'error=missing hardening script: %s\n' "$script_path" >&2
         status=1
+
         steps_json=$(
             jq -c \
                 --arg name "$name" \
                 --arg path "$script_path" \
-                --arg controls "$controls" \
                 '. + [{
                     name: $name,
                     script_path: $path,
@@ -123,6 +122,7 @@ run_step() {
     if [[ ! -x "$script_path" ]]; then
         printf 'error=hardening script is not executable: %s\n' "$script_path" >&2
         status=1
+
         steps_json=$(
             jq -c \
                 --arg name "$name" \
@@ -140,24 +140,31 @@ run_step() {
 
     start_time=$(date +%s)
 
-    printf '\n[%s] START %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$name" >> "$LOG_FILE"
+    {
+        printf '\n[%s] START %s\n' \
+            "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+            "$name"
 
-    output=$("$script_path" 2>&1)
-    exit_code=$?
+        printf '[%s] SCRIPT=%s\n' \
+            "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+            "$script_path"
 
-    printf '%s\n' "$output" >> "$LOG_FILE"
-    printf '[%s] EXIT_CODE=%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$exit_code" >> "$LOG_FILE"
+        "$script_path"
+
+        exit_code=$?
+
+        printf '[%s] EXIT_CODE=%s\n' \
+            "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+            "$exit_code"
+    } >> "$LOG_FILE" 2>&1 #stdout in log
 
     end_time=$(date +%s)
     duration=$((end_time - start_time))
 
-    if [[ "$exit_code" -eq 0 ]]; then
-        if printf '%s\n' "$output" |
-            grep -Eiq '(changed|updated|created|enabled|configured|applied|hardened)'; then
-            changed=true
-        fi
-    else
+    if [[ "$exit_code" -ne 0 ]]; then
         status=1
+    else
+        changed=true
     fi
 
     steps_json=$(
@@ -180,6 +187,7 @@ run_step() {
         controls_touched+=("$controls")
     fi
 }
+
 
 controls_touched=()
 
