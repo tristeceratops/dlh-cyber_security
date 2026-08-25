@@ -23,7 +23,7 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 
 if [[ -e "$OUTPUT_FILE" && "$FORCE" != true ]]; then
-    printf 'error=%s already exists, use --force to overwrite\n' "$OUTPUT_FILE" >&2
+    printf 'error=%s already exists, overwrite refused, use --force to overwrite\n' "$OUTPUT_FILE" >&2
     exit 1
 fi
 
