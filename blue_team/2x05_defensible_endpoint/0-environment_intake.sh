@@ -5,6 +5,8 @@
 # 1 = controlled failure
 # 2 = environment error
 
+# .json
+
 status=0
 
 fail_control() {
@@ -29,7 +31,6 @@ printf 'kernel_release=%s\n' "$(uname -r)"
 
 # Distribution
 if [[ -r /etc/os-release ]]; then
-    # shellcheck disable=SC1091
     . /etc/os-release
     printf 'distribution=%s\n' "${PRETTY_NAME:-unknown}"
     printf 'patch_level=%s\n' "${VERSION_ID:-unknown}"
