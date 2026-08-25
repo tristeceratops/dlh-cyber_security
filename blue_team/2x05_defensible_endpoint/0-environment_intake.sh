@@ -88,19 +88,37 @@ fi
 
 # Sysctl security parameters
 printf 'sysctl_security_parameters=\n'
+
 if command -v sysctl >/dev/null 2>&1; then
-    if ! sysctl -a 2>/dev/null | awk -F= '
-        $1 ~ /(randomize_va_space|dmesg_restrict|kptr_restrict|ptrace_scope|protected_hardlinks|protected_symlinks|suid_dumpable|unprivileged_bpf|unprivileged_userns_clone)/ {
-            gsub(/[[:space:]]+$/, "", $1)
-            gsub(/^[[:space:]]+/, "", $2)
-            print $1 "=" $2
-        }
-    '; then
-        fail_control "sysctl failed"
-    fi
+    sysctl_params=(
+        net.ipv4.ip_forward
+        net.ipv4.conf.all.accept_redirects
+        net.ipv4.conf.default.accept_redirects
+        net.ipv4.conf.all.send_redirects
+        net.ipv4.conf.all.accept_source_route
+        net.ipv4.conf.all.log_martians
+        net.ipv4.tcp_syncookies
+        net.ipv4.icmp_echo_ignore_broadcasts
+        net.ipv6.conf.all.disable_ipv6
+        net.ipv6.conf.default.disable_ipv6
+        kernel.randomize_va_space
+        fs.suid_dumpable
+        kernel.dmesg_restrict
+        kernel.kptr_restrict
+    )
+
+    for parameter in "${sysctl_params[@]}"; do
+        if value=$(sysctl -n "$parameter" 2>/dev/null); then
+            printf '%s=%s\n' "$parameter" "$value"
+        else
+            printf '%s=unavailable\n' "$parameter"
+            fail_control "unable to read sysctl: $parameter"
+        fi
+    done
 else
     fail_environment "missing dependency: sysctl"
 fi
+
 
 # SUID and SGID binaries
 printf 'suid_sgid_binary_count='
