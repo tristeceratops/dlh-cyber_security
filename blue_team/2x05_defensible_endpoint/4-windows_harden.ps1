@@ -3,6 +3,9 @@
 # 1 = controlled failure
 # 2 = environment error
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
 [CmdletBinding()]
 param ()
 
