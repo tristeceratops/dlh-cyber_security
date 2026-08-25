@@ -166,6 +166,7 @@ else
     fail_environment "missing dependency: systemctl"
 fi
 
+#Sysmon-for-linux
 if command -v sysmon >/dev/null 2>&1 ||
     command -v sysmon-for-linux >/dev/null 2>&1 ||
     [[ -f /opt/sysmon/sysmon ]]; then
