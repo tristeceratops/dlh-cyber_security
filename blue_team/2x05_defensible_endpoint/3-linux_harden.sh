@@ -11,7 +11,7 @@ BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CAPSTONE_DIR="$BASE_DIR/capstone"
 EXEC_DIR="$CAPSTONE_DIR/exec"
 LOG_FILE="$EXEC_DIR/linux_harden.log"
-RESULT_FILE="$EXEC_DIR/linux_harden.json"
+HARDEN_FILE="$EXEC_DIR/linux_harden.json"
 BASELINE_FILE="$CAPSTONE_DIR/baseline_linux.json"
 TARGET_FILE="$CAPSTONE_DIR/target_state.json"
 
@@ -254,8 +254,8 @@ if ! jq -n \
         lynis_after: $lynis_after,
         index_delta: $index_delta,
         controls_touched: $controls_touched
-    }' > "$RESULT_FILE"; then
-    fail_environment "unable to create $RESULT_FILE"
+    }' > "$HARDEN_FILE"; then
+    fail_environment "unable to create $HARDEN_FILE"
 fi
 
 if [[ "$status" -eq 0 ]]; then
