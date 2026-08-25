@@ -192,7 +192,7 @@ if command -v sysmon >/dev/null 2>&1 ||
     sysmon_present=true
 fi
 
-# Build JSON
+# Build JSON intake
 if ! jq -n \
     --arg hostname "$hostname_value" \
     --arg kernel_release "$kernel_release" \
