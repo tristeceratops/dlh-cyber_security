@@ -190,6 +190,7 @@ if ! jq -n \
     fail_control "unable to create $OUTPUT_FILE"
 fi
 
+# expected record
 if [[ "$status" -eq 0 ]]; then
     exit 0
 fi
