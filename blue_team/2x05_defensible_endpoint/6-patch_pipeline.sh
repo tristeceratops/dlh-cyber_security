@@ -120,6 +120,7 @@ printf 'pipeline_start=%s\n' \
 
 pipeline_start=$(date +%s)
 
+# sub-step
 # CAPSTONE_ARTIFACTS_DIR=capstone/patch/
 CAPSTONE_ARTIFACTS_DIR="$PATCH_DIR" \
 CVE_FEED="$PATCH_DIR/cve_feed.json" \
