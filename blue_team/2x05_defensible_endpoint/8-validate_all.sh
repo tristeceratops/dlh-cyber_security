@@ -2,6 +2,8 @@
 
 # Exit codes: 0 success, 1 validation failure, 2 environment error.
 
+# total controls
+
 set -o pipefail
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
