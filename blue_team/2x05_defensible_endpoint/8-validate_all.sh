@@ -213,6 +213,7 @@ else
     pass_percentage="0.00"
 fi
 
+# clean table
 printf '%s\n' '------------------------------------------------'
 printf 'TOTAL: %d  PASS: %d  FAIL: %d  ERROR: %d  PASS%%: %s\n' \
     "$total" "$pass_count" "$fail_count" "$error_count" "$pass_percentage"
