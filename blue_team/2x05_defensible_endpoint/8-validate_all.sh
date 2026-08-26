@@ -288,6 +288,7 @@ jq -n \
     fail_environment "unable to create $VALIDATION_FILE"
 }
 
+# like fail_count == 0
 if [[ "$fail_count" -eq 0 && "$error_count" -eq 0 ]]; then
     exit 0
 fi
