@@ -212,6 +212,7 @@ done < <(
         ! -name 'network_deploy.json' -print | sort
 )
 
+# for labeled PCAPs
 jq -n \
     --arg timestamp "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
     --arg pipeline "$PIPELINE_SCRIPT" \
