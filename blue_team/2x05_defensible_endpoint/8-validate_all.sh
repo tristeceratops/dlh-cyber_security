@@ -203,6 +203,7 @@ while IFS= read -r family; do
         "$family_fail" "$family_error"
 done <<< "$families"
 
+# pass percentage
 if [[ "$total" -gt 0 ]]; then
     pass_percentage="$(awk \
         -v pass="$pass_count" \
