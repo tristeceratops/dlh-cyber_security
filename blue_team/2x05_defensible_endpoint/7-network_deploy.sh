@@ -86,6 +86,10 @@ fi
 if [[ "$firewall_exit_code" -eq 0 ]]; then
     pcap_count=0
     suricata_failures=0
+    SURICATA_ALERTS="$NETWORK_DIR/suricata_alerts.json"
+
+    printf '[]\n' > "$SURICATA_ALERTS" ||
+        fail_environment "unable to create Suricata alerts file"
 
     while IFS= read -r -d '' pcap; do
         pcap_count=$((pcap_count + 1))
@@ -111,6 +115,22 @@ if [[ "$firewall_exit_code" -eq 0 ]]; then
             continue
         }
 
+        if ! jq -c \
+            --slurpfile existing "$SURICATA_ALERTS" \
+            '$existing[0] + [inputs | select(.event_type == "alert")]' \
+            "$output/eve.json" > "$SURICATA_ALERTS.tmp"; then
+            fail_control "unable to parse Suricata alerts: $pcap"
+            suricata_failures=$((suricata_failures + 1))
+            rm -f "$SURICATA_ALERTS.tmp"
+            continue
+        fi
+
+        mv "$SURICATA_ALERTS.tmp" "$SURICATA_ALERTS" || {
+            fail_control "unable to persist Suricata alerts: $pcap"
+            suricata_failures=$((suricata_failures + 1))
+            continue
+        }
+
         cp "$output/eve.json" \
             "$NETWORK_DIR/${stem}_alerts.json" || {
             fail_control "unable to persist alerts: $pcap"
@@ -121,6 +141,7 @@ if [[ "$firewall_exit_code" -eq 0 ]]; then
             \( -iname '*.pcap' -o -iname '*.pcapng' \) \
             -print0 | sort -z
     )
+
 
     [[ "$pcap_count" -gt 0 ]] ||
         fail_environment "no PCAP files found in $PCAP_DIR"
