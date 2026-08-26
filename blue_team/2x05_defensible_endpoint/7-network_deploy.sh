@@ -14,8 +14,8 @@ SEGMENTATION_FILE="/home/analyst/MedDefense_Lab/capstone/segmentation_rules.json
 PCAP_DIR="/home/analyst/MedDefense_Lab/capstone/PCAPs"
 DNS_BLOCKLIST="/home/analyst/MedDefense_Lab/capstone/dns_blocklist.txt"
 
-PIPELINE_SCRIPT="${NETWORK_PIPELINE_SCRIPT:-$BASE_DIR/13-network_pipeline.sh}"
-FIREWALL_SCRIPT="${FIREWALL_VALIDATION_SCRIPT:-$BASE_DIR/14-firewall_validation.sh}"
+PIPELINE_SCRIPT="${NETWORK_PIPELINE_SCRIPT:-$BASE_DIR/6-patch_pipeline.sh}"
+FIREWALL_SCRIPT="${FIREWALL_VALIDATION_SCRIPT:-$BASE_DIR/5-firewall_test.sh}"
 CUSTOM_RULE_SCRIPT="${CUSTOM_RULE_VALIDATION_SCRIPT:-$BASE_DIR/15-custom_rule_validation.sh}"
 
 DNSMASQ_CONFIG="/etc/dnsmasq.d/meddefense-capstone.conf"
