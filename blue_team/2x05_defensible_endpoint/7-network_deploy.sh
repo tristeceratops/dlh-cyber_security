@@ -161,6 +161,8 @@ if [[ "$firewall_exit_code" -eq 0 ]]; then
 
     trap 'rm -f "$dnsmasq_tmp"' EXIT
 
+	# apply DNS filter
+
     {
         printf '%s\n' "# Managed by 7-network_deploy.sh"
         while IFS= read -r domain; do
