@@ -8,6 +8,7 @@ set -o pipefail
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_STATE="$BASE_DIR/capstone/target_state.json"
+VALIDATION_FILE="$BASE_DIR/capstone/validation.json"
 
 fail_environment() {
     printf 'error=%s\n' "$1" >&2
@@ -19,6 +20,9 @@ command -v jq >/dev/null 2>&1 ||
 
 command -v grep >/dev/null 2>&1 ||
     fail_environment "missing dependency: grep"
+
+command -v awk >/dev/null 2>&1 ||
+    fail_environment "missing dependency: awk"
 
 [[ -r "$TARGET_STATE" ]] ||
     fail_environment "missing input file: $TARGET_STATE"
@@ -45,6 +49,8 @@ total=0
 pass_count=0
 fail_count=0
 error_count=0
+family_json='[]'
+control_json='[]'
 
 while IFS= read -r family; do
     [[ -z "$family" ]] && continue
@@ -95,9 +101,9 @@ while IFS= read -r family; do
 
                 if [[ -n "$field" ]]; then
                     actual="$(
-                        jq -r --arg path "$field" '
-                            getpath(($path | split(".")))
-                        ' "$json_file" 2>/dev/null
+                        jq -r --arg path "$field" \
+                            'getpath(($path | split(".")))' \
+                            "$json_file" 2>/dev/null
                     )" || {
                         verdict="error"
                         evidence="unable to read JSON field: $target"
@@ -108,6 +114,7 @@ while IFS= read -r family; do
                         case "$check_type" in
                             json_field_equals)
                                 expected_value="$(jq -r '.' <<< "$expected")"
+
                                 if [[ "$actual" == "$expected_value" ]]; then
                                     verdict="pass"
                                     evidence="path=$target value=$actual"
@@ -119,6 +126,7 @@ while IFS= read -r family; do
 
                             json_field_gte)
                                 expected_value="$(jq -r '.' <<< "$expected")"
+
                                 if ! [[ "$actual" =~ ^-?[0-9]+([.][0-9]+)?$ ]] ||
                                     ! [[ "$expected_value" =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
                                     verdict="error"
@@ -192,11 +200,43 @@ while IFS= read -r family; do
                 ;;
         esac
 
+        control_json="$(
+            jq -c \
+                --arg id "$id" \
+                --arg family "$family" \
+                --arg check_type "$check_type" \
+                --arg verdict "$verdict" \
+                --arg evidence "$evidence" \
+                '. + [{
+                    id: $id,
+                    family: $family,
+                    check_type: $check_type,
+                    verdict: $verdict,
+                    evidence: $evidence
+                }]' <<< "$control_json"
+        )" || fail_environment "unable to build validation results"
+
         printf '%s: %s (%s)\n' "$id" "$verdict" "$evidence" >&2
     done < <(
         jq -c --arg family "$family" \
             '.controls[] | select(.family == $family)' "$TARGET_STATE"
     )
+
+    family_json="$(
+        jq -c \
+            --arg family "$family" \
+            --argjson total "$family_total" \
+            --argjson pass "$family_pass" \
+            --argjson fail "$family_fail" \
+            --argjson error "$family_error" \
+            '. + [{
+                family: $family,
+                total: $total,
+                pass: $pass,
+                fail: $fail,
+                error: $error
+            }]' <<< "$family_json"
+    )" || fail_environment "unable to build family results"
 
     printf '%-16s %-9d %-6d %-6d %-7d\n' \
         "$family" "$family_total" "$family_pass" \
@@ -217,6 +257,36 @@ fi
 printf '%s\n' '------------------------------------------------'
 printf 'TOTAL: %d  PASS: %d  FAIL: %d  ERROR: %d  PASS%%: %s\n' \
     "$total" "$pass_count" "$fail_count" "$error_count" "$pass_percentage"
+
+timestamp="$(date -u '+%Y-%m-%dT%H:%M:%SZ')" || {
+    fail_environment "unable to generate timestamp"
+}
+
+jq -n \
+    --arg timestamp "$timestamp" \
+    --arg target_state "capstone/target_state.json" \
+    --argjson total "$total" \
+    --argjson pass "$pass_count" \
+    --argjson fail "$fail_count" \
+    --argjson error "$error_count" \
+    --arg pass_percentage "$pass_percentage" \
+    --argjson families "$family_json" \
+    --argjson controls "$control_json" \
+    '{
+        timestamp: $timestamp,
+        target_state: $target_state,
+        summary: {
+            total_controls: $total,
+            pass_count: $pass,
+            fail_count: $fail,
+            error_count: $error,
+            pass_percentage: ($pass_percentage | tonumber)
+        },
+        families: $families,
+        controls: $controls
+    }' > "$VALIDATION_FILE" || {
+    fail_environment "unable to create $VALIDATION_FILE"
+}
 
 if [[ "$fail_count" -eq 0 && "$error_count" -eq 0 ]]; then
     exit 0
