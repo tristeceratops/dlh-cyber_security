@@ -248,6 +248,7 @@ if [[ "$pipeline_exit_code" -eq 0 &&
     "$firewall_exit_code" -eq 0 &&
     "$custom_rule_exit_code" -eq 0 &&
     "$status" -eq 0 ]]; then
+	# passed
     exit 0
 fi
 
