@@ -9,6 +9,7 @@ NETWORK_DIR="$BASE_DIR/capstone/network"
 SUMMARY_FILE="$NETWORK_DIR/network_deploy.json"
 LOG_FILE="$NETWORK_DIR/network_deploy.log"
 
+# for hawthorne-app-01
 SEGMENTATION_FILE="/home/analyst/MedDefense_Lab/capstone/segmentation_rules.json"
 PCAP_DIR="/home/analyst/MedDefense_Lab/capstone/PCAPs"
 DNS_BLOCKLIST="/home/analyst/MedDefense_Lab/capstone/dns_blocklist.txt"
