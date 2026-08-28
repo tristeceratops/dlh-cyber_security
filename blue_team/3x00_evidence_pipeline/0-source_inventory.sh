@@ -20,7 +20,11 @@ get_first_last_timestamp() {
     if [[ "$file" == */windows/*.json ]]; then
 
         IFS='|' read -r first last < <(
-            jq -r '.timestamp_raw // empty' "$file" |
+            jq -R -r '
+                fromjson?
+                | select(type == "object")
+                | .timestamp_raw // empty
+            ' "$file" |
             awk '
                 NR == 1 {
                     min = $0
@@ -47,7 +51,11 @@ get_first_last_timestamp() {
     elif [[ "$file" == */network/suricata_eve.json ]]; then
 
         IFS='|' read -r first last < <(
-            jq -r '.timestamp // empty' "$file" |
+            jq -R -r '
+                fromjson?
+                | select(type == "object")
+                | .timestamp // empty
+            ' "$file" |
             awk '
                 NR == 1 {
                     min = $0
@@ -75,15 +83,19 @@ get_first_last_timestamp() {
     elif [[ "$file" == */network/pcap_summary.json ]]; then
 
         IFS='|' read -r first last < <(
-            jq -r 'select(.start_time != null) |
-                   [.start_time, .end_time] |
-                   @tsv' "$file" |
+            jq -R -r '
+                fromjson?
+                | select(type == "object" and .start_time != null)
+                | [.start_time, .end_time]
+                | @tsv
+            ' "$file" |
             while IFS=$'\t' read -r start_time end_time
             do
-                start_epoch=$(date -d "$start_time" +%s)
-                end_epoch=$(date -d "$end_time" +%s)
-
-                printf '%s|%s\n' "$start_epoch" "$end_epoch"
+                if start_epoch=$(date -d "$start_time" +%s 2>/dev/null) &&
+                   end_epoch=$(date -d "$end_time" +%s 2>/dev/null)
+                then
+                    printf '%s|%s\n' "$start_epoch" "$end_epoch"
+                fi
             done |
             awk -F'|' '
                 NR == 1 {
@@ -120,7 +132,7 @@ get_first_last_timestamp() {
 
         IFS='|' read -r first last < <(
             awk -F',' '
-                NR > 1 && $1 != "" {
+                NR > 1 && $1 ~ /^[0-9]+$/ {
                     if (!found) {
                         min = $1
                         max = $1
@@ -139,7 +151,15 @@ get_first_last_timestamp() {
                     if (found)
                         printf "%s|%s\n", min, max
                 }
-            ' "$file"
+            ' "$file" |
+            awk -F'|' '
+                {
+                    first = strftime("%Y-%m-%dT%H:%M:%SZ", $1, 1)
+                    last  = strftime("%Y-%m-%dT%H:%M:%SZ", $2, 1)
+
+                    printf "%s|%s\n", first, last
+                }
+            '
         )
 
     # Linux audit.log: audit(1774442959.133:10)
@@ -169,81 +189,49 @@ get_first_last_timestamp() {
                     if (found)
                         printf "%.3f|%.3f\n", min, max
                 }
-            ' "$file"
+            ' "$file" |
+            awk -F'|' '
+                {
+                    first = strftime("%Y-%m-%dT%H:%M:%SZ", $1, 1)
+                    last  = strftime("%Y-%m-%dT%H:%M:%SZ", $2, 1)
+
+                    printf "%s|%s\n", first, last
+                }
+            '
         )
 
     # Linux syslog/auth.log: Mar 18 00:00:38 hostname process[pid]: ...
+    #
+    # Syslog timestamps do not contain a year.
+    # No year is inferred from file metadata.
     elif [[ "$file" == */linux/*.log ||
             "$file" == */linux/syslog ]]; then
 
-        local year
-
-        year=$(stat -c %y "$file" | cut -d'-' -f1)
-
-        IFS='|' read -r first last < <(
-            awk -v year="$year" '
-                function month_number(month) {
-                    months["Jan"] = "01"
-                    months["Feb"] = "02"
-                    months["Mar"] = "03"
-                    months["Apr"] = "04"
-                    months["May"] = "05"
-                    months["Jun"] = "06"
-                    months["Jul"] = "07"
-                    months["Aug"] = "08"
-                    months["Sep"] = "09"
-                    months["Oct"] = "10"
-                    months["Nov"] = "11"
-                    months["Dec"] = "12"
-
-                    return months[month]
-                }
-
-                NF >= 3 {
-
-                    month = month_number($1)
-                    day   = sprintf("%02d", $2)
-
-                    split($3, time, ":")
-
-                    hour   = sprintf("%02d", time[1])
-                    minute = sprintf("%02d", time[2])
-                    second = sprintf("%02d", time[3])
-
-                    timestamp = year month day hour minute second
-
-                    if (!found) {
-                        min = timestamp
-                        max = timestamp
-                        found = 1
-                    }
-                    else {
-                        if (timestamp < min)
-                            min = timestamp
-
-                        if (timestamp > max)
-                            max = timestamp
-                    }
-                }
-
-                END {
-                    if (found)
-                        printf "%s|%s\n", min, max
-                }
-            ' "$file"
-        )
-
-        if [[ -n "$first" ]]; then
-            first="${first:0:4}-${first:4:2}-${first:6:2}T${first:8:2}:${first:10:2}:${first:12:2}Z"
-        fi
-
-        if [[ -n "$last" ]]; then
-            last="${last:0:4}-${last:4:2}-${last:6:2}T${last:8:2}:${last:10:2}:${last:12:2}Z"
-        fi
+        first=""
+        last=""
 
     fi
 
     printf '%s|%s\n' "$first" "$last"
+}
+
+
+get_record_count() {
+
+    local file="$1"
+
+    if [[ "$file" == *.json ]]; then
+
+        jq -R -c '
+            fromjson?
+            | select(type == "object")
+        ' "$file" |
+        wc -l
+
+    else
+
+        wc -l < "$file"
+    fi
 }
 
 
@@ -274,13 +262,11 @@ do
 
         shahash="$(shasum -a 256 "$file" | awk '{print $1}')"
 
-        record_count=0
+        record_count="$(get_record_count "$file")"
 
         if [[ $file == *.json ]]; then
-            record_count=$(wc -l < "$file")
             count_field="record_count"
         else
-            record_count=$(cat "$file" | wc -l)
             count_field="line_count"
         fi
 
@@ -310,8 +296,10 @@ do
             }
             + {($count_field): $count}
             + {
-                first_event_time: $first_event_time,
-                last_event_time: $last_event_time
+                first_event_time:
+                    (if $first_event_time == "" then null else $first_event_time end),
+                last_event_time:
+                    (if $last_event_time == "" then null else $last_event_time end)
             }' \
             >> "$JSON_PATH"
     done
