@@ -1,0 +1,150 @@
+{
+  "version": "1.0",
+  "author": "tristeceratops",
+  "fields": [
+    {
+      "name": "timestamp",
+      "type": "timestamp",
+      "required": true,
+      "description": "The normalized event timestamp in UTC.",
+      "justification": "Needed to determine when an event occurred and correlate activity across sources.",
+      "source_mapping": {
+        "windows": "timestamp_raw",
+        "linux": "timestamp_raw",
+        "network": "timestamp"
+      }
+    },
+    {
+      "name": "hostname",
+      "type": "string",
+      "required": true,
+      "description": "The hostname associated with the event.",
+      "justification": "Needed to identify which system generated or observed the event.",
+      "source_mapping": {
+        "windows": "hostname",
+        "linux": "hostname",
+        "network": null
+      }
+    },
+    {
+      "name": "source_type",
+      "type": "string",
+      "required": true,
+      "description": "The type of source that produced the normalized event.",
+      "justification": "Needed to distinguish Windows, Linux, and network telemetry during analysis.",
+      "source_mapping": {
+        "windows": "derived from source file",
+        "linux": "derived from source file",
+        "network": "derived from source file"
+      }
+    },
+    {
+      "name": "event_category",
+      "type": "string",
+      "required": true,
+      "description": "A high-level classification of the event.",
+      "justification": "Needed to group events into meaningful categories for detection and triage.",
+      "source_mapping": {
+        "windows": "derived from event_id/channel",
+        "linux": "derived from program or audit_type",
+        "network": "derived from event_type or source file"
+      }
+    },
+    {
+      "name": "severity",
+      "type": "integer",
+      "required": true,
+      "description": "The normalized severity level assigned to the event.",
+      "justification": "Needed to prioritize potentially important events during investigation.",
+      "source_mapping": {
+        "windows": null,
+        "linux": null,
+        "network": "alert.severity"
+      }
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": false,
+      "description": "The user account associated with the event.",
+      "justification": "Needed to determine which account performed or was affected by an activity.",
+      "source_mapping": {
+        "windows": "event_data.User or event_data.TargetUserName",
+        "linux": "parsed_fields.acct or parsed_fields.user",
+        "network": null
+      }
+    },
+    {
+      "name": "process_name",
+      "type": "string",
+      "required": false,
+      "description": "The process associated with the event.",
+      "justification": "Needed to identify which process generated or performed the activity.",
+      "source_mapping": {
+        "windows": "event_data.Image",
+        "linux": "program or parsed_fields.comm",
+        "network": null
+      }
+    },
+    {
+      "name": "src_ip",
+      "type": "string",
+      "required": false,
+      "description": "The source IP address associated with the event.",
+      "justification": "Needed to identify the originating network endpoint and correlate network activity.",
+      "source_mapping": {
+        "windows": "event_data.SourceIp or event_data.IpAddress",
+        "linux": "parsed_fields.addr or parsed_fields.SRC",
+        "network": "src_ip"
+      }
+    },
+    {
+      "name": "dst_ip",
+      "type": "string",
+      "required": false,
+      "description": "The destination IP address associated with the event.",
+      "justification": "Needed to identify the destination network endpoint involved in an event.",
+      "source_mapping": {
+        "windows": "event_data.DestinationIp",
+        "linux": "parsed_fields.DST",
+        "network": "dst_ip or dest_ip"
+      }
+    },
+    {
+      "name": "raw_message",
+      "type": "string",
+      "required": true,
+      "description": "The original unmodified event message.",
+      "justification": "Needed to preserve source evidence for validation and detailed investigation.",
+      "source_mapping": {
+        "windows": "raw_message",
+        "linux": "raw_message",
+        "network": "raw source record"
+      }
+    },
+    {
+      "name": "src_port",
+      "type": "integer",
+      "required": false,
+      "description": "The source network port associated with the event.",
+      "justification": "Needed to identify the originating network service or connection endpoint.",
+      "source_mapping": {
+        "windows": "event_data.SourcePort or event_data.IpPort",
+        "linux": "parsed_fields.SPT",
+        "network": "src_port"
+      }
+    },
+    {
+      "name": "dst_port",
+      "type": "integer",
+      "required": false,
+      "description": "The destination network port associated with the event.",
+      "justification": "Needed to identify the destination service or connection endpoint.",
+      "source_mapping": {
+        "windows": "event_data.DestinationPort",
+        "linux": "parsed_fields.DPT",
+        "network": "dst_port or dest_port"
+      }
+    }
+  ]
+}
