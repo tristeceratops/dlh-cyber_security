@@ -1,0 +1,40 @@
+{
+  "holds": [
+    {
+      "package": "mysql-server-8.0",
+      "reason": "billing app v8.0.35 dependency",
+      "owner": "analyst",
+      "review_date": "2026-05-28",
+      "pin_version": "8.0.35-0ubuntu0.22.04.1"
+    },
+    {
+      "package": "nginx",
+      "reason": "legacy API requires stable nginx configuration",
+      "owner": "devops",
+      "review_date": "2026-09-15",
+      "pin_version": "1.18.0-6ubuntu14.6"
+    },
+    {
+      "package": "python3.10",
+      "reason": "data processing scripts are validated against Python 3.10",
+      "owner": "data-team",
+      "review_date": "2026-10-01",
+      "pin_version": "3.10.12-1~22.04.10"
+    },
+    {
+      "package": "openssl",
+      "reason": "application compatibility testing requires current pinned release",
+      "owner": "security",
+      "review_date": "2026-09-30",
+      "pin_version": "3.0.2-0ubuntu1.19"
+    },
+    {
+      "package": "redis-server",
+      "reason": "session cache depends on Redis 6 behavior",
+      "owner": "backend",
+      "review_date": "2026-11-15",
+      "pin_version": "5:6.0.16-1ubuntu1"
+    }
+  ]
+}
+
