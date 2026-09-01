@@ -1,0 +1,387 @@
+{
+  "account_lockout": [
+    {
+      "label": "account_lockout",
+      "match": {
+        "action": "ACCOUNT_LOCKOUT"
+      },
+      "source_type": "auth"
+    },
+    {
+      "label": "account_lockout",
+      "match": {
+        "action": "ACCOUNT_LOCKOUT"
+      },
+      "source_type": "authentication"
+    },
+    {
+      "label": "account_lockout",
+      "match": {
+        "action": "LOCKOUT",
+        "event_category": "authentication"
+      },
+      "source_type": "auth"
+    }
+  ],
+  "child_process_spawn": [
+    {
+      "label": "child_process_spawn",
+      "match": {
+        "action": "CHILD_PROCESS"
+      },
+      "source_type": "process"
+    },
+    {
+      "label": "child_process_spawn",
+      "match": {
+        "action": "CHILD_PROCESS_SPAWN"
+      },
+      "source_type": "process"
+    },
+    {
+      "label": "child_process_spawn",
+      "match": {
+        "action": "SPAWN",
+        "event_category": "process"
+      },
+      "source_type": "process"
+    }
+  ],
+  "file_permission_change": [
+    {
+      "label": "file_permission_change",
+      "match": {
+        "action": "PERMISSION_CHANGE"
+      },
+      "source_type": "file"
+    },
+    {
+      "label": "file_permission_change",
+      "match": {
+        "action": "FILE_PERMISSION_CHANGE"
+      },
+      "source_type": "file"
+    },
+    {
+      "label": "file_permission_change",
+      "match": {
+        "action": "CHMOD",
+        "event_category": "file"
+      },
+      "source_type": "file"
+    }
+  ],
+  "file_read_sensitive": [
+    {
+      "label": "file_read_sensitive",
+      "match": {
+        "action": "READ",
+        "sensitivity": "SENSITIVE"
+      },
+      "source_type": "file"
+    },
+    {
+      "label": "file_read_sensitive",
+      "match": {
+        "action": "FILE_READ",
+        "sensitivity": "SENSITIVE"
+      },
+      "source_type": "file"
+    },
+    {
+      "label": "file_read_sensitive",
+      "match": {
+        "action": "READ",
+        "event_category": "file",
+        "sensitivity": "SENSITIVE"
+      },
+      "source_type": "file"
+    }
+  ],
+  "file_write_sensitive": [
+    {
+      "label": "file_write_sensitive",
+      "match": {
+        "action": "WRITE",
+        "sensitivity": "SENSITIVE"
+      },
+      "source_type": "file"
+    },
+    {
+      "label": "file_write_sensitive",
+      "match": {
+        "action": "FILE_WRITE",
+        "sensitivity": "SENSITIVE"
+      },
+      "source_type": "file"
+    },
+    {
+      "label": "file_write_sensitive",
+      "match": {
+        "action": "WRITE",
+        "event_category": "file",
+        "sensitivity": "SENSITIVE"
+      },
+      "source_type": "file"
+    }
+  ],
+  "login_failure": [
+    {
+      "label": "login_failure",
+      "match": {
+        "action": "LOGIN_FAILURE"
+      },
+      "source_type": "auth"
+    },
+    {
+      "label": "login_failure",
+      "match": {
+        "action": "FAILURE",
+        "event_category": "authentication"
+      },
+      "source_type": "auth"
+    },
+    {
+      "label": "login_failure",
+      "match": {
+        "action": "LOGIN_FAILURE"
+      },
+      "source_type": "authentication"
+    },
+    {
+      "label": "login_failure",
+      "match": {
+        "action": "FAILURE",
+        "event_category": "authentication"
+      },
+      "source_type": "authentication"
+    }
+  ],
+  "login_success": [
+    {
+      "label": "login_success",
+      "match": {
+        "action": "LOGIN_SUCCESS"
+      },
+      "source_type": "auth"
+    },
+    {
+      "label": "login_success",
+      "match": {
+        "action": "SUCCESS",
+        "event_category": "authentication"
+      },
+      "source_type": "auth"
+    },
+    {
+      "label": "login_success",
+      "match": {
+        "action": "LOGIN_SUCCESS"
+      },
+      "source_type": "authentication"
+    },
+    {
+      "label": "login_success",
+      "match": {
+        "action": "SUCCESS",
+        "event_category": "authentication"
+      },
+      "source_type": "authentication"
+    }
+  ],
+  "logout": [
+    {
+      "label": "logout",
+      "match": {
+        "action": "LOGOUT"
+      },
+      "source_type": "auth"
+    },
+    {
+      "label": "logout",
+      "match": {
+        "action": "LOGOUT"
+      },
+      "source_type": "authentication"
+    }
+  ],
+  "network_alert": [
+    {
+      "label": "network_alert",
+      "match": {
+        "action": "ALERT",
+        "event_category": "network"
+      },
+      "source_type": "firewall"
+    },
+    {
+      "label": "network_alert",
+      "match": {
+        "action": "ALERT"
+      },
+      "source_type": "network"
+    },
+    {
+      "label": "network_alert",
+      "match": {
+        "action": "ALERT"
+      },
+      "source_type": "ids"
+    },
+    {
+      "label": "network_alert",
+      "match": {
+        "action": "ALERT",
+        "event_category": "network"
+      },
+      "source_type": "ids"
+    }
+  ],
+  "network_blocked": [
+    {
+      "label": "network_blocked",
+      "match": {
+        "action": "BLOCK",
+        "event_category": "network"
+      },
+      "source_type": "firewall"
+    },
+    {
+      "label": "network_blocked",
+      "match": {
+        "action": "BLOCK"
+      },
+      "source_type": "firewall"
+    },
+    {
+      "label": "network_blocked",
+      "match": {
+        "action": "BLOCK"
+      },
+      "source_type": "network"
+    }
+  ],
+  "network_connection_inbound": [
+    {
+      "label": "network_connection_inbound",
+      "match": {
+        "direction": "INBOUND",
+        "event_category": "network"
+      },
+      "source_type": "firewall"
+    },
+    {
+      "label": "network_connection_inbound",
+      "match": {
+        "direction": "INBOUND",
+        "event_category": "network"
+      },
+      "source_type": "network"
+    },
+    {
+      "label": "network_connection_inbound",
+      "match": {
+        "action": "INBOUND",
+        "event_category": "network"
+      },
+      "source_type": "network"
+    }
+  ],
+  "network_connection_outbound": [
+    {
+      "label": "network_connection_outbound",
+      "match": {
+        "direction": "OUTBOUND",
+        "event_category": "network"
+      },
+      "source_type": "firewall"
+    },
+    {
+      "label": "network_connection_outbound",
+      "match": {
+        "direction": "OUTBOUND",
+        "event_category": "network"
+      },
+      "source_type": "network"
+    },
+    {
+      "label": "network_connection_outbound",
+      "match": {
+        "action": "OUTBOUND",
+        "event_category": "network"
+      },
+      "source_type": "network"
+    }
+  ],
+  "privilege_escalation": [
+    {
+      "label": "privilege_escalation",
+      "match": {
+        "action": "PRIVILEGE_ESCALATION"
+      },
+      "source_type": "auth"
+    },
+    {
+      "label": "privilege_escalation",
+      "match": {
+        "action": "PRIVILEGE_ESCALATION"
+      },
+      "source_type": "authentication"
+    },
+    {
+      "label": "privilege_escalation",
+      "match": {
+        "event_category": "privilege_escalation"
+      },
+      "source_type": "auth"
+    }
+  ],
+  "process_start": [
+    {
+      "label": "process_start",
+      "match": {
+        "action": "START"
+      },
+      "source_type": "process"
+    },
+    {
+      "label": "process_start",
+      "match": {
+        "action": "PROCESS_START"
+      },
+      "source_type": "process"
+    },
+    {
+      "label": "process_start",
+      "match": {
+        "action": "CREATE",
+        "event_category": "process"
+      },
+      "source_type": "process"
+    }
+  ],
+  "process_stop": [
+    {
+      "label": "process_stop",
+      "match": {
+        "action": "STOP"
+      },
+      "source_type": "process"
+    },
+    {
+      "label": "process_stop",
+      "match": {
+        "action": "PROCESS_STOP"
+      },
+      "source_type": "process"
+    },
+    {
+      "label": "process_stop",
+      "match": {
+        "action": "TERMINATE",
+        "event_category": "process"
+      },
+      "source_type": "process"
+    }
+  ]
+}
