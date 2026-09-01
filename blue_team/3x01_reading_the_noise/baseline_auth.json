@@ -1,0 +1,18 @@
+{
+  "window": {
+    "start": "2026-03-17T18:02:45Z",
+    "end": "2026-03-24T18:02:45Z"
+  },
+  "per_host": {},
+  "per_user": [],
+  "known_accounts": [],
+  "business_hours_avg": {
+    "success": 0.0,
+    "failure": 0.0
+  },
+  "offhours_avg": {
+    "success": 0.0,
+    "failure": 0.0
+  },
+  "max_failures_1h_window": 0
+}
