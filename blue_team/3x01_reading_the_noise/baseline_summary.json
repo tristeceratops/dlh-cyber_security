@@ -1,0 +1,534 @@
+{
+  "auth": {
+    "business_hours_avg": {
+      "failure": 0.0,
+      "success": 0.0
+    },
+    "known_accounts": [],
+    "max_failures_1h_window": 0,
+    "offhours_avg": {
+      "failure": 0.0,
+      "success": 0.0
+    },
+    "per_host": {},
+    "per_user": [],
+    "window": {
+      "end": "2026-03-24T18:02:45Z",
+      "start": "2026-03-17T18:02:45Z"
+    }
+  },
+  "baseline_window": {
+    "duration_days": 7.0,
+    "end": "2026-03-24T18:02:45Z",
+    "start": "2026-03-17T18:02:45Z"
+  },
+  "evaluation_window": {
+    "duration_hours": 29.946111,
+    "end": "2026-03-25T23:59:31Z",
+    "start": "2026-03-24T18:02:45Z"
+  },
+  "file": {
+    "per_host_paths": {
+      "10.1.11.20": [
+        "/etc/shadow",
+        "/etc/sudoers.d/meddefense",
+        "/var/log/audit/audit.log"
+      ],
+      "10.1.11.21": [
+        "/etc/ssh/sshd_config",
+        "/var/log/audit/audit.log"
+      ],
+      "10.1.12.10": [
+        "/opt/meddefense/config/app.yml"
+      ],
+      "10.1.12.5": [
+        "C:\\Windows\\System32\\config\\SAM"
+      ]
+    },
+    "per_path_access": {
+      "/etc/shadow": {
+        "processes": {
+          "sshd": 42,
+          "sudo": 18
+        },
+        "users": {
+          "admin": 5,
+          "root": 55
+        }
+      },
+      "/etc/ssh/sshd_config": {
+        "processes": {
+          "sshd": 31
+        },
+        "users": {
+          "root": 31
+        }
+      },
+      "/etc/sudoers.d/meddefense": {
+        "processes": {
+          "sudo": 27
+        },
+        "users": {
+          "admin": 7,
+          "root": 20
+        }
+      },
+      "/opt/meddefense/config/app.yml": {
+        "processes": {
+          "meddefense-agent": 8
+        },
+        "users": {
+          "meddefense": 8
+        }
+      },
+      "/var/log/audit/audit.log": {
+        "processes": {
+          "auditd": 156,
+          "ausearch": 12
+        },
+        "users": {
+          "root": 168
+        }
+      },
+      "C:\\Windows\\System32\\config\\SAM": {
+        "processes": {
+          "lsass.exe": 24
+        },
+        "users": {
+          "SYSTEM": 24
+        }
+      }
+    },
+    "rare_accesses": [
+      "/etc/ssh/sshd_config",
+      "C:\\Windows\\System32\\config\\SAM"
+    ],
+    "sensitive_paths": [
+      "/etc/shadow",
+      "/etc/sudoers.d/meddefense",
+      "/etc/ssh/sshd_config",
+      "/var/log/audit/audit.log",
+      "C:\\Windows\\System32\\config\\SAM",
+      "/opt/meddefense/config/app.yml"
+    ],
+    "window": {
+      "end": "2026-03-24T23:59:59Z",
+      "start": "2026-03-18T00:00:00Z"
+    }
+  },
+  "generated_at": "2026-03-25T23:59:31Z",
+  "host_inventory": [
+    "10.1.11.20",
+    "10.1.11.21",
+    "10.1.12.10",
+    "10.1.12.2",
+    "10.1.12.5"
+  ],
+  "network": {
+    "known_external_ips": {
+      "13.107.42.14": 23,
+      "52.168.112.78": 12
+    },
+    "per_host_destinations": {
+      "10.1.11.20": {
+        "10.1.1.10": 124,
+        "10.1.10.7": 87,
+        "10.1.2.30": 42
+      },
+      "10.1.11.21": {
+        "10.1.1.10": 98,
+        "10.1.10.7": 64
+      },
+      "10.1.12.2": {
+        "10.1.1.10": 156,
+        "13.107.42.14": 23
+      }
+    },
+    "per_host_ports": {
+      "10.1.11.20": {
+        "389": 18,
+        "443": 124,
+        "53": 31
+      },
+      "10.1.11.21": {
+        "443": 98,
+        "53": 22
+      },
+      "10.1.12.2": {
+        "443": 23,
+        "636": 156
+      }
+    },
+    "service_profiles": {
+      "389": [
+        "10.1.11.20"
+      ],
+      "443": [
+        "10.1.11.20",
+        "10.1.11.21",
+        "10.1.12.2"
+      ],
+      "53": [
+        "10.1.11.20",
+        "10.1.11.21"
+      ],
+      "636": [
+        "10.1.12.2"
+      ]
+    },
+    "window": {
+      "end": "2026-03-24T23:59:59Z",
+      "start": "2026-03-18T00:00:00Z"
+    },
+    "zone_flows": {
+      "ADMIN -> SERVERS": 156,
+      "CLINICAL -> DATA": 87,
+      "CLINICAL -> SERVERS": 312,
+      "DMZ -> INTERNET": 64,
+      "SERVERS -> INTERNET": 23
+    }
+  },
+  "process": {
+    "global_top": [],
+    "parent_child_pairs": {},
+    "per_host": {},
+    "rare_processes": [],
+    "window": {
+      "end": "2026-03-24T18:02:45Z",
+      "start": "2026-03-17T18:02:45Z"
+    }
+  },
+  "temporal": {
+    "profiles": {
+      "firewall": {
+        "network_blocked": {
+          "business_offhours_ratio": 1.63,
+          "day_of_week_histogram": [
+            164.2,
+            182.7,
+            190.4,
+            188.9,
+            176.5,
+            121.3,
+            98.7
+          ],
+          "hour_of_day_histogram": [
+            82.1,
+            76.4,
+            71.2,
+            68.5,
+            65.3,
+            72.8,
+            91.5,
+            124.7,
+            156.2,
+            182.4,
+            193.8,
+            201.5,
+            214.2,
+            208.6,
+            198.7,
+            187.4,
+            176.2,
+            164.8,
+            152.3,
+            141.7,
+            126.4,
+            112.8,
+            101.5,
+            91.2
+          ],
+          "peak_hour": 12,
+          "quiet_hour": 4
+        },
+        "network_connection_outbound": {
+          "business_offhours_ratio": 1.74,
+          "day_of_week_histogram": [
+            1182.4,
+            1345.7,
+            1398.2,
+            1421.5,
+            1312.8,
+            812.4,
+            654.1
+          ],
+          "hour_of_day_histogram": [
+            421.5,
+            398.2,
+            376.1,
+            351.4,
+            329.8,
+            345.7,
+            512.4,
+            782.6,
+            1102.3,
+            1287.5,
+            1354.8,
+            1412.6,
+            1524.7,
+            1488.2,
+            1451.6,
+            1398.4,
+            1275.9,
+            1098.2,
+            921.4,
+            784.3,
+            691.7,
+            603.2,
+            532.8,
+            471.5
+          ],
+          "peak_hour": 12,
+          "quiet_hour": 4
+        }
+      },
+      "linux_text": {
+        "file_read_sensitive": {
+          "business_offhours_ratio": 4.18,
+          "day_of_week_histogram": [
+            2.1,
+            2.5,
+            2.7,
+            2.6,
+            2.3,
+            1.0,
+            0.4
+          ],
+          "hour_of_day_histogram": [
+            0.1,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.1,
+            0.4,
+            1.2,
+            2.8,
+            2.4,
+            2.1,
+            2.3,
+            2.7,
+            2.5,
+            2.2,
+            1.9,
+            1.7,
+            1.4,
+            1.1,
+            0.8,
+            0.5,
+            0.3,
+            0.2,
+            0.1
+          ],
+          "peak_hour": 12,
+          "quiet_hour": 1
+        }
+      },
+      "pcap_flow": {
+        "network_connection_inbound": {
+          "business_offhours_ratio": 1.92,
+          "day_of_week_histogram": [
+            42.5,
+            51.8,
+            54.2,
+            55.7,
+            49.3,
+            31.4,
+            27.1
+          ],
+          "hour_of_day_histogram": [
+            18.2,
+            17.5,
+            16.8,
+            15.9,
+            15.4,
+            16.1,
+            21.4,
+            32.7,
+            45.2,
+            51.8,
+            54.1,
+            58.7,
+            61.2,
+            59.8,
+            57.4,
+            53.9,
+            49.6,
+            43.1,
+            37.5,
+            32.4,
+            28.7,
+            24.1,
+            21.3,
+            19.2
+          ],
+          "peak_hour": 12,
+          "quiet_hour": 4
+        }
+      },
+      "suricata_alert": {
+        "network_alert": {
+          "business_offhours_ratio": 2.11,
+          "day_of_week_histogram": [
+            7.8,
+            9.4,
+            10.1,
+            10.7,
+            9.8,
+            5.2,
+            4.1
+          ],
+          "hour_of_day_histogram": [
+            3.1,
+            2.8,
+            2.5,
+            2.2,
+            2.0,
+            2.4,
+            3.8,
+            5.7,
+            8.4,
+            9.1,
+            10.2,
+            11.5,
+            12.7,
+            11.9,
+            10.8,
+            9.6,
+            8.2,
+            7.1,
+            6.4,
+            5.3,
+            4.7,
+            4.1,
+            3.8,
+            3.4
+          ],
+          "peak_hour": 12,
+          "quiet_hour": 4
+        }
+      },
+      "windows_json": {
+        "login_success": {
+          "business_offhours_ratio": 5.87,
+          "day_of_week_histogram": [
+            12.4,
+            15.8,
+            16.2,
+            15.9,
+            14.7,
+            6.1,
+            2.8
+          ],
+          "hour_of_day_histogram": [
+            0.2,
+            0.1,
+            0.1,
+            0.1,
+            0.0,
+            0.1,
+            0.8,
+            5.2,
+            12.4,
+            15.7,
+            14.9,
+            13.8,
+            16.2,
+            15.5,
+            14.7,
+            13.9,
+            12.1,
+            9.8,
+            6.4,
+            3.2,
+            1.8,
+            0.9,
+            0.5,
+            0.3
+          ],
+          "peak_hour": 12,
+          "quiet_hour": 4
+        },
+        "process_start": {
+          "business_offhours_ratio": 3.42,
+          "day_of_week_histogram": [
+            8.2,
+            10.5,
+            11.3,
+            12.1,
+            10.8,
+            5.4,
+            3.1
+          ],
+          "hour_of_day_histogram": [
+            2.1,
+            1.8,
+            1.5,
+            1.2,
+            1.0,
+            1.4,
+            3.2,
+            8.5,
+            12.4,
+            10.8,
+            9.7,
+            11.2,
+            13.1,
+            12.7,
+            11.9,
+            10.5,
+            9.2,
+            7.8,
+            6.4,
+            5.1,
+            4.2,
+            3.5,
+            2.8,
+            2.3
+          ],
+          "peak_hour": 12,
+          "quiet_hour": 4
+        }
+      }
+    },
+    "window": {
+      "end": "2026-03-24T23:59:59Z",
+      "start": "2026-03-18T00:00:00Z"
+    }
+  },
+  "thresholds": {
+    "failure_rate_multiplier": {
+      "comment": "Authentication failure rate must exceed three times the baseline rate before rate-based anomaly scoring.",
+      "value": 3
+    },
+    "offhours_penalty": {
+      "comment": "Two anomaly points are assigned to activity occurring outside the established business-hours profile.",
+      "value": 2
+    },
+    "rare_file_access_penalty": {
+      "comment": "Five anomaly points are assigned to a sensitive path whose baseline access count is below three.",
+      "value": 5
+    },
+    "temporal_deviation_multiplier": {
+      "comment": "Temporal activity above three times the corresponding baseline average is considered anomalous.",
+      "value": 3
+    },
+    "unknown_destination_penalty": {
+      "comment": "Four anomaly points are assigned to a destination IP not observed during the baseline.",
+      "value": 4
+    },
+    "unknown_file_actor_penalty": {
+      "comment": "Five anomaly points are assigned when the accessing process or user is absent from the normal file footprint.",
+      "value": 5
+    },
+    "unknown_port_penalty": {
+      "comment": "Four anomaly points are assigned to a destination port absent from the host's baseline service profile.",
+      "value": 4
+    },
+    "unknown_process_penalty": {
+      "comment": "Five anomaly points are assigned to a process absent from the host's baseline process footprint.",
+      "value": 5
+    }
+  },
+  "version": "1.0"
+}
