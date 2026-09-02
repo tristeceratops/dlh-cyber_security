@@ -1,0 +1,5 @@
+{
+  "correlated_findings": [],
+  "correlation_window_seconds": 300,
+  "single_source_anomalies": 2
+}
