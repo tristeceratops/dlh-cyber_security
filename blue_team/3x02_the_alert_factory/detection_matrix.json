@@ -1,0 +1,125 @@
+{
+  "firewall": {
+    "high_cardinality_fields": [
+      "raw_message",
+      "timestamp"
+    ],
+    "rationale": {
+      "anomaly": "telemetry can be compared with available temporal, network, process, file, or authentication baselines",
+      "correlation": "timestamped events expose stable entities suitable for cross-event correlation",
+      "signature": "stable categorical, severity, process, port, or high-cardinality fields support deterministic matching"
+    },
+    "recommended_attack_tactics": [
+      "TA0001",
+      "TA0007",
+      "TA0008",
+      "TA0010",
+      "TA0011"
+    ],
+    "record_count": 67420,
+    "source_type": "firewall",
+    "stable_fields": [
+      "action",
+      "dst_ip",
+      "dst_port",
+      "dst_zone",
+      "event_category",
+      "hostname",
+      "raw_message",
+      "severity",
+      "source_type",
+      "src_ip",
+      "src_port",
+      "src_zone",
+      "timestamp"
+    ],
+    "supported_detection_types": [
+      "signature",
+      "anomaly",
+      "correlation"
+    ]
+  },
+  "pcap": {
+    "high_cardinality_fields": [
+      "raw_message",
+      "src_port",
+      "timestamp"
+    ],
+    "rationale": {
+      "anomaly": "telemetry can be compared with available temporal, network, process, file, or authentication baselines",
+      "correlation": "timestamped events expose stable entities suitable for cross-event correlation",
+      "signature": "stable categorical, severity, process, port, or high-cardinality fields support deterministic matching"
+    },
+    "recommended_attack_tactics": [
+      "TA0001",
+      "TA0007",
+      "TA0008",
+      "TA0010",
+      "TA0011"
+    ],
+    "record_count": 4096,
+    "source_type": "pcap",
+    "stable_fields": [
+      "asset",
+      "dst_ip",
+      "dst_port",
+      "dst_zone",
+      "event_category",
+      "hostname",
+      "raw_message",
+      "severity",
+      "source_type",
+      "src_ip",
+      "src_port",
+      "src_zone",
+      "timestamp"
+    ],
+    "supported_detection_types": [
+      "signature",
+      "anomaly",
+      "correlation"
+    ]
+  },
+  "suricata": {
+    "high_cardinality_fields": [
+      "raw_message",
+      "src_port",
+      "timestamp"
+    ],
+    "rationale": {
+      "anomaly": "telemetry can be compared with available temporal, network, process, file, or authentication baselines",
+      "correlation": "timestamped events expose stable entities suitable for cross-event correlation",
+      "signature": "stable categorical, severity, process, port, or high-cardinality fields support deterministic matching"
+    },
+    "recommended_attack_tactics": [
+      "TA0001",
+      "TA0007",
+      "TA0008",
+      "TA0010",
+      "TA0011"
+    ],
+    "record_count": 9977,
+    "source_type": "suricata",
+    "stable_fields": [
+      "asset",
+      "dst_ip",
+      "dst_port",
+      "dst_zone",
+      "event_category",
+      "hostname",
+      "raw_message",
+      "severity",
+      "signature",
+      "source_type",
+      "src_ip",
+      "src_port",
+      "src_zone",
+      "timestamp"
+    ],
+    "supported_detection_types": [
+      "signature",
+      "anomaly",
+      "correlation"
+    ]
+  }
+}
