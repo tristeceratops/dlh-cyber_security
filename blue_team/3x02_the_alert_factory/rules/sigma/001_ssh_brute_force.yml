@@ -18,9 +18,9 @@ logsource:
 detection:
   selection:
     canonical_label: login_failure
-    event_category: authentification
+    event_category: authentication
 
-  condition: selection | count() by src_ip > 5
+  condition: selection | count() by src_ip >= 5
 
   timeframe: 120s
 
