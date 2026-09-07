@@ -1,0 +1,96 @@
+[
+  {
+    "alert_id": "8c5a9c3e-3c76-5f9a-a0f4-2d2b9d9a1f18",
+    "generated_at": "2026-03-24T14:32:10Z",
+    "rule_id": "010_credential_theft_chain",
+    "rule_title": "Credential Theft Chain",
+    "rule_level": "critical",
+    "priority_score": 30.0,
+    "event_ref": "evt-20260324-00421",
+    "event_summary": {
+      "timestamp": "2026-03-24T02:14:31Z",
+      "hostname": "db-patient-01",
+      "user": "svc_backup",
+      "src_ip": "10.20.4.15",
+      "dst_ip": "",
+      "process_name": "procdump.exe",
+      "canonical_label": "credential_theft",
+      "event_category": "process_creation"
+    },
+    "asset_context": {
+      "hostname": "db-patient-01",
+      "asset_type": "database",
+      "criticality": "critical",
+      "owner": "MedDefense Clinical IT",
+      "network_zone": "medical"
+    },
+    "attack_techniques": [
+      "T1003",
+      "T1003.001"
+    ],
+    "status": "new",
+    "evidence_hash": "4d9e7c1b8f9f6f2a6d8c7e5b3a1f0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3"
+  },
+  {
+    "alert_id": "f0e2a7d1-89cb-53c8-bf4a-9e1d6f7a2b31",
+    "generated_at": "2026-03-24T14:32:10Z",
+    "rule_id": "011_patient_data_access",
+    "rule_title": "Patient Data Access",
+    "rule_level": "critical",
+    "priority_score": 24.5,
+    "event_ref": "evt-20260324-00455",
+    "event_summary": {
+      "timestamp": "2026-03-24T03:42:18Z",
+      "hostname": "meddb-01",
+      "user": "j.smith",
+      "src_ip": "10.20.7.22",
+      "dst_ip": "10.20.10.12",
+      "process_name": "sqlservr.exe",
+      "canonical_label": "patient_data_access",
+      "event_category": "data_access"
+    },
+    "asset_context": {
+      "hostname": "meddb-01",
+      "asset_type": "medical_database",
+      "criticality": "critical",
+      "owner": "MedDefense Data Services",
+      "network_zone": "medical"
+    },
+    "attack_techniques": [
+      "T1213"
+    ],
+    "status": "new",
+    "evidence_hash": "8a6f4d1c2e9b7a5f3d0c8b6e4a2f1d9c7b5e3a1f0d8c6b4a2e9f7c5d3b1a0e8"
+  },
+  {
+    "alert_id": "d3c4e5f6-7a81-52b9-9c2d-3e4f5a6b7c81",
+    "generated_at": "2026-03-24T14:32:10Z",
+    "rule_id": "001_ssh_brute_force",
+    "rule_title": "SSH Repeated Authentication Failures from Single Source",
+    "rule_level": "high",
+    "priority_score": 18.0,
+    "event_ref": "evt-20260324-00501",
+    "event_summary": {
+      "timestamp": "2026-03-24T04:12:07Z",
+      "hostname": "db-patient-01",
+      "user": "root",
+      "src_ip": "203.0.113.45",
+      "dst_ip": "10.20.4.10",
+      "process_name": "sshd",
+      "canonical_label": "login_failure",
+      "event_category": "authentication"
+    },
+    "asset_context": {
+      "hostname": "db-patient-01",
+      "asset_type": "database",
+      "criticality": "critical",
+      "owner": "MedDefense Clinical IT",
+      "network_zone": "medical"
+    },
+    "attack_techniques": [
+      "T1110.001"
+    ],
+    "status": "new",
+    "evidence_hash": "2f8a6c4e1d9b7a5c3e2f0d8b6a4c1e9f7d5b3a2c0e8f6d4b2a1c9e7f5d3b0a8"
+  }
+]
