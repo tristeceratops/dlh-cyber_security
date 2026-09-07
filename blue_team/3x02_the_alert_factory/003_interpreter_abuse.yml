@@ -1,0 +1,55 @@
+title: Suspicious Windows Interpreter Execution from Non-Shell Parent
+id: 7c2d91a4-3e58-4f71-b862-19a5d4c83027
+status: experimental
+
+description: >
+  Detects execution of common Windows command and scripting interpreters when
+  their parent process is not a standard shell. The interpreters include
+  powershell.exe, cmd.exe, wscript.exe, cscript.exe, and mshta.exe. Execution
+  from an unexpected parent process can indicate process injection, malicious
+  script execution, user execution, or abuse of trusted Windows interpreters.
+  The SOC should validate the parent process, command line, account, host, and
+  surrounding process activity.
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection:
+    Image:
+      - powershell.exe
+      - cmd.exe
+      - wscript.exe
+      - cscript.exe
+      - mshta.exe
+
+  standard_parent:
+    ParentImage:
+      - explorer.exe
+      - powershell.exe
+      - pwsh.exe
+      - cmd.exe
+      - wscript.exe
+      - cscript.exe
+
+  condition: selection and not standard_parent
+
+level: high
+
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.t1059.003
+
+falsepositives:
+  - >
+    Legitimate MedDefense scripted maintenance may launch PowerShell or command
+    interpreters from approved management, deployment, or automation tools.
+  - >
+    Authorized endpoint-management, software-deployment, or configuration
+    management systems may start Windows scripting interpreters from
+    non-standard parent processes.
+  - >
+    Approved incident-response or troubleshooting scripts may execute through
+    administrative tools with an unexpected parent process.
