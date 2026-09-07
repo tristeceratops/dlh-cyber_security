@@ -1,0 +1,147 @@
+[
+  {
+    "rule_id": "010_credential_theft_chain",
+    "rule_title": "Credential Theft Chain",
+    "risk_score": 30.0,
+    "f1": 1.0,
+    "priority_score": 30.0,
+    "covering_scenarios": [
+      "Compromised Administrator Credential",
+      "Credential Theft"
+    ],
+    "level": "critical"
+  },
+  {
+    "rule_id": "011_patient_data_access",
+    "rule_title": "Patient Data Access",
+    "risk_score": 28.75,
+    "f1": 0.8522,
+    "priority_score": 24.5,
+    "covering_scenarios": [
+      "Unauthorized Patient Data Access",
+      "Compromised Clinical Account"
+    ],
+    "level": "high"
+  },
+  {
+    "rule_id": "012_medical_segment_egress",
+    "rule_title": "Medical Segment Egress",
+    "risk_score": 28.0,
+    "f1": 0.75,
+    "priority_score": 21.0,
+    "covering_scenarios": [
+      "Medical Network Data Exfiltration"
+    ],
+    "level": "high"
+  },
+  {
+    "rule_id": "001_ssh_brute_force",
+    "rule_title": "SSH Brute Force",
+    "risk_score": 20.0,
+    "f1": 0.8,
+    "priority_score": 16.0,
+    "covering_scenarios": [
+      "External SSH Credential Attack"
+    ],
+    "level": "high"
+  },
+  {
+    "rule_id": "009_lateral_movement_smb",
+    "rule_title": "Lateral Movement SMB",
+    "risk_score": 20.0,
+    "f1": 0.8,
+    "priority_score": 16.0,
+    "covering_scenarios": [
+      "Windows Lateral Movement"
+    ],
+    "level": "high"
+  },
+  {
+    "rule_id": "005_scheduled_task_creation",
+    "rule_title": "Scheduled Task Creation",
+    "risk_score": 20.0,
+    "f1": 0.75,
+    "priority_score": 15.0,
+    "covering_scenarios": [
+      "Persistence Through Scheduled Tasks"
+    ],
+    "level": "medium"
+  },
+  {
+    "rule_id": "006_registry_autorun_modify",
+    "rule_title": "Registry Autorun Modification",
+    "risk_score": 20.0,
+    "f1": 0.6,
+    "priority_score": 12.0,
+    "covering_scenarios": [
+      "Windows Persistence"
+    ],
+    "level": "high"
+  },
+  {
+    "rule_id": "003_interpreter_abuse",
+    "rule_title": "Interpreter Abuse",
+    "risk_score": 19.6,
+    "f1": 0.5,
+    "priority_score": 9.8,
+    "covering_scenarios": [
+      "Command and Scripting Abuse"
+    ],
+    "level": "high"
+  },
+  {
+    "rule_id": "013_privileged_shift_violation",
+    "rule_title": "Privileged Shift Violation",
+    "risk_score": 16.0,
+    "f1": 0.5,
+    "priority_score": 8.0,
+    "covering_scenarios": [
+      "Unauthorized Privileged Access"
+    ],
+    "level": "medium"
+  },
+  {
+    "rule_id": "008_uncommon_port_outbound",
+    "rule_title": "Uncommon Port Outbound",
+    "risk_score": 18.0,
+    "f1": 0.3,
+    "priority_score": 5.4,
+    "covering_scenarios": [
+      "Suspicious External Network Connection"
+    ],
+    "level": "medium"
+  },
+  {
+    "rule_id": "002_windows_offhours_priv_logon",
+    "rule_title": "Windows Privileged Logon During Off-Hours",
+    "risk_score": 12.0,
+    "f1": 0.25,
+    "priority_score": 3.0,
+    "covering_scenarios": [
+      "Unauthorized Privileged Access"
+    ],
+    "level": "medium"
+  },
+  {
+    "rule_id": "004_recon_tool_execution",
+    "rule_title": "Recon Tool Execution",
+    "risk_score": 10.0,
+    "f1": 0.3333,
+    "priority_score": 3.33,
+    "covering_scenarios": [
+      "Internal Reconnaissance"
+    ],
+    "level": "medium"
+  },
+  {
+    "rule_id": "007_unknown_outbound_destination",
+    "rule_title": "Unknown Outbound Destination",
+    "risk_score": 8.0,
+    "f1": 0.2222,
+    "priority_score": 1.78,
+    "covering_scenarios": [
+      "Suspicious External Network Connection"
+    ],
+    "level": "medium"
+  }
+]
