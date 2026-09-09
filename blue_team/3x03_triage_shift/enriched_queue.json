@@ -1,0 +1,89 @@
+[
+  {
+    "alert_id": "ALT-0001",
+    "priority_score": 24,
+    "rule_id": "010",
+    "event_ref": "EVT-1001",
+    "target": {
+      "hostname": "db-patient-01"
+    },
+    "asset": {
+      "hostname": "db-patient-01",
+      "criticality": "critical",
+      "role": "database",
+      "data_classification": "restricted",
+      "owner": "clinical-data",
+      "network_zone": "patient"
+    },
+    "baseline_host_profile": {
+      "categories": {
+        "credential_theft": {
+          "normal_processes": [
+            "sqlservr.exe"
+          ],
+          "normal_admin_sources": [
+            "mgmt-01"
+          ]
+        }
+      }
+    },
+    "event_record": {
+      "event_ref": "EVT-1001",
+      "event_summary": {
+        "timestamp": "2026-09-09T07:02:11Z",
+        "hostname": "db-patient-01"
+      },
+      "source_ip": "10.20.5.44",
+      "destination_ip": "203.0.113.50"
+    },
+    "ioc_hits": [
+      {
+        "ioc": "203.0.113.50",
+        "reputation": "malicious",
+        "categories": [
+          "c2"
+        ],
+        "first_seen": "2026-08-01T00:00:00Z",
+        "last_seen": "2026-09-09T06:55:00Z",
+        "ioc_flag": true
+      }
+    ],
+    "priority_band": "critical"
+  },
+  {
+    "alert_id": "ALT-0002",
+    "priority_score": 12,
+    "rule_id": "001",
+    "event_ref": "EVT-1002",
+    "target": {
+      "hostname": "clin-ws-07"
+    },
+    "asset": {
+      "hostname": "clin-ws-07",
+      "criticality": "high",
+      "role": "clinical-workstation",
+      "data_classification": "confidential",
+      "owner": "clinical-ops",
+      "network_zone": "clinical"
+    },
+    "baseline_host_profile": {
+      "categories": {
+        "ssh_brute_force": {
+          "normal_source_count": 1
+        }
+      }
+    },
+    "event_record": {
+      "event_ref": "EVT-1002",
+      "event_summary": {
+        "timestamp": "2026-09-09T07:05:42Z",
+        "hostname": "clin-ws-07"
+      },
+      "source_ip": "10.20.7.19",
+      "destination_port": 22
+    },
+    "ioc_hits": [],
+    "priority_band": "high"
+  }
+]
+
