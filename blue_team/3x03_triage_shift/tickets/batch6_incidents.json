@@ -1,0 +1,81 @@
+[
+  {
+    "ticket_id": "incident_db-patient-01_2026-03-25T02:14:08Z",
+    "classification": "true_positive",
+    "justification": "Correlated 4 alerts on db-patient-01 from 2026-03-25T02:14:08Z through 2026-03-25T02:18:51Z; highest priority_score was 25. Contributing rules: 001 ssh_brute_force, 002 windows_offhours_priv_logon, 010 credential_theft_chain, 013 privileged_shift_violation. At least one contributing alert was already classified true_positive by an earlier triage batch.",
+    "contributing_alerts": [
+      "alert_00006",
+      "alert_00042",
+      "alert_00028",
+      "alert_00031"
+    ],
+    "incident_window": {
+      "start": "2026-03-25T02:14:08Z",
+      "end": "2026-03-25T02:18:51Z"
+    },
+    "confidence": "high_confidence",
+    "attack_techniques": [
+      "T1059",
+      "T1078",
+      "T1110",
+      "T1548"
+    ],
+    "recommended_action": "escalate_tier2",
+    "highest_priority_score": 25,
+    "hostname": "db-patient-01",
+    "grouped": true,
+    "analyst_time_seconds": 90,
+    "created_at": "2026-03-25T02:14:08Z"
+  },
+  {
+    "ticket_id": "incident_clin-ws-07_2026-03-25T09:41:22Z",
+    "classification": "true_positive",
+    "justification": "Correlated 3 alerts on clin-ws-07 from 2026-03-25T09:41:22Z through 2026-03-25T09:48:17Z; highest priority_score was 18. Contributing rules: 003 interpreter_abuse, 004 recon_tool_execution, 007 unknown_outbound_destination. At least one contributing alert was already classified true_positive by an earlier triage batch.",
+    "contributing_alerts": [
+      "alert_00014",
+      "alert_00018",
+      "alert_00026"
+    ],
+    "incident_window": {
+      "start": "2026-03-25T09:41:22Z",
+      "end": "2026-03-25T09:48:17Z"
+    },
+    "confidence": "high_confidence",
+    "attack_techniques": [
+      "T1059",
+      "T1046",
+      "T1071"
+    ],
+    "recommended_action": "escalate_tier2",
+    "highest_priority_score": 18,
+    "hostname": "clin-ws-07",
+    "grouped": true,
+    "analyst_time_seconds": 90,
+    "created_at": "2026-03-25T09:41:22Z"
+  },
+  {
+    "ticket_id": "incident_med-img-02_2026-03-25T17:08:39Z",
+    "classification": "benign",
+    "justification": "Correlated 2 alerts on med-img-02 from 2026-03-25T17:08:39Z through 2026-03-25T17:13:04Z; highest priority_score was 8. Contributing rules: 007 unknown_outbound_destination, 008 uncommon_port_outbound. No contributing alert had a prior true_positive classification; the incident classification was evaluated from the highest priority_score in the group.",
+    "contributing_alerts": [
+      "alert_00023",
+      "alert_00030"
+    ],
+    "incident_window": {
+      "start": "2026-03-25T17:08:39Z",
+      "end": "2026-03-25T17:13:04Z"
+    },
+    "confidence": "medium_confidence",
+    "attack_techniques": [
+      "T1043",
+      "T1071"
+    ],
+    "recommended_action": "monitor",
+    "highest_priority_score": 8,
+    "hostname": "med-img-02",
+    "grouped": true,
+    "analyst_time_seconds": 90,
+    "created_at": "2026-03-25T17:08:39Z"
+  }
+]
+
