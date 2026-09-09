@@ -1,0 +1,106 @@
+[
+  {
+    "ticket_id": "TKT-5b7a78f7b4a8",
+    "alert_id": "alert_00017",
+    "classification": "true_positive",
+    "justification": "Malicious IOC category exfiltration matched 198.51.100.42; baseline field outbound_destination was violated: observed value \"198.51.100.42\" versus baseline \"approved_medical_destinations\".",
+    "evidence_refs": [
+      "evt_00117",
+      "corr_00017_01",
+      "corr_00017_02"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "198.51.100.42",
+        "reputation": "malicious",
+        "categories": [
+          "exfiltration"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1041"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 60,
+    "created_at": "2025-01-15T10:17:00Z"
+  },
+  {
+    "ticket_id": "TKT-9c7a9b7d3b55",
+    "alert_id": "alert_00019",
+    "classification": "true_positive",
+    "justification": "Malicious IOC category exfiltration matched 203.0.113.77; baseline field outbound_destination was violated: observed value \"203.0.113.77\" versus baseline \"approved_medical_destinations\".",
+    "evidence_refs": [
+      "evt_00119",
+      "corr_00019_01",
+      "corr_00019_02"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "203.0.113.77",
+        "reputation": "malicious",
+        "categories": [
+          "exfiltration"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1041"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 60,
+    "created_at": "2025-01-15T10:19:00Z"
+  },
+  {
+    "ticket_id": "TKT-2f6b58b7c4ef",
+    "alert_id": "alert_00031",
+    "classification": "true_positive",
+    "justification": "Malicious IOC category credential_access matched 203.0.113.55; baseline field query_volume was violated: observed value 842 versus baseline 35.",
+    "evidence_refs": [
+      "evt_00131",
+      "corr_00031_01"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "203.0.113.55",
+        "reputation": "malicious",
+        "categories": [
+          "credential_access"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1078"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 60,
+    "created_at": "2025-01-15T10:31:00Z"
+  },
+  {
+    "ticket_id": "TKT-3fbd2a2a4a16",
+    "alert_id": "alert_00042",
+    "classification": "true_positive",
+    "justification": "Malicious IOC category command_and_control matched 192.0.2.44; baseline field process_parent was violated: observed value \"powershell.exe\" versus baseline \"svchost.exe\".",
+    "evidence_refs": [
+      "evt_00142",
+      "corr_00042_01",
+      "corr_00042_02"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "192.0.2.44",
+        "reputation": "malicious",
+        "categories": [
+          "command_and_control"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1059.001"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 60,
+    "created_at": "2025-01-15T10:42:00Z"
+  }
+]
+
