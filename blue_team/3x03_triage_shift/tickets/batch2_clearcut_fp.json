@@ -1,0 +1,110 @@
+[
+  {
+    "ticket_id": "TKT-6a4f7a7f5f08",
+    "alert_id": "alert_00003",
+    "classification": "false_positive",
+    "justification": "False positive signature matched: target user svc_backup matches service_account_prefix svc_.",
+    "evidence_refs": [
+      "evt_00003",
+      "corr_00003_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1078"
+    ],
+    "recommended_action": "tune_rule",
+    "fp_reason": "service_account_activity",
+    "analyst_time_seconds": 30,
+    "created_at": "2025-01-15T09:03:00Z"
+  },
+  {
+    "ticket_id": "TKT-5b6cf17bdf38",
+    "alert_id": "alert_00008",
+    "classification": "false_positive",
+    "justification": "False positive signature matched: source IP 10.20.4.15 is in management subnet 10.20.0.0/16.",
+    "evidence_refs": [
+      "evt_00008",
+      "corr_00008_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1046"
+    ],
+    "recommended_action": "tune_rule",
+    "fp_reason": "management_subnet",
+    "analyst_time_seconds": 30,
+    "created_at": "2025-01-15T09:08:00Z"
+  },
+  {
+    "ticket_id": "TKT-bc3a7fdbb3a2",
+    "alert_id": "alert_00011",
+    "classification": "false_positive",
+    "justification": "False positive signature matched: process_name powershell.exe appears in baseline_host_profile.process.expected.",
+    "evidence_refs": [
+      "evt_00011",
+      "corr_00011_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1059.001"
+    ],
+    "recommended_action": "tune_rule",
+    "fp_reason": "baseline_match",
+    "analyst_time_seconds": 30,
+    "created_at": "2025-01-15T09:11:00Z"
+  },
+  {
+    "ticket_id": "TKT-84e8c9e7a0f7",
+    "alert_id": "alert_00025",
+    "classification": "false_positive",
+    "justification": "False positive signature matched: target user svc_monitor matches service_account_prefix svc_.",
+    "evidence_refs": [
+      "evt_00025",
+      "corr_00025_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1078"
+    ],
+    "recommended_action": "tune_rule",
+    "fp_reason": "service_account_activity",
+    "analyst_time_seconds": 30,
+    "created_at": "2025-01-15T09:25:00Z"
+  },
+  {
+    "ticket_id": "TKT-0b2d14f24a4d",
+    "alert_id": "alert_00029",
+    "classification": "false_positive",
+    "justification": "False positive signature matched: process_name nmap appears in baseline_host_profile.process.expected.",
+    "evidence_refs": [
+      "evt_00029",
+      "corr_00029_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1046"
+    ],
+    "recommended_action": "tune_rule",
+    "fp_reason": "baseline_match",
+    "analyst_time_seconds": 30,
+    "created_at": "2025-01-15T09:29:00Z"
+  },
+  {
+    "ticket_id": "TKT-efeb1b2b2bb4",
+    "alert_id": "alert_00034",
+    "classification": "false_positive",
+    "justification": "False positive signature matched: source IP 10.20.7.44 is in management subnet 10.20.0.0/16.",
+    "evidence_refs": [
+      "evt_00034",
+      "corr_00034_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1046"
+    ],
+    "recommended_action": "tune_rule",
+    "fp_reason": "management_subnet",
+    "analyst_time_seconds": 30,
+    "created_at": "2025-01-15T09:34:00Z"
+  }
+]
