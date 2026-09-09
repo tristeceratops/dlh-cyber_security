@@ -1,0 +1,204 @@
+[
+  {
+    "incident_id": "INC-20260326-0001",
+    "source_ticket_id": "ticket_alert_00042",
+    "summary": "credential_theft_chain activity on db-patient-01 requires incident review.",
+    "timeline": [
+      {
+        "timestamp": "2026-03-25T02:14:08Z",
+        "hostname": "db-patient-01",
+        "event_category": "authentication",
+        "description": "Privileged authentication activity associated with credential theft chain"
+      },
+      {
+        "timestamp": "2026-03-25T02:15:41Z",
+        "hostname": "db-patient-01",
+        "event_category": "process",
+        "description": "Suspicious credential-access process execution"
+      }
+    ],
+    "affected_assets": [
+      {
+        "hostname": "db-patient-01",
+        "criticality": "critical",
+        "data_classification": "restricted",
+        "network_zone": "medical_database"
+      }
+    ],
+    "iocs": [
+      "198.51.100.42",
+      "admin"
+    ],
+    "attack_techniques": [
+      "T1078",
+      "T1555"
+    ],
+    "recommended_containment": "isolate_host",
+    "related_incidents": [
+      "INC-20260326-0005",
+      "INC-20260326-0006"
+    ]
+  },
+  {
+    "incident_id": "INC-20260326-0002",
+    "source_ticket_id": "ticket_alert_00014",
+    "summary": "interpreter_abuse activity on clin-ws-07 requires incident review.",
+    "timeline": [
+      {
+        "timestamp": "2026-03-25T09:41:22Z",
+        "hostname": "clin-ws-07",
+        "event_category": "process",
+        "description": "Interpreter process executed with suspicious command line"
+      },
+      {
+        "timestamp": "2026-03-25T09:44:13Z",
+        "hostname": "clin-ws-07",
+        "event_category": "network",
+        "description": "Outbound connection to suspicious destination"
+      }
+    ],
+    "affected_assets": [
+      {
+        "hostname": "clin-ws-07",
+        "criticality": "high",
+        "data_classification": "confidential",
+        "network_zone": "clinical"
+      }
+    ],
+    "iocs": [
+      "203.0.113.18",
+      "powershell.exe"
+    ],
+    "attack_techniques": [
+      "T1059",
+      "T1059.001",
+      "T1071"
+    ],
+    "recommended_containment": "isolate_host",
+    "related_incidents": [
+      "INC-20260326-0006"
+    ]
+  },
+  {
+    "incident_id": "INC-20260326-0003",
+    "source_ticket_id": "ticket_alert_00031",
+    "summary": "patient_data_access activity on meddb-01 requires incident review.",
+    "timeline": [
+      {
+        "timestamp": "2026-03-25T11:06:15Z",
+        "hostname": "meddb-01",
+        "event_category": "file",
+        "description": "Patient database records accessed by privileged account"
+      }
+    ],
+    "affected_assets": [
+      {
+        "hostname": "meddb-01",
+        "criticality": "critical",
+        "data_classification": "restricted",
+        "network_zone": "medical_database"
+      }
+    ],
+    "iocs": [
+      "dbadmin"
+    ],
+    "attack_techniques": [
+      "T1530"
+    ],
+    "recommended_containment": "disable_account",
+    "related_incidents": []
+  },
+  {
+    "incident_id": "INC-20260326-0004",
+    "source_ticket_id": "ticket_alert_00019",
+    "summary": "medical_segment_egress activity on med-img-02 requires incident review.",
+    "timeline": [
+      {
+        "timestamp": "2026-03-25T17:08:39Z",
+        "hostname": "med-img-02",
+        "event_category": "network",
+        "description": "Outbound connection from medical imaging segment to malicious destination"
+      }
+    ],
+    "affected_assets": [
+      {
+        "hostname": "med-img-02",
+        "criticality": "high",
+        "data_classification": "restricted",
+        "network_zone": "medical_imaging"
+      }
+    ],
+    "iocs": [
+      "192.0.2.19"
+    ],
+    "attack_techniques": [
+      "T1071"
+    ],
+    "recommended_containment": "block_ip_at_egress",
+    "related_incidents": []
+  },
+  {
+    "incident_id": "INC-20260326-0005",
+    "source_ticket_id": "ticket_alert_00006",
+    "summary": "ssh_brute_force activity on db-patient-01 requires incident review.",
+    "timeline": [
+      {
+        "timestamp": "2026-03-25T02:14:08Z",
+        "hostname": "db-patient-01",
+        "event_category": "authentication",
+        "description": "Repeated failed SSH authentication attempts from external source"
+      }
+    ],
+    "affected_assets": [
+      {
+        "hostname": "db-patient-01",
+        "criticality": "critical",
+        "data_classification": "restricted",
+        "network_zone": "medical_database"
+      }
+    ],
+    "iocs": [
+      "198.51.100.6",
+      "root"
+    ],
+    "attack_techniques": [
+      "T1110"
+    ],
+    "recommended_containment": "block_source_ip",
+    "related_incidents": [
+      "INC-20260326-0001"
+    ]
+  },
+  {
+    "incident_id": "INC-20260326-0006",
+    "source_ticket_id": "ticket_alert_00028",
+    "summary": "privileged_shift_violation activity on clin-ws-07 requires incident review.",
+    "timeline": [
+      {
+        "timestamp": "2026-03-25T09:48:17Z",
+        "hostname": "clin-ws-07",
+        "event_category": "authentication",
+        "description": "Privileged account authentication outside authorized shift"
+      }
+    ],
+    "affected_assets": [
+      {
+        "hostname": "clin-ws-07",
+        "criticality": "high",
+        "data_classification": "confidential",
+        "network_zone": "clinical"
+      }
+    ],
+    "iocs": [
+      "clinician-admin"
+    ],
+    "attack_techniques": [
+      "T1078"
+    ],
+    "recommended_containment": "disable_account",
+    "related_incidents": [
+      "INC-20260326-0002"
+    ]
+  }
+]
+
