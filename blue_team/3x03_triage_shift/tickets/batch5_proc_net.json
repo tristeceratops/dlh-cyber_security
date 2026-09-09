@@ -1,0 +1,122 @@
+[
+  {
+    "ticket_id": "TKT-2c7c5b7d5d91",
+    "alert_id": "alert_00014",
+    "classification": "true_positive",
+    "justification": "Malicious IOC reputation matched after checking destinations [\"198.51.100.14\"]; malicious indicators=[\"198.51.100.14\"], categories=[\"command_and_control\"], asset_criticality=high.",
+    "evidence_refs": [
+      "evt_00014",
+      "corr_00014_01"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "198.51.100.14",
+        "reputation": "malicious",
+        "categories": [
+          "command_and_control"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1059.001"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:14:00Z"
+  },
+  {
+    "ticket_id": "TKT-0e1f5d7c5c84",
+    "alert_id": "alert_00018",
+    "classification": "true_positive",
+    "justification": "Suspicious IOC reputation matched after checking destinations [\"203.0.113.18\"]; suspicious indicators=[\"203.0.113.18\"] and asset_criticality=critical, so the activity is retained for monitoring.",
+    "evidence_refs": [
+      "evt_00018",
+      "corr_00018_01"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "203.0.113.18",
+        "reputation": "suspicious",
+        "categories": [
+          "unknown_hosting"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1071.001"
+    ],
+    "recommended_action": "monitor",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:18:00Z"
+  },
+  {
+    "ticket_id": "TKT-7e7d2c2e2db6",
+    "alert_id": "alert_00023",
+    "classification": "false_positive",
+    "justification": "Suspicious IOC activity was checked against destinations [\"updates.example.net\"] and asset_criticality=medium; destination updates.example.net is present in the baseline profile for different host app-prod-01.",
+    "evidence_refs": [
+      "evt_00023",
+      "corr_00023_01"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "updates.example.net",
+        "reputation": "suspicious",
+        "categories": [
+          "software_update"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1071.001"
+    ],
+    "recommended_action": "tune_rule",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:23:00Z",
+    "fp_reason": "suspicious_but_baseline_known_elsewhere"
+  },
+  {
+    "ticket_id": "TKT-17d4bb5d8c9f",
+    "alert_id": "alert_00026",
+    "classification": "true_positive",
+    "justification": "Ambiguous process/network activity remains unresolved after checking process_fields={\"command_line\": \"nmap -sT 10.30.0.0/16\", \"parent_process\": \"cmd.exe\", \"process_name\": \"nmap.exe\"}, network_destinations=[], ioc_reputations=[], asset_criticality=medium, and baseline_deviation=False; activity is retained for monitoring.",
+    "evidence_refs": [
+      "evt_00026",
+      "corr_00026_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1046"
+    ],
+    "recommended_action": "monitor",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:26:00Z"
+  },
+  {
+    "ticket_id": "TKT-9c7a9b7d3b55",
+    "alert_id": "alert_00030",
+    "classification": "true_positive",
+    "justification": "Malicious IOC reputation matched after checking destinations [\"192.0.2.30\"]; malicious indicators=[\"192.0.2.30\"], categories=[\"command_and_control\"], asset_criticality=high.",
+    "evidence_refs": [
+      "evt_00030",
+      "corr_00030_01",
+      "corr_00030_02"
+    ],
+    "ioc_hits": [
+      {
+        "indicator": "192.0.2.30",
+        "reputation": "malicious",
+        "categories": [
+          "command_and_control"
+        ]
+      }
+    ],
+    "attack_techniques": [
+      "T1059.001"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:30:00Z"
+  }
+]
+
