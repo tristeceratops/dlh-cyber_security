@@ -1,0 +1,78 @@
+[
+  {
+    "ticket_id": "TKT-5b6cf17bdf38",
+    "alert_id": "alert_00006",
+    "classification": "true_positive",
+    "justification": "Unknown source IP 198.51.100.24 was checked against historical source_ips [\"10.10.4.21\", \"10.10.4.22\"]; user alice has no history on host db-admin-01 in host_set [\"workstation-07\"], and asset priority is high.",
+    "evidence_refs": [
+      "evt_00006",
+      "evt_00005",
+      "evt_00004",
+      "corr_00006_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1110.001"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:06:00Z"
+  },
+  {
+    "ticket_id": "TKT-2f6b58b7c4ef",
+    "alert_id": "alert_00012",
+    "classification": "false_positive",
+    "justification": "Unknown source IP 10.50.8.19 was checked against historical source_ips [\"10.50.8.12\", \"10.50.8.15\"]; asset priority is medium and ioc_hits is empty, matching the unknown-IP low-asset false positive signature.",
+    "evidence_refs": [
+      "evt_00012",
+      "evt_00010",
+      "evt_00009"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1078"
+    ],
+    "recommended_action": "tune_rule",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:12:00Z",
+    "fp_reason": "unknown_ip_low_asset"
+  },
+  {
+    "ticket_id": "TKT-84e8c9e7a0f7",
+    "alert_id": "alert_00020",
+    "classification": "true_positive",
+    "justification": "Ambiguous authentication activity remains unresolved after checking user=svc_batch; source_ip=10.40.2.18; historical_source_ips=[\"10.40.2.18\"]; host=app-prod-02; historical_host_set=[\"app-prod-01\"]; priority_band=high; failure_count=7; max_failures_1h_window=5; ioc_hits=0; historical_auth_events_checked=20; the available evidence does not meet a clear false-positive signature, so the alert is retained for monitoring.",
+    "evidence_refs": [
+      "evt_00020",
+      "evt_00019",
+      "evt_00018",
+      "evt_00017"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1110"
+    ],
+    "recommended_action": "monitor",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:20:00Z"
+  },
+  {
+    "ticket_id": "TKT-0b2d14f24a4d",
+    "alert_id": "alert_00028",
+    "classification": "true_positive",
+    "justification": "Unknown source IP 203.0.113.28 was checked against historical source_ips [\"10.30.4.10\", \"10.30.4.11\"]; user privileged_admin has no history on host clinical-admin-01 in host_set [\"admin-jump-01\"], and asset priority is critical.",
+    "evidence_refs": [
+      "evt_00028",
+      "evt_00027",
+      "corr_00028_01"
+    ],
+    "ioc_hits": [],
+    "attack_techniques": [
+      "T1078"
+    ],
+    "recommended_action": "escalate_tier2",
+    "analyst_time_seconds": 90,
+    "created_at": "2025-01-15T09:28:00Z"
+  }
+]
+
