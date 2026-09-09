@@ -1,0 +1,68 @@
+{
+  "queue_size": 38,
+  "validation_errors": [],
+  "by_priority_band": {
+    "critical": 6,
+    "high": 14,
+    "medium": 12,
+    "low": 6
+  },
+  "by_rule": {
+    "007": 5,
+    "010": 4,
+    "012": 4,
+    "001": 3,
+    "011": 3,
+    "003": 3,
+    "005": 3,
+    "009": 2,
+    "002": 2,
+    "004": 2,
+    "006": 1,
+    "008": 1
+  },
+  "by_hostname": {
+    "db-patient-01": 5,
+    "clin-ws-07": 4,
+    "med-img-02": 4,
+    "lab-app-03": 3,
+    "vpn-gw-01": 3,
+    "jumpbox-01": 3,
+    "dc-01": 2,
+    "ehr-app-01": 2,
+    "file-patient-02": 2,
+    "other-host-01": 2,
+    "other-host-02": 1,
+    "other-host-03": 1,
+    "other-host-04": 1,
+    "other-host-05": 1
+  },
+  "by_attack_tactic": {
+    "Credential Access": 8,
+    "Command and Control": 7,
+    "Discovery": 6,
+    "Initial Access": 5,
+    "Collection": 4,
+    "Defense Evasion": 4,
+    "Exfiltration": 3
+  },
+  "time_span": {
+    "first": "2026-09-09T07:02:11Z",
+    "last": "2026-09-09T08:47:33Z"
+  },
+  "top_targets": [
+    {
+      "hostname": "db-patient-01",
+      "cumulative_priority_score": 78
+    },
+    {
+      "hostname": "clin-ws-07",
+      "cumulative_priority_score": 54
+    },
+    {
+      "hostname": "med-img-02",
+      "cumulative_priority_score": 42
+    }
+  ]
+}
+
