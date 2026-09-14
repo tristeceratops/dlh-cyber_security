@@ -1,0 +1,50 @@
+{
+  "finding_id": "scenario_b_cli",
+  "scenario_id": "scenario_b",
+  "interface": "cli",
+  "investigation_start": "2026-03-25T02:23:01Z",
+  "investigation_end": "2026-03-25T02:23:05Z",
+  "time_to_first_answer_seconds": 4,
+  "actions": [
+    "read scenario_b offhours PHI manifest",
+    "read enriched_events.json",
+    "scope events to clin-ws-07",
+    "scope events to the manifest time window",
+    "read asset_inventory.json",
+    "extract asset criticality and data classification",
+    "filter Windows Event ID 4624",
+    "filter Windows Event ID 4672",
+    "filter Sysmon Event ID 1",
+    "correlate off-hours logon, privileged access, and PowerShell execution",
+    "review manifest ambiguity",
+    "assess escalation requirement"
+  ],
+  "fields_touched": [
+    "timestamp",
+    "host.name",
+    "event.code",
+    "user.name",
+    "winlog.event_data.TargetUserName",
+    "winlog.event_data.LogonType",
+    "winlog.event_data.LogonTypeDescription",
+    "winlog.event_data.PrivilegeList",
+    "process.name",
+    "process.command_line",
+    "winlog.event_data.CommandLine",
+    "asset.criticality",
+    "asset.data_classification",
+    "scenario.ambiguity"
+  ],
+  "event_refs": [
+    "evt-scb-20260325-021700-001",
+    "evt-scb-20260325-021702-002",
+    "evt-scb-20260325-022000-003"
+  ],
+  "attack_techniques": [
+    "T1078.002",
+    "T1059.001"
+  ],
+  "hypothesis": "p.morales is CISO, authorized for EHR, but timing+bypass warrant escalation",
+  "confidence": "medium",
+  "created_at": "2026-03-25T02:23:05Z"
+}
