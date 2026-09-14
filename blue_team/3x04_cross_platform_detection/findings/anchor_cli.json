@@ -1,0 +1,53 @@
+{
+  "finding_id": "anchor_cli",
+  "scenario_id": "anchor",
+  "interface": "cli",
+  "investigation_start": "2026-09-14T08:17:00Z",
+  "investigation_end": "2026-09-14T08:17:28Z",
+  "time_to_first_answer_seconds": 28,
+  "actions": [
+    "Read anchor manifest",
+    "Extracted target_host, time_window, and attacker_ips",
+    "Filtered enriched_events.json with jq",
+    "Counted matching records",
+    "Extracted earliest and latest matching timestamps",
+    "Read Sigma logsource and detection with yq",
+    "Recorded wall-clock duration",
+    "Wrote anchor_cli.json"
+  ],
+  "fields_touched": [
+    "target_host",
+    "time_window",
+    "attacker_ips",
+    "@timestamp",
+    "timestamp",
+    "host",
+    "hostname",
+    "source.ip",
+    "attacker_ip",
+    "eventref"
+  ],
+  "event_refs": ["anchor-event-000001", "anchor-event-000047"],
+  "attack_techniques": ["T1110.003"],
+  "hypothesis": "The matching records indicate SSH brute-force activity against the anchor host during the specified time window. The activity is associated with the listed attacker IPs.",
+  "confidence": "high",
+  "created_at": "2026-09-14T08:17:28Z",
+  "anchor_details": {
+    "target_host": "db-patient-01",
+    "time_window": {
+      "start": "2026-03-25T01:15:00Z",
+      "end": "2026-03-25T01:47:00Z"
+    },
+    "attacker_ips": [
+      "203.0.113.41",
+      "203.0.113.42",
+      "203.0.113.43",
+      "203.0.113.44"
+    ],
+    "matching_event_count": 47,
+    "earliest_matching_event": "2026-03-25T01:15:00Z",
+    "latest_matching_event": "2026-03-25T01:47:00Z",
+    "elapsed_seconds": 28
+  }
+}
+
