@@ -1,0 +1,50 @@
+{
+  "finding_id": "scenario_c_cli",
+  "scenario_id": "scenario_c",
+  "interface": "cli",
+  "investigation_start": "2026-03-25T12:08:03Z",
+  "investigation_end": "2026-03-25T12:08:07Z",
+  "time_to_first_answer_seconds": 4,
+  "actions": [
+    "read scenario_c medical egress manifest",
+    "locate network_events.json or enriched_events.json",
+    "scope network events to 10.2.3.2 -> 198.51.100.73",
+    "read network_zones.json",
+    "verify 10.2.3.0/24 is MEDICAL_IOT",
+    "inspect MEDICAL_IOT internet-access policy",
+    "inspect ioc_context.json when available",
+    "sort matching flows chronologically",
+    "calculate intervals between beacon events",
+    "assess periodic HTTPS egress from medical IoT source"
+  ],
+  "fields_touched": [
+    "timestamp",
+    "src_ip",
+    "dst_ip",
+    "dst_port",
+    "bytes_out",
+    "bytes_sent",
+    "network.bytes_out",
+    "network.bytes_sent",
+    "network_zones.cidr",
+    "network_zones.zone",
+    "network_zones.policy",
+    "ioc_context.indicator",
+    "ioc_context.classification"
+  ],
+  "event_refs": [
+    "evt-scc-20260325-114400-001",
+    "evt-scc-20260325-115600-002",
+    "evt-scc-20260325-120800-003",
+    "evt-scc-20260325-121000-004",
+    "evt-scc-20260325-122000-005",
+    "evt-scc-20260325-123200-006"
+  ],
+  "attack_techniques": [
+    "T1071.001",
+    "T1041"
+  ],
+  "hypothesis": "The MEDICAL_IOT host generated periodic HTTPS egress to 198.51.100.73 despite a no-direct-internet policy. The repeated beacon interval is consistent with command-and-control or other automated external communication and warrants investigation.",
+  "confidence": "high",
+  "created_at": "2026-03-25T12:08:07Z"
+}
