@@ -1,0 +1,64 @@
+{
+  "finding_id": "scenario_b_wazuh_export",
+  "scenario_id": "scenario_b",
+  "interface": "wazuh_export",
+  "investigation_start": "2026-03-25T02:17:00Z",
+  "investigation_end": "2026-03-25T02:20:00Z",
+  "time_to_first_answer_seconds": 25,
+  "actions": [
+    {
+      "action": "read scenario_b_search_results.json",
+      "result": "events extracted"
+    },
+    {
+      "action": "extract Wazuh agent.name, user.name, winlog.event_id, and agent.labels",
+      "result": "fields inspected"
+    },
+    {
+      "action": "resolve data_classification",
+      "result": "agent.labels"
+    },
+    {
+      "action": "check off-hours window",
+      "result": "02:17Z outside 06:00-18:00 window"
+    },
+    {
+      "action": "replay Wazuh dashboard click path",
+      "click_path": [
+        "Discover",
+        "select scenario_b_search_results",
+        "filter agent.name: clin-ws-07",
+        "filter winlog.event_id",
+        "inspect user.name",
+        "inspect agent.labels",
+        "review event details"
+      ]
+    }
+  ],
+  "fields_touched": [
+    "_source.agent.name",
+    "_source.user.name",
+    "_source.winlog.event_id",
+    "_source.agent.labels"
+  ],
+  "event_refs": [
+    "evt-scb-20260325-021700-001",
+    "evt-scb-20260325-021702-002",
+    "evt-scb-20260325-022000-003"
+  ],
+  "attack_techniques": [
+    "T1078.002",
+    "T1059.001"
+  ],
+  "hypothesis": "The account p.morales authenticated to clin-ws-07 during off-hours and received elevated privileges before PowerShell execution. The PHI classification and execution timing warrant investigation to distinguish authorized administrative activity from credential misuse.",
+  "confidence": "medium",
+  "created_at": "2026-03-25T02:17:25Z",
+  "evidence_summary": {
+    "host": "clin-ws-07",
+    "user": "p.morales",
+    "data_classification": "PHI",
+    "data_classification_source": "agent.labels",
+    "off_hours": true
+  }
+}
+
