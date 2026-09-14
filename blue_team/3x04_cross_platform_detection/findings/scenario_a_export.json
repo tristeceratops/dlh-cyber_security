@@ -1,0 +1,54 @@
+{
+  "finding_id": "scenario_a_wazuh_export",
+  "scenario_id": "scenario_a",
+  "interface": "wazuh_export",
+  "investigation_start": "2026-03-25T14:22:00Z",
+  "investigation_end": "2026-03-25T14:22:33Z",
+  "time_to_first_answer_seconds": 33,
+  "actions": [
+    "read scenario_a_search_results.json",
+    "filter Wazuh documents for Sysmon EID 10, 11 and 3",
+    "read scenario_a_dashboard_trace.json",
+    "read scenario_a_dashboard_summary.md",
+    "extract ATT&CK mapping",
+    "compare export elapsed time with T4 CLI finding",
+    {
+      "click_path": [
+        "Open Wazuh dashboard",
+        "Open Discover",
+        "Select Windows/Sysmon data view",
+        "Apply scenario A time range",
+        "Enter KQL query",
+        "Inspect Event ID 10",
+        "Inspect Event ID 11"
+      ]
+    }
+  ],
+  "fields_touched": [
+    "hits_total",
+    "kql",
+    "events",
+    "_source.@timestamp",
+    "_source.winlog.event_id",
+    "_source.process.name",
+    "_source.full_log",
+    "_source.destination.ip",
+    "click_path",
+    "field_name_translation",
+    "estimated_time_seconds",
+    "dashboard.ATT&CK_mapping"
+  ],
+  "event_refs": [
+    "evt-sca-20260325-142200-001",
+    "evt-sca-20260325-142211-002",
+    "evt-sca-20260325-142411-003"
+  ],
+  "attack_techniques": [
+    "T1003.001",
+    "T1550.002",
+    "T1021.002"
+  ],
+  "hypothesis": "The Wazuh export confirms the same credential-access, dump-file creation, and SMB activity identified in the CLI investigation. The exported evidence provides a faster repeatable path to the same high-confidence attack chain.",
+  "confidence": "high",
+  "created_at": "2026-03-25T14:22:33Z"
+}
