@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-09-14T00:00:00Z",
+  "scenarios_analyzed": 4,
+  "methodology": {
+    "pairing_key": "scenario_id",
+    "interfaces": [
+      "cli",
+      "wazuh_export"
+    ],
+    "time_delta_definition": "CLI time minus Wazuh export time",
+    "action_delta_definition": "CLI action count minus Wazuh export action count",
+    "advantage_attribution": "deterministic rule based on observed fields and actions"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "anchor",
+      "cli": {
+        "time_to_first_answer_seconds": 30,
+        "action_count": 6
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 24,
+        "action_count": 5
+      },
+      "deltas": {
+        "time_seconds_cli_minus_export": 6,
+        "action_count_cli_minus_export": 1
+      },
+      "faster_interface": "wazuh_export",
+      "advantage_cause": "native_field_surface",
+      "advantage_explanation": "Wazuh export was faster because the relevant structured fields reduced the effort required to isolate the signal."
+    },
+    {
+      "scenario_id": "scenario_a",
+      "cli": {
+        "time_to_first_answer_seconds": 52,
+        "action_count": 8
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 33,
+        "action_count": 4
+      },
+      "deltas": {
+        "time_seconds_cli_minus_export": 19,
+        "action_count_cli_minus_export": 4
+      },
+      "faster_interface": "wazuh_export",
+      "advantage_cause": "native_field_surface",
+      "advantage_explanation": "Wazuh export was faster because structured agent, event, process, and network fields reduced the effort required to isolate the credential-theft sequence."
+    },
+    {
+      "scenario_id": "scenario_b",
+      "cli": {
+        "time_to_first_answer_seconds": 40,
+        "action_count": 7
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 25,
+        "action_count": 6
+      },
+      "deltas": {
+        "time_seconds_cli_minus_export": 15,
+        "action_count_cli_minus_export": 1
+      },
+      "faster_interface": "wazuh_export",
+      "advantage_cause": "context_join_ergonomics",
+      "advantage_explanation": "Wazuh export was faster because the event fields and related asset context reduced the effort required to connect identity, privilege, timing, and data classification."
+    },
+    {
+      "scenario_id": "scenario_c",
+      "cli": {
+        "time_to_first_answer_seconds": 39,
+        "action_count": 6
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 21,
+        "action_count": 5
+      },
+      "deltas": {
+        "time_seconds_cli_minus_export": 18,
+        "action_count_cli_minus_export": 1
+      },
+      "faster_interface": "wazuh_export",
+      "advantage_cause": "timeline_visualization",
+      "advantage_explanation": "Wazuh export was faster because chronological event ordering and dashboard inspection made the repeated beacon interval easier to identify."
+    }
+  ],
+  "totals": {
+    "cli_advantages": 0,
+    "export_advantages": 4,
+    "ties": 0
+  }
+}
