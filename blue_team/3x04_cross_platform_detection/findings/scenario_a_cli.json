@@ -1,0 +1,44 @@
+{
+  "finding_id": "scenario_a_cli",
+  "scenario_id": "scenario_a",
+  "interface": "cli",
+  "investigation_start": "2026-03-25T14:22:00Z",
+  "investigation_end": "2026-03-25T14:22:52Z",
+  "time_to_first_answer_seconds": 52,
+  "actions": [
+    "read scenario_a credential theft manifest",
+    "read enriched_events.json",
+    "scope events to clin-ws-12",
+    "scope events to 2026-03-25T14:22:00Z through 2026-03-25T14:28:00Z",
+    "filter Sysmon Event ID 10",
+    "filter Sysmon Event ID 11",
+    "filter Sysmon Event ID 3",
+    "correlate LSASS access, dump creation, and SMB connection"
+  ],
+  "fields_touched": [
+    "timestamp",
+    "host.name",
+    "event.code",
+    "process.name",
+    "process.parent.name",
+    "winlog.event_data.TargetImage",
+    "winlog.event_data.SourceImage",
+    "winlog.event_data.TargetFilename",
+    "winlog.event_data.Image",
+    "winlog.event_data.DestinationIp",
+    "winlog.event_data.DestinationPort"
+  ],
+  "event_refs": [
+    "evt-sca-20260325-142200-001",
+    "evt-sca-20260325-142211-002",
+    "evt-sca-20260325-142411-003"
+  ],
+  "attack_techniques": [
+    "T1003.001",
+    "T1550.002",
+    "T1021.002"
+  ],
+  "hypothesis": "LSASS dump via rundll32, lateral move to DC via SMB",
+  "confidence": "high",
+  "created_at": "2026-03-25T14:22:52Z"
+}
