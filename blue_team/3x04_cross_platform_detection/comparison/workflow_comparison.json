@@ -1,0 +1,157 @@
+{
+  "per_interface": {
+    "cli": {
+      "finding_count": 4,
+      "totals": {
+        "time_to_first_answer_seconds": 928,
+        "action_count": 39,
+        "fields_touched_count": 28,
+        "event_refs_count": 17
+      },
+      "averages": {
+        "time_to_first_answer_seconds": 232,
+        "action_count": 9.75,
+        "fields_touched_count": 7,
+        "event_refs_count": 4.25
+      },
+      "medians": {
+        "time_to_first_answer_seconds": 247,
+        "action_count": 9.5,
+        "fields_touched_count": 7,
+        "event_refs_count": 4
+      }
+    },
+    "wazuh_export": {
+      "finding_count": 4,
+      "totals": {
+        "time_to_first_answer_seconds": 788,
+        "action_count": 22,
+        "fields_touched_count": 28,
+        "event_refs_count": 17
+      },
+      "averages": {
+        "time_to_first_answer_seconds": 197,
+        "action_count": 5.5,
+        "fields_touched_count": 7,
+        "event_refs_count": 4.25
+      },
+      "medians": {
+        "time_to_first_answer_seconds": 193,
+        "action_count": 5.5,
+        "fields_touched_count": 7,
+        "event_refs_count": 4
+      }
+    }
+  },
+  "per_scenario": [
+    {
+      "scenario_id": "anchor",
+      "cli": {
+        "time_to_first_answer_seconds": 210,
+        "action_count": 9,
+        "fields_touched_count": 7,
+        "event_refs_count": 4,
+        "confidence": "high"
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 176,
+        "action_count": 5,
+        "fields_touched_count": 7,
+        "event_refs_count": 4,
+        "confidence": "high"
+      },
+      "deltas": {
+        "time_to_first_answer_seconds": -34,
+        "action_count": -4,
+        "fields_touched_count": 0,
+        "event_refs_count": 0
+      },
+      "faster_interface": "wazuh_export"
+    },
+    {
+      "scenario_id": "scenario_a",
+      "cli": {
+        "time_to_first_answer_seconds": 300,
+        "action_count": 12,
+        "fields_touched_count": 7,
+        "event_refs_count": 3,
+        "confidence": "high"
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 170,
+        "action_count": 4,
+        "fields_touched_count": 7,
+        "event_refs_count": 3,
+        "confidence": "high"
+      },
+      "deltas": {
+        "time_to_first_answer_seconds": -130,
+        "action_count": -8,
+        "fields_touched_count": 0,
+        "event_refs_count": 0
+      },
+      "faster_interface": "wazuh_export"
+    },
+    {
+      "scenario_id": "scenario_b",
+      "cli": {
+        "time_to_first_answer_seconds": 180,
+        "action_count": 9,
+        "fields_touched_count": 7,
+        "event_refs_count": 5,
+        "confidence": "medium"
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 206,
+        "action_count": 6,
+        "fields_touched_count": 8,
+        "event_refs_count": 5,
+        "confidence": "medium"
+      },
+      "deltas": {
+        "time_to_first_answer_seconds": 26,
+        "action_count": -3,
+        "fields_touched_count": 1,
+        "event_refs_count": 0
+      },
+      "faster_interface": "cli"
+    },
+    {
+      "scenario_id": "scenario_c",
+      "cli": {
+        "time_to_first_answer_seconds": 238,
+        "action_count": 9,
+        "fields_touched_count": 7,
+        "event_refs_count": 5,
+        "confidence": "high"
+      },
+      "wazuh_export": {
+        "time_to_first_answer_seconds": 236,
+        "action_count": 7,
+        "fields_touched_count": 6,
+        "event_refs_count": 5,
+        "confidence": "high"
+      },
+      "deltas": {
+        "time_to_first_answer_seconds": -2,
+        "action_count": -2,
+        "fields_touched_count": -1,
+        "event_refs_count": 0
+      },
+      "faster_interface": "wazuh_export"
+    }
+  ],
+  "confidence_distribution": {
+    "cli": {
+      "low": 0,
+      "medium": 1,
+      "high": 3
+    },
+    "wazuh_export": {
+      "low": 0,
+      "medium": 1,
+      "high": 3
+    }
+  },
+  "generated_at": "2026-09-14T17:14:00Z"
+}
