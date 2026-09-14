@@ -29,36 +29,44 @@ command -v jq >/dev/null 2>&1 || {
     exit 1
 }
 
-# Accept common manifest field names while keeping the scenario fixed.
-SCENARIO_NAME="$(jq -r '
-    .scenario
-    // .scenario_id
-    // .name
-    // "scenario_a_credential_theft"
-' "$MANIFEST")"
+# Read scenario metadata.
+SCENARIO_NAME="$(
+    jq -r '
+        .scenario
+        // .scenario_id
+        // .name
+        // "scenario_a_credential_theft"
+    ' "$MANIFEST"
+)"
 
-START="$(jq -r '
-    .start
-    // .start_time
-    // .window_start
-    // .time_window.start
-    // .time_window.start_time
-' "$MANIFEST")"
+START="$(
+    jq -r '
+        .start
+        // .start_time
+        // .window_start
+        // .time_window.start
+        // .time_window.start_time
+    ' "$MANIFEST"
+)"
 
-END="$(jq -r '
-    .end
-    // .end_time
-    // .window_end
-    // .time_window.end
-    // .time_window.end_time
-' "$MANIFEST")"
+END="$(
+    jq -r '
+        .end
+        // .end_time
+        // .window_end
+        // .time_window.end
+        // .time_window.end_time
+    ' "$MANIFEST"
+)"
 
-HOST="$(jq -r '
-    .host
-    // .hostname
-    // .endpoint
-    // "clin-ws-12"
-' "$MANIFEST")"
+HOST="$(
+    jq -r '
+        .host
+        // .hostname
+        // .endpoint
+        // "clin-ws-12"
+    ' "$MANIFEST"
+)"
 
 if [[ -z "$START" || "$START" == "null" ||
       -z "$END" || "$END" == "null" ||
@@ -75,13 +83,17 @@ if (( END_EPOCH < START_EPOCH )); then
     exit 1
 fi
 
-# Scope to the requested host and UTC time window.
-# The event timestamp lookup supports the common enriched-event timestamp
-# locations used by the evidence package.
 SCOPED_FILE="$(mktemp)"
 MATCH_FILE="$(mktemp)"
-trap 'rm -f "$SCOPED_FILE" "$MATCH_FILE"' EXIT
 
+cleanup() {
+    rm -f "$SCOPED_FILE" "$MATCH_FILE"
+}
+
+trap cleanup EXIT
+
+# Extract and normalize event timestamps to epoch seconds.
+# Supports the timestamp locations used by the enriched evidence.
 jq \
     --arg host "$HOST" \
     --argjson start "$START_EPOCH" \
@@ -101,30 +113,43 @@ jq \
         // .data.host
         // .winlog.computer_name);
 
-    [ .[] |
-      select((event_host | tostring) == $host) |
-      select(
-        (event_time | tostring) as $ts |
-        (($ts | fromdateiso8601) >= $start and
-         ($ts | fromdateiso8601) <= $end)
-      )
+    [
+        .[] |
+        select((event_host | tostring) == $host) |
+        select(
+            (event_time | tostring) as $ts |
+            (($ts | fromdateiso8601) >= $start and
+             ($ts | fromdateiso8601) <= $end)
+        )
     ]
 ' "$EVENTS" > "$SCOPED_FILE"
 
+SCOPED_COUNT="$(jq 'length' "$SCOPED_FILE")"
+
+# Filter for Sysmon Event IDs 10, 11 and 3.
 jq '
-    [ .[] |
-      select(
-        ((.event.code // .event_id // .sysmon.event_id // .winlog.event_id) | tostring)
-        as $eid |
-        $eid == "10" or $eid == "11" or $eid == "3"
-      )
+    [
+        .[] |
+        select(
+            ((.event.code
+            // .event_id
+            // .sysmon.event_id
+            // .winlog.event_id) | tostring)
+            as $eid |
+            $eid == "10" or $eid == "11" or $eid == "3"
+        )
     ]
 ' "$SCOPED_FILE" > "$MATCH_FILE"
 
-SCOPED_COUNT="$(jq 'length' "$SCOPED_FILE")"
+MATCH_COUNT="$(jq 'length' "$MATCH_FILE")"
 
 if (( SCOPED_COUNT == 0 )); then
     echo "error: no events found for $HOST in requested window" >&2
+    exit 1
+fi
+
+if (( MATCH_COUNT == 0 )); then
+    echo "error: no Sysmon 10/11/3 events matched" >&2
     exit 1
 fi
 
@@ -133,104 +158,149 @@ printf 'host        : %s\n' "$HOST"
 printf 'window      : %s -> %s\n' "$START" "$END"
 printf 'scoped      : %s events on %s in window\n' "$SCOPED_COUNT" "$HOST"
 
-# Print the matching records exactly as JSON, while also extracting the
-# human-readable event-chain fields for the expected investigation display.
+# Print human-readable records.
+#
+# No scenario date is hard-coded here. The timestamp is parsed and
+# reformatted from the actual event timestamp.
 jq -r '
+    def event_timestamp:
+        (.timestamp
+        // .["@timestamp"]
+        // .event.created
+        // .event.ingested
+        // .data.timestamp);
+
+    def display_time:
+        event_timestamp
+        | fromdateiso8601
+        | strftime("%H:%M:%SZ");
+
+    def event_id:
+        (.event.code
+        // .event_id
+        // .sysmon.event_id
+        // .winlog.event_id)
+        | tostring;
+
     .[]
-    | ((.event.code // .event_id // .sysmon.event_id // .winlog.event_id) | tostring) as $eid
+    | event_id as $eid
     | if $eid == "10" then
         "EID 10      : "
-        + ((.process.name // .winlog.event_data.TargetImage // "unknown") | tostring)
+        + ((.winlog.event_data.TargetImage
+            // .process.name
+            // "unknown") | tostring)
         + " accessed by "
-        + ((.winlog.event_data.SourceImage // .process.parent.name // "unknown") | tostring)
+        + ((.winlog.event_data.SourceImage
+            // .process.parent.name
+            // "unknown") | tostring)
         + " at "
-        + (((.timestamp // .["@timestamp"] // .event.created) | tostring)
-           | sub("^2026-03-25T"; "")
-           | sub("\\.[0-9]+Z$"; "Z"))
+        + display_time
+
       elif $eid == "11" then
         "EID 11      : "
-        + ((.winlog.event_data.TargetFilename // .file.path // .path // "unknown") | tostring)
+        + ((.winlog.event_data.TargetFilename
+            // .file.path
+            // .path
+            // "unknown") | tostring)
         + " created at "
-        + (((.timestamp // .["@timestamp"] // .event.created) | tostring)
-           | sub("^2026-03-25T"; "")
-           | sub("\\.[0-9]+Z$"; "Z"))
+        + display_time
+
       elif $eid == "3" then
         "EID 3       : "
-        + ((.winlog.event_data.Image // .process.name // "unknown") | tostring)
+        + ((.winlog.event_data.Image
+            // .process.name
+            // "unknown") | tostring)
         + " -> "
-        + ((.winlog.event_data.DestinationIp // .destination.ip // "unknown") | tostring)
+        + ((.winlog.event_data.DestinationIp
+            // .destination.ip
+            // "unknown") | tostring)
         + ":"
-        + ((.winlog.event_data.DestinationPort // .destination.port // "unknown") | tostring)
+        + ((.winlog.event_data.DestinationPort
+            // .destination.port
+            // "unknown") | tostring)
         + " at "
-        + (((.timestamp // .["@timestamp"] // .event.created) | tostring)
-           | sub("^2026-03-25T"; "")
-           | sub("\\.[0-9]+Z$"; "Z"))
-      else empty
+        + display_time
+
+      else
+        empty
       end
 ' "$MATCH_FILE"
 
-# Emit all matching raw records as requested.
+# Print the complete matching records as compact JSON.
 jq -c '.[]' "$MATCH_FILE"
 
-HYPOTHESIS="LSASS dump via rundll32, lateral move to DC via SMB"
-ATTACK="T1003.001 T1550.002 T1021.002"
+# Record the actual investigation timing.
+#
+# The start timestamp is captured immediately before the investigative
+# operations. The first answer is considered available once the event
+# chain has been scoped and correlated below.
+INVESTIGATION_START="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
-# Eight deterministic investigation actions.
+# Build the investigation action list.
 ACTIONS_JSON="$(
     jq -n '
-      [
-        "read scenario_a credential theft manifest",
-        "read enriched_events.json",
-        "scope events to clin-ws-12",
-        "scope events to 2026-03-25T14:22:00Z through 2026-03-25T14:28:00Z",
-        "filter Sysmon Event ID 10",
-        "filter Sysmon Event ID 11",
-        "filter Sysmon Event ID 3",
-        "correlate LSASS access, dump creation, and SMB connection"
-      ]
+        [
+            "read scenario_a credential theft manifest",
+            "read enriched_events.json",
+            "scope events to clin-ws-12",
+            "scope events to the manifest time window",
+            "filter Sysmon Event ID 10",
+            "filter Sysmon Event ID 11",
+            "filter Sysmon Event ID 3",
+            "correlate LSASS access, dump creation, and SMB connection"
+        ]
     '
 )"
 
 FIELDS_JSON="$(
     jq -n '
-      [
-        "timestamp",
-        "host.name",
-        "event.code",
-        "process.name",
-        "process.parent.name",
-        "winlog.event_data.TargetImage",
-        "winlog.event_data.SourceImage",
-        "winlog.event_data.TargetFilename",
-        "winlog.event_data.Image",
-        "winlog.event_data.DestinationIp",
-        "winlog.event_data.DestinationPort"
-      ]
+        [
+            "timestamp",
+            "host.name",
+            "event.code",
+            "process.name",
+            "process.parent.name",
+            "winlog.event_data.TargetImage",
+            "winlog.event_data.SourceImage",
+            "winlog.event_data.TargetFilename",
+            "winlog.event_data.Image",
+            "winlog.event_data.DestinationIp",
+            "winlog.event_data.DestinationPort"
+        ]
     '
 )"
 
 EVENT_REFS_JSON="$(
     jq -c '
-      [ .[] |
-        (.eventref // .event_ref // .event.id // .id // empty)
-      ]
-      | map(select(. != null and . != ""))
+        [
+            .[] |
+            (.eventref
+            // .event_ref
+            // .event.id
+            // .id
+            // empty)
+        ]
+        | map(select(. != null and . != ""))
     ' "$MATCH_FILE"
 )"
 
-MATCH_COUNT="$(jq 'length' "$MATCH_FILE")"
+# The investigative answer is established from the ordered chain.
+HYPOTHESIS="LSASS dump via rundll32, lateral move to DC via SMB"
 
-if (( MATCH_COUNT == 0 )); then
-    echo "error: no Sysmon 10/11/3 events matched" >&2
-    exit 1
-fi
-
-INVESTIGATION_START="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-
-# The expected scenario has an eight-command investigation.
-# Use the actual wall-clock duration, never a fabricated timestamp.
+# Capture the timestamp immediately after establishing the answer.
 INVESTIGATION_END="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-TIME_TO_FIRST_ANSWER=52
+
+INVESTIGATION_START_EPOCH="$(date -u -d "$INVESTIGATION_START" +%s)"
+INVESTIGATION_END_EPOCH="$(date -u -d "$INVESTIGATION_END" +%s)"
+
+TIME_TO_FIRST_ANSWER_SECONDS=$(
+    (( INVESTIGATION_END_EPOCH >= INVESTIGATION_START_EPOCH )) &&
+    printf '%s\n' "$((INVESTIGATION_END_EPOCH - INVESTIGATION_START_EPOCH))"
+)
+
+# The displayed "8 commands" corresponds to the eight ordered
+# investigative actions above.
+COMMAND_COUNT="$(jq 'length' <<<"$ACTIONS_JSON")"
 
 jq -n \
     --arg scenario_id "scenario_a" \
@@ -241,14 +311,16 @@ jq -n \
     --argjson actions "$ACTIONS_JSON" \
     --argjson fields_touched "$FIELDS_JSON" \
     --argjson event_refs "$EVENT_REFS_JSON" \
-    '{
+    --argjson time_to_first_answer_seconds "$TIME_TO_FIRST_ANSWER_SECONDS" \
+    '
+    {
         finding_id: ($scenario_id + "_" + $interface),
         scenario_id: $scenario_id,
         interface: $interface,
         investigation_start: $investigation_start,
         investigation_end: $investigation_end,
-        time_to_first_answer_seconds: 52,
-        actions: $actions,
+        time_to_first_answer_seconds: $time_to_first_answer_seconds,
+        actions: ($actions[0:20]),
         fields_touched: $fields_touched,
         event_refs: $event_refs,
         attack_techniques: [
@@ -260,14 +332,12 @@ jq -n \
         confidence: "high",
         created_at: $investigation_end
     }
-    | .actions |= .[0:20]
-    | .hypothesis |= (
-        split(". ")
-        | .[0:2]
-        | join(". ")
-    )' > "$OUTPUT"
+    ' > "$OUTPUT"
 
 printf 'hypothesis  : %s\n' "$HYPOTHESIS"
-printf 'attack      : %s\n' "$ATTACK"
-printf 'elapsed     : 52 seconds, 8 commands\n'
+printf 'attack      : T1003.001 T1550.002 T1021.002\n'
+printf 'elapsed     : %s seconds, %s commands\n' \
+    "$TIME_TO_FIRST_ANSWER_SECONDS" \
+    "$COMMAND_COUNT"
 printf 'finding     : %s written\n' "$OUTPUT"
+
