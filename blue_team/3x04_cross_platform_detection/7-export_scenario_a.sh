@@ -1,4 +1,4 @@
-#!/bin/bash
+/#!/bin/bash
 
 set -euo pipefail
 
@@ -428,8 +428,7 @@ if [[ -f "$CLI_FINDING" ]]; then
         if (( DELTA > 0 )); then
             printf 'delta_vs_cli: %s seconds faster via export\n' "$DELTA"
         elif (( DELTA < 0 )); then
-            printf 'delta_vs_cli: %s seconds slower via export\n' "$((-DELTA)"
-            )
+            printf 'delta_vs_cli: %s seconds slower via export\n' "$((-DELTA))"
         else
             printf 'delta_vs_cli: same elapsed time as CLI\n'
         fi
