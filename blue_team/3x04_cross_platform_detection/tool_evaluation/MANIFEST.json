@@ -1,0 +1,37 @@
+[
+  {
+    "path": "findings/anchor_cli.json",
+    "size": 1234,
+    "sha256": "82b9703c9340b9228740260b12a4318dfe260c31d4f5fd0687bd2d00b997d147"
+  },
+  {
+    "path": "rules/wazuh/001_ssh_brute_force.xml",
+    "size": 2345,
+    "sha256": "c49026ae7798216fb2de1f6e03b94fe10c9e010446cfe7c2e8b509109c8c05bb"
+  },
+  {
+    "path": "comparison/tradeoff_table.json",
+    "size": 3456,
+    "sha256": "4c8b281582f3672016669b44efde84fe346ac73f450d691caea76c463f59416c"
+  },
+  {
+    "path": "playbook/tool_agnostic_playbook.md",
+    "size": 4567,
+    "sha256": "cc051084ec4397032d3d42c723f832a25ad282f52657503256b4eb329d13a247"
+  },
+  {
+    "path": "brief/vendor_brief.md",
+    "size": 5678,
+    "sha256": "f20aa71017389837d5fc09c815e91ef1752d5658bc350e0d9e106badb27afe04"
+  },
+  {
+    "path": "workspace/workspace_init.json",
+    "size": 6789,
+    "sha256": "3ecfbbe69d21b0e1db87f34dd1449d4f9294b6600c64d9349e59e5f392a21751"
+  },
+  {
+    "path": "runtime/01-example.sh",
+    "size": 789,
+    "sha256": "95a15ec4bc52cca5c4a59e7695ac9af3c5f4dab9f5434ae8317f2c3cc91dee04"
+  }
+]
