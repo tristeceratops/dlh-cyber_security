@@ -1,0 +1,22 @@
+{
+  "pipeline_version": "3x00-pipeline 1.7.2",
+  "started_at": "2026-09-15T08:34:11Z",
+  "ended_at": "2026-09-15T08:37:12Z",
+  "duration_seconds": 181,
+  "input_pack": "/home/student/evidence_pack_secondary",
+  "events_in": 18472,
+  "events_out": 18391,
+  "events_dropped": 81,
+  "source_counts": {
+    "windows_json": 7426,
+    "linux_text": 3189,
+    "firewall": 2764,
+    "suricata_alert": 3891,
+    "pcap_flow": 1121
+  },
+  "dirty_data_detected": [
+    "81 records rejected during schema validation",
+    "3 records contained malformed timestamps"
+  ],
+  "exit_status": 0
+}
