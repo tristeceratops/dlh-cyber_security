@@ -1,0 +1,39 @@
+{
+  "incidents": [
+    "INC-20260916-A",
+    "INC-20260916-B",
+    "INC-20260916-C"
+  ],
+  "ioc_overlap_matrix": {
+    "A-B": 1,
+    "A-C": 0,
+    "B-C": 2
+  },
+  "tactic_overlap_matrix": {
+    "A-B": 2,
+    "A-C": 1,
+    "B-C": 2
+  },
+  "temporal_distance_minutes": {
+    "A-B": 47,
+    "A-C": 318,
+    "B-C": 271
+  },
+  "ioc_feed_matches": {
+    "A": 3,
+    "B": 2,
+    "C": 1
+  },
+  "linked_pairs": [
+    "A-B",
+    "B-C"
+  ],
+  "campaign_linked": true,
+  "cluster_id": "HC-RED7",
+  "confidence": "high",
+  "export_view_verdict": "campaign_linked=true cluster=HC-RED7",
+  "supporting_counts": {
+    "shared_iocs_total": 3,
+    "shared_tactics_total": 5
+  }
+}
