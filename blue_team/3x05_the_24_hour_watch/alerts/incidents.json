@@ -1,0 +1,77 @@
+{
+  "shift_id": "SHIFT-20260916-1145",
+  "generated_at": "2026-09-16T09:45:18Z",
+  "incidents": [
+    {
+      "incident_id": "INC-20260916-A",
+      "host_list": [
+        "db-core-01"
+      ],
+      "user_list": [
+        "svc_backup"
+      ],
+      "ioc_list": [
+        "RemoteAssistSvc",
+        "WinUpdateSvc"
+      ],
+      "alert_ids": [
+        "ALT-20260916-00041",
+        "ALT-20260916-00046"
+      ],
+      "first_seen": "2026-09-16T08:51:22Z",
+      "last_seen": "2026-09-16T08:52:04Z",
+      "grouping_rule": "temporal",
+      "tentative_category": "persistence",
+      "confidence": "high"
+    },
+    {
+      "incident_id": "INC-20260916-B",
+      "host_list": [
+        "mail-edge-01",
+        "web-prd-02"
+      ],
+      "user_list": [
+        "iis_service"
+      ],
+      "ioc_list": [
+        "185.71.66.24",
+        "cdn-update-check.net"
+      ],
+      "alert_ids": [
+        "ALT-20260916-00043",
+        "ALT-20260916-00044",
+        "ALT-20260916-00047"
+      ],
+      "first_seen": "2026-09-16T08:51:39Z",
+      "last_seen": "2026-09-16T08:52:13Z",
+      "grouping_rule": "ioc_match",
+      "tentative_category": "c2",
+      "confidence": "high"
+    },
+    {
+      "incident_id": "INC-20260916-C",
+      "host_list": [
+        "jump-admin-03",
+        "win-fin-07"
+      ],
+      "user_list": [
+        "adm_sync",
+        "administrator"
+      ],
+      "ioc_list": [
+        "adm_sync"
+      ],
+      "alert_ids": [
+        "ALT-20260916-00042",
+        "ALT-20260916-00048"
+      ],
+      "first_seen": "2026-09-16T08:51:31Z",
+      "last_seen": "2026-09-16T08:52:21Z",
+      "grouping_rule": "shared_user",
+      "tentative_category": "credential_abuse",
+      "confidence": "high"
+    }
+  ],
+  "incident_count": 3,
+  "unmatched_tp_count": 0
+}
