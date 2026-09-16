@@ -1,0 +1,23 @@
+{
+  "catalog_rules_total": 18,
+  "catalog_rules_fired": 7,
+  "alerts_total": 43,
+  "alerts_by_severity": {
+    "critical": 3,
+    "high": 14,
+    "medium": 19,
+    "low": 7
+  },
+  "alerts_by_rule": {
+    "006_powershell_encoded_command": 11,
+    "002_offhours_priv": 9,
+    "001_ssh_brute_force": 8,
+    "009_unusual_parent_process": 6,
+    "004_unknown_destination": 4,
+    "012_new_service": 3,
+    "015_suricata_c2_indicator": 2
+  },
+  "started_at": "2026-09-15T08:42:16Z",
+  "ended_at": "2026-09-15T08:43:02Z",
+  "exit_status": 0
+}
