@@ -1,0 +1,79 @@
+{
+  "cluster_id": "HC-RED7",
+  "cluster_tactics": [
+    "T1078",
+    "T1543",
+    "T1071",
+    "T1110",
+    "T1041"
+  ],
+  "ioc_count": 12,
+  "ioc_by_type": {
+    "ip": 5,
+    "domain": 2,
+    "hash": 1,
+    "account": 2,
+    "service_name": 2,
+    "port": 0
+  },
+  "ioc_values": [
+    "185.71.66.24",
+    "91.219.237.41",
+    "10.44.18.73",
+    "10.44.91.18",
+    "172.22.14.56",
+    "cdn-update-check.net",
+    "auth-sync-service.com",
+    "9f2c7a61b84d4e93c0f5a6b7d8e90123",
+    "svc_backup",
+    "adm_sync",
+    "WinUpdateSvc",
+    "RemoteAssistSvc"
+  ],
+  "active_change_tickets": [
+    {
+      "ticket_id": "CHG-2026-0915-041",
+      "window_start": "2026-09-15T19:00:00Z",
+      "window_end": "2026-09-15T21:00:00Z",
+      "hosts": [
+        "WEB-PRD-02",
+        "WEB-PRD-03"
+      ],
+      "owner": "A. Martin",
+      "approved_activity": "Web server patching and IIS application pool restart."
+    },
+    {
+      "ticket_id": "CHG-2026-0915-044",
+      "window_start": "2026-09-15T22:00:00Z",
+      "window_end": "2026-09-16T00:30:00Z",
+      "hosts": [
+        "DB-CORE-01"
+      ],
+      "owner": "J. Keller",
+      "approved_activity": "Database maintenance and service restart."
+    },
+    {
+      "ticket_id": "CHG-2026-0916-002",
+      "window_start": "2026-09-16T01:00:00Z",
+      "window_end": "2026-09-16T03:00:00Z",
+      "hosts": [
+        "JUMP-ADMIN-03",
+        "WIN-FIN-07"
+      ],
+      "owner": "S. Bernard",
+      "approved_activity": "Privileged account maintenance and endpoint configuration update."
+    }
+  ],
+  "prior_shift_open_items": [
+    "Confirm whether the unexpected outbound connection from WEB-PRD-02 was associated with an approved maintenance task.",
+    "Review the newly observed service account activity on DB-CORE-01."
+  ],
+  "baseline_hot_hosts": [
+    "DB-CORE-01",
+    "WIN-FIN-07",
+    "WEB-PRD-02",
+    "JUMP-ADMIN-03",
+    "MAIL-EDGE-01"
+  ],
+  "hosts_with_deviations": 11
+}
