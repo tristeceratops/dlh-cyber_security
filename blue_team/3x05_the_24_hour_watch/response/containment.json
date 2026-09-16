@@ -1,0 +1,126 @@
+{
+  "shift_id": "SHIFT-20260916-0830",
+  "generated_at": "2026-09-16T17:42:18Z",
+  "actions": [
+    {
+      "action_id": "ACT-001",
+      "priority": "immediate",
+      "action": "Block confirmed IOC IPs at the perimeter firewall: 10.44.91.18.",
+      "target_type": "ip",
+      "target_value": "10.44.91.18",
+      "incident_id": "INC-20260916-A",
+      "operational_impact": "May block legitimate traffic to confirmed IOC destinations; validate firewall logs after deployment.",
+      "requires_approval_from": "Network Security"
+    },
+    {
+      "action_id": "ACT-002",
+      "priority": "immediate",
+      "action": "Isolate confirmed compromised host(s) from the network: WIN-FIN-07.",
+      "target_type": "host",
+      "target_value": "WIN-FIN-07",
+      "incident_id": "INC-20260916-A",
+      "operational_impact": "Network isolation may interrupt production services and active administrative sessions.",
+      "requires_approval_from": "Incident Commander"
+    },
+    {
+      "action_id": "ACT-003",
+      "priority": "short_term",
+      "action": "Reset identified account credentials and audit service accounts matching IOC service patterns: adm_sync, RemoteAssistSvc.",
+      "target_type": "user",
+      "target_value": "adm_sync, RemoteAssistSvc",
+      "incident_id": "INC-20260916-A",
+      "operational_impact": "Credential resets or service-account changes may interrupt dependent jobs and scheduled services.",
+      "requires_approval_from": "Identity and Access Management"
+    },
+    {
+      "action_id": "ACT-004",
+      "priority": "medium_term",
+      "action": "Review and tighten firewall rules for affected zones and deploy additional Sysmon rules on: WIN-FIN-07.",
+      "target_type": "rule",
+      "target_value": "affected host zones and Sysmon policy",
+      "incident_id": "INC-20260916-A",
+      "operational_impact": "Additional controls can increase logging volume and may require rule tuning to avoid operational noise.",
+      "requires_approval_from": "Security Engineering"
+    },
+    {
+      "action_id": "ACT-005",
+      "priority": "immediate",
+      "action": "Block confirmed IOC IPs at the perimeter firewall: 198.51.100.73.",
+      "target_type": "ip",
+      "target_value": "198.51.100.73",
+      "incident_id": "INC-20260916-B",
+      "operational_impact": "May block legitimate traffic to confirmed IOC destinations; validate firewall logs after deployment.",
+      "requires_approval_from": "Network Security"
+    },
+    {
+      "action_id": "ACT-006",
+      "priority": "immediate",
+      "action": "Isolate confirmed compromised host(s) from the network: RAD-SRV-02.",
+      "target_type": "host",
+      "target_value": "RAD-SRV-02",
+      "incident_id": "INC-20260916-B",
+      "operational_impact": "Network isolation may interrupt production services and active administrative sessions.",
+      "requires_approval_from": "Incident Commander"
+    },
+    {
+      "action_id": "ACT-007",
+      "priority": "short_term",
+      "action": "Reset identified account credentials and audit service accounts matching IOC service patterns: rad_admin_miller.",
+      "target_type": "user",
+      "target_value": "rad_admin_miller",
+      "incident_id": "INC-20260916-B",
+      "operational_impact": "Credential resets or service-account changes may interrupt dependent jobs and scheduled services.",
+      "requires_approval_from": "Identity and Access Management"
+    },
+    {
+      "action_id": "ACT-008",
+      "priority": "medium_term",
+      "action": "Review and tighten firewall rules for affected zones and deploy additional Sysmon rules on: RAD-SRV-02.",
+      "target_type": "rule",
+      "target_value": "affected host zones and Sysmon policy",
+      "incident_id": "INC-20260916-B",
+      "operational_impact": "Additional controls can increase logging volume and may require rule tuning to avoid operational noise.",
+      "requires_approval_from": "Security Engineering"
+    },
+    {
+      "action_id": "ACT-009",
+      "priority": "immediate",
+      "action": "Block confirmed IOC IPs at the perimeter firewall: 185.71.66.24.",
+      "target_type": "ip",
+      "target_value": "185.71.66.24",
+      "incident_id": "INC-20260916-C",
+      "operational_impact": "May block legitimate traffic to confirmed IOC destinations; validate firewall logs after deployment.",
+      "requires_approval_from": "Network Security"
+    },
+    {
+      "action_id": "ACT-010",
+      "priority": "immediate",
+      "action": "Isolate confirmed compromised host(s) from the network: DB-CORE-01.",
+      "target_type": "host",
+      "target_value": "DB-CORE-01",
+      "incident_id": "INC-20260916-C",
+      "operational_impact": "Network isolation may interrupt production services and active administrative sessions.",
+      "requires_approval_from": "Incident Commander"
+    },
+    {
+      "action_id": "ACT-011",
+      "priority": "short_term",
+      "action": "Reset identified account credentials and audit service accounts matching IOC service patterns: svc_backup, WinUpdateSvc.",
+      "target_type": "user",
+      "target_value": "svc_backup, WinUpdateSvc",
+      "incident_id": "INC-20260916-C",
+      "operational_impact": "Credential resets or service-account changes may interrupt dependent jobs and scheduled services.",
+      "requires_approval_from": "Identity and Access Management"
+    },
+    {
+      "action_id": "ACT-012",
+      "priority": "medium_term",
+      "action": "Review and tighten firewall rules for affected zones and deploy additional Sysmon rules on: DB-CORE-01.",
+      "target_type": "rule",
+      "target_value": "affected host zones and Sysmon policy",
+      "incident_id": "INC-20260916-C",
+      "operational_impact": "Additional controls can increase logging volume and may require rule tuning to avoid operational noise.",
+      "requires_approval_from": "Security Engineering"
+    }
+  ]
+}

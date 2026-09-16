@@ -1,0 +1,89 @@
+{
+  "shift_id": "SHIFT-20260916-0830",
+  "tlp": "AMBER",
+  "cluster_id": "HC-RED7",
+  "generated_at": "2026-09-16T17:42:18Z",
+  "iocs": [
+    {
+      "type": "account",
+      "value": "adm_sync",
+      "first_seen": "2026-09-16T10:41:18Z",
+      "last_seen": "2026-09-16T10:49:16Z",
+      "incident_id": "INC-20260916-A",
+      "source": "ioc_feed",
+      "confidence": "high"
+    },
+    {
+      "type": "account",
+      "value": "rad_admin_miller",
+      "first_seen": "2026-09-16T11:21:07Z",
+      "last_seen": "2026-09-16T11:33:06Z",
+      "incident_id": "INC-20260916-B",
+      "source": "shift_discovered",
+      "confidence": "high"
+    },
+    {
+      "type": "account",
+      "value": "svc_backup",
+      "first_seen": "2026-09-16T12:04:11Z",
+      "last_seen": "2026-09-16T12:12:44Z",
+      "incident_id": "INC-20260916-C",
+      "source": "ioc_feed",
+      "confidence": "high"
+    },
+    {
+      "type": "domain",
+      "value": "cdn-update-check.net",
+      "first_seen": "2026-09-16T12:12:44Z",
+      "last_seen": "2026-09-16T12:12:44Z",
+      "incident_id": "INC-20260916-C",
+      "source": "ioc_feed",
+      "confidence": "high"
+    },
+    {
+      "type": "ip",
+      "value": "10[.]44[.]91[.]18",
+      "first_seen": "2026-09-16T10:41:18Z",
+      "last_seen": "2026-09-16T10:49:16Z",
+      "incident_id": "INC-20260916-A",
+      "source": "ioc_feed",
+      "confidence": "high"
+    },
+    {
+      "type": "ip",
+      "value": "185[.]71[.]66[.]24",
+      "first_seen": "2026-09-16T12:12:44Z",
+      "last_seen": "2026-09-16T12:12:44Z",
+      "incident_id": "INC-20260916-C",
+      "source": "ioc_feed",
+      "confidence": "high"
+    },
+    {
+      "type": "ip",
+      "value": "198[.]51[.]100[.]73",
+      "first_seen": "2026-09-16T11:24:32Z",
+      "last_seen": "2026-09-16T11:33:06Z",
+      "incident_id": "INC-20260916-B",
+      "source": "ioc_feed",
+      "confidence": "high"
+    },
+    {
+      "type": "service_name",
+      "value": "RemoteAssistSvc",
+      "first_seen": "2026-09-16T10:45:27Z",
+      "last_seen": "2026-09-16T10:49:16Z",
+      "incident_id": "INC-20260916-A",
+      "source": "ioc_feed",
+      "confidence": "high"
+    },
+    {
+      "type": "service_name",
+      "value": "WinUpdateSvc",
+      "first_seen": "2026-09-16T12:05:42Z",
+      "last_seen": "2026-09-16T12:12:44Z",
+      "incident_id": "INC-20260916-C",
+      "source": "ioc_feed",
+      "confidence": "high"
+    }
+  ]
+}
