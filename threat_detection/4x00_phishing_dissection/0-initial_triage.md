@@ -1,3 +1,5 @@
+## Triage Table
+
 |Email|From|Subject|SPF|DKIM|DMARC|Class|Priority|Evidence|
 |-----|-----------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|--------|----|-----|----------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |E1|[newsletter@healthcare-education-weekly.com](mailto:newsletter@healthcare-education-weekly.com)|Your April newsletter: Medication reconciliation best practices|pass|pass|pass|SPAM|P4-LOW|Spam from medical newspaper. SPF, DKIM, and DMARC all pass and align with the From domain.|
@@ -8,3 +10,10 @@
 |E6|[deals@canadian-pharma-discount.org](mailto:deals@canadian-pharma-discount.org)|90% OFF Viagra, Cialis, Xanax — No prescription needed!!!|softfail|none|fail|SPAM|P4-LOW|Bulk pharmaceutical spam. SPF softfail, DKIM absent, DMARC fail, and X-Spam-Score is 9.8. Message advertises prescription drugs without a prescription and contains bulk-mail characteristics.|
 |E7|[hr-notifications@meddefense-benefits.org](mailto:hr-notifications@meddefense-benefits.org)|Open Enrollment closes TOMORROW — action required|fail|none|fail|SUSPICIOUS|P1-URGENT|SPF fail, DKIM absent, and DMARC fail. Sender uses a look-alike MedDefense benefits domain, creates an urgent enrollment/deadline pretext, threatens loss of coverage, and links to an external enrollment portal. Linda Patterson reported she never signed up for anything.|
 |E8|[HC3@hhs.gov](mailto:HC3@hhs.gov)|[HC3 ALERT — TLP:CLEAR] Active phishing campaign targeting regional healthcare|pass|pass|pass|LEGITIMATE|P2-HIGH|SPF, DKIM, and DMARC all pass and align with hhs.gov. Message originates from HHS HC3 and describes an active healthcare phishing campaign matching the patterns observed in E2, E3, E5, and E7. No credential or payment request is made.|
+
+## Triage Summary
+
+- SPAM: 2
+- SUSPICIOUS: 4 
+- LEGITIMATE: 2
+- Highest priority: 4
