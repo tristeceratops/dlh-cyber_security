@@ -15,16 +15,22 @@ The investigation identified four phishing emails, two spam messages, and two le
 
 ## 3. Email-by-Email Analysis
 
-| Email | Verdict | Confidence | Key Evidence |
+| Email | Classification | Confidence | Key Evidence |
 |---|---|---|---|
-| E1 | `SPAM` | HIGH | Authenticated bulk medical newsletter; no strong phishing indicators. |
-| E2 | `PHISHING-OPPORTUNISTIC` | HIGH | SPF/DMARC fail, no DKIM, MedDefense lookalike domain, 24-hour deadline, credential link. |
-| E3 | `PHISHING-OPPORTUNISTIC` | HIGH | Authenticates `outlook-protection.com`, not Microsoft; Microsoft impersonation and external verification link. |
-| E4 | `LEGITIMATE` | HIGH | Authenticated `meddefense.com` sender and consistent internal routing/content. |
-| E5 | `PHISHING-OPPORTUNISTIC` | HIGH | Weak authentication, USD 24,716.38 invoice, external payment portal, suspicious supplier identity. |
-| E6 | `SPAM` | HIGH | Pharmaceutical spam, failed/weak authentication, `X-Spam-Score: 9.8`. |
-| E7 | `PHISHING-TARGETED` | HIGH | MedDefense benefits lookalike domain, recipient-specific information, deadline, coverage-loss threat. |
-| E8 | `LEGITIMATE` | HIGH | Authenticated `hhs.gov` HC3 advisory with no credential/payment request. |
+| E1 | `SPAM` | HIGH | SPF/DKIM/DMARC pass and align with the sender domain; unsolicited bulk medical newsletter; no strong phishing indicators. |
+| E2 | `PHISHING-OPPORTUNISTIC` | HIGH | SPF fail, DKIM absent, DMARC fail; `meddefense-portal.com` impersonates MedDefense; 24-hour deadline; credential-verification URL; PHPMailer 6.6.0. |
+| E3 | `PHISHING-OPPORTUNISTIC` | HIGH | Authentication passes only for `outlook-protection.com`; domain is not Microsoft; Microsoft impersonation; lockout threat; external verification URL. |
+| E4 | `LEGITIMATE` | HIGH | SPF/DKIM/DMARC pass for `meddefense.com`; internal Exchange routing; normal internal password-change communication. |
+| E5 | `PHISHING-OPPORTUNISTIC` | HIGH | SPF softfail, DKIM absent, DMARC fail; USD 24,716.38 invoice; external payment portal; suspicious supplier identity; PHPMailer 6.6.0. |
+| E6 | `SPAM` | HIGH | SPF softfail, DKIM absent, DMARC fail; pharmaceutical advertising; `X-Spam-Score: 9.8`; unsolicited prescription-drug offer. |
+| E7 | `PHISHING-TARGETED` | HIGH | SPF fail, DKIM absent, DMARC fail; MedDefense benefits lookalike domain; recipient-specific information; benefits deadline; threat of coverage loss; external enrollment portal. |
+| E8 | `LEGITIMATE` | HIGH | SPF/DKIM/DMARC pass for `hhs.gov`; legitimate HC3 sender; security advisory content; no credential or payment request. |
+
+### Classification Refinement
+
+The initial triage identified E2, E3, E5, and E7 as suspicious. Deeper analysis refined these into phishing classifications without overturning the initial security disposition.
+
+E2, E3, and E5 are classified as opportunistic phishing because the evidence supports common phishing scenarios without sufficient evidence of highly individualized targeting. E7 is classified as targeted phishing because it contains stronger recipient- and organization-specific benefits information.
 
 ## 4. Campaign Analysis
 
