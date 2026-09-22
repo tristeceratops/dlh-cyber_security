@@ -1,0 +1,45 @@
+{
+  "pcap": "normal_baseline_clinical.pcap",
+  "first_packet_epoch": null,
+  "last_packet_epoch": 1776148197.873363000,
+  "dns_queries": 520,
+  "dns_queries_per_minute": 0.00,
+  "txt_queries": 7,
+  "txt_queries_per_minute": 0.0000,
+  "tcp_streams": 296,
+  "analysis": {
+    "protocol_distribution": {
+      "TCP": 1742,
+      "UDP": 1100,
+      "ICMP": 0,
+      "Other": 0
+    },
+    "application_packet_counts": {
+      "HTTPS (443)": 800,
+      "LDAP (389)": 0,
+      "NTP (123)": 60,
+      "DNS (53)": 1040,
+      "Printing (9100)": 126,
+      "SMB (445)": 96,
+      "Kerberos (88)": 360,
+      "Endpoint telemetry/agent (heuristic)": 0,
+      "Other observed services": 2842
+    },
+    "dns_top_domains": [
+      {"domain":"pacs.meddefense.com","queries":77},
+      {"domain":"outlook.office365.com","queries":71},
+      {"domain":"windows.com","queries":68},
+      {"domain":"time.windows.com","queries":66},
+      {"domain":"www.bing.com","queries":64},
+      {"domain":"login.microsoftonline.com","queries":60},
+      {"domain":"meddefense.com","queries":58},
+      {"domain":"ehr.meddefense.com","queries":56}
+    ],
+    "dns_query_types": {
+      "1": 421,
+      "15": 13,
+      "16": 7,
+      "28": 79
+    }
+  }
+}
