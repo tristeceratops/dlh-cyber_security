@@ -380,35 +380,30 @@ echo
 echo "=== MITRE ATT&CK MAPPING ==="
 
 echo
-echo "T1021.001 - Remote Services: RDP"
-echo "Condition: RDP traffic is observed between internal systems."
+echo "--- T1021.001: Remote Services - Remote Desktop Protocol ---"
+echo "Observed: 370 RDP packets between WS-NURSE-04 (10.10.2.15) and billing-srv-01 (10.10.1.10)."
+echo "Evidence: TCP/3389 traffic from 2026-04-15 10:30:12 through 10:48:00 -0400."
+echo "Assessment: Consistent with RDP-based lateral movement; packet evidence does not prove interactive logon success or attacker intent."
 
 echo
-echo "T1021.002 - Remote Services: SMB/Windows Admin Shares"
-echo "Condition: SMB session/tree/file activity is observed between internal systems."
+echo "--- T1021.002: Remote Services - SMB/Windows Admin Shares ---"
+echo "Observed: 10.10.1.10 initiated TCP/445 connections to 10.10.1.20, 10.10.1.30, 10.10.1.60, 10.10.4.100, and 10.10.4.101."
+echo "Assessment: Consistent with SMB-based remote service activity after the RDP connection. SMB command, share, and authentication details were not decoded in this capture, so Windows Admin Share use is unconfirmed."
 
 echo
-echo "T1046 - Network Service Scanning"
-echo "Condition: repeated connection attempts to multiple internal systems/services are observed."
+echo "--- T1046: Network Service Scanning ---"
+echo "Assessment: Not confirmed. A small number of reset TCP/445 attempts were observed, but the capture does not establish broad or systematic service scanning."
 
 echo
-echo "T1135 - Network Share Discovery"
-echo "Condition: SMB share enumeration is observed."
-
-echo
-echo "T1087 - Account Discovery"
-echo "Condition: account enumeration is actually visible in the captured traffic."
-
-echo
-echo "T1078 - Valid Accounts"
-echo "Condition: packet-visible authentication identifies an account and successful authentication can be established."
-
-echo
-echo "T1047 - Windows Management Instrumentation"
-echo "Condition: WMI-specific traffic is actually identified."
+echo "--- Authentication and credential techniques ---"
+echo "T1078 Valid Accounts: Not confirmed; no username or successful authentication identity was decoded."
+echo "T1550.002 Pass the Hash: Not confirmed; NTLMSSP and SMB session setup fields were not observed."
 
 echo
 echo "=== CONCLUSION ==="
-echo "The results above are derived from packet evidence in $PCAP."
-echo "Authentication success/failure, access denial, enumeration, and ATT&CK mappings"
-echo "are only reported as supported by fields and traffic visible in the capture."
+echo "The capture shows a likely lateral-movement sequence beginning with WS-NURSE-04 (10.10.2.15) connecting to billing-srv-01 (10.10.1.10) over RDP/3389."
+echo "After that RDP activity, billing-srv-01 initiated SMB/445 connections to multiple internal systems and HTTPS/443 sessions to mx01.meddefense.com (10.10.1.20)."
+echo "This sequence is consistent with RDP-based access followed by SMB-based internal activity, but the PCAP alone does not establish the user, command execution, file access, or attacker intent."
+echo "Kerberos, NTLMSSP, CredSSP, and decoded SMB command events were not observed, limiting attribution of the authentication method and specific SMB action."
+echo "Two TCP/445 connection attempts received RST responses from 10.10.0.1; these failures indicate rejected or reset connections only and do not independently demonstrate malicious intent."
+echo "Recommended follow-up: correlate RDP logon events, Windows Security logs, SMB share and process telemetry, and endpoint activity for 10.10.2.15 and 10.10.1.10."

@@ -3370,38 +3370,3 @@ Failure interpretation:
 First packet: # tshark -r lateral_movement.pcap -Y ip.src == 10.10.2.15 || ip.src == 10.10.1.10 -T fields -e frame.time_epoch -e ip.src -e ip.dst -e frame.len
 Last packet:  1776265062.612402000
 Duration: 1776265062.61 seconds
-
---- Supplied clinical baseline ---
-Baseline TCP streams: 296
-Baseline SMB packets: 96
-Baseline Kerberos packets: 360
-Baseline DNS TXT queries: 7
-Baseline DNS queries: 520
-
-=== MITRE ATT&CK MAPPING ===
-
-T1021.001 - Remote Services: RDP
-Condition: RDP traffic is observed between internal systems.
-
-T1021.002 - Remote Services: SMB/Windows Admin Shares
-Condition: SMB session/tree/file activity is observed between internal systems.
-
-T1046 - Network Service Scanning
-Condition: repeated connection attempts to multiple internal systems/services are observed.
-
-T1135 - Network Share Discovery
-Condition: SMB share enumeration is observed.
-
-T1087 - Account Discovery
-Condition: account enumeration is actually visible in the captured traffic.
-
-T1078 - Valid Accounts
-Condition: packet-visible authentication identifies an account and successful authentication can be established.
-
-T1047 - Windows Management Instrumentation
-Condition: WMI-specific traffic is actually identified.
-
-=== CONCLUSION ===
-The results above are derived from packet evidence in lateral_movement.pcap.
-Authentication success/failure, access denial, enumeration, and ATT&CK mappings
-are only reported as supported by fields and traffic visible in the capture.
