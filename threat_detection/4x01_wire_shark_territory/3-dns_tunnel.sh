@@ -27,7 +27,7 @@ NORMAL_RE='(^|\.)(meddefense\.com|microsoft\.com|microsoftonline\.com|ubuntu\.co
 awk -F'\t' -v re="$NORMAL_RE" '
 {
     label=$2
-    sub(/\..*/, "", label)
+    sub(/[.].*/, "", label)
 
     if ($2 ~ re && $3 != "16" && length(label) < 30)
         normal++
@@ -180,7 +180,7 @@ echo "=== DETECTION COMPARISON ==="
 NORMAL_TYPES=$(awk -F'\t' -v re="$NORMAL_RE" '
     {
         label=$2
-        sub(/\..*/, "", label)
+        sub(/[.].*/, "", label)
         if ($2 ~ re && $3 != "16" && length(label) < 30)
             types[$3]++
     }
@@ -192,7 +192,7 @@ NORMAL_TYPES=$(awk -F'\t' -v re="$NORMAL_RE" '
 NORMAL_AVG=$(awk -F'\t' -v re="$NORMAL_RE" '
     {
         label=$2
-        sub(/\..*/, "", label)
+        sub(/[.].*/, "", label)
         if ($2 ~ re && $3 != "16" && length(label) < 30) {
             sum+=length(label)
             n++
@@ -214,7 +214,7 @@ ANOM_TYPES=$(awk -F'\t' '
 ANOM_DOMAINS=$(awk -F'\t' '
     {
         n=$2
-        sub(/^[^.]+\./, "", n)
+        sub(/^[^.]+[.]/, "", n)
         domains[n]++
     }
     END {
