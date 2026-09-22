@@ -140,11 +140,33 @@ run -r "$PCAP" -Y "$FILTER" -T fields \
 
 echo
 echo "=== AUTHENTICATION EVENT SUMMARY ==="
-echo "Kerberos: usernames/service names/status are printed when visible."
-echo "NTLMSSP: username is printed when visible."
-echo "RDP/NLA: connection endpoints are printed."
-echo "SMB: session setup and NT status are printed when visible."
-echo "Authentication success/failure is not inferred when the protocol does not expose a usable status field."
+
+for item in \
+    "Kerberos|kerberos" \
+    "NTLMSSP|ntlmssp" \
+    "RDP|tcp.port == 3389 || rdp" \
+    "NLA/CredSSP|credssp" \
+    "SMB Session Setup|smb2.cmd == 1 || smb.cmd == 0x73"
+do
+    name="${item%%|*}"
+    filter="${item#*|}"
+
+    echo
+    echo "--- $name ---"
+    echo "# Filter: $filter"
+
+    count=$(tshark -r "$PCAP" -Y "$filter" -T fields -e frame.number 2>/dev/null | wc -l)
+
+    if [[ "$count" -gt 0 ]]; then
+        echo "Present: $count packets"
+        tshark -r "$PCAP" -Y "$filter" -T fields \
+            -e frame.time \
+            -e ip.src \
+            -e ip.dst
+    else
+        echo "Not observed"
+    fi
+done
 
 echo
 echo "=== ATTACK PATH ==="
