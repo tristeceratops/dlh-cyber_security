@@ -683,3 +683,8 @@ else
 fi
 
 echo
+echo "=== OBSERVATION SUMMARY ==="
+
+echo "The sections above contain the packet-derived observations."
+echo "No packet counts, timestamps, destinations, or attack-chain events are hard-coded."
+echo "Interpretation is limited to what the corresponding TShark filters actually return."
