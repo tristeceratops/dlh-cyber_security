@@ -1,0 +1,78 @@
+{
+	"name": "HEALTHBANE Campaign - ATT&CK Observed and Inferred Techniques",
+	"versions": {
+		"attack": "15",
+		"navigator": "4.9.0",
+		"layer": "4.5"
+	},
+	"domain": "enterprise-attack",
+	"description": "HEALTHBANE campaign mapping. OBSERVED techniques are scored 100; HC3-likely but unconfirmed techniques are scored 50.",
+	"filters": {
+		"platforms": [
+			"Windows",
+			"Linux",
+			"macOS"
+		]
+	},
+	"sorting": 0,
+	"layout": {
+		"layout": "side",
+		"aggregateFunction": "average",
+		"showID": true,
+		"showName": true,
+		"showAggregateScores": true,
+		"countUnscored": false,
+		"showScores": true
+	},
+	"hideDisabled": false,
+	"techniques": [
+		{"techniqueID": "T1589.002", "score": 100, "comment": "OBSERVED: HC3 reports email-identity gathering as part of campaign targeting. Phase: pre-Stage 1 reconnaissance. Source: HC3 advisory."},
+		{"techniqueID": "T1583.001", "score": 100, "comment": "OBSERVED: lookalike healthcare domains were acquired shortly before phishing. Phase: pre-Stage 1 infrastructure. Sources: HC3 and MedDefense."},
+		{"techniqueID": "T1585.002", "score": 100, "comment": "OBSERVED: healthcare-themed sender identities and attacker-controlled mail infrastructure were used. Phase: Stage 1. Sources: HC3, researcher, MedDefense."},
+		{"techniqueID": "T1587.001", "score": 100, "comment": "OBSERVED: HC3 reports the macro document, executable, RAT behavior, and PowerShell tooling. Phase: Stage 2. Source: HC3."},
+		{"techniqueID": "T1608.005", "score": 100, "comment": "OBSERVED: credential-capture pages were staged at healthcare-themed URLs. Phase: Stage 1. Sources: HC3, researcher, MedDefense."},
+		{"techniqueID": "T1566.002", "score": 100, "comment": "OBSERVED: spearphishing links delivered credential-capture pages; a MedDefense user clicked. Phase: Stage 1. Sources: HC3 and MedDefense."},
+		{"techniqueID": "T1566.001", "score": 100, "comment": "OBSERVED: compromised accounts sent follow-up emails with a macro-enabled DOCM attachment. Phase: Stage 2. Source: HC3."},
+		{"techniqueID": "T1078", "score": 50, "comment": "INFERRED: HC3 assesses compromised credentials and cloud-email authentication as likely but excludes Valid Accounts from its observed table pending confirmation. Phase: Stage 1 to Stage 2 transition. Source: HC3."},
+		{"techniqueID": "T1204.001", "score": 100, "comment": "OBSERVED: a MedDefense nurse clicked the phishing link. Phase: Stage 1. Sources: HC3 and MedDefense."},
+		{"techniqueID": "T1204.002", "score": 100, "comment": "OBSERVED: users opened the macro-enabled follow-up document in affected organizations. Phase: Stage 2. Source: HC3."},
+		{"techniqueID": "T1059.005", "score": 100, "comment": "OBSERVED: the DOCM macro executed VBA to retrieve the Windows payload. Phase: Stage 2. Source: HC3 sandbox and partner evidence."},
+		{"techniqueID": "T1059.001", "score": 100, "comment": "OBSERVED: PowerShell execution and sync_healthdata.ps1 were reported. Phase: Stage 2. Sources: HC3, Acme, researcher."},
+		{"techniqueID": "T1053.005", "score": 100, "comment": "OBSERVED: the executable created the HealthSync Update Service scheduled task. Phase: Stage 2. Source: HC3."},
+		{"techniqueID": "T1547.001", "score": 100, "comment": "OBSERVED: persistence was established with a Registry Run key. Phase: Stage 2. Source: HC3."},
+		{"techniqueID": "T1056.003", "score": 100, "comment": "OBSERVED: PHP form handlers captured usernames and passwords. Phase: Stage 1. Sources: HC3, researcher, MedDefense."},
+		{"techniqueID": "T1071.004", "score": 100, "comment": "OBSERVED: DNS TXT queries carried C2 and exfiltration traffic. Phase: Stage 3. Sources: HC3 packet captures and Acme."},
+		{"techniqueID": "T1071.001", "score": 100, "comment": "OBSERVED: HTTP/HTTPS endpoints served phishing forms and malware downloads. Phases: Stages 1-2. Sources: HC3, researcher, MedDefense."},
+		{"techniqueID": "T1021", "score": 50, "comment": "INFERRED: HC3 assesses Remote Services as likely in follow-on activity but excludes it pending confirmation. Phase: Stage 2 lateral movement. Source: HC3."},
+		{"techniqueID": "T1048.003", "score": 100, "comment": "OBSERVED: patient and insurance data were encoded into DNS labels and sent through TXT queries. Phase: Stage 3. Source: HC3 packet captures."},
+		{"techniqueID": "T1041", "score": 100, "comment": "OBSERVED: exfiltration used attacker-controlled C2 infrastructure; the researcher also recovered an EXFIL_ENDPOINT. Phase: Stage 3. Sources: HC3 and researcher."}
+	],
+	"gradient": {
+		"colors": [
+			"#ffbf00",
+			"#ff0000"
+		],
+		"minValue": 50,
+		"maxValue": 100
+	},
+	"legendItems": [
+		{
+			"label": "INFERRED - medium priority",
+			"color": "#ffbf00"
+		},
+		{
+			"label": "OBSERVED - high priority",
+			"color": "#ff0000"
+		}
+	],
+	"metadata": [],
+	"links": [],
+	"showTacticRowBackground": true,
+	"selectTechniquesAcrossTactics": true,
+	"selectSubtechniquesWithParent": false,
+	"selectVisibleTechniques": false,
+	"selectTechniquesInNavigator": false,
+	"showTacticNames": true,
+	"tacticRowBackground": "#dddddd",
+	"tacticRowBackgroundOpacity": 0.2
+}
