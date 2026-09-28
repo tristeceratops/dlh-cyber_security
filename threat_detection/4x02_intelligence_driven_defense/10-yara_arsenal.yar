@@ -23,14 +23,19 @@ rule HEALTHBANE_Email_Headers
 
 		// Lookalike healthcare sender family. This is intentionally domain-focused,
 		// not a broad match on every external sender.
-		$lookalike_sender = /(?:Return-Path|From):[^\r\n]*@(meddefense|medequip-supplies|meddefense-benefits|outlook-protection)\.(?:com|net|org)/i
-		$phishing_url = /https?:\/\/(?:meddefense-portal|medequip-supplies|meddefense-benefits|outlook-protection)\.(?:com|net|org)\//i
+		$sender_return_path = "Return-Path:" nocase
+		$sender_from = "From:" nocase
+		$domain_meddefense = "@meddefense-portal.com" nocase
+		$domain_medequip = "@medequip-supplies.net" nocase
+		$domain_benefits = "@meddefense-benefits.org" nocase
+		$domain_outlook = "@outlook-protection.com" nocase
 
 	condition:
 		// Require an EML-like header context and three independent evidence families.
 		1 of ($mailer_version, $mailer_custom)
 		and 1 of ($priority_header, $urgent_subject)
-		and 1 of ($lookalike_sender, $phishing_url)
+		and 1 of ($sender_return_path, $sender_from)
+		and 1 of ($domain_meddefense, $domain_medequip, $domain_benefits, $domain_outlook)
 		and $healthcare_keyword
 }
 
@@ -62,7 +67,7 @@ rule HEALTHBANE_Document_Metadata
 		// Healthcare lure text from the supplied parsed samples.
 		$lure_staff = /staff\s+portal|staff\s+access|account\s+verification/i
 		$lure_invoice = /invoice|payment\s+overdue|insurance\s+claim/i
-		$lure_benefits = /benefits|enrollment|medical\s+suppl(?:y|ies)/i
+		$lure_benefits = /benefits|enrollment|medical\s+suppl/i
 
 	condition:
 		// The PDF signature is required for the supplied PDF corpus. Documents
@@ -87,23 +92,25 @@ rule HEALTHBANE_Campaign_Composite
 
 	strings:
 		// Email header family, including the custom X-Mailer variation.
-		$email_mailer = /(?:X-Mailer:\s*)?PHPMailer(?:[ -]?6\.6\.0|[^\r\n]*custom build)/i
+		$email_mailer_version = /PHPMailer[ -]?6\.6\.0/i
+		$email_mailer_custom = /X-Mailer:\s*PHPMailer[^\r\n]*/i
 		$email_priority = /X-Priority:\s*[12]/i
-		$email_sender = /@(meddefense-portal|medequip-supplies|meddefense-benefits|outlook-protection)\.(?:com|net|org)/i
-		$email_lure = /https?:\/\/[^\r\n]*(?:\/verify|\/login|\/portal|\/enroll)[^\r\n]*/i
+		$email_sender_domain = /@(meddefense-portal|medequip-supplies|meddefense-benefits|outlook-protection)\.(com|net|org)/i
+		$email_lure = /https?:\/\/[^\r\n]*\/(verify|login|portal|enroll)[^\r\n]*/i
 
 		// Document metadata and lure family.
 		$doc_tool = "wkhtmltopdf" nocase
-		$doc_path = /\/(?:verify|login|portal|enroll)\b/i
-		$doc_parameter = /(?:token|id)=/i
-		$doc_healthcare = /(?:staff\s+portal|benefits|invoice|healthcare|medical\s+supplies|enrollment)/i
+		$doc_path = /\/(verify|login|portal|enroll)\b/i
+		$doc_token = "token=" nocase
+		$doc_id = "id=" nocase
+		$doc_healthcare = /(staff\s+portal|benefits|invoice|healthcare|medical\s+supplies|enrollment)/i
 
 	condition:
 		// Strong email evidence: tooling/header plus priority and a lure/sender.
 		(
-			1 of ($email_mailer)
+			1 of ($email_mailer_version, $email_mailer_custom)
 			and 1 of ($email_priority)
-			and 1 of ($email_sender, $email_lure)
+			and 1 of ($email_sender_domain, $email_lure)
 			and $doc_healthcare
 		)
 		or
@@ -111,7 +118,7 @@ rule HEALTHBANE_Campaign_Composite
 		// and healthcare lure language.
 		(
 			$doc_tool
-			and 1 of ($doc_path, $doc_parameter)
+			and 1 of ($doc_path, $doc_token, $doc_id)
 			and $doc_healthcare
 		)
 }
