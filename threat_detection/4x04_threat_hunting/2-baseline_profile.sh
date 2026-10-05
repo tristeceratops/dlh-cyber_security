@@ -19,7 +19,7 @@ fi
 jq_baseline() {
 	local query="${!#}"
 	local jq_args=("${@:1:$#-1}")
-	local parse_filter='split("\n") | map(gsub("\r$"; "") | select((gsub("[[:space:]]"; "") | length) > 0) | fromjson)'
+	local parse_filter='split("\n") | map(select(length > 0) | try fromjson catch empty)'
 	jq -R -s "${jq_args[@]}" "${parse_filter} | ${query}" "$BASELINE_FILE"
 }
 
