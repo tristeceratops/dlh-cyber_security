@@ -22,7 +22,7 @@ command -v jq >/dev/null 2>&1 || {
 events=$(sed '/^[[:space:]]*$/d' "$ALERTS_FILE" "$SYSMON_FILE" | jq -s '.')
 
 query() {
-    jq "$1" <<<"$events"
+    jq -r "$1" <<<"$events"
 }
 
 first_event=$(query 'map(.timestamp) | min')
@@ -80,12 +80,12 @@ query '
 printf '\n'
 
 printf 'HOURLY DISTRIBUTION (UTC):\n'
-query '
-        [range(0; 24) as $hour
-            | {hour: $hour, count: ([.[] | select((.timestamp[11:2] | tonumber) == $hour)] | length)}]
-    | .[]
-    | "  \(.hour | tostring | if length == 1 then "0" + . else . end):00  \(.count)"
-'
+for hour in {0..23}; do
+	count=$(jq -r --argjson hour "$hour" \
+		'[.[] | select((.timestamp[11:2] | tonumber) == $hour)] | length' \
+		<<<"$events")
+	printf '  %02d:00  %s\n' "$hour" "$count"
+done
 printf '\n'
 
 printf 'HYPOTHESIS COVERAGE MATRIX:\n'
