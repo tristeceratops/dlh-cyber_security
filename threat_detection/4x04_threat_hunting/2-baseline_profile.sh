@@ -17,23 +17,24 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 
 jq_baseline() {
-	local parsed_baseline
-	parsed_baseline=$(jq -R -s 'split("\n") | map(gsub("\r$"; "") | select((gsub("[[:space:]]"; "") | length) > 0) | fromjson)' "$BASELINE_FILE")
-	jq "$@" <<<"$parsed_baseline"
+	local query="${!#}"
+	local jq_args=("${@:1:$#-1}")
+	local parse_filter='split("\n") | map(gsub("\r$"; "") | select((gsub("[[:space:]]"; "") | length) > 0) | fromjson)'
+	jq -R -s "${jq_args[@]}" "${parse_filter} | ${query}" "$BASELINE_FILE"
 }
 
 total_events=$(jq_baseline 'length')
 
 count_tool() {
-	jq_baseline --arg tool "$1" '[.[] | select(.hunt_meta.tool == $tool)] | length'
+	jq_baseline '[.[] | select(.hunt_meta.tool == $tool)] | length' --arg tool "$1"
 }
 
 count_source() {
-	jq_baseline --arg source "$1" '[.[] | select(.hunt_meta.source_host == $source)] | length'
+	jq_baseline '[.[] | select(.hunt_meta.source_host == $source)] | length' --arg source "$1"
 }
 
 count_user() {
-	jq_baseline --arg user "$1" '[.[] | select(.data.win.eventdata.user == $user)] | length'
+	jq_baseline '[.[] | select(.data.win.eventdata.user == $user)] | length' --arg user "$1"
 }
 
 business_hours=$(jq_baseline '
@@ -51,7 +52,7 @@ service_account_events=$(jq_baseline '
 
 print_counts() {
 	local query=$1
-	jq_baseline -r "$query"
+	jq_baseline "$query" -r
 }
 
 printf '\n================================================================\n'
