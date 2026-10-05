@@ -50,7 +50,7 @@ psexec_events=$(jq '
          target: $target,
          pid: ($event.data.win.eventdata.processId // "unknown"),
          flags: $flags,
-         classification: (if ($flags | length) == 0 then "BASELINE" else "ANOMALOUS" end)
+                 classification: (if $flags == [] then "BASELINE" else "ANOMALOUS" end)
        }
     ]
 ' <<<"$events")
