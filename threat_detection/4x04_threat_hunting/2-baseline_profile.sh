@@ -16,36 +16,40 @@ if ! command -v jq >/dev/null 2>&1; then
 	exit 1
 fi
 
-total_events=$(jq -s 'length' "$BASELINE_FILE")
+jq_baseline() {
+	sed '/^[[:space:]]*$/d' "$BASELINE_FILE" | jq -s "$@"
+}
+
+total_events=$(jq_baseline 'length')
 
 count_tool() {
-	jq -s --arg tool "$1" '[.[] | select(.hunt_meta.tool == $tool)] | length' "$BASELINE_FILE"
+	jq_baseline --arg tool "$1" '[.[] | select(.hunt_meta.tool == $tool)] | length'
 }
 
 count_source() {
-	jq -s --arg source "$1" '[.[] | select(.hunt_meta.source_host == $source)] | length' "$BASELINE_FILE"
+	jq_baseline --arg source "$1" '[.[] | select(.hunt_meta.source_host == $source)] | length'
 }
 
 count_user() {
-	jq -s --arg user "$1" '[.[] | select(.data.win.eventdata.user == $user)] | length' "$BASELINE_FILE"
+	jq_baseline --arg user "$1" '[.[] | select(.data.win.eventdata.user == $user)] | length'
 }
 
-business_hours=$(jq -s '
+business_hours=$(jq_baseline '
 	[ .[]
 	  | (.timestamp[11:2] | tonumber) as $utc_hour
 	  | (($utc_hour + 19) % 24) as $central_hour
 	  | select($central_hour >= 8 and $central_hour < 18)
 	] | length
-' "$BASELINE_FILE")
+')
 off_hours=$((total_events - business_hours))
 
-service_account_events=$(jq -s '
+service_account_events=$(jq_baseline '
 	[ .[] | select(.data.win.eventdata.user | startswith("svc_")) ] | length
-' "$BASELINE_FILE")
+')
 
 print_counts() {
 	local query=$1
-	jq -sr "$query" "$BASELINE_FILE"
+	jq_baseline -r "$query"
 }
 
 printf '\n================================================================\n'
@@ -65,7 +69,7 @@ print_counts '
 	| .[]
 	| "  \(.[0].hunt_meta.source_host): \(length)"
 ' | sort
-printf '  Other hosts: %s\n' "$(jq -s '[.[] | select(.hunt_meta.source_host != "WS-ADMIN-01")] | length' "$BASELINE_FILE")"
+printf '  Other hosts: %s\n' "$(jq_baseline '[.[] | select(.hunt_meta.source_host != "WS-ADMIN-01")] | length')"
 printf '  -> BASELINE: All admin activity originates from WS-ADMIN-01\n\n'
 
 printf 'TIME DISTRIBUTION:\n'
