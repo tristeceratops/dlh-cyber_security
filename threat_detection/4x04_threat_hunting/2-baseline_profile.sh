@@ -17,7 +17,8 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 
 jq_baseline() {
-	sed '/^[[:space:]]*$/d' "$BASELINE_FILE" | jq -s "$@"
+	jq -R -s 'split("\n") | map(gsub("\r$"; "") | select(test("\\S")) | fromjson)' "$BASELINE_FILE" |
+		jq "$@"
 }
 
 total_events=$(jq_baseline 'length')
