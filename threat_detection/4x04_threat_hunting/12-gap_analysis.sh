@@ -1,0 +1,68 @@
+#!/bin/bash
+
+set -euo pipefail
+
+printf '\n================================================================\n'
+printf '   DETECTION GAP ANALYSIS - Stage 4 Techniques\n'
+printf '================================================================\n\n'
+
+printf 'GAP 1: T1021.002 PsExec Lateral Movement\n'
+printf '  Hunt Finding: PsExec from non-admin workstation or outside the admin window\n'
+printf '  Why Missed: Missing rule; legitimate PsExec activity was not separated from abuse\n'
+printf '  Data Source: Sysmon Event 1\n'
+printf '  Required Rule: alert when image or command contains PsExec and source != WS-ADMIN-01, or activity is off-hours\n'
+printf '  Baseline: MEDDEFENSE\\robert.kim from WS-ADMIN-01 to approved server targets\n'
+printf '  Allowlist: WS-ADMIN-01, named account, documented maintenance windows\n'
+printf '  Priority: P1\n\n'
+
+printf 'GAP 2: T1003.001 LSASS Credential Access\n'
+printf '  Hunt Finding: Non-system process accessed lsass.exe with memory-read rights\n'
+printf '  Why Missed: Missing rule and insufficient behavioral coverage\n'
+printf '  Data Source: Sysmon Event 10\n'
+printf '  Required Rule: alert when TargetImage=lsass.exe and GrantedAccess contains 0x0010 or 0x1010, unless SourceImage is allowlisted\n'
+printf '  Baseline: Windows security and Defender processes only\n'
+printf '  Allowlist: csrss.exe, services.exe, svchost.exe, wininit.exe, MsMpEng.exe, WmiPrvSE.exe\n'
+printf '  Priority: P1\n\n'
+
+printf 'GAP 3: T1047 WMI Remote Execution\n'
+printf '  Hunt Finding: WMI activity from a workstation or WMI enumeration outside the admin baseline\n'
+printf '  Why Missed: Missing rule; WMI was treated as routine inventory without source and target context\n'
+printf '  Data Source: Sysmon Event 1\n'
+printf '  Required Rule: alert on wmic /node or Invoke-WmiMethod when source != WS-ADMIN-01, target is unusual, or activity is off-hours\n'
+printf '  Baseline: WS-ADMIN-01 and MEDDEFENSE\\robert.kim querying approved servers\n'
+printf '  Allowlist: documented source host, account, target segment, and inventory windows\n'
+printf '  Priority: P1\n\n'
+
+printf 'GAP 4: T1021.006 PowerShell Remoting\n'
+printf '  Hunt Finding: Enter-PSSession, New-PSSession, or Invoke-Command used for remote access and staging\n'
+printf '  Why Missed: Overly specific rule focused on PowerShell execution, not remote session context or file transfer\n'
+printf '  Data Source: Sysmon Event 1 and PowerShell logs\n'
+printf '  Required Rule: alert on remoting cmdlets with non-admin source, off-hours timing, or Copy-Item -ToSession\n'
+printf '  Baseline: WS-ADMIN-01 during Thursday/Friday maintenance windows\n'
+printf '  Allowlist: WS-ADMIN-01, named account, approved server targets, approved windows\n'
+printf '  Priority: P1\n\n'
+
+printf 'GAP 5: T1078.002 Service Account Misuse\n'
+printf '  Hunt Finding: svc_healthsync authenticated from WS-RECV-03 to database servers\n'
+printf '  Why Missed: Missing rule; service-account authentication was not compared with its authorization matrix\n'
+printf '  Data Source: Windows Event 4624\n'
+printf '  Required Rule: alert on TargetUserName matching ^svc_ when WorkstationName starts WS-, source differs from authorized host, or LogonType is 2, 10, or 11\n'
+printf '  Baseline: each service account authenticates only from its documented service host\n'
+printf '  Allowlist: service account matrix, authorized host, LogonType 3/5, Kerberos authentication\n'
+printf '  Priority: P1\n\n'
+
+printf 'GAP 6: T1550.002 NTLM / Pass-the-Hash-Style Activity\n'
+printf '  Hunt Finding: Service-account authentication using NTLM instead of Kerberos\n'
+printf '  Why Missed: Missing rule; authentication protocol was not included in the service-account baseline\n'
+printf '  Data Source: Windows Event 4624\n'
+printf '  Required Rule: alert when TargetUserName matches ^svc_ and AuthenticationPackageName=NTLM, especially from a workstation\n'
+printf '  Baseline: service accounts use Kerberos and authenticate only from authorized service hosts\n'
+printf '  Allowlist: documented Kerberos service authentication only; no NTLM exception\n'
+printf '  Priority: P1\n\n'
+
+printf 'SUMMARY:\n'
+printf '  The data was present.\n'
+printf '  The detection logic was missing or incomplete.\n'
+printf '  Proactive hunting exposed the gap.\n\n'
+
+printf '================================================================\n'
