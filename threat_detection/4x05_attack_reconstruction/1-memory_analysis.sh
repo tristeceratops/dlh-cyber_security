@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-MEMORY_FILE="ir_evidence/memory_artifacts.txt"
-IOC_FILE="reference/healthbane_ioc_master.json"
+MEMORY_FILE="4x05/ir_evidence/memory_artifacts.txt"
+IOC_FILE="4x05/reference/healthbane_ioc_master.json"
 OUTPUT_FILE="1-memory_analysis_report.txt"
 
 # ---------------------------------------------------------------------------
