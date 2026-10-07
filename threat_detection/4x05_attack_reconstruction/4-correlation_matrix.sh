@@ -7,7 +7,7 @@ PREVIOUS_DIR="$BASE_DIR/4x05/previous_findings"
 
 FILES=(
     "$BASE_DIR/0-evidence_index.sh"
-    "$BASE_DIR/1-memory_analysis_report.txt"
+    "$BASE_DIR/1-memory_analysis.sh"
     "$BASE_DIR/2-disk_analysis.sh"
     "$BASE_DIR/3-firewall_analysis.sh"
 )
