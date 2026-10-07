@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -euo pipefail
+
 printf '================================================================\n'
 printf '   CROSS-EVIDENCE CORRELATION MATRIX\n'
 printf '   Sources: 4x00 through 4x05-IR (11 evidence files)\n'
