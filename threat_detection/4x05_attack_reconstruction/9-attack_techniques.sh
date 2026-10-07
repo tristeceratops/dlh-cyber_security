@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASELINE="reference/attck_navigator_80pct.json"
+BASELINE="4x05/reference/attck_navigator_80pct.json"
 
 if [ ! -f "$BASELINE" ]; then
     echo "ERROR: Missing $BASELINE"
