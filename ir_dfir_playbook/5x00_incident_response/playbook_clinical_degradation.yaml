@@ -1,0 +1,208 @@
+playbook_id: PB-CLINICAL-002
+title: MedDefense Clinical System Degradation Response
+owner_role: IR_Commander
+
+applies_to:
+  triggers:
+    - "Splunk alert for abnormal authentication, network traffic, service errors, or security events affecting Epic, MedDefense LIS, or Nexus Patient Scheduling."
+    - "Wazuh EDR or Microsoft Defender alert indicating malware, suspicious processes, or unauthorized changes on a clinical workstation or server."
+    - "Clinical staff report of unexpected Epic timeouts, failed logins, missing or altered records, abnormal application behavior, or loss of clinical functionality."
+    - "Monitoring alert indicating increased application errors, unusual resource consumption, unexpected network connections, or service availability degradation."
+    - "Evidence of unauthorized access, suspicious account activity, or possible lateral movement affecting clinical systems."
+
+  indicators:
+    - "Potential security incident: correlated suspicious authentication, unauthorized privilege changes, malware alerts, unexplained configuration changes, command-and-control traffic, or unauthorized connections associated with the affected system."
+    - "Potential security incident: unexplained changes to patient records, unexpected access to ePHI, suspicious bulk queries, or activity inconsistent with the user's clinical role."
+    - "Potential security incident: degradation begins alongside an identified security alert, suspicious process execution, unusual outbound traffic, or unauthorized account activity."
+    - "Potential performance issue: increased response times or intermittent timeouts accompanied by high CPU, memory, storage, database, or network utilization, without corroborating security indicators."
+    - "Potential performance issue: recurring application errors associated with a documented deployment, approved configuration change, capacity constraint, or known vendor outage."
+    - "Potential performance issue: service latency affects users consistently, while authentication patterns, endpoint telemetry, application integrity, and access audit records show no unexplained security anomalies."
+    - "Treat the cause as undetermined when evidence is insufficient. Continue security triage while evaluating performance, and do not assume that an absence of alerts proves the system is uncompromised."
+
+severity_mapping:
+  initial: SEV2
+  escalate_if:
+    - "Escalate to SEV1 when degradation creates high patient-safety impact, causes a full outage of clinical services, or accompanies confirmed broad ePHI exposure."
+    - "Escalate to SEV1 when patient monitoring, medication administration, emergency care, surgery, or other essential clinical workflows are disrupted across multiple sites or create an immediate threat to patients."
+    - "Use SEV2 for a confirmed compromise of a clinical-access account, malware on a clinical workstation, or partial clinical-service outage with moderate patient-safety impact."
+    - "Use SEV3 for low patient-safety impact, suspected compromise, or degraded services that retain essential functionality and have no confirmed higher-tier impact."
+    - "Use SEV4 for isolated low-risk security events without patient-safety impact, data exposure, or service degradation, such as a quarantined phishing email."
+    - "Escalate when additional evidence indicates unauthorized access, ePHI exposure, malware, privilege escalation, or spread to additional clinical systems or sites."
+    - "Reassess severity at every status update. Severity increases when evidence raises patient-safety, data-exposure, or availability impact. Decrease severity only after confirmed containment and IR_Commander approval."
+
+immediate_actions:
+  - step: "Declare the incident or suspected clinical degradation, open an incident record, record the detection time, affected service, reporting source, and initial patient-safety concern."
+    owner: IR_Commander
+    timebox_minutes: 2
+
+  - step: "Contact the on-call clinical lead for the affected service before isolating a clinical workstation, server, network segment, or application dependency. If the affected service is Epic, contact the on-call clinical application or clinical operations lead; for LIS, contact the laboratory operations lead."
+    owner: IR_Commander
+    timebox_minutes: 3
+
+  - step: "Identify affected systems, sites, clinical departments, user accounts, observed symptoms, start time, recent changes, and whether essential patient-care workflows remain available."
+    owner: Technical_Lead
+    timebox_minutes: 5
+
+  - step: "Triage the event using application health, system resource metrics, authentication records, EDR alerts, network telemetry, recent changes, and application audit logs. Classify the cause as likely security-related, likely performance-related, or undetermined."
+    owner: Technical_Lead
+    timebox_minutes: 10
+
+  - step: "Preserve relevant authentication logs, EDR alerts, system and application logs, network telemetry, configuration and deployment records, and relevant patient-record access audit data before changes that may overwrite or destroy evidence."
+    owner: Technical_Lead
+    timebox_minutes: 10
+
+  - step: "If essential clinical workflows are unavailable or cannot be performed safely, the on-call clinical lead activates the approved downtime procedures immediately. Do not wait for the technical root cause to be confirmed."
+    owner: IR_Commander
+    timebox_minutes: 10
+
+  - step: "Notify the Executive_Sponsor immediately if patient safety is threatened or SEV1 criteria are met. Engage the Legal_Liaison if compromise may involve ePHI or a regulatory reporting obligation."
+    owner: IR_Commander
+    timebox_minutes: 15
+
+evidence_preservation:
+  - artifact: "Application health, performance, and error records."
+    method: "Export available Epic, LIS, or Nexus application logs, error rates, response times, transaction failures, service health metrics, and relevant database or middleware records. Record the affected service, time window, collection time in UTC, and source."
+    before_step: "Application restart, configuration modification, service throttling, or other action likely to overwrite relevant diagnostic evidence."
+
+  - artifact: "Authentication and account activity."
+    method: "Export relevant Active Directory and Azure AD authentication events, sign-in logs, account changes, and available session information for affected accounts and systems."
+    before_step: "Account restriction, credential reset, session revocation, or identity configuration changes."
+
+  - artifact: "Endpoint and network telemetry."
+    method: "Preserve Wazuh EDR and Microsoft Defender alerts, relevant endpoint telemetry, network flow records, firewall events, DNS queries, and available suspicious connection details. Record relevant hostnames, IP addresses, timestamps, and query filters."
+    before_step: "Network segmentation, endpoint isolation, firewall changes, or termination of suspicious processes, unless immediate action is necessary to protect patients."
+
+  - artifact: "Clinical application and ePHI access audit records."
+    method: "Export relevant Epic, LIS, or other applicable application audit records showing account identity, access timestamps, affected records or resources, and available actions performed. Restrict access to authorized responders."
+    before_step: "Account restriction, application session termination, service restart, or access-control changes that could impede collection."
+
+  - artifact: "System configuration and recent changes."
+    method: "Capture relevant network rules, service configuration, deployment history, patch records, change tickets, and system resource snapshots. Record approved changes and their timestamps."
+    before_step: "Rollback, configuration modification, service restart, or recovery activity that changes system state."
+
+  - artifact: "Evidence integrity and incident timeline."
+    method: "Record collector identity, source system, collection time in UTC, export method, and SHA-256 hash for collected files. Maintain an incident timeline and approved evidence storage."
+    before_step: "Any containment or remediation action that changes system, network, account, or application state."
+
+containment_actions:
+  - step: "Decision point: choose between investigating under clinical downtime procedures or continuing service with elevated monitoring and constrained access. Consult the on-call clinical lead before any isolation action. If patient care cannot be delivered safely, the clinical lead activates downtime procedures and the IR team prioritizes safe containment. Continue service only when the clinical lead confirms that essential workflows can be performed safely and the IR_Commander approves the documented risk."
+    owner: IR_Commander
+    decision_point: "Document patient-safety status, available clinical alternatives, suspected compromise, evidence collected, clinical lead approval, selected option, review deadline, and conditions that trigger immediate isolation or downtime."
+    trade_off: "Downtime reduces dependence on a potentially unsafe or compromised system but disrupts electronic workflows and increases manual workload. Continued service preserves availability but may expose additional data or allow an attacker to persist."
+
+  - step: "Implement targeted network segmentation for the affected workstation, subnet, or server using approved switch, firewall, or network access controls. Block confirmed malicious destinations and unnecessary lateral movement while retaining only clinically required connections approved by the clinical lead and Technical_Lead."
+    owner: Technical_Lead
+    decision_point: "Prefer targeted segmentation over full network isolation when the system remains necessary for safe patient care. Confirm that essential clinical dependencies and approved emergency access remain available."
+    trade_off: "Limits lateral movement and suspicious communication while preserving selected clinical connectivity, but may interrupt dependent services and may not stop malicious activity over permitted connections."
+
+  - step: "Restrict the suspected compromised account to the minimum access necessary. Disable or revoke access when compromise is confirmed or ongoing misuse presents material risk. Apply targeted restrictions to privileged roles, suspicious application grants, and affected sessions as appropriate."
+    owner: Technical_Lead
+    decision_point: "Coordinate with the on-call clinical lead before restricting an account used for active patient care. Provide an approved alternate access path where feasible; do not delay emergency restrictions when patient safety or ePHI is at immediate risk."
+    trade_off: "Reduces unauthorized access and privilege abuse while retaining other system functions, but may prevent legitimate clinicians from accessing necessary records or applications."
+
+  - step: "Apply service throttling, rate limits, or targeted request restrictions to the affected service or source when excessive requests, suspected automated activity, or resource exhaustion is contributing to degradation. Prioritize essential clinical transactions and monitor application health during the change."
+    owner: Technical_Lead
+    decision_point: "Use throttling only when the application owner confirms that the selected limits are compatible with safe clinical workflows. Establish measurable service-health and patient-safety rollback criteria."
+    trade_off: "Can reduce resource exhaustion and abusive traffic without a full outage, but may increase latency or delay legitimate clinical transactions."
+
+  - step: "Block confirmed malicious source IPs, domains, or network paths using approved security controls. Validate that the change does not inadvertently block essential vendor, identity, laboratory, or clinical application dependencies."
+    owner: Technical_Lead
+    decision_point: "Apply targeted blocking after reviewing available telemetry and clinical dependencies; prioritize immediate blocking when active malicious communication creates an urgent risk."
+    trade_off: "Disrupts known malicious communication while preserving unrelated service traffic, but may block legitimate shared infrastructure or fail to stop activity using other paths."
+
+  - step: "If evidence indicates a compromised clinical workstation, isolate only the affected endpoint using approved EDR or network controls after consulting the on-call clinical lead. Confirm whether the user can safely transition to a trusted workstation or approved alternate workflow."
+    owner: Technical_Lead
+    decision_point: "Isolate immediately if the endpoint presents an active threat to patient safety, ePHI, or other systems. If continued operation is temporarily necessary, the clinical lead must approve the safe alternative and the IR_Commander must document the risk and review deadline."
+    trade_off: "Prevents further endpoint communication and potential spread but may interrupt clinical work and reduce remote investigative visibility if isolation changes endpoint connectivity."
+
+  - step: "Reassess clinical safety, service health, and security indicators after every containment change. Reverse or adjust a change if it creates an unsafe clinical condition, while maintaining necessary security controls and recording the decision."
+    owner: IR_Commander
+    decision_point: "Review with the clinical lead and Technical_Lead after each material change or immediately when patient-care impact worsens."
+    trade_off: "Allows containment to be adapted to changing conditions but may require balancing service availability against residual security risk."
+
+eradication_actions:
+  - "Remove identified malware, unauthorized processes, malicious scripts, and persistence mechanisms from affected systems using approved endpoint security and recovery procedures."
+  - "Remove unauthorized account changes, privilege assignments, application grants, scheduled tasks, and remote-access configurations after preserving relevant evidence."
+  - "Patch or remediate confirmed exploited vulnerabilities and correct unsafe configurations responsible for the incident."
+  - "Rotate credentials and secrets that evidence indicates may have been exposed, coordinating changes with identity, clinical application, and infrastructure owners."
+  - "Remove malicious network rules and unauthorized service configurations, and restore approved segmentation and access controls."
+  - "If system integrity cannot be established, rebuild the affected workstation or server from a trusted baseline and restore only verified clean configurations and data."
+  - "Verify that the identified root cause and attacker persistence have been eliminated before returning the affected system to normal production operation."
+
+recovery_validation:
+  - check: "Clinical workflow safety."
+    criterion: "The on-call clinical lead confirms that required patient-care workflows are available or that approved downtime procedures remain active and usable. No technical recovery step is considered successful if it leaves an unsafe clinical workflow."
+
+  - check: "Epic service health."
+    criterion: "Where Epic is affected, authorized users can authenticate and perform required clinical tasks at epic.meddefense.local, application errors and response times meet approved operational thresholds, and the clinical application owner confirms acceptable operation."
+
+  - check: "Laboratory Information System health."
+    criterion: "Where LIS is affected, authorized laboratory staff can access LIS-WSIDE-01, required laboratory workflows function, and the laboratory operations lead confirms that results can be processed and communicated safely."
+
+  - check: "Nexus Patient Scheduling health."
+    criterion: "Where scheduling is affected, authorized staff can perform essential scheduling functions, error rates and response times return to approved thresholds, and downstream patient reminder dependencies are assessed."
+
+  - check: "Network and account restrictions."
+    criterion: "Required clinical connectivity is available, unnecessary access remains restricted, and no unexplained authentication, network, or endpoint activity is observed during the defined monitoring period."
+
+  - check: "Security integrity."
+    criterion: "EDR, SIEM, authentication, network, and application telemetry show no unexplained evidence of continuing compromise. Identified vulnerabilities, malware, and persistence mechanisms have been remediated or documented as residual risk."
+
+  - check: "Performance baseline."
+    criterion: "Relevant resource utilization, latency, error rates, and transaction completion return to documented operational thresholds or an approved temporary operating baseline."
+
+  - check: "Downtime recovery and reconciliation."
+    criterion: "The clinical lead authorizes return to normal workflows only after service validation. Downtime records, orders, results, and other required clinical documentation are reconciled according to approved clinical procedures."
+
+  - check: "Recovery authorization."
+    criterion: "The Technical_Lead documents technical validation, the clinical lead confirms patient-care readiness, and the IR_Commander approves the security recovery decision and any severity reduction."
+
+communication_plan:
+  - audience: "IR_Commander"
+    trigger: "Immediately upon declaration and whenever severity, scope, patient-safety impact, or containment strategy changes."
+    template: "templates/incident_status_update.md"
+
+  - audience: "On-call clinical lead and affected clinical operations team"
+    trigger: "Before any isolation action affecting a clinical workstation, server, network segment, or application dependency; immediately when essential workflows may be unsafe or unavailable."
+    template: "templates/clinical_safety_coordination.md"
+
+  - audience: "Technical_Lead and SOC"
+    trigger: "Immediately upon declaration, including affected systems, symptoms, suspected indicators, evidence requirements, and approved containment boundaries."
+    template: "templates/technical_response_handoff.md"
+
+  - audience: "Executive_Sponsor (CISO)"
+    trigger: "Immediately for SEV1, material patient-safety risk, full clinical-service outage, confirmed broad ePHI exposure, or significant scope expansion."
+    template: "templates/executive_incident_brief.md"
+
+  - audience: "Legal_Liaison"
+    trigger: "When evidence indicates potential ePHI access, unauthorized disclosure, a reportable breach, or applicable regulatory or contractual obligations."
+    template: "templates/hipaa_breach_assessment.md"
+
+  - audience: "Communications_Lead"
+    trigger: "When workforce, patient, partner, public, or regulatory communications may be required; communications must be coordinated with Legal_Liaison and authorized leadership."
+    template: "templates/incident_communications_plan.md"
+
+  - audience: "Affected clinical staff"
+    trigger: "When downtime procedures are activated, system access is restricted, a clinical service is degraded, or normal workflows are restored."
+    template: "templates/clinical_downtime_notification.md"
+
+escalation_triggers:
+  - "Escalate to SEV1 when high patient-safety impact, confirmed broad ePHI exposure, or a full outage of clinical services is identified."
+  - "Escalate when active care, patient monitoring, emergency treatment, medication administration, or essential clinical workflows cannot be performed safely."
+  - "Escalate when degradation spreads to additional sites or systems, including Epic, LIS-WSIDE-01, or Nexus Patient Scheduling, and increases patient-safety or availability impact."
+  - "Escalate when security evidence identifies confirmed clinical-account compromise, malware, unauthorized patient-record access, lateral movement, or privilege escalation."
+  - "Notify the Executive_Sponsor immediately for SEV1 or material patient-safety impact. The CISO holds SEV1 decision authority."
+  - "Notify the Legal_Liaison when ePHI may have been accessed or exposed and document the evidence supporting the assessment."
+  - "Escalate one severity level if meaningful progress is not made within the applicable MedDefense threshold: SEV1 15 minutes, SEV2 30 minutes, SEV3 60 minutes, or SEV4 240 minutes."
+  - "Reassess severity at every status update. Severity increases when new evidence raises patient-safety, data-exposure, or service-availability impact. Severity decreases only after confirmed containment and IR_Commander approval."
+
+post_incident_tasks:
+  - "Transfer the incident timeline, application and system logs, EDR alerts, network telemetry, configuration snapshots, evidence hashes, and collection records to the post-incident review owner."
+  - "Document the triage findings that distinguished suspected security activity from a performance problem, including evidence reviewed, remaining uncertainty, and the final root-cause determination."
+  - "Record the patient-safety consultation, the clinical lead's decisions, isolation approvals, downtime activation time, and criteria used to restore normal clinical workflows."
+  - "Review the decision to investigate under downtime or continue service with elevated monitoring and constrained access. Document the risk assessment, approver, monitoring duration, and observed outcomes."
+  - "Evaluate whether segmentation, account restriction, service throttling, and endpoint isolation achieved containment without unnecessary disruption to patient care."
+  - "Identify the root cause and assign corrective actions with accountable owners and deadlines."
+  - "Review affected ePHI access and complete the appropriate HIPAA assessment with Legal_Liaison if unauthorized access or disclosure may have occurred."
+  - "Update monitoring, capacity thresholds, alert correlation, runbooks, and clinical downtime procedures based on the incident findings."
+  - "Conduct a lessons-learned review with the IR_Commander, Technical_Lead, clinical lead, Legal_Liaison, and relevant stakeholders. Track corrective actions to completion."
