@@ -1,0 +1,32 @@
+playbook_id:
+title:
+owner_role:
+applies_to:
+  triggers:
+  indicators:
+severity_mapping:
+  initial:
+  escalate_if:
+immediate_actions:
+  - step:
+    method:
+    before_step:
+evidence_preservation:
+  - artifact:
+    method:
+    before_step:
+containment_actions:
+  - step:
+    owner:
+    decision_point:
+    trade_off:
+eradication_actions:
+recovery_validation:
+  - check:
+    criterion:
+communication_plan:
+  - audience:
+    trigger:
+    template:
+escalation_triggers:
+post_incident_tasks:

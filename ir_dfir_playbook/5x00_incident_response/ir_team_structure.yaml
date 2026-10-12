@@ -1,88 +1,111 @@
 roles:
   IR_Commander:
-    primary: James Chen, SOC Lead
-    backup: Sarah Park, IT Director
+    primary: "James Chen, SOC Lead / IR Commander"
+    backup: "Sarah Park, IT Director"
     responsibilities:
-      - Owns the incident through closure
-      - Runs the incident bridge and timeline
-      - Authorizes containment actions within authority ceiling
+      - "Owns incident response through closure and runs the incident bridge."
+      - "Coordinates incident status, decisions, and escalation."
+      - "Authorizes response actions within delegated authority."
     authority_ceiling: SEV2
+
   Technical_Lead:
-    primary: Robert Kim, Infrastructure Lead
-    backup: Mike Torres, Network Engineer
+    primary: "Robert Kim, Infrastructure Lead"
+    backup: "Mike Torres, Network Engineer"
     responsibilities:
-      - Coordinates the technical teams (IT, Network, etc)
-      - Proposes and implements containment, eradication, and recovery measures
-      - Inform IR Commander of the evolving situation
-    authority_ceiling: SEV2
+      - "Coordinates technical response across infrastructure, network, identity, and endpoint teams."
+      - "Leads technical containment, eradication, and recovery activities."
+      - "Reports technical findings, impact, and scope changes to the IR Commander."
+    authority_ceiling: SEV3
+
   Communications_Lead:
-    primary: Marcus Webb, Communications Director
-    backup: Sarah Park, IT Director
+    primary: "Marcus Webb, Communications Director"
+    backup: "Sarah Park, IT Director"
     responsibilities:
-      - Prepare communication plan for collaborators, clients, partners or medias
-      - Coordinates public communication with technical, law and lead teams
-      - Deny fake or wrong informations
-    authority_ceiling: SEV2
+      - "Prepares internal and external incident communications."
+      - "Coordinates communication approvals with the IR Commander and Legal Liaison."
+      - "Ensures communications are accurate, consistent, and appropriately authorized."
+    authority_ceiling: SEV3
+
   Legal_Liaison:
-    primary: Helena Reyes, General Counsel
-    backup: Dr. Patricia Morales, CISO
+    primary: "Helena Reyes, General Counsel"
+    backup: "Dr. Patricia Morales, CISO"
     responsibilities:
-      - Assess the legal consequences of the incident
-      - Ensure the proper preservation of evidence for potential proceedings
-      - Assesses the organization's contractual risks and liabilities
-    authority_ceiling: SEV1
+      - "Assesses legal, regulatory, contractual, and breach notification obligations."
+      - "Coordinates evidence preservation and litigation holds."
+      - "Advises on HIPAA and applicable state privacy requirements."
+    authority_ceiling: SEV2
+
   Executive_Sponsor:
-    primary: Dr. Patricia Morales, CISO
-    backup: Sarah Park, IT Director
+    primary: "Dr. Patricia Morales, CISO"
+    backup: "Sarah Park, IT Director"
     responsibilities:
-      - Provides the necessary resources(budget, personnel, technical)
-      - Arbitrates priority conflicts between teams or departments
-      - Assesses the consequences of the incident on the company's activities
+      - "Exercises executive decision authority for SEV1 incidents."
+      - "Allocates resources and resolves cross-department priority conflicts."
+      - "Oversees patient safety, organizational impact, and executive reporting."
     authority_ceiling: SEV1
+
   Scribe:
-    primary: Mike Torres, Network Engineer
-    backup: Robert Kim, Infrastructure Lead
+    primary: "Mike Torres, Network Engineer"
+    backup: "Robert Kim, Infrastructure Lead"
     responsibilities:
-      - Maintains a chronological log of events
-      - Record decisions, actions taken, and the persons responsible
-      - Note the important times, changes in the situation, and the results obtained
+      - "Maintains a chronological incident log with timestamps."
+      - "Records decisions, actions, owners, and supporting evidence."
+      - "Documents status changes, escalation events, and outcomes."
     authority_ceiling: SEV4
+
 escalation:
   SEV1:
     on_detection:
       - IR_Commander
       - Technical_Lead
       - Executive_Sponsor
+      - Legal_Liaison
+      - Scribe
     on_confirmation:
       - Communications_Lead
       - Legal_Liaison
+      - Executive_Sponsor
     on_scope_expansion:
+      - IR_Commander
+      - Technical_Lead
       - Executive_Sponsor
       - Legal_Liaison
       - Communications_Lead
+      - Scribe
     time_threshold_minutes_to_escalate: 15
+
   SEV2:
     on_detection:
       - IR_Commander
       - Technical_Lead
+      - Scribe
     on_confirmation:
-      - Communications_Lead
       - Legal_Liaison
+      - Communications_Lead
     on_scope_expansion:
       - Executive_Sponsor
+      - Legal_Liaison
+      - IR_Commander
+      - Technical_Lead
     time_threshold_minutes_to_escalate: 30
+
   SEV3:
     on_detection:
       - Technical_Lead
+      - Scribe
     on_confirmation:
       - IR_Commander
+      - Technical_Lead
     on_scope_expansion:
-      - Executive_Sponsor
+      - IR_Commander
       - Legal_Liaison
+      - Executive_Sponsor
     time_threshold_minutes_to_escalate: 60
+
   SEV4:
     on_detection:
       - Technical_Lead
+      - Scribe
     on_confirmation:
       - IR_Commander
     on_scope_expansion:
