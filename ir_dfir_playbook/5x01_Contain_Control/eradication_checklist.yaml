@@ -1,0 +1,145 @@
+
+items:
+  - id: ERAD-001
+    category: malware_artifact
+    target_host: WST-WS-031
+    description: Remove identified dropped files X and X.exe after evidence preservation
+    command_or_action: Remove-Item -LiteralPath '<confirmed_path_X>','<confirmed_path_X.exe>' -Force
+    verification_command: Test-Path '<confirmed_path_X>'; Test-Path '<confirmed_path_X.exe>'; endpoint live-response file listing
+    expected_verification_result: Both paths return False and endpoint live-response returns no matching files
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-002
+    category: malware_artifact
+    target_host: WST-WS-031
+    description: Remove confirmed scheduled task persistence associated with the incident
+    command_or_action: schtasks /delete /tn '<confirmed_task_name_or_GUID>' /f
+    verification_command: schtasks /query /fo LIST /v | findstr /i '<confirmed_task_name_or_GUID>'
+    expected_verification_result: No matching scheduled task remains
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-003
+    category: malware_artifact
+    target_host: WST-WS-031
+    description: Remove confirmed registry persistence associated with the incident
+    command_or_action: Export the confirmed registry key for evidence preservation, then remove only the validated malicious value or key
+    verification_command: Query the confirmed registry path and value; inspect endpoint live-response registry results
+    expected_verification_result: Confirmed malicious persistence value or key is absent and evidence export is retained
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-004
+    category: process
+    target_host: WST-WS-031
+    description: Identify and terminate attacker-associated PowerShell PID 7812 and MSBuild PID 8104 after volatile evidence collection
+    command_or_action: Capture process memory and metadata where feasible; validate current PID-to-process mapping, then terminate confirmed malicious processes using approved endpoint response
+    verification_command: Get-CimInstance Win32_Process | Where-Object { $_.ProcessId -in @(7812,8104) } | Select-Object ProcessId,Name,CommandLine
+    expected_verification_result: No confirmed malicious process remains running; PID reuse is ruled out and evidence references are recorded
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-005
+    category: malware_artifact
+    target_host: WST-WS-017
+    description: Search for and remove incident-related dropped files, scheduled tasks, and registry persistence after evidence preservation
+    command_or_action: Run approved endpoint live-response searches using confirmed incident indicators; quarantine or remove validated malicious artifacts
+    verification_command: Endpoint live-response file, scheduled-task, and registry searches for confirmed incident indicators
+    expected_verification_result: No confirmed incident-related artifacts or persistence remain; search results and evidence references are retained
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-006
+    category: malware_artifact
+    target_host: LIS-WSIDE-01
+    description: Search for and remove incident-related dropped files, scheduled tasks, and registry persistence after evidence preservation
+    command_or_action: Run approved endpoint live-response searches using confirmed incident indicators; quarantine or remove validated malicious artifacts
+    verification_command: Endpoint live-response file, scheduled-task, and registry searches for confirmed incident indicators
+    expected_verification_result: No confirmed incident-related artifacts or persistence remain; search results and evidence references are retained
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-007
+    category: credential
+    target_host: domain
+    description: Reset compromised dmarsh account password and revoke active sessions and refresh tokens
+    command_or_action: Reset the dmarsh password through approved identity administration; revoke active sessions and refresh tokens using the supported identity platform
+    verification_command: Review directory password-reset audit events, session revocation status, and identity-provider sign-in logs after the reset timestamp
+    expected_verification_result: Password reset and revocation are confirmed; no successful post-reset activity uses revoked sessions or tokens
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-008
+    category: machine_account
+    target_host: WST-WS-031
+    description: Rotate the machine account password after host cleanup and trust-channel validation
+    command_or_action: Perform the approved domain machine-account password rotation procedure; restore and validate the secure channel
+    verification_command: Test-ComputerSecureChannel -Verbose; review domain controller audit logs for the machine-account password change
+    expected_verification_result: Password rotation is confirmed, the secure channel succeeds, and domain authentication functions normally
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-009
+    category: machine_account
+    target_host: WST-WS-017
+    description: Rotate the machine account password after host cleanup and trust-channel validation
+    command_or_action: Perform the approved domain machine-account password rotation procedure; restore and validate the secure channel
+    verification_command: Test-ComputerSecureChannel -Verbose; review domain controller audit logs for the machine-account password change
+    expected_verification_result: Password rotation is confirmed, the secure channel succeeds, and domain authentication functions normally
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-010
+    category: machine_account
+    target_host: LIS-WSIDE-01
+    description: Rotate the machine account password after host cleanup and trust-channel validation
+    command_or_action: Perform the approved domain machine-account password rotation procedure; restore and validate the secure channel
+    verification_command: Test-ComputerSecureChannel -Verbose; review domain controller audit logs for the machine-account password change
+    expected_verification_result: Password rotation is confirmed, the secure channel succeeds, and domain authentication functions normally
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-011
+    category: krbtgt
+    target_host: domain
+    description: Assess compromised Kerberos trust material and determine whether a double reset of krbtgt is required
+    command_or_action: Validate evidence of forged-ticket or Pass-the-Ticket activity; if compromise of krbtgt keys is confirmed, coordinate two krbtgt password resets with full AD replication and the required interval between resets
+    rationale: Kerberos trust material is identified as compromised; a double reset is warranted if krbtgt key compromise or forged-ticket activity is confirmed. Validate the observed attack evidence before executing this domain-wide change.
+    verification_command: Review domain controller replication health and password-reset audit events; inspect Kerberos authentication telemetry and incident timestamps
+    expected_verification_result: Decision and evidence are documented; if reset is approved and completed, both rotations and replication are confirmed across domain controllers
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-012
+    category: network
+    target_host: perimeter
+    description: Block outbound communications to both identified C2 IPs
+    command_or_action: Apply and deploy firewall egress deny rules for 185.220.101.47 and 91.234.99.107 across applicable egress points
+    verification_command: Review firewall policy and deny logs; query NetFlow or packet telemetry for traffic to 185.220.101.47 and 91.234.99.107 after rule deployment
+    expected_verification_result: Both deny rules are active; no successful outbound C2 sessions are observed after deployment, with telemetry coverage and query interval documented
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ERAD-013
+    category: network
+    target_host: perimeter
+    description: Verify internal segmentation prevents lateral movement between affected hosts and restricted network segments
+    command_or_action: Apply approved segmentation rules limiting affected-host communication to explicitly authorized incident-response and remediation services
+    verification_command: Review deployed ACL or firewall policy; run approved connectivity tests and inspect corresponding firewall logs
+    expected_verification_result: Unauthorized inter-host and restricted-segment connections are denied; required remediation and IR jumpbox connectivity remains available
+    status: pending
+    executed_at: null
+    executed_by: null
