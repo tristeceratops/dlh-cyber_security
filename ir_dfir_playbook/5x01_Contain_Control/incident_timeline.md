@@ -40,12 +40,12 @@
 
 - 2026-04-14T03:16:00Z | ACTION | Incident Response / Network Operations | Proposed start of containment: move WST-WS-031 to VLAN 999, block all outbound traffic, and permit authorized IR jumpbox access only. Verify effective isolation and document the actual operator, execution time, and test results. | source=containment_decision.md; certainty=proposed pending execution logs
 
-- 2026-04-14T03:16:04Z | ACTION | Network Operations (operator to be identified) | Proposed: reassigned WST-WS-031 switch port to VLAN 999 and applied quarantine policy to block outbound traffic while permitting authorized IR jumpbox access. Verify switch and policy logs before confirming execution. | source=containment_execution.md; certainty=proposed, execution unverified
+- 2026-04-14T03:16:04Z | ACTION | [Network Operations actor] | Isolate WST-WS-031 in VLAN 999 and restrict access to the IR jumpbox | source=containment_execution.md; evidence=[switch change ID and verification reference]
 
-- 2026-04-14T03:17:21Z | ACTION | Network Operations / Firewall Administrator (operator to be identified) | Proposed: enabled outbound firewall deny rule for WST-WS-031 (`10.42.118.31`) to `185.220.101.47:443/TCP`. Verify deployment status and firewall audit logs. | source=containment_execution.md; certainty=proposed, execution unverified
+- 2026-04-14T03:17:21Z | ACTION | [Firewall Administrator actor] | Apply outbound deny rule for 10.42.118.31 -> 185.220.101.47:443/TCP | source=containment_execution.md; evidence=[firewall rule ID and deny-log reference]
 
-- 2026-04-14T03:17:21Z | ACTION | Incident Response Network Analyst (analyst to be identified) | Proposed: reviewed post-containment firewall and network-flow telemetry for C2 destination `185.220.101.47:443/TCP`. No successful post-containment C2 session may be recorded as confirmed until supporting telemetry is preserved and reviewed. | source=containment_execution.md; certainty=pending telemetry verification
+- 2026-04-14T03:17:21Z | ACTION | [Incident Response Network Analyst] | Validate C2 severance using packet capture or NetFlow | source=containment_execution.md; evidence=[telemetry source, UTC interval, and evidence reference]
 
-- 2026-04-14T03:19:02Z | ACTION | Endpoint Response Analyst (operator to be identified) | Proposed: set endpoint device containment flag on WST-WS-031, if supported by the deployed endpoint platform. Confirm console status and retain audit evidence; if unsupported, document the limitation. | source=containment_execution.md; certainty=proposed, execution and platform capability unverified
+- 2026-04-14T03:19:02Z | ACTION | [Endpoint Response Analyst] | Enable or verify endpoint containment for WST-WS-031 | source=containment_execution.md; evidence=[endpoint audit-log or console reference]
 
-- 2026-04-14T03:22:04Z | ACTION | Incident Response Analyst (analyst to be identified) | Proposed: verified authorized IR jumpbox access and tested connectivity from an unauthorized user-network host. Record actual test outcomes and supporting policy logs before confirming jumpbox-only reachability. | source=containment_execution.md; certainty=pending connectivity verification
+- 2026-04-14T03:22:04Z | ACTION | [Incident Response Analyst] | Verify IR jumpbox-only access and confirm unauthorized access and C2 traffic are blocked | source=containment_execution.md; evidence=[timestamped connectivity-test and network-log references]
