@@ -39,3 +39,13 @@
 - 2026-04-14T03:14:00Z | EVIDENCE | Incident Response | Proposed evidence-preservation completion time for WST-WS-031. Confirm that required memory, process, network, and telemetry artifacts have been acquired and that hashes have been recorded and verified before treating preservation as complete. | source=/evidence/IR-2026-0414-01/IR-2026-0414-01-hashes.txt; certainty=unverified pending acquisition records
 
 - 2026-04-14T03:16:00Z | ACTION | Incident Response / Network Operations | Proposed start of containment: move WST-WS-031 to VLAN 999, block all outbound traffic, and permit authorized IR jumpbox access only. Verify effective isolation and document the actual operator, execution time, and test results. | source=containment_decision.md; certainty=proposed pending execution logs
+
+- 2026-04-14T03:16:04Z | ACTION | Network Operations (operator to be identified) | Proposed: reassigned WST-WS-031 switch port to VLAN 999 and applied quarantine policy to block outbound traffic while permitting authorized IR jumpbox access. Verify switch and policy logs before confirming execution. | source=containment_execution.md; certainty=proposed, execution unverified
+
+- 2026-04-14T03:17:21Z | ACTION | Network Operations / Firewall Administrator (operator to be identified) | Proposed: enabled outbound firewall deny rule for WST-WS-031 (`10.42.118.31`) to `185.220.101.47:443/TCP`. Verify deployment status and firewall audit logs. | source=containment_execution.md; certainty=proposed, execution unverified
+
+- 2026-04-14T03:17:21Z | ACTION | Incident Response Network Analyst (analyst to be identified) | Proposed: reviewed post-containment firewall and network-flow telemetry for C2 destination `185.220.101.47:443/TCP`. No successful post-containment C2 session may be recorded as confirmed until supporting telemetry is preserved and reviewed. | source=containment_execution.md; certainty=pending telemetry verification
+
+- 2026-04-14T03:19:02Z | ACTION | Endpoint Response Analyst (operator to be identified) | Proposed: set endpoint device containment flag on WST-WS-031, if supported by the deployed endpoint platform. Confirm console status and retain audit evidence; if unsupported, document the limitation. | source=containment_execution.md; certainty=proposed, execution and platform capability unverified
+
+- 2026-04-14T03:22:04Z | ACTION | Incident Response Analyst (analyst to be identified) | Proposed: verified authorized IR jumpbox access and tested connectivity from an unauthorized user-network host. Record actual test outcomes and supporting policy logs before confirming jumpbox-only reachability. | source=containment_execution.md; certainty=pending connectivity verification
