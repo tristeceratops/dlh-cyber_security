@@ -1,0 +1,31 @@
+# MedDefense Proxy Log Export
+# User: MEDDEFENSE\dmarsh  (Daniel Marsh, Laboratory Technician, West Campus)
+# Source IP: 10.42.118.31 (WST-WS-031)
+# Window: 2026-04-13T02:47:00Z to 2026-04-14T02:47:00Z  (24h rolling)
+# Format: ISO8601Z  USER  METHOD  URL  STATUS  BYTES  REFERER  USER_AGENT
+# Exported: 2026-04-14T02:52:18Z by soc-evidence-collector v2.1
+2026-04-13T03:12:44Z dmarsh GET https://outlook.office.com/mail/ 200 42817 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T03:13:02Z dmarsh GET https://outlook.office.com/owa/service.svc 200 2841 https://outlook.office.com/mail/ Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T04:04:11Z dmarsh GET https://lis.meddefense.local/reports/daily 200 18412 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T04:22:59Z dmarsh GET https://epic.meddefense.local/hyperspace 200 91204 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T06:18:02Z dmarsh GET https://teams.microsoft.com/_#/conversations 200 61440 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T08:45:12Z dmarsh GET https://www.google.com/search?q=lis+reagent+lot+recall 200 28416 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T08:45:44Z dmarsh GET https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts 200 51204 https://www.google.com/ Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T09:10:04Z dmarsh GET https://outlook.office.com/mail/inbox 200 38421 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T10:02:41Z dmarsh POST https://lis.meddefense.local/api/labresults 200 1248 https://lis.meddefense.local/reports/daily Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T12:14:01Z dmarsh GET https://www.cafeteria.meddefense.local/menu 200 4812 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T14:40:22Z dmarsh GET https://sharepoint.meddefense.local/sites/labops 200 71204 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T16:48:15Z dmarsh GET https://outlook.office.com/mail/inbox 200 42017 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T18:13:44Z dmarsh GET https://outlook.office.com/mail/id/AAMkAG 200 18204 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T18:14:02Z dmarsh GET https://ms0365-support.login-verification.click/auth 200 14821 https://outlook.office.com/mail/id/AAMkAG Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T18:14:07Z dmarsh GET https://ms0365-support.login-verification.click/auth/static/ms-logo.svg 200 1204 https://ms0365-support.login-verification.click/auth Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T18:14:09Z dmarsh GET https://ms0365-support.login-verification.click/auth/static/login.css 200 8412 https://ms0365-support.login-verification.click/auth Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T18:14:41Z dmarsh POST https://ms0365-support.login-verification.click/auth/submit 302 418 https://ms0365-support.login-verification.click/auth Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T18:14:43Z dmarsh GET https://ms0365-support.login-verification.click/auth/drop/update.zip 200 421004 https://ms0365-support.login-verification.click/auth/submit Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T18:15:18Z dmarsh GET https://outlook.office.com/mail/inbox 200 38204 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T19:42:00Z dmarsh GET https://www.weather.com/weather/today 200 22048 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T21:02:19Z dmarsh GET https://outlook.office.com/mail/inbox 200 42712 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-13T21:38:04Z dmarsh GET https://teams.microsoft.com/_#/conversations 200 58204 - Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0
+2026-04-14T02:46:44Z dmarsh CONNECT 185.220.101.47:443 - - - -
+2026-04-14T02:47:02Z dmarsh CONNECT 185.220.101.47:443 200 4198 - -
+2026-04-14T02:47:08Z dmarsh CONNECT 185.220.101.47:443 200 11203 - -
