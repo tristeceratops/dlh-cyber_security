@@ -38,10 +38,10 @@ Hash algorithm: SHA-256
 
 ## 4. SIEM alert record
 
-- **What:** Original JSON alert `A-20260414-9841`, including process tree, network connection, enrichment, and detection context.
-- **How:** `cp /lab/materials/alert_A-20260414-9841.json /evidence/IR-2026-0414-01/alert_A-20260414-9841.json`
-- **Where:** `/evidence/IR-2026-0414-01/alert_A-20260414-9841.json`
-- **Hash:** `sha256sum /evidence/IR-2026-0414-9841/alert_A-20260414-9841.json` — append the result to `/evidence/IR-2026-0414-01/IR-2026-0414-01-hashes.txt`.
+- **What:** Original JSON alert `A-20260414-01`, including process tree, network connection, enrichment, and detection context.
+- **How:** `cp /lab/materials/alert_A-20260414-01.json /evidence/IR-2026-0414-01/alert_A-20260414-01.json`
+- **Where:** `/evidence/IR-2026-0414-01/alert_A-20260414-01.json`
+- **Hash:** `sha256sum /evidence/IR-2026-0414-01/alert_A-20260414-01.json` — append the result to `/evidence/IR-2026-0414-01/IR-2026-0414-01-hashes.txt`.
 - **Ordering:** Preserve early to prevent loss through SIEM retention or modification; do not delay volatile memory capture to do so.
 
 ## 5. Proxy and DNS logs
