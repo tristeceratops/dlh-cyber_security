@@ -1,0 +1,47 @@
+
+title: PowerShell Spawning Trusted Developer Utility (LOLBin Proxy Execution)
+id: 7e6f4a2c-9b31-4d85-a6c2-1f0e7b9d3a54
+status: test
+description: Detects PowerShell or Windows script hosts spawning MSBuild and other trusted utilities that may proxy execution of malicious code, including inline C# execution without dropping a traditional executable. Tune against approved developer and administration workflows.
+references:
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_msbuild_susp_parent_process.yml
+  - https://lolbas-project.github.io/
+  - https://attack.mitre.org/techniques/T1127/001/
+author: OpenAI ChatGPT
+date: 2026-10-20
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.t1127.001
+  - attack.t1218
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+  selection_child:
+    Image|endswith:
+      - '\MSBuild.exe'
+      - '\csc.exe'
+      - '\vbc.exe'
+      - '\jsc.exe'
+      - '\ilasm.exe'
+      - '\InstallUtil.exe'
+      - '\RegAsm.exe'
+      - '\RegSvcs.exe'
+      - '\RegSvr32.exe'
+      - '\MSXSL.exe'
+      - '\SqlPS.exe'
+      - '\RCSI.exe'
+      - '\Mshta.exe'
+      - '\Wmic.exe'
+  condition: selection_parent and selection_child
+falsepositives:
+  - Approved Visual Studio or MSBuild-based CI builds launched by PowerShell automation on developer workstations or build agents.
+  - Enterprise logon or software-deployment scripts that invoke cscript.exe or wscript.exe to run approved compilation, registration, or administration utilities.
+level: high
