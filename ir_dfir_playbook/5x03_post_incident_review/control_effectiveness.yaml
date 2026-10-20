@@ -1,0 +1,94 @@
+- phase: Credential phishing and submission
+  att_ck_technique: T1566.002 + T1078
+  controls_expected:
+    - Secure email gateway with malicious-link detection, URL rewriting, and phishing protection
+    - Web proxy or DNS filtering to block known malicious and typosquatted domains
+    - Phishing-resistant MFA and credential-submission protection
+  controls_fired:
+    - Credential pair was verified as phished according to the forensic findings summary
+  controls_missed:
+    - Phishing protection did not prevent the user from visiting ms0365-support.login-verification.click at 2026-04-13T18:14:02Z
+    - Web filtering did not block the credential-harvesting typosquat domain
+    - Credential-submission protections did not prevent the compromised credentials from being captured and reused
+  gap_severity: high
+  gap_reason: The phishing link led to credential compromise, enabling subsequent identity abuse; the available summary does not establish which email or browser controls triggered.
+
+- phase: VPN access using stolen credentials from a foreign IP
+  att_ck_technique: T1078
+  controls_expected:
+    - Conditional access and risk-based authentication for remote access
+    - Phishing-resistant MFA for VPN and cloud identity sessions
+    - Identity threat detection for foreign-IP logins and anomalous authentication patterns
+  controls_fired:
+    - Conditional access evaluated device compliance, according to the findings summary
+  controls_missed:
+    - Azure AD risk signals were suppressed by the conditional access compliant-device rule
+    - Risk-based access controls did not effectively prevent or contain the compromised identity session
+    - Correlation of the foreign IP 45.63.9.88 with the phished credentials did not prevent subsequent identity abuse
+  gap_severity: critical
+  gap_reason: The compromised account was used in the incident, and risk signals were suppressed by a compliant-device condition; the precise relationship between the foreign-IP Office 365 session and VPN access remains under investigation.
+
+- phase: PowerShell to MSBuild LOLBin execution
+  att_ck_technique: T1127.001
+  controls_expected:
+    - Endpoint detection and response monitoring of PowerShell and child-process relationships
+    - Application control to restrict unapproved MSBuild execution and suspicious inline tasks
+    - PowerShell logging, including script-block and encoded-command detection
+  controls_fired:
+    - Forensic memory analysis identified powershell.exe PID 7812 as the direct parent of MSBuild.exe PID 8104
+    - UserAssist recorded one MSBuild.exe execution
+  controls_missed:
+    - Endpoint prevention did not block the suspicious PowerShell-to-MSBuild execution chain
+    - Application control did not prevent the MSBuild inline-task execution associated with update.xml
+    - Runtime detection did not stop the process chain before the suspicious network activity occurred
+  gap_severity: high
+  gap_reason: The process relationship and MSBuild execution are supported by the findings, but the summary does not identify a preventive or detection control that stopped the execution.
+
+- phase: Command-and-control beaconing to external IPs
+  att_ck_technique: T1071.001
+  controls_expected:
+    - Egress firewall policy restricting unnecessary outbound connections
+    - Network detection and response for suspicious encrypted traffic and known malicious infrastructure
+    - DNS, proxy, and threat-intelligence controls for external C2 indicators
+  controls_fired:
+    - Forensic memory analysis identified an established TCP connection from MSBuild.exe PID 8104 to 185.220.101.47:443
+    - Forensic findings identified MSBuild.exe beaconing to 91.234.99.107:443 on WST-WS-017
+  controls_missed:
+    - Egress controls did not prevent the observed connections to the identified external C2 infrastructure
+    - Network detection did not demonstrably interrupt beaconing before the incident was contained
+    - Correlation of endpoint process telemetry with outbound network connections did not demonstrably prevent continued C2 activity
+  gap_severity: critical
+  gap_reason: Two compromised hosts exhibited C2-related network activity, and the findings do not document a control that blocked or interrupted the observed connections.
+
+- phase: LSASS credential access and Kerberos ticket extraction
+  att_ck_technique: T1003.001 + T1558.003
+  controls_expected:
+    - LSASS protection using Credential Guard and appropriate LSA protection settings
+    - EDR detection and prevention of suspicious LSASS access and credential-dumping behavior
+    - Kerberos credential protections and monitoring for ticket theft or suspicious ticket use
+  controls_fired:
+    - Forensic memory analysis identified NTLM hash material for dmarsh in LSASS on WST-WS-031
+  controls_missed:
+    - Endpoint protections did not demonstrably prevent the credential-access activity associated with the compromised host
+    - LSASS access monitoring did not demonstrably stop the exposure of NTLM hash material
+    - Kerberos ticket-extraction prevention or detection was not documented in the supplied findings
+  gap_severity: critical
+  gap_reason: NTLM hash material was confirmed present in LSASS, but the summary does not independently confirm Kerberos ticket extraction; controls for preventing or detecting ticket theft require validation.
+
+- phase: Lateral movement and PHI access
+  att_ck_technique: T1550.003 + T1078
+  controls_expected:
+    - Network segmentation and restricted SMB access between workstation and laboratory systems
+    - Identity-based access controls and detection of anomalous Kerberos authentication and remote logons
+    - Least-privilege permissions and auditing for patient laboratory report shares
+    - Data loss prevention and outbound data-transfer monitoring for PHI
+  controls_fired:
+    - Forensic analysis identified MSBuild.exe beaconing on WST-WS-017 following a Kerberos logon from WST-WS-031
+    - AD-LOG-01 confirmed 14 patient laboratory report PDF reads by dmarsh on LIS-WSIDE-01 at 2026-04-14T03:43:30Z
+    - Incident containment was recorded at 2026-04-14T03:58Z
+  controls_missed:
+    - Lateral-movement detection did not demonstrably prevent access to WST-WS-017 and LIS-WSIDE-01
+    - Access monitoring did not prevent the compromised account from reading the 14 PDFs on the LIS_REPORTS$ share
+    - DLP review did not establish whether the accessed PHI was transferred outside the network during this engagement
+  gap_severity: critical
+  gap_reason: Lateral movement and access to PHI affecting 14 patients were confirmed, while external transfer was not confirmed and requires further DLP investigation.
