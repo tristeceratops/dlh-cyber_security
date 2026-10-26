@@ -1,0 +1,57 @@
+
+capabilities:
+  - capability_id: CAP-01
+    name: supply_chain_detection
+    expected_behavior: "Correlate unusual outbound traffic with recent vendor updates, investigate Nexus as a potential threat source, preserve evidence, and assess impact across sites."
+    gap_hypothesis: "Responders may focus on external intrusion and overlook the trusted vendor update channel because the software was digitally signed."
+    tested_by_inject: INJ-01, INJ-04
+    evaluation_owner: SOC Lead
+
+  - capability_id: CAP-02
+    name: vendor_communication
+    expected_behavior: "Contact Nexus through its documented incident-response channel, request verified information about the update and incident scope, and record escalations and responses."
+    gap_hypothesis: "Vendor contacts and escalation procedures may be untested, delaying confirmation and evidence sharing."
+    tested_by_inject: INJ-06, INJ-09
+    evaluation_owner: Vendor Risk Manager
+
+  - capability_id: CAP-03
+    name: business_continuity_decision
+    expected_behavior: "Balance containment against patient-care continuity, consult clinical leaders, document the decision, and establish safe scheduling alternatives."
+    gap_hypothesis: "Responders may delay isolation to avoid disruption or disconnect services without assessing patient-care consequences."
+    tested_by_inject: INJ-02, INJ-05
+    evaluation_owner: Incident Commander
+
+  - capability_id: CAP-04
+    name: phi_exposure_assessment
+    expected_behavior: "Determine potentially affected systems and data, investigate access to patient demographics, insurance and appointment information, and document evidence gaps."
+    gap_hypothesis: "Limited visibility into vendor systems and incomplete logs may prevent timely assessment of PHI access or exfiltration."
+    tested_by_inject: INJ-04, INJ-07
+    evaluation_owner: Privacy Officer
+
+  - capability_id: CAP-05
+    name: hipaa_notification_posture
+    expected_behavior: "Engage privacy and legal teams, assess potential breach notification requirements, distinguish Nexus's BAA obligations from MedDefense's own responsibilities, and track deadlines."
+    gap_hypothesis: "Teams may assume the vendor is responsible for all notifications or delay assessment while awaiting confirmation."
+    tested_by_inject: INJ-08, INJ-11
+    evaluation_owner: Privacy Officer
+
+  - capability_id: CAP-06
+    name: data_integrity_response
+    expected_behavior: "Identify potentially altered appointment records, preserve evidence, validate records against trusted sources, and coordinate safe corrections and patient follow-up."
+    gap_hypothesis: "Responders may focus on containment and confidentiality while overlooking appointment integrity and patient safety."
+    tested_by_inject: INJ-05, INJ-10
+    evaluation_owner: Clinical Operations Lead
+
+  - capability_id: CAP-07
+    name: crisis_communications
+    expected_behavior: "Coordinate communications with legal, privacy and leadership, prepare accurate holding statements, and route media inquiries through an authorized spokesperson."
+    gap_hypothesis: "Unclear approval authority and incomplete facts may lead to inconsistent statements or premature disclosure."
+    tested_by_inject: INJ-12, INJ-13
+    evaluation_owner: Communications Lead
+
+  - capability_id: CAP-08
+    name: executive_briefing_under_pressure
+    expected_behavior: "Deliver a board-quality briefing within 90 minutes covering known facts, uncertainties, patient-safety risks, potential PHI exposure, response actions, and decisions requiring approval."
+    gap_hypothesis: "Teams may struggle to translate incomplete technical evidence into concise business risks and actionable executive decisions."
+    tested_by_inject: INJ-14, INJ-16
+    evaluation_owner: Exercise Facilitator
