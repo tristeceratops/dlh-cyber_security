@@ -3,7 +3,7 @@
 - **Date:** 26-10-2026
 - **Classification:** Internal - Exercise Use Only
 - **Facilitator:** Tristeceratops
-- **scenario version:** 1.0.0
+- **scenario version:** 1.0.1
 
 ## Organization background
 
