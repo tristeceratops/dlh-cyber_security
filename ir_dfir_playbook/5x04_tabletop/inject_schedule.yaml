@@ -1,0 +1,170 @@
+injects:
+  - id: INJ-00
+    time_minutes: 0
+    delivery: facilitator reads aloud
+    situation: >
+      The SOC has flagged unusual outbound traffic from the Nexus scheduling server at the West Campus to
+      193.42.100.77, a host associated with bulletproof hosting infrastructure in Eastern Europe.
+      The alert fired 45 minutes ago. The Nexus system is currently operational. Patient scheduling
+      is running normally. No other anomalies have been detected.
+    capability_tested: CAP-01
+    decision_point: Declare an incident? What severity? Who is notified in the first 15 minutes?
+    roles_challenged:
+      - James Chen (SOC Lead)
+      - Sarah Park (IT Director)
+    expected_response: Incident declared at SEV2 minimum; IR Commander and Communications Lead notified; SOC begins evidence collection without touching the Nexus system yet
+
+  - id: INJ-01
+    time_minutes: 20
+    delivery: facilitator reads aloud
+    situation: >
+      Nexus Patient Scheduling has published a security advisory. Their build pipeline was compromised
+      by a threat actor with access to their code-signing certificate. All software updates distributed
+      in the last 21 days may contain a malicious component. Nexus advises all customers to take
+      immediate action. They do not yet have a patch.
+    capability_tested: CAP-02
+    decision_point: Do you take the Nexus system offline? Who authorizes it? What replaces patient scheduling?
+    roles_challenged:
+      - Sarah Park (IT Director)
+      - Clinical Director representative
+    expected_response: Explicit decision made with clinical impact acknowledged; manual scheduling process activated or explicitly deferred with a named deadline; authorization chain documented
+
+  - id: INJ-02
+    time_minutes: 35
+    delivery: facilitator reads aloud
+    situation: >
+      EDR analysis confirms that the Nexus agent on SCHED-SVR-01 has made
+      periodic outbound connections every four hours since the recent
+      software update. The destination is not part of the vendor endpoints
+      previously documented by MedDefense. The SOC recommends isolating
+      the server. The Clinical Director objects that disconnecting Nexus
+      without a fallback could disrupt appointments and delay care across
+      the three sites. No confirmed evidence of patient data exfiltration
+      is available.
+    capability_tested: CAP-01
+    decision_point: >
+      Does the new evidence change the incident severity? How will Security
+      and Clinical Operations resolve the disagreement about isolation,
+      and who has final authority?
+    roles_challenged:
+      - James Chen (SOC Lead)
+      - Sarah Park (IT Director)
+      - Clinical Director representative
+    expected_response: >
+      The team reassesses severity based on the new evidence, records
+      competing risks, identifies the decision authority, preserves
+      relevant telemetry, and documents a time-bound containment decision
+      with clinical safeguards.
+
+  - id: INJ-03
+    time_minutes: 50
+    delivery: facilitator reads aloud
+    situation: >
+      Nexus SecOps responds to MedDefense's incident report and confirms
+      that its build infrastructure was compromised. A malicious update
+      was signed using a legitimate Nexus code-signing certificate and
+      distributed automatically. Nexus cannot yet provide a clean update
+      or confirm every affected customer. MedDefense's previous vendor
+      review had identified that the on-premises agent relied on
+      code-signing certificate validation without an independent
+      client-side hash pin.
+    capability_tested: CAP-02
+    decision_point: >
+      What evidence and commitments must MedDefense obtain from Nexus?
+      Should existing vendor-signed software continue to be trusted, and
+      what conditions must be met before updates resume?
+    roles_challenged:
+      - Vendor Risk Manager
+      - James Chen (SOC Lead)
+      - Sarah Park (IT Director)
+    expected_response: >
+      MedDefense establishes a documented vendor escalation, requests
+      affected build and update identifiers, indicators of compromise,
+      affected-customer scope, and recovery guidance. The team does not
+      treat a valid signature alone as proof of software integrity and
+      defines verification requirements before accepting further updates.
+
+  - id: INJ-04
+    time_minutes: 65
+    delivery: facilitator reads aloud
+    situation: >
+      The EHR application team discovers that several appointment records
+      changed during the suspected compromise window. The changes have
+      not yet been attributed to the Nexus incident, and the team cannot
+      immediately determine whether they reflect legitimate rescheduling
+      or unauthorized modification. Some affected appointments are due
+      later today. Clinical Operations warns that cancelling all
+      appointments would create significant patient-care disruption.
+    capability_tested: CAP-06
+    decision_point: >
+      How will MedDefense determine which appointment records are
+      trustworthy, prioritize patients due today, and decide whether
+      to suspend automated schedule updates while validation continues?
+    roles_challenged:
+      - Clinical Director representative
+      - EHR Application Owner
+      - James Chen (SOC Lead)
+    expected_response: >
+      The team preserves audit trails, compares questionable records
+      against trusted sources, prioritizes time-sensitive appointments,
+      assigns responsibility for patient follow-up, and documents a safe
+      interim scheduling process without assuming every change is malicious.
+
+  - id: INJ-05
+    time_minutes: 80
+    delivery: facilitator reads aloud
+    situation: >
+      A journalist contacts MedDefense Communications, stating that the
+      newsroom has heard of a possible healthcare scheduling breach
+      involving a third-party vendor. The journalist requests confirmation
+      that patient information has been stolen and asks for a statement
+      within 30 minutes. At this stage, MedDefense has not confirmed
+      exfiltration or established the full scope of the incident. Nexus
+      has not provided a final incident assessment.
+    capability_tested: CAP-07
+    decision_point: >
+      Who is authorized to respond, what can MedDefense accurately say,
+      and how should the organization handle the deadline without
+      disclosing unverified information?
+    roles_challenged:
+      - Communications Lead
+      - Privacy Officer
+      - Legal Counsel
+      - Sarah Park (IT Director)
+    expected_response: >
+      Communications coordinates with Legal and Privacy, prepares an
+      approved holding statement based on verified facts, avoids
+      speculation about data theft, identifies the authorized spokesperson,
+      and records the next update commitment.
+
+  - id: INJ-06
+    time_minutes: 95
+    delivery: facilitator reads aloud
+    situation: >
+      Executive leadership requests an immediate briefing. Nexus confirms
+      that it is investigating the incident but cannot yet establish
+      whether MedDefense patient data was accessed or whether all
+      malicious activity has been removed. The BAA requires Nexus to
+      notify MedDefense of a breach within 24 hours of discovery.
+      MedDefense's Privacy Officer notes that the organization must
+      independently assess its own HIPAA obligations. Meanwhile, the
+      clinical team reports that some appointment records remain
+      unverified. No definitive recovery timeline is available.
+    capability_tested: CAP-08
+    decision_point: >
+      What can leadership be told with confidence, what decisions are
+      needed now, and what remains unresolved regarding PHI exposure,
+      notification obligations, appointment integrity, and recovery?
+    roles_challenged:
+      - Executive Sponsor
+      - Privacy Officer
+      - Incident Commander
+      - Clinical Director representative
+    expected_response: >
+      The team delivers a concise executive briefing separating confirmed
+      facts, working hypotheses, and unknowns. It identifies patient-safety
+      measures, containment status, vendor dependencies, notification
+      assessment owners and deadlines, and decisions requiring executive
+      approval. It explicitly records unresolved questions, assigns
+      owners and next steps, and avoids claiming that PHI exposure or
+      eradication has been conclusively established.
