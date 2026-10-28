@@ -1,0 +1,181 @@
+
+incident_id: IR-2026-001
+title: Eradication and Recovery Checklist
+notes:
+  - Replace placeholder host IDs and account inventory with approved incident data.
+  - Run actions only on authorized, confirmed-compromised systems.
+  - Preserve forensic evidence and original hashes before remediation.
+  - Mark complete only after verification output is captured.
+
+affected_hosts:
+  - HOST-01
+  - HOST-02
+  - HOST-03
+  - HOST-04
+  - HOST-05
+
+checklist:
+  - id: ER-001
+    category: beacon_process
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Contain and remove the confirmed svchost32.exe beacon process tree.
+    command_or_action: >-
+      Use the approved EDR response workflow to isolate affected hosts,
+      capture process and memory evidence, terminate the confirmed malicious
+      process tree, and quarantine the associated executable.
+    verification_command: >-
+      Query EDR process telemetry for all five hosts over the previous 24 hours;
+      search svchost32.exe, descendants, hashes, and associated process lineage.
+    expected_verification_result: No matching beacon process or related process tree in the last 24 hours.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-002
+    category: persistence
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Remove confirmed malicious Windows service persistence.
+    command_or_action: >-
+      Identify the service name, binary path, and service configuration from
+      preserved evidence. Disable and remove only the confirmed malicious
+      service using approved endpoint management.
+    verification_command: >-
+      Query Windows service inventory and EDR telemetry; confirm the identified
+      service is absent and no replacement service or associated process exists.
+    expected_verification_result: Confirmed malicious service is absent; no related service process is running.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-003
+    category: persistence
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Remove confirmed malicious registry Run-key persistence.
+    command_or_action: >-
+      Export affected registry keys for evidence, then remove only the
+      confirmed malicious Run or RunOnce value through approved endpoint management.
+    verification_command: >-
+      Inspect applicable HKLM and affected-user HKCU Run and RunOnce keys;
+      compare with the preserved indicators and review EDR registry telemetry.
+    expected_verification_result: No identified malicious Run or RunOnce value remains.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-004
+    category: persistence
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Remove confirmed malicious scheduled-task persistence.
+    command_or_action: >-
+      Export task XML and execution history, then disable and remove only
+      tasks confirmed to be associated with the intrusion.
+    verification_command: >-
+      Enumerate scheduled tasks and task history; compare task names, actions,
+      executable paths, and hashes against the incident indicators.
+    expected_verification_result: No identified malicious scheduled task or associated execution remains.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-005
+    category: staged_payload
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Quarantine ransomware staging scripts and related payloads.
+    command_or_action: >-
+      Preserve hashes and forensic copies, then quarantine confirmed malicious
+      .bat and .ps1 staging scripts from system directories and ProgramData.
+      Review related payloads and scheduled execution mechanisms.
+    verification_command: >-
+      Perform an authorized file inventory and EDR scan of Windows\System32
+      and ProgramData for suspicious .bat and .ps1 files; correlate results
+      with preserved incident indicators.
+    expected_verification_result: No confirmed ransomware staging scripts remain in the searched locations.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-006
+    category: credential
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Remediate every account identified in the intrusion dwell period.
+    command_or_action: >-
+      Use the approved identity-response workflow to enumerate all confirmed
+      and suspected compromised user, administrator, service, and application
+      accounts. Revoke sessions, rotate credentials and secrets, remove
+      unauthorized grants, and coordinate service-account changes with owners.
+    verification_command: >-
+      Compare the remediated account list against the complete dwell-period
+      account inventory; verify credential rotation, session revocation,
+      access review, and removal of unauthorized privileges in identity audit logs.
+    expected_verification_result: Every identified dwell-period account is accounted for and remediated, with audit evidence.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-007
+    category: kerberos
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Invalidate compromised Kerberos credentials and tickets.
+    command_or_action: >-
+      Coordinate with the Active Directory team to rotate affected account
+      secrets, invalidate applicable sessions and tickets using supported
+      identity controls, and investigate suspected ticket-forging activity.
+      Assess krbtgt rotation separately and follow Microsoft's staged procedure
+      if compromise warrants it.
+    verification_command: >-
+      Review domain-controller security logs, ticket issuance telemetry,
+      affected account authentication events, and identity-response audit records.
+    expected_verification_result: Required credential invalidation and rotation are verified; no unexplained related ticket activity remains during the defined observation window.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-008
+    category: network
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Block outbound command-and-control traffic.
+    command_or_action: >-
+      Apply and verify egress-deny controls for staging.office365-cdn[.]net
+      and 45.152.66.114 at managed DNS, proxy, firewall, and endpoint controls
+      as appropriate. Preserve existing connection and DNS logs.
+    verification_command: >-
+      Inspect firewall and proxy policy; run an approved controlled egress test
+      and query outbound-connection telemetry for both indicators.
+    expected_verification_result: Egress is denied and no successful outbound C2 connections are observed during the validation window.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-009
+    category: network
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Implement a controlled DNS sinkhole for the confirmed squatted domain.
+    command_or_action: >-
+      Validate ownership and malicious classification, then configure the
+      managed protective DNS service to sinkhole staging.office365-cdn[.]net.
+      Preserve DNS query logs and document exceptions.
+    verification_command: >-
+      Query managed DNS from each affected network segment and inspect DNS
+      security logs for the configured sinkhole response and unexpected resolution.
+    expected_verification_result: The domain resolves only to the approved sinkhole response; no direct or alternate-resolution C2 traffic is observed.
+    status: pending
+    executed_at: null
+    executed_by: null
+
+  - id: ER-010
+    category: machine_account
+    target_host: [HOST-01, HOST-02, HOST-03, HOST-04, HOST-05]
+    description: Rotate machine-account credentials for compromised domain hosts.
+    command_or_action: >-
+      After containment and coordination with the domain team, rotate or
+      re-establish machine-account credentials through supported domain
+      management procedures. Confirm secure-channel health and assess
+      service dependencies before returning each host to production.
+    verification_command: >-
+      Validate each computer account's credential rotation in domain audit
+      records and test its secure channel with the approved domain-management
+      tooling; verify successful domain authentication.
+    expected_verification_result: All five computer accounts have verified remediation and healthy secure channels.
+    status: pending
+    executed_at: null
+    executed_by: null
