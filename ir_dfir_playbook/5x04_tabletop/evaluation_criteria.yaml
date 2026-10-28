@@ -1,0 +1,179 @@
+
+criteria:
+  - inject_id: INJ-00
+    capability_tested: CAP-01
+    pass_criteria:
+      - Incident is declared within five minutes of the inject and severity is stated with explicit reasoning.
+      - At least two response roles are notified by name, including the Incident Commander or designated incident lead.
+      - Evidence collection is initiated before containment changes are made, with endpoint, network, and alert telemetry identified for preservation.
+      - The team identifies SCHED-SVR-01 and the Nexus scheduling agent as relevant investigative leads and records the unknown external destination.
+    fail_indicators:
+      - No incident is declared within five minutes and the alert remains classified only as routine monitoring activity.
+      - No named incident lead or escalation recipient is identified within the first five minutes.
+      - The team proposes or authorizes changes to the affected host before naming an evidence preservation step.
+      - Nexus and its scheduling agent are not identified as potential sources of the observed activity before the inject ends.
+    finding_if_fail: >
+      The initial incident response did not establish a consistent process for escalating
+      suspicious activity involving a third-party application. The team failed to document
+      one or more of the following: incident severity and rationale, named escalation
+      recipients, evidence preservation before containment, or Nexus as a potential threat
+      source. Recommended action: update the severity matrix to address recurring unauthorized
+      outbound traffic from vendor-managed software, add an evidence preservation checkpoint
+      to the incident response procedure, and validate escalation through a timed drill
+      (owner: SOC Lead; deadline: 14 days).
+
+  - inject_id: INJ-01
+    capability_tested: CAP-02
+    pass_criteria:
+      - The team records the Nexus advisory as a credible supply chain threat and identifies the automatic signed-update channel as a potential attack path.
+      - A containment decision is made or explicitly escalated to a named decision authority with a stated deadline.
+      - A clinical representative is consulted before the team commits to a scheduling interruption.
+      - A manual scheduling fallback is named, assigned to a responsible role, and given an activation deadline, or a documented deferral includes a review time and patient-safety safeguards.
+      - The team records that Nexus has no patch available and explicitly considers restricting or suspending further automatic updates.
+    fail_indicators:
+      - The team does not identify the automatic Nexus update mechanism as a potential source of compromise.
+      - The team treats the valid vendor signature as sufficient proof that the installed software is trustworthy.
+      - Isolation is deferred without a named decision authority, decision deadline, or interim safeguards.
+      - A scheduling shutdown is authorized without clinical consultation or a documented continuity plan.
+      - No manual scheduling alternative, accountable owner, or time-bound fallback decision is recorded.
+    finding_if_fail: >
+      The team did not establish a documented decision process for responding to a potentially
+      malicious vendor-signed update while maintaining safe scheduling operations. The response
+      failed to identify the update channel as a threat path, define restrictions on unverified
+      updates, establish containment authority, or document a time-bound clinical fallback.
+      Recommended action: update the third-party software compromise playbook to require
+      explicit update-channel risk assessment, suspension of unverified updates, named
+      containment authority, and a tested manual scheduling procedure across all three sites
+      (owner: IT Director; deadline: 30 days).
+
+  - inject_id: INJ-02
+    capability_tested: CAP-01
+    pass_criteria:
+      - The SOC presents the periodic outbound connections, undocumented destination, and recent software update as linked investigative facts.
+      - The team reassesses incident severity and states the evidence supporting the revised or retained classification.
+      - Endpoint telemetry, network flows, agent logs, and update timestamps are identified for preservation.
+      - Security and Clinical Operations state their competing risks, and a named decision authority accepts responsibility for the containment decision.
+      - The team records a time-bound isolation or alternative containment decision, including patient-care safeguards and a reassessment trigger.
+    fail_indicators:
+      - The team does not reassess severity after the recurring Nexus-agent connections are confirmed.
+      - The team treats the outbound traffic as an isolated network anomaly without examining its relationship to the recent software update.
+      - The isolation dispute continues without a named decision authority or documented decision deadline.
+      - Isolation is authorized without patient-care safeguards, or the server remains connected without documented interim risk controls.
+      - No relevant telemetry or forensic evidence is identified for preservation before containment.
+    finding_if_fail: >
+      The team did not demonstrate a repeatable process for reassessing severity and resolving
+      security-versus-clinical-continuity conflicts when suspicious vendor-agent behavior is
+      confirmed. The response lacked one or more of the following: correlation of update and
+      network evidence, telemetry preservation, a named decision authority, or a time-bound
+      containment decision with patient safeguards. Recommended action: add a vendor-agent
+      compromise decision matrix, define incident and clinical escalation authority, and
+      exercise evidence preservation and time-bound containment decisions
+      (owner: Incident Commander; deadline: 21 days).
+
+  - inject_id: INJ-03
+    capability_tested: CAP-02
+    pass_criteria:
+      - The Vendor Risk Manager or designated liaison contacts Nexus through its documented 24x7 incident-response channel and records the contact time, recipient, and reference number if supplied.
+      - The team requests affected build and update identifiers, distribution timestamps, indicators of compromise, affected-customer scope, signing-certificate details, and recovery guidance.
+      - The team requests written confirmation of known facts, unresolved questions, and the next verified update time.
+      - The team records an escalation route and follow-up deadline if Nexus cannot provide the requested information.
+      - The team explicitly states that a valid code signature is insufficient proof of software integrity after compromise of the signing infrastructure.
+      - The team identifies the missing independent client-side hash pinning control as a previously documented risk and assigns follow-up ownership.
+      - The team defines verification and approval requirements before automatic updates resume, including independently validated package integrity.
+    fail_indicators:
+      - No one contacts Nexus through the documented incident-response channel or records the attempt and outcome.
+      - The team requests only a general status update and does not request build identifiers, indicators of compromise, or affected-customer scope.
+      - The team treats the legitimate signing certificate as proof that the update is safe.
+      - The team does not identify the missing client-side hash pinning control or assign an owner to address the gap.
+      - Automatic updates are approved to resume without independent integrity verification and a named approval authority.
+      - No follow-up time or escalation deadline is recorded when Nexus cannot confirm scope or provide a clean update.
+    finding_if_fail: >
+      The vendor escalation and software trust-validation process did not establish sufficient
+      evidence requirements for a compromised update channel. The team failed to document one
+      or more of the following: an incident-response contact, a structured request for build
+      identifiers and indicators of compromise, a follow-up deadline, recognition that a valid
+      code signature is insufficient after signing infrastructure compromise, or independent
+      verification requirements before updates resume. Recommended action: revise the vendor
+      incident-response checklist to require structured evidence requests and documented
+      escalation intervals, and assign remediation of the missing client-side hash pinning
+      control to the Nexus technical owner with explicit acceptance criteria before automatic
+      updates are restored (owner: Vendor Risk Manager; deadline: 30 days).
+
+  - inject_id: INJ-04
+    capability_tested: CAP-06
+    pass_criteria:
+      - The EHR Application Owner identifies the changed appointment records and establishes a defined compromise window for the initial review.
+      - The team preserves appointment audit trails, relevant application logs, and available before-and-after record states before making corrective changes.
+      - The team defines a validation method using trusted sources independent of the potentially affected Nexus update or automated schedule feed.
+      - Clinical Operations prioritizes appointments due today and assigns a responsible role to verify high-priority records and coordinate patient follow-up.
+      - The team decides whether to suspend automated schedule updates and documents the decision authority, rationale, interim process, and review time.
+      - Record corrections are traceable to independently verified sources and checked by an accountable role.
+    fail_indicators:
+      - The team treats all changed appointment records as legitimate or malicious without defining a verification process.
+      - No one identifies or preserves appointment audit trails and available prior record states before corrections begin.
+      - The potentially compromised automated feed is used as the sole source for validating disputed appointments.
+      - Appointments due today are not prioritized, or no role is assigned to verify them and coordinate patient follow-up.
+      - Automated schedule updates continue without an explicit risk decision, or are suspended without a safe interim scheduling process.
+      - Corrective changes are proposed without traceability to an independently verified source.
+    finding_if_fail: >
+      The team did not establish a controlled appointment-integrity validation and patient
+      follow-up process for records changed during the suspected compromise window. The gap
+      includes missing audit evidence, reliance on an unverified data source, failure to
+      prioritize appointments due today, or unassigned responsibility for safe corrections.
+      Recommended action: establish an appointment-integrity response procedure covering
+      independent source validation, audit-trail preservation, high-priority patient verification,
+      and named clinical follow-up ownership; test the procedure using representative scheduling
+      records (owner: Clinical Operations Lead; deadline: 14 days).
+
+  - inject_id: INJ-05
+    capability_tested: CAP-07
+    pass_criteria:
+      - The Communications Lead identifies an authorized spokesperson and routes the journalist's request through the approved communications process.
+      - Legal and Privacy are consulted before a holding statement is approved.
+      - The proposed statement distinguishes confirmed vendor compromise from unconfirmed MedDefense data access, exfiltration, and overall incident scope.
+      - The team records what can be disclosed, what remains unverified, who approves the statement, and when the next update will be provided.
+      - The team responds to the 30-minute deadline with an approved holding statement or a documented response plan with an accountable owner and delivery time.
+    fail_indicators:
+      - An unauthorized participant confirms or denies patient data theft to the journalist.
+      - The proposed statement presents PHI exfiltration, affected-patient numbers, or the full incident scope as established without supporting evidence.
+      - The statement is released or promised without the required Legal and Privacy review.
+      - No authorized spokesperson or approval owner is identified before the journalist's deadline.
+      - The team neither provides an approved holding statement nor records a time-bound response plan.
+    finding_if_fail: >
+      The crisis communications process did not establish controlled approval and fact
+      validation for an external inquiry about a possible healthcare data breach. The team
+      failed to identify an authorized spokesperson, obtain Legal and Privacy review, distinguish
+      confirmed facts from unknowns, or establish a time-bound response. Recommended action:
+      update the crisis communications protocol with a holding-statement template, named
+      approval authority, verification requirements for PHI-related claims, and a timed media
+      inquiry exercise (owner: Communications Lead; deadline: 14 days).
+
+  - inject_id: INJ-06
+    capability_tested: CAP-08
+    pass_criteria:
+      - The Incident Commander delivers an executive briefing within 90 minutes of the initial exercise inject, with delivery time and status recorded.
+      - The briefing separates confirmed facts, working hypotheses, and unresolved questions about vendor compromise, affected systems, PHI access, appointment integrity, and recovery.
+      - The briefing states the current containment position, patient-safety safeguards, scheduling continuity arrangements, and material risks of available options.
+      - The Privacy Officer distinguishes MedDefense's independent HIPAA assessment from Nexus's contractual notification obligations.
+      - The team records the BAA requirement for Nexus to notify MedDefense within 24 hours of discovery, identifies the relevant discovery time as confirmed or requiring confirmation, and assigns an owner to track the contractual deadline.
+      - Privacy and Legal are assigned to assess potential breach notification requirements, applicable deadlines, and the evidence still required.
+      - The briefing identifies decisions requiring executive approval, a named owner for each action, and a deadline for the next update.
+    fail_indicators:
+      - No executive briefing is delivered within 90 minutes of the initial exercise inject and no accountable owner or delivery deadline is recorded.
+      - The briefing presents PHI exfiltration, eradication, or the full incident scope as confirmed without supporting evidence.
+      - The briefing omits appointment-integrity status or patient-safety safeguards for unverified records.
+      - The team assumes Nexus's BAA notification obligation satisfies all of MedDefense's own HIPAA assessment and notification responsibilities.
+      - No one records the BAA's 24-hour notification requirement, assigns a deadline-tracking owner, or seeks confirmation of the relevant discovery time.
+      - Privacy and Legal are not assigned responsibility for evaluating notification requirements and outstanding evidence needs.
+      - Executive decisions, action owners, or the next briefing time are not documented.
+    finding_if_fail: >
+      The executive briefing and privacy escalation process did not give leadership a sufficiently
+      clear and accountable view of operational risk, unresolved PHI exposure, and notification
+      responsibilities. The team failed to document one or more of the following: a timely
+      executive briefing, separation of facts from uncertainties, patient-safety and appointment-
+      integrity status, an owner and deadline for tracking Nexus's 24-hour BAA notification
+      obligation, an independent MedDefense HIPAA assessment, or assigned executive decisions
+      and follow-up actions. Recommended action: implement a standardized incident briefing
+      template, a contractual and regulatory notification tracker, and an escalation checklist
+      distinguishing vendor obligations from MedDefense's independent legal duties; validate
+      the process in a timed executive exercise (owner: Privacy Officer; deadline: 14 days).
