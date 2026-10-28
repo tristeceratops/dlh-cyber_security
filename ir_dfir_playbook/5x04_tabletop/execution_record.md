@@ -1,7 +1,7 @@
 # Exercise Execution Record: Nexus Supply Chain Compromise Tabletop
 
 **Simulation date:** 2026-10-28
-**Simulated by:** ChatGPT — Facilitator
+**Simulated by:** Tristeceratops
 **Classification:** Internal — Exercise Use Only
 
 Note: This is a simulated exercise, not a real incident.
